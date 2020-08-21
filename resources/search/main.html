@@ -1,0 +1,1912 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="IDC Games">
+    <meta name="keywords" content="">
+
+    <title>IDC Games</title>
+
+    <link rel="shortcut icon" href="../img/favicon.png">
+		<!--CSS-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+
+    <link href="css/main.css" rel="stylesheet">
+	<link href="flags/flags.min.css" rel="stylesheet">
+
+    <link href="css/search.css" rel="stylesheet">
+	<link href="css/menu.css" rel="stylesheet">	
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Jura:300,400,500,600,700" rel="stylesheet">
+  </head>
+
+<body>
+<!--Menú Lateral General-->
+<header>
+    <ul id="sidenav-bar" class="sidenav sidenav-after nav accordion d-flex flex-column box-shadow">
+        <li class="sidebar-menu-title px-4 py-1">
+            <p class="text-right colorLight my-1"><i class="fas fa-gamepad pr-2"></i>Games</p>
+        </li>
+        <li class="fontSecondarySmall primaryColorBg featured pl-4">
+            <a href="//es.idcgames.com/juegos-destacados/" class="colorDark">Destacados</a>
+        </li>  
+        <li class="fontSecondarySmall primaryColorBg featured pl-4">
+            <a href="//es.idcgames.com/juegos-novedades/" class="colorDark">Novedades</a>
+        </li>
+        <li class="fontSecondarySmall primaryColor pl-4">
+            <a href="//es.idcgames.com/juegos-aventura/">Aventura</a>
+        </li>
+        <li class="fontSecondarySmall primaryColor pl-4">
+            <a href="//es.idcgames.com/juegos-estrategia/">Estrategia</a>
+        </li>
+        <li class="fontSecondarySmall primaryColor pl-4">
+            <a href="//es.idcgames.com/juegos-mmo/">Mmo</a>
+        </li>
+        <li class="fontSecondarySmall primaryColor pl-4">
+            <a href="//es.idcgames.com/juegos-rpg/">Rpg</a>
+        </li>
+        <li class="fontSecondarySmall primaryColor pl-4">
+            <a href="//es.idcgames.com/juegos-deportes/">Deportes</a>
+        </li>
+        <li class="fontSecondarySmall primaryColor pl-4">
+            <a href="//es.idcgames.com/juegos-acción/">Acción</a>
+        </li>
+        <li class="fontSecondarySmall primaryColor pl-4">
+            <a href="//es.idcgames.com/juegos-de-tiros/">De Tiros</a>
+        </li>
+        <li class="sidebar-menu-title px-4 py-1">
+            <p class="text-right colorLight my-1"><i class="fas fa-users pr-2"></i>Community</p>
+        </li>
+        <li class="fontSecondarySmall primaryColor pl-4">
+            <a href="//es.idcgames.com/promociones">Promociones</a>
+        </li>
+        <li class="fontSecondarySmall primaryColor pl-4">
+            <a href="//es.idcgames.com/noticias">Noticias</a>
+        </li>
+        <li class="fontSecondarySmall primaryColor pl-4">
+            <a href="//es.idcgames.com/foros">Foros</a>
+        </li>
+        <li class="fontSecondarySmall primaryColor pl-4">
+            <a href="https://idcgames.com/login">Soporte</a>
+        </li>
+        <li class="fontSecondarySmall primaryColor pl-4">
+            <a href="//es.idcgames.com/faq">FAQ</a>
+        </li>
+        <li class="sidebar-menu-title px-4 py-1">
+            <p class="text-right colorLight my-1"><i class="fas fa-cogs pr-2"></i>Account</p>
+        </li>
+        <li class="unlogged fontSecondarySmall primaryColor pl-4">
+            <a href="/register?game_id=27">Regístrate</a>
+        </li>
+        <li class="unlogged fontSecondarySmall primaryColor pl-4">
+            <a href="/login?game_id=27">Entrar</a>
+        </li>
+        <li class="unlogged fontSecondarySmall primaryColor pl-4">
+            <a href="/forget?game_id=27">Olvidé mi contraseña</a>
+        </li>		
+        <li class="logged fontSecondarySmall primaryColor pl-4">
+            <a href="//es.idcgames.com/cuenta">Mi cuenta</a>
+        </li>
+        <li class="logged fontSecondarySmall primaryColor pl-4">
+            <a href="//es.idcgames.com/mis-juegos/">Mis juegos</a>
+        </li>
+        <li class="logged fontSecondarySmall primaryColor pl-4">
+            <a href="//es.idcgames.com/promo-coins">Promocoins</a>
+        </li>
+        <li class="logged fontSecondarySmall primaryColor pl-4">
+            <a href="//es.idcgames.com/amigos/">Amigos</a>
+        </li>
+        <li class="logged fontSecondarySmall primaryColor pl-4">
+            <a href="//es.idcgames.com/encuestas">Encuestas</a>
+        </li>
+    </ul>
+    <!--Menú Barra Superior/ Menú Específico Juego-->
+    <nav id="menu" class="navbar navbar-expand-lg fixed-top nav-custom nav-custom-after">
+            <div id="categoriesBtn" class="openMenuBtn d-flex pl-md-2 pr-md-3 px-1">
+                <div class="lottie" id="lottiehamburguer" data-bm-renderer='svg'></div>
+            </div>
+            <div class="d-flex">
+                <a class="navbar-brand" href="#">
+            </a>
+            </div>
+        <div class="d-flex">
+            <a id="btn-cta-small" class="btn-cta btn-cta-small animated fadeInLeft fast" href="#" style="display: block;">Jugar ahora</a>
+        </div>
+        <div class="d-flex">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class=""> <i class="fas fa-ellipsis-v"></i></span>
+            </button>
+        </div>
+    <div class="collapse navbar-collapse justify-content-xl-end justify-content-lg-end justify-content-md-end" id="navbarNav">
+        <ul class="navbar m-0 p-0">
+            <li class="nav-item">
+                <a href="default-game-page.html#stnHeader" class="nav-link active" title="Home"><span class="fontSecondarySmall">Home</span></a>
+            </li>
+            <li class="nav-item">
+                <a href="default-game-page.html#stnIntroduction" class="nav-link menu-reduced" title="Introducción"><span class="fontSecondarySmall">Introducción</span></a>
+            </li>
+            <li class="nav-item">
+                <a href="default-game-page.html#stnNoticias" class="nav-link" title="Noticias"><span class="fontSecondarySmall">Noticias</span> </a>
+            </li>
+            <li class="nav-item">
+                <a href="default-game-page.html#stnAnalisis" class="nav-link" title="Análisis"><span class="fontSecondarySmall">Análisis</span></a>
+            </li>
+            <li class="nav-item">
+                <a href="default-game-page.html#stnGuias" class="nav-link" title="Guias"><span class="fontSecondarySmall">Guias</span></a>
+            </li>
+            <li class="nav-item">
+                <a href="default-game-page.html#stnForos" class="nav-link" title="Soporte"><span class="fontSecondarySmall">Soporte</span></a>
+            </li>
+            <li class="nav-item">
+                <a href="default-game-page.html#stnForos" class="nav-link menu-reduced" title="Foros"><span class="fontSecondarySmall">Foros</span></a>
+            </li>
+            <li class="nav-item">
+                <a href="default-game-page.html#stnArtwork" class="nav-link" title="ArtWork"><span class="fontSecondarySmall">ArtWork</span></a>
+            </li>
+            <li class="nav-item">
+                <a href="default-game-page.html#stnShop" class="nav-link" title="Shop"><span class="fontSecondarySmall">Shop</span></a>
+            </li>
+            <li class="nav-item logged">
+                <a class="nav-link" href="#" title="Go to your account">
+                    <i class="fas fa-user-astronaut"></i><span class="fontSecondarySmall menu-reduced pl-2">User Name</span>
+                </a>
+            </li>
+            <li class="nav-item logged">
+                    <a href="#" class="nav-link" title="Sign out"><i class="fas fa-sign-out-alt"></i></a>
+            </li>
+            <li class="nav-item dropdown unlogged">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownUser" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-sign-in-alt"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right mt-2" aria-labelledby="navbarDropdownUser">
+                    <button class="dropdown-item fontSecondarySmall" type="button" data-toggle="modal" data-target=".loginModal">Login</button>
+                    <div class="dropdown-divider"></div>
+                    <button class="dropdown-item fontSecondarySmall" type="button" data-toggle="modal" data-target=".registerModal">Register</button>
+                </div>
+            </li>
+        </ul>
+    </div>              
+    <div class="nav-item dropdown">
+                <a class="nav-link" href="#" id="navbarDropdownLanguages" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Go to your account">
+                    <img class="flag flag-es" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Spanish">
+                </a>
+                <div class="dropdown-menu dropdown-menu-right language-menu p-0" aria-labelledby="navbarDropdownLanguages">
+                    <a class="fontSecondarySmall d-flex flex-row px-3 py-2 border-right" href="#"><img class="flag flag-en mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="English">EN</a>
+                    
+                    <a class="fontSecondarySmall d-flex flex-row px-3 py-2 border-right" href="#"><img class="flag flag-de mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Deutsch">DE</a>
+                    
+                    <a class="fontSecondarySmall  d-flex flex-row px-3 py-2 border-right" href="#"><img class="flag flag-fr mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Français">FR</a>
+                    
+                    <a class="fontSecondarySmall  d-flex flex-row px-3 py-2 border-right" href="#"><img class="flag flag-cz mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Ceština">CS</a>
+                    
+                    <a class="fontSecondarySmall  d-flex flex-row px-3 py-2 border-right" href="#"><img class="flag flag-pl mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Polski">PL</a>
+                    
+                    <a class="fontSecondarySmall  d-flex flex-row px-3 py-2 border-right" href="#"><img class="flag flag-pt mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Português">PT</a>
+                    
+                    <a class="fontSecondarySmall  d-flex flex-row px-3 py-2 border-right" href="#"><img class="flag flag-it mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Italiano">IT</a>
+                    
+                    <a class="fontSecondarySmall  d-flex flex-row px-3 py-2 border-right" href="#"><img class="flag flag-tr mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Türkçe">TR</a>
+                    
+                    <a class="fontSecondarySmall  d-flex flex-row px-3 py-2 border-right" href="#"><img class="flag flag-gr mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Ελληνικά">EL</a>
+                    
+                    <a class="fontSecondarySmall  d-flex flex-row px-3 py-2 border-right" href="#"><img class="flag flag-ro mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Român">RO</a>
+                    
+                    <a class="fontSecondarySmall  d-flex flex-row px-3 py-2 border-right" href="#"><img class="flag flag-ru mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Pусский">RU</a>
+                    
+                    <a class="fontSecondarySmall  d-flex flex-row px-3 py-2 border-right" href="#"><img class="flag flag-vi mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Tiếng Việt">VI</a>
+                    
+                    <a class="fontSecondarySmall  d-flex flex-row px-3 py-2 border-right" href="#"><img class="flag flag-jp mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="日本語">JA</a>
+                    
+                    <a class="fontSecondarySmall  d-flex flex-row px-3 py-2 border-right" href="#"><img class="flag flag-ar mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt=" عربي/عربى  ">AR</a>
+                    
+                    <a class="fontSecondarySmall  d-flex flex-row px-3 py-2 border-right" href="#"><img class="flag flag-th mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="ไทย">TH</a>
+                    
+                    <a class="fontSecondarySmall  d-flex flex-row px-3 py-2 " href="#"><img class="flag flag-kr mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="한국어">KO</a>
+                </div>
+            </div>
+    </nav>
+    <!-- Login -->
+    <div class="loginModal modal fade">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content bgDarkTexture">
+                                <div class="d-flex flex-column align-items-center justify-content-center m-3 p-5">
+                                        <button type="button" class="close align-self-start colorLight" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        <div class="align-self-md-end align-self-start noYetRegistered">
+                                                <p class="mb-1">Not a member yet?
+                                                        <a href="" class="primaryColor pl-2">Register Now <i class="fas fa-chevron-right pl-1"></i></a>
+                                                </p>
+                                                <div class="lineaHorizontalEstrecha primaryColorBg active animated slideInRight fast"></div>
+                                        </div>
+                                        <div class="modalMainContentContainer">
+                                                <div class="formularyAccount">
+                                                        <h2 class="h1 display-3">Login</h2>
+                                                        <div class="lineaHorizontalAncha primaryColorBg active animated slideInLeft fast"></div>
+                                                        <h3 class="h2 pt-3 fontSecondarySmall primaryColor">Login your account and start playing right now!</h3>
+                                                        <form>
+                                                                <div class="form-group">
+                                                                        <input type="email" class="form-control my-3 p-3 borderPrimaryColor bg-transparent colorLight" placeholder="User name">
+                                                                        <input type="password" class="form-control my-3 p-3 borderPrimaryColor bg-transparent colorLight" placeholder="Password">
+                                                                        <div class="row mx-0">
+                                                                                <div class="form-check col-6">
+                                                                                        <input type="checkbox" class="form-check-input" id="loggedIn">
+                                                                                        <label class="form-check-label" for="loggedIn">Keep me logged in</label>
+                                                                                </div>
+                                                                                <div class="col-6 text-right"><a href="" class="primaryColor">Password forgot?</a></div>
+                                                                        </div>
+                                                                        <button type="submit" class="btn-cta mt-4">Login</button>
+                                                                </div>
+                                                        </form>
+                                                </div>
+                                                <div class="col d-flex flex-column mt-5 pt-3 px-0">
+                                                    <div><h3 class="py-2">Or login with</h3></div>
+                                                    <div class="d-flex flex-row flex-wrap align-items-center">
+                                                            <button class="btn-google bg-transparent border-0 mr-2"></button>
+                                                            <button class="btn-facebook bg-transparent border-0 mr-2"></button>
+                                                            <button class="btn-others btn-light fontSecondarySmall border-0" type="button" data-toggle="collapse" data-target="#otherSignInButtons" role="button" aria-expanded="false" aria-controls="otherSignInButtons">Others<i class="fas fa-chevron-down pl-2"></i></button>
+                                                        </div>
+                                                        <div class="collapse bg-transparent" id="otherSignInButtons">
+                                                                <button type="button" class="btn-social btn-steam fontPrimarySmall m-1" id="steambtnLogin">
+                                                                        <i class="fab fa-steam-symbol fa-lg pr-2"></i>Sign in with <b>STEAM</b>                
+                                                                </button>
+                                                                <button type="button" class="btn-social btn-twitter fontPrimarySmall m-1" id="twitterbtnLogin">
+                                                                        <i class="fab fa-twitter fa-lg pr-2"></i>Sign in with <b>Twitter</b>                
+                                                                </button>
+                                                                <button type="button" class="btn-social btn-yahoo fontPrimarySmall m-1" id="yahoobtnLogin">
+                                                                        <i class="fab fa-yahoo fa-lg pr-2"></i>Sign in with <b>Yahoo</b>              
+                                                                </button>
+                                                                <button type="button" class="btn-social btn-msn fontPrimarySmall m-1" id="msnbtnLogin">
+                                                                        <img src="img/login/icon-ms-reg.png" class="pr-2" alt="">Sign in with <b>MSN</b>                
+                                                                </button>
+                                                        </div>
+                                                </div>
+                                                <div class="pt-4">
+                                                        <p class="fontPrimarySmall">By signing up, I agree to the <a class="primaryColor" href="#">Legal conditions</a>, the <a class="primaryColor" href="#">Privacy Policy</a> and the <a class="primaryColor" href="#">use of cookies</a> of IDC Games.</p>
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
+            </div>
+        </div>
+    <div class="registerModal modal fade">
+        <div class="modal-dialog modal-dialog-centered modal-lg transformModal">
+                <div class="modal-content bgDarkTexture">
+                        <div class="d-flex flex-column align-items-center justify-content-center m-3 p-md-5 py-1 px-sm-4 px-3 animated fadeIn delay-1">
+                                <button type="button" class="close align-self-start colorLight" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <div class="align-self-md-end align-self-start noYetRegistered">
+                                        <p class="fontPrimaryModal mb-1">Are you a member?
+                                                <a href="#" class="primaryColor pl-2">Login Now <i class="fas fa-chevron-right pl-1"></i></a>
+                                        </p>
+                                        <div class="lineaHorizontalEstrecha primaryColorBg active animated slideInRight fast delay-1"></div>
+                                </div>
+                                <div class="modalMainContentContainer mt-md-2 mt-5 tranformModal">
+                                        <div class="formularyAccount">
+                                                <h2 class="h1 display-3">New at IDC?</h2>
+                                                <div class="lineaHorizontalAncha primaryColorBg active animated fadeInLeft fast delay-1"></div>
+                                                <h2 class="h2 pt-md-3 pt-2 fontSecondarySmall primaryColor">Create your free account and start playing right now!</h2>
+                                                <form action="thankyou.html" method="post">
+                                                        <div class="form-group">
+                                                                <input type="text" class="form-control my-3 p-md-3 p-2 borderPrimaryColor bg-transparent colorLight" id="nickname" placeholder="User name" required>
+                                                                <div class="row my-3 mx-0">
+                                                                    <div class="col-6 pr-2 pl-0">
+                                                                        <input type="password" class="form-control p-md-3 p-2 borderPrimaryColor bg-transparent colorLight" id="password" placeholder="Password" required>
+                                                                    </div>
+                                                                    <div class="col-6 pl-2 pr-0">
+                                                                        <input type="password" class="form-control p-md-3 p-2 borderPrimaryColor bg-transparent colorLight" placeholder="Confirm password" id="confirm_password" required>
+                                                                    </div>
+                                                                </div>
+                                                                <button id="btnRegister" type="submit" class="btn-cta mt-4 animated pulse fast delay-1">Create your account</button>
+                                                        </div>
+                                                </form>
+                                        </div>
+                                        <div class="col d-flex flex-column mt-md-5 mt-2 pt-md-3 px-0">
+                                                <div><h3 class="py-2">Or register with:</h3></div>
+                                                <div class="d-flex flex-row flex-wrap align-items-center">
+                                                        <button class="btn-google bg-transparent border-0 mr-md-2 my-1"></button>
+                                                        <button class="btn-facebook bg-transparent border-0 mr-md-2 my-1"></button>
+                                                        <button class="btn-others btn-light fontSecondarySmall border-0 my-1" type="button" data-toggle="collapse" data-target="#otherSignInButtonsRegister" role="button" aria-expanded="false" aria-controls="otherSignInButtons">Others<i class="fas fa-chevron-down pl-2"></i></button>
+                                                </div>
+                                                <div class="collapse bg-transparent" id="otherSignInButtonsRegister">
+                                                    <button type="button" class="btn-social btn-steam fontPrimarySmall m-1" id="steambtnLoginRe">
+                                                        <i class="fab fa-steam-symbol fa-lg pr-2"></i>Sign in with <b>STEAM</b>                
+                                                    </button>
+                                                    <button type="button" class="btn-social btn-twitter fontPrimarySmall m-1" id="twitterbtnLoginRe">
+                                                            <i class="fab fa-twitter fa-lg pr-2"></i>Sign in with <b>Twitter</b>                
+                                                    </button>
+                                                    <button type="button" class="btn-social btn-yahoo fontPrimarySmall m-1" id="yahoobtnLoginRe">
+                                                            <i class="fab fa-yahoo fa-lg pr-2"></i>Sign in with <b>Yahoo</b>              
+                                                    </button>
+                                                    <button type="button" class="btn-social btn-msn fontPrimarySmall m-1" id="msnbtnLoginRe">
+                                                            <img src="img/login/icon-ms-reg.png" class="pr-2" alt="">Sign in with <b>MSN</b>                
+                                                    </button>
+                                                </div>
+                                        </div>
+                                        <div class="pt-4">
+                                                <p class="fontPrimarySmall">By signing up, I agree to the <a class="primaryColor" href="#">Legal conditions</a>, the <a class="primaryColor" href="#">Privacy Policy</a> and the <a class="primaryColor" href="#">use of cookies</a> of IDC Games.</p>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+        </div> 
+    </div>   
+
+</header>
+<!--Contenido-->
+<main>
+    <button class="shopping-cart bg-primary box-shadow animated" data-toggle="modal" data-target=".shoppingCartModal">
+		<i class="fas fa-shopping-cart h5 text-dark px-2 py-3 animated"></i>
+		<span class="badge badge-pill badge-secondary position-absolute animated">0</span>
+    </button>
+    <div id="top"></div>
+    <div class="container-fluid d-flex flex-row align-items-baseline breadcrumb-nav-post bg-gradient mt-5 pt-4 px-0">
+        <div class="col animated slideInLeft delay-2">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb align-items-baseline">
+                    <li class="breadcrumb-item"><a class="fontSecondarySmall text-secondary" href="#">IDC</a></li>
+                    <li class="breadcrumb-item active"><h1 class="display-2 text-white text-shadow d-inline-block pl-2">Search</h1></li>
+                </ol>
+            </nav>  
+        </div>
+        <div class="col px-0">
+            <div class="lineaHorizontalAncha primaryColorBg active w-100 animated slideInRight"></div>
+        </div>
+    </div>
+    <a href="#top" id="ScrollTop" class="btn-scroll-to-top" title="Go to top">
+            <div class="lottie" id="lottieScrollTop" data-bm-renderer='svg'></div>
+    </a>
+    <div class="container-fluid px-0">
+        <nav class="navbar navbar-light bg-dark-translucid justify-content-end align-items-center box-shadow mb-3 animated fadeIn delay-6">
+            <form class="form-inline">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </nav>
+    </div>
+
+    <section>
+        <div id="recommended" class="container-xl mt-3 mb-5">
+            <div class="d-flex flex row">
+                <div class="col-md-3">
+                    <div>
+                        <ul class="guide-parent nav accordion d-flex flex-column flex-nowrap bg-gray-900 border border-top-0 border-green-lighter box-shadow" >      
+                            <li class="nav-item border-top border-green-lighter">
+                                <div class="d-flex row align-items-center justify-content-between m-0 py-2 px-4" data-toggle="collapse" data-target="#categories" aria-expanded="true" aria-controls="categories">
+                                    <div class="d-flex row align-items-center col-11">
+                                        <p class="h6 mb-0 py-2">Categories</p>
+                                    </div> 
+                                    <div class="col-1">
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>    
+                                </div>
+                                <ul id="categories" class="collapse list-group show" aria-labelledby="headingOne" data-parent="#guide">
+                                    <li class="nav-item border-top border-green-lighter py-2 px-4 active-link-lateral-menu">
+                                        <div class="custom-control custom-radio py-1">
+                                            <input type="checkbox"  value="" id="allCategories" name="gameCategories" class="custom-control-input">
+                                            <label class="custom-control-label" for="allCategories">All</label>
+                                          </div>
+                                          <div class="custom-control custom-radio py-1">
+                                            <input type="checkbox"  value="" id="actionGames" name="gameCategories" class="custom-control-input">
+                                            <label class="custom-control-label" for="actionGames">Action games</label>
+                                          </div>
+                                          <div class="custom-control custom-radio py-1">
+                                            <input type="checkbox"  value="" id="adventureGames" name="gameCategories" class="custom-control-input">
+                                            <label class="custom-control-label" for="adventureGames">Adventure games</label>
+                                          </div>
+                                          <div class="custom-control custom-radio py-1">
+                                            <input type="checkbox"  value="" id="freeToPlay" name="gameCategories" class="custom-control-input">
+                                            <label class="custom-control-label" for="freeToPlay">Free to play</label>
+                                          </div>
+                                          <div class="custom-control custom-radio py-1">
+                                            <input type="checkbox"  value="" id="MMOgames" name="gameCategories" class="custom-control-input">
+                                            <label class="custom-control-label" for="MMOgames">MMO games</label>
+                                          </div>
+                                          <div class="custom-control custom-radio py-1">
+                                            <input type="checkbox"  value="" id="shooterGames" name="gameCategories" class="custom-control-input">
+                                            <label class="custom-control-label" for="shooterGames">Shooter games</label>
+                                          </div>
+                                          <div class="custom-control custom-radio py-1">
+                                            <input type="checkbox"  value="" id="RPGgames" name="gameCategories" class="custom-control-input">
+                                            <label class="custom-control-label" for="RPGgames">RPG games</label>
+                                          </div>
+                                          <div class="custom-control custom-radio py-1">
+                                            <input type="checkbox"  value="" id="sportGames" name="gameCategories" class="custom-control-input">
+                                            <label class="custom-control-label" for="sportGames">Sport games</label>
+                                          </div>
+                                          <div class="custom-control custom-radio py-1">
+                                            <input type="checkbox"  value="" id="strategyGames" name="gameCategories" class="custom-control-input">
+                                            <label class="custom-control-label" for="strategyGames">Strategy games</label>
+                                          </div>
+                                          <div class="custom-control custom-radio py-1">
+                                            <input type="checkbox"  value="" id="racingGames" name="gameCategories" class="custom-control-input">
+                                            <label class="custom-control-label" for="racingGames">Racing games</label>
+                                          </div>
+                                          <div class="custom-control custom-radio py-1">
+                                            <input type="checkbox"  value="" id="casualGames" name="gameCategories" class="custom-control-input">
+                                            <label class="custom-control-label" for="casualGames">Casual games</label>
+                                          </div>
+                                          <div class="custom-control custom-radio py-1">
+                                            <input type="checkbox"  value="" id="indieGames" name="gameCategories" class="custom-control-input">
+                                            <label class="custom-control-label" for="indieGames">Indie games</label>
+                                          </div>
+                                          <div class="custom-control custom-radio py-1">
+                                            <input type="checkbox"  value="" id="simulationGames" name="gameCategories" class="custom-control-input">
+                                            <label class="custom-control-label" for="simulationGames">Simulation games</label>
+                                          </div>
+                                          <div class="custom-control custom-radio py-1">
+                                            <input type="checkbox"  value="" id="puzzleGames" name="gameCategories" class="custom-control-input">
+                                            <label class="custom-control-label" for="puzzleGames">Puzzle games</label>
+                                          </div>
+                                          <div class="custom-control custom-radio py-1">
+                                            <input type="checkbox"  value="" id="fightingGames" name="gameCategories" class="custom-control-input">
+                                            <label class="custom-control-label" for="fightingGames">Fighting games</label>
+                                          </div>
+                                    </li>  
+                                </ul>
+                            </li>
+                            <li class="nav-item border-top border-green-lighter">
+                                <div class="d-flex row align-items-center justify-content-between m-0 py-2 px-4" data-toggle="collapse" data-target="#price" aria-expanded="true" aria-controls="price">
+                                    <div class="d-flex row align-items-center col-11">
+                                    <p class="h6 mb-0 py-2">Price Range</p>
+                                    </div> 
+                                    <div class="col-1">
+                                    <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                </div> 
+                                <ul id="price" class="collapse list-group show" aria-labelledby="headingOne" data-parent="#guide">
+                                    <li class="nav-item border-top border-green-lighter py-2 px-4 active-link-lateral-menu">
+                                        <div class="custom-control custom-radio py-1">
+                                            <input type="radio" id="free" name="priceRange" class="custom-control-input">
+                                            <label class="custom-control-label" for="free">Free</label>
+                                          </div>
+                                          <div class="custom-control custom-radio py-1">
+                                            <input type="radio" id="under5" name="priceRange" class="custom-control-input">
+                                            <label class="custom-control-label" for="under5">Under $5</label>
+                                          </div>
+                                          <div class="custom-control custom-radio py-1">
+                                            <input type="radio" id="under10" name="priceRange" class="custom-control-input">
+                                            <label class="custom-control-label" for="under10">Under $10</label>
+                                          </div>
+                                          <div class="custom-control custom-radio py-1">
+                                            <input type="radio" id="under25" name="priceRange" class="custom-control-input">
+                                            <label class="custom-control-label" for="under25">Under $25</label>
+                                          </div>
+                                          <div class="custom-control custom-radio py-1">
+                                            <input type="radio" id="under50" name="priceRange" class="custom-control-input">
+                                            <label class="custom-control-label" for="under50">Under $50</label>
+                                          </div>
+                                          <div class="custom-control custom-radio py-1">
+                                            <input type="radio" id="above50" name="priceRange" class="custom-control-input">
+                                            <label class="custom-control-label" for="above50">Above $50</label>
+                                          </div>
+                                    </li>  
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="d-flex flex-sm-row flex-column justify-content-between border-bottom border-green-lighter pt-3">
+                        <div>
+                            <h3 class="h6 text-shadow pt-2 mb-0"><i class="fas fa-compass pr-2"></i>Discover games</h3>
+                        </div>
+                        <ul class="nav nav-tabs d-flex justify-content-sm-end border-0">
+                            <li class="nav-item d-flex">
+                                <a id="bestselling-tab" class="nav-link active h6 text-shadow mb-0" data-toggle="tab" href="#bestselling"  role="tab" aria-controls="bestsellings" aria-selected="true">All</a>
+                            </li>
+                            <li class="nav-item d-flex">
+                                <a id="bestselling-tab" class="nav-link h6 text-shadow mb-0" data-toggle="tab" href="#bestselling"  role="tab" aria-controls="bestsellings" aria-selected="true">Featured</a>
+                            </li>
+                            <li class="nav-item d-flex">
+                                <a id="new-tab" class="nav-link h6 text-shadow mb-0" data-toggle="tab" href="#new" role="tab" aria-controls="new" aria-selected="false">New releases</a>
+                            </li>
+                            <li class="nav-item d-flex">
+                                <a id="new-tab" class="nav-link h6 text-shadow mb-0" data-toggle="tab" href="#new" role="tab" aria-controls="new" aria-selected="false">On sale</a>
+                            </li>
+                            <li class="nav-item d-flex">
+                                <a id="upcoming-tab" class="nav-link h6 text-shadow mb-0" data-toggle="tab" href="#upcoming" role="tab" aria-controls="upcoming" aria-selected="false">Upcoming</a>
+                            </li>
+                            <li class="nav-item d-flex">
+                                <a id="new-tab" class="nav-link active h6 text-shadow mb-0" data-toggle="tab" href="#new" role="tab" aria-controls="new" aria-selected="false"><i class="fas fa-th"></i></a>
+                            </li>
+                            <li class="nav-item d-flex">
+                                <a id="upcoming-tab" class="nav-link h6 text-shadow mb-0" data-toggle="tab" href="#upcoming" role="tab" aria-controls="upcoming" aria-selected="false"><i class="fas fa-th-list"></i></a>
+                            </li> 
+                        </ul>  
+                    </div>
+                    <div class="square-grid">
+                        <div class="d-flex flex-row flex-wrap">
+                            <div class="col-lg-4 col-sm-6 col-12">
+                                <div class="card small-card flex-column bg-gray-900 border border-green-lighter mb-lg-3 mt-3">
+                                    <div class="d-flex flex-column">
+                                        <a href="#" class="h-100">
+                                            <div class="img-container">
+                                                <div class="col overflow-hidden px-0">
+                                                    <div class="overlay">
+                                                        <img src="https://cdn.idcgames.com/img/home/hero-versus-logo-xl.png" class="logo-overlay card-img-overlay d-flex align-items-center img-fluid m-auto">
+                                                    </div>
+                                                    <div class="overflow-hidden logo-img-container">
+                                                        <img class="gameCard-img" src="https://cdn.idcgames.com/img/home/hero-versus-detacado.jpg" alt="...">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <div class="card-body text-white position-relative py-2">
+                                            <div class="badges position-absolute">
+                                                <span class="inCart fontSecondary badge-primary box-shadow px-2 mr-3"><i class="fas fa-shopping-cart fa-sm pr-2"></i>In cart</span>
+                                                <span class="soon fontSecondary badge-secondary box-shadow px-2 mr-3"><i class="fas fa-calendar-alt fa-sm pr-2"></i>Soon</span>
+                                            </div>
+                                            <div class="d-flex flex-column justify-content-between h-100"> 
+                                                <div><h4 class="card-title h6 text-shadow mb-0">Name of the game really really long</h4></div>
+                                                <div class="d-flex flex-row align-items-end justify-content-between">
+                                                    <div class="system-btns">
+                                                        <div class="d-lg-flex d-md-none d-sm-flex d-none flex-row flex-row">
+                                                            <span class="text-white-50 pr-1"><i class="fab fa-windows fa-sm"></i></span>
+                                                            <span class="text-white-50 px-1"><i class="fab fa-apple fa-sm"></i></span>
+                                                            <span class="text-white-50 px-1"><i class="fab fa-linux fa-sm"></i></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex flex-row text-right w-100 align-items-end justify-content-end">
+                                                        <div class="mx-2">
+                                                            <span class="h6 badge-primary btn-sm px-2">-50%</span>
+                                                        </div>
+                                                        <div class="price d-flex flex-column text-right justify-content-end">
+                                                            <span class="small text-white-50"> <del>€ 10,49</del></span>
+                                                            <span class="h6 text-shadow mb-0"> € 10,49</span>   
+                                                        </div>
+                                                        <button class="btn cart-btn btn-sm btn-primary px-2 py-2 ml-2">
+                                                            <i class="fas fa-shopping-cart fa-sm"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-sm-6 col-12">
+                                <div class="card small-card flex-column bg-gray-900 border border-green-lighter mb-lg-3 mt-3">
+                                    <div class="d-flex flex-column">
+                                        <a href="#" class="h-100">
+                                            <div class="img-container">
+                                                <div class="col overflow-hidden px-0">
+                                                    <div class="overlay">
+                                                        <img src="https://cdn.idcgames.com/img/home/hero-versus-logo-xl.png" class="logo-overlay card-img-overlay d-flex align-items-center img-fluid m-auto">
+                                                    </div>
+                                                    <div class="overflow-hidden logo-img-container">
+                                                        <img class="gameCard-img" src="https://cdn.idcgames.com/img/home/hero-versus-detacado.jpg" alt="...">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <div class="card-body text-white position-relative py-2">
+                                            <div class="badges position-absolute">
+                                                <span class="inCart fontSecondary badge-primary box-shadow px-2 mr-3"><i class="fas fa-shopping-cart fa-sm pr-2"></i>In cart</span>
+                                                <span class="d-block soon fontSecondary badge-secondary box-shadow px-2 mr-3"><i class="fas fa-calendar-alt fa-sm pr-2"></i>Soon</span>
+                                            </div>
+                                            <div class="d-flex flex-column justify-content-between h-100"> 
+                                                <div><h4 class="card-title h6 text-shadow mb-0">Game coming soon</h4></div>
+                                                <div class="d-flex flex-row align-items-end justify-content-between">
+                                                    <div class="system-btns">
+                                                        <div class="d-lg-flex d-md-none d-sm-flex d-none flex-row flex-row">
+                                                            <span class="text-white-50 pr-1"><i class="fab fa-windows fa-sm"></i></span>
+                                                            <span class="text-white-50 px-1"><i class="fab fa-apple fa-sm"></i></span>
+                                                            <span class="text-white-50 px-1"><i class="fab fa-linux fa-sm"></i></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex flex-row text-right w-100 align-items-end justify-content-end">
+                                                        <div class="mx-2">
+                                                            <span class="h6 badge-primary btn-sm px-2">-50%</span>
+                                                        </div>
+                                                        <div class="price d-flex flex-column text-right justify-content-end">
+                                                            <span class="small text-white-50"> <del>€ 10,49</del></span>
+                                                            <span class="h6 text-shadow mb-0"> € 10,49</span>   
+                                                        </div>
+                                                        <button class="btn cart-btn btn-sm btn-primary px-2 py-2 ml-2">
+                                                            <i class="fas fa-shopping-cart fa-sm"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-sm-6 col-12">
+                                <div class="card small-card flex-column bg-gray-900 border border-green-lighter mb-lg-3 mt-3">
+                                    <div class="d-flex flex-column">
+                                        <a href="#" class="h-100">
+                                            <div class="img-container">
+                                                <div class="col overflow-hidden px-0">
+                                                    <div class="overlay">
+                                                        <img src="https://cdn.idcgames.com/img/home/hero-versus-logo-xl.png" class="logo-overlay card-img-overlay d-flex align-items-center img-fluid m-auto">
+                                                    </div>
+                                                    <div class="overflow-hidden logo-img-container">
+                                                        <img class="gameCard-img" src="https://cdn.idcgames.com/img/home/hero-versus-detacado.jpg" alt="...">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <div class="card-body text-white position-relative py-2">
+                                            <div class="badges position-absolute">
+                                                <span class="inCart fontSecondary badge-primary box-shadow px-2 mr-3"><i class="fas fa-shopping-cart fa-sm pr-2"></i>In cart</span>
+                                                <span class="soon fontSecondary badge-secondary box-shadow px-2 mr-3"><i class="fas fa-calendar-alt fa-sm pr-2"></i>Soon</span>
+                                            </div>
+                                            <div class="d-flex flex-column justify-content-between h-100"> 
+                                                <div><h4 class="card-title h6 text-shadow mb-0">Game without discount</h4></div>
+                                                <div class="d-flex flex-row align-items-end justify-content-between">
+                                                    <div class="system-btns">
+                                                        <div class="d-lg-flex d-md-none d-sm-flex d-none flex-row flex-row">
+                                                            <span class="text-white-50 pr-1"><i class="fab fa-windows fa-sm"></i></span>
+                                                            <span class="text-white-50 px-1"><i class="fab fa-apple fa-sm"></i></span>
+                                                            <span class="text-white-50 px-1"><i class="fab fa-linux fa-sm"></i></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex flex-row text-right w-100 align-items-end justify-content-end">
+                                                        <div class="d-none mx-2">
+                                                            <span class="h6 badge-primary btn-sm px-2">-50%</span>
+                                                        </div>
+                                                        <div class="price d-flex flex-column text-right justify-content-end">
+                                                            <span class="d-none small text-white-50"> <del>€ 10,49</del></span>
+                                                            <span class="h6 text-shadow mb-0"> € 10,49</span>   
+                                                        </div>
+                                                        <button class="btn cart-btn btn-sm btn-primary px-2 py-2 ml-2">
+                                                            <i class="fas fa-shopping-cart fa-sm"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>   
+                            <div class="col-lg-4 col-sm-6 col-12">
+                                <div class="card small-card flex-column bg-gray-900 border border-green-lighter mb-lg-3 mt-3">
+                                    <div class="d-flex flex-column">
+                                        <a href="#" class="h-100">
+                                            <div class="img-container">
+                                                <div class="col overflow-hidden px-0">
+                                                    <div class="overlay">
+                                                        <img src="https://cdn.idcgames.com/img/home/hero-versus-logo-xl.png" class="logo-overlay card-img-overlay d-flex align-items-center img-fluid m-auto">
+                                                    </div>
+                                                    <div class="overflow-hidden logo-img-container">
+                                                        <img class="gameCard-img" src="https://cdn.idcgames.com/img/home/hero-versus-detacado.jpg" alt="...">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <div class="card-body text-white position-relative py-2">
+                                            <div class="badges position-absolute">
+                                                <span class="inCart fontSecondary badge-primary box-shadow px-2 mr-3"><i class="fas fa-shopping-cart fa-sm pr-2"></i>In cart</span>
+                                                <span class="soon fontSecondary badge-secondary box-shadow px-2 mr-3"><i class="fas fa-calendar-alt fa-sm pr-2"></i>Soon</span>
+                                            </div>
+                                            <div class="d-flex flex-column justify-content-between h-100"> 
+                                                <div><h4 class="card-title h6 text-shadow mb-0">Name of the game really really long</h4></div>
+                                                <div class="d-flex flex-row align-items-end justify-content-between">
+                                                    <div class="system-btns">
+                                                        <div class="d-lg-flex d-md-none d-sm-flex d-none flex-row flex-row">
+                                                            <span class="text-white-50 pr-1"><i class="fab fa-windows fa-sm"></i></span>
+                                                            <span class="text-white-50 px-1"><i class="fab fa-apple fa-sm"></i></span>
+                                                            <span class="text-white-50 px-1"><i class="fab fa-linux fa-sm"></i></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex flex-row text-right w-100 align-items-end justify-content-end">
+                                                        <div class="mx-2">
+                                                            <span class="h6 badge-primary btn-sm px-2">-50%</span>
+                                                        </div>
+                                                        <div class="price d-flex flex-column text-right justify-content-end">
+                                                            <span class="small text-white-50"> <del>€ 10,49</del></span>
+                                                            <span class="h6 text-shadow mb-0"> € 10,49</span>   
+                                                        </div>
+                                                        <button class="btn cart-btn btn-sm btn-primary px-2 py-2 ml-2">
+                                                            <i class="fas fa-shopping-cart fa-sm"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>   
+                            <div class="col-lg-4 col-sm-6 col-12">
+                                <div class="card small-card flex-column bg-gray-900 border border-green-lighter mb-lg-3 mt-3">
+                                    <div class="d-flex flex-column">
+                                        <a href="#" class="h-100">
+                                            <div class="img-container">
+                                                <div class="col overflow-hidden px-0">
+                                                    <div class="overlay">
+                                                        <img src="https://cdn.idcgames.com/img/home/hero-versus-logo-xl.png" class="logo-overlay card-img-overlay d-flex align-items-center img-fluid m-auto">
+                                                    </div>
+                                                    <div class="overflow-hidden logo-img-container">
+                                                        <img class="gameCard-img" src="https://cdn.idcgames.com/img/home/hero-versus-detacado.jpg" alt="...">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <div class="card-body text-white position-relative py-2">
+                                            <div class="badges position-absolute">
+                                                <span class="inCart fontSecondary badge-primary box-shadow px-2 mr-3"><i class="fas fa-shopping-cart fa-sm pr-2"></i>In cart</span>
+                                                <span class="soon fontSecondary badge-secondary box-shadow px-2 mr-3"><i class="fas fa-calendar-alt fa-sm pr-2"></i>Soon</span>
+                                            </div>
+                                            <div class="d-flex flex-column justify-content-between h-100"> 
+                                                <div><h4 class="card-title h6 text-shadow mb-0">Name of the game really really long</h4></div>
+                                                <div class="d-flex flex-row align-items-end justify-content-between">
+                                                    <div class="system-btns">
+                                                        <div class="d-lg-flex d-md-none d-sm-flex d-none flex-row flex-row">
+                                                            <span class="text-white-50 pr-1"><i class="fab fa-windows fa-sm"></i></span>
+                                                            <span class="text-white-50 px-1"><i class="fab fa-apple fa-sm"></i></span>
+                                                            <span class="text-white-50 px-1"><i class="fab fa-linux fa-sm"></i></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex flex-row text-right w-100 align-items-end justify-content-end">
+                                                        <div class="mx-2">
+                                                            <span class="h6 badge-primary btn-sm px-2">-50%</span>
+                                                        </div>
+                                                        <div class="price d-flex flex-column text-right justify-content-end">
+                                                            <span class="small text-white-50"> <del>€ 10,49</del></span>
+                                                            <span class="h6 text-shadow mb-0"> € 10,49</span>   
+                                                        </div>
+                                                        <button class="btn cart-btn btn-sm btn-primary px-2 py-2 ml-2">
+                                                            <i class="fas fa-shopping-cart fa-sm"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>   
+                            <div class="col-lg-4 col-sm-6 col-12">
+                                <div class="card small-card flex-column bg-gray-900 border border-green-lighter mb-lg-3 mt-3">
+                                    <div class="d-flex flex-column">
+                                        <a href="#" class="h-100">
+                                            <div class="img-container">
+                                                <div class="col overflow-hidden px-0">
+                                                    <div class="overlay">
+                                                        <img src="https://cdn.idcgames.com/img/home/hero-versus-logo-xl.png" class="logo-overlay card-img-overlay d-flex align-items-center img-fluid m-auto">
+                                                    </div>
+                                                    <div class="overflow-hidden logo-img-container">
+                                                        <img class="gameCard-img" src="https://cdn.idcgames.com/img/home/hero-versus-detacado.jpg" alt="...">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <div class="card-body text-white position-relative py-2">
+                                            <div class="badges position-absolute">
+                                                <span class="inCart fontSecondary badge-primary box-shadow px-2 mr-3"><i class="fas fa-shopping-cart fa-sm pr-2"></i>In cart</span>
+                                                <span class="soon fontSecondary badge-secondary box-shadow px-2 mr-3"><i class="fas fa-calendar-alt fa-sm pr-2"></i>Soon</span>
+                                            </div>
+                                            <div class="d-flex flex-column justify-content-between h-100"> 
+                                                <div><h4 class="card-title h6 text-shadow mb-0">Name of the game really really long</h4></div>
+                                                <div class="d-flex flex-row align-items-end justify-content-between">
+                                                    <div class="system-btns">
+                                                        <div class="d-lg-flex d-md-none d-sm-flex d-none flex-row flex-row">
+                                                            <span class="text-white-50 pr-1"><i class="fab fa-windows fa-sm"></i></span>
+                                                            <span class="text-white-50 px-1"><i class="fab fa-apple fa-sm"></i></span>
+                                                            <span class="text-white-50 px-1"><i class="fab fa-linux fa-sm"></i></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex flex-row text-right w-100 align-items-end justify-content-end">
+                                                        <div class="mx-2">
+                                                            <span class="h6 badge-primary btn-sm px-2">-50%</span>
+                                                        </div>
+                                                        <div class="price d-flex flex-column text-right justify-content-end">
+                                                            <span class="small text-white-50"> <del>€ 10,49</del></span>
+                                                            <span class="h6 text-shadow mb-0"> € 10,49</span>   
+                                                        </div>
+                                                        <button class="btn cart-btn btn-sm btn-primary px-2 py-2 ml-2">
+                                                            <i class="fas fa-shopping-cart fa-sm"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-sm-6 col-12">
+                                <div class="card small-card flex-column bg-gray-900 border border-green-lighter mb-lg-3 mt-3">
+                                    <div class="d-flex flex-column">
+                                        <a href="#" class="h-100">
+                                            <div class="img-container">
+                                                <div class="col overflow-hidden px-0">
+                                                    <div class="overlay">
+                                                        <img src="https://cdn.idcgames.com/img/home/hero-versus-logo-xl.png" class="logo-overlay card-img-overlay d-flex align-items-center img-fluid m-auto">
+                                                    </div>
+                                                    <div class="overflow-hidden logo-img-container">
+                                                        <img class="gameCard-img" src="https://cdn.idcgames.com/img/home/hero-versus-detacado.jpg" alt="...">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <div class="card-body text-white position-relative py-2">
+                                            <div class="badges position-absolute">
+                                                <span class="inCart fontSecondary badge-primary box-shadow px-2 mr-3"><i class="fas fa-shopping-cart fa-sm pr-2"></i>In cart</span>
+                                                <span class="soon fontSecondary badge-secondary box-shadow px-2 mr-3"><i class="fas fa-calendar-alt fa-sm pr-2"></i>Soon</span>
+                                            </div>
+                                            <div class="d-flex flex-column justify-content-between h-100"> 
+                                                <div><h4 class="card-title h6 text-shadow mb-0">Name of the game really really long</h4></div>
+                                                <div class="d-flex flex-row align-items-end justify-content-between">
+                                                    <div class="system-btns">
+                                                        <div class="d-lg-flex d-md-none d-sm-flex d-none flex-row flex-row">
+                                                            <span class="text-white-50 pr-1"><i class="fab fa-windows fa-sm"></i></span>
+                                                            <span class="text-white-50 px-1"><i class="fab fa-apple fa-sm"></i></span>
+                                                            <span class="text-white-50 px-1"><i class="fab fa-linux fa-sm"></i></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex flex-row text-right w-100 align-items-end justify-content-end">
+                                                        <div class="mx-2">
+                                                            <span class="h6 badge-primary btn-sm px-2">-50%</span>
+                                                        </div>
+                                                        <div class="price d-flex flex-column text-right justify-content-end">
+                                                            <span class="small text-white-50"> <del>€ 10,49</del></span>
+                                                            <span class="h6 text-shadow mb-0"> € 10,49</span>   
+                                                        </div>
+                                                        <button class="btn cart-btn btn-sm btn-primary px-2 py-2 ml-2">
+                                                            <i class="fas fa-shopping-cart fa-sm"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>   
+                            <div class="col-lg-4 col-sm-6 col-12">
+                                <div class="card small-card flex-column bg-gray-900 border border-green-lighter mb-lg-3 mt-3">
+                                    <div class="d-flex flex-column">
+                                        <a href="#" class="h-100">
+                                            <div class="img-container">
+                                                <div class="col overflow-hidden px-0">
+                                                    <div class="overlay">
+                                                        <img src="https://cdn.idcgames.com/img/home/hero-versus-logo-xl.png" class="logo-overlay card-img-overlay d-flex align-items-center img-fluid m-auto">
+                                                    </div>
+                                                    <div class="overflow-hidden logo-img-container">
+                                                        <img class="gameCard-img" src="https://cdn.idcgames.com/img/home/hero-versus-detacado.jpg" alt="...">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <div class="card-body text-white position-relative py-2">
+                                            <div class="badges position-absolute">
+                                                <span class="inCart fontSecondary badge-primary box-shadow px-2 mr-3"><i class="fas fa-shopping-cart fa-sm pr-2"></i>In cart</span>
+                                                <span class="soon fontSecondary badge-secondary box-shadow px-2 mr-3"><i class="fas fa-calendar-alt fa-sm pr-2"></i>Soon</span>
+                                            </div>
+                                            <div class="d-flex flex-column justify-content-between h-100"> 
+                                                <div><h4 class="card-title h6 text-shadow mb-0">Name of the game really really long</h4></div>
+                                                <div class="d-flex flex-row align-items-end justify-content-between">
+                                                    <div class="system-btns">
+                                                        <div class="d-lg-flex d-md-none d-sm-flex d-none flex-row flex-row">
+                                                            <span class="text-white-50 pr-1"><i class="fab fa-windows fa-sm"></i></span>
+                                                            <span class="text-white-50 px-1"><i class="fab fa-apple fa-sm"></i></span>
+                                                            <span class="text-white-50 px-1"><i class="fab fa-linux fa-sm"></i></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex flex-row text-right w-100 align-items-end justify-content-end">
+                                                        <div class="mx-2">
+                                                            <span class="h6 badge-primary btn-sm px-2">-50%</span>
+                                                        </div>
+                                                        <div class="price d-flex flex-column text-right justify-content-end">
+                                                            <span class="small text-white-50"> <del>€ 10,49</del></span>
+                                                            <span class="h6 text-shadow mb-0"> € 10,49</span>   
+                                                        </div>
+                                                        <button class="btn cart-btn btn-sm btn-primary px-2 py-2 ml-2">
+                                                            <i class="fas fa-shopping-cart fa-sm"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>   
+                            <div class="col-lg-4 col-sm-6 col-12">
+                                <div class="card small-card flex-column bg-gray-900 border border-green-lighter mb-lg-3 mt-3">
+                                    <div class="d-flex flex-column">
+                                        <a href="#" class="h-100">
+                                            <div class="img-container">
+                                                <div class="col overflow-hidden px-0">
+                                                    <div class="overlay">
+                                                        <img src="https://cdn.idcgames.com/img/home/hero-versus-logo-xl.png" class="logo-overlay card-img-overlay d-flex align-items-center img-fluid m-auto">
+                                                    </div>
+                                                    <div class="overflow-hidden logo-img-container">
+                                                        <img class="gameCard-img" src="https://cdn.idcgames.com/img/home/hero-versus-detacado.jpg" alt="...">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <div class="card-body text-white position-relative py-2">
+                                            <div class="badges position-absolute">
+                                                <span class="inCart fontSecondary badge-primary box-shadow px-2 mr-3"><i class="fas fa-shopping-cart fa-sm pr-2"></i>In cart</span>
+                                                <span class="soon fontSecondary badge-secondary box-shadow px-2 mr-3"><i class="fas fa-calendar-alt fa-sm pr-2"></i>Soon</span>
+                                            </div>
+                                            <div class="d-flex flex-column justify-content-between h-100"> 
+                                                <div><h4 class="card-title h6 text-shadow mb-0">Name of the game really really long</h4></div>
+                                                <div class="d-flex flex-row align-items-end justify-content-between">
+                                                    <div class="system-btns">
+                                                        <div class="d-lg-flex d-md-none d-sm-flex d-none flex-row flex-row">
+                                                            <span class="text-white-50 pr-1"><i class="fab fa-windows fa-sm"></i></span>
+                                                            <span class="text-white-50 px-1"><i class="fab fa-apple fa-sm"></i></span>
+                                                            <span class="text-white-50 px-1"><i class="fab fa-linux fa-sm"></i></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex flex-row text-right w-100 align-items-end justify-content-end">
+                                                        <div class="mx-2">
+                                                            <span class="h6 badge-primary btn-sm px-2">-50%</span>
+                                                        </div>
+                                                        <div class="price d-flex flex-column text-right justify-content-end">
+                                                            <span class="small text-white-50"> <del>€ 10,49</del></span>
+                                                            <span class="h6 text-shadow mb-0"> € 10,49</span>   
+                                                        </div>
+                                                        <button class="btn cart-btn btn-sm btn-primary px-2 py-2 ml-2">
+                                                            <i class="fas fa-shopping-cart fa-sm"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>   
+                            <div class="col-lg-4 col-sm-6 col-12">
+                                <div class="card small-card flex-column bg-gray-900 border border-green-lighter mb-lg-3 mt-3">
+                                    <div class="d-flex flex-column">
+                                        <a href="#" class="h-100">
+                                            <div class="img-container">
+                                                <div class="col overflow-hidden px-0">
+                                                    <div class="overlay">
+                                                        <img src="https://cdn.idcgames.com/img/home/hero-versus-logo-xl.png" class="logo-overlay card-img-overlay d-flex align-items-center img-fluid m-auto">
+                                                    </div>
+                                                    <div class="overflow-hidden logo-img-container">
+                                                        <img class="gameCard-img" src="https://cdn.idcgames.com/img/home/hero-versus-detacado.jpg" alt="...">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <div class="card-body text-white position-relative py-2">
+                                            <div class="badges position-absolute">
+                                                <span class="inCart fontSecondary badge-primary box-shadow px-2 mr-3"><i class="fas fa-shopping-cart fa-sm pr-2"></i>In cart</span>
+                                                <span class="soon fontSecondary badge-secondary box-shadow px-2 mr-3"><i class="fas fa-calendar-alt fa-sm pr-2"></i>Soon</span>
+                                            </div>
+                                            <div class="d-flex flex-column justify-content-between h-100"> 
+                                                <div><h4 class="card-title h6 text-shadow mb-0">Name of the game really really long</h4></div>
+                                                <div class="d-flex flex-row align-items-end justify-content-between">
+                                                    <div class="system-btns">
+                                                        <div class="d-lg-flex d-md-none d-sm-flex d-none flex-row flex-row">
+                                                            <span class="text-white-50 pr-1"><i class="fab fa-windows fa-sm"></i></span>
+                                                            <span class="text-white-50 px-1"><i class="fab fa-apple fa-sm"></i></span>
+                                                            <span class="text-white-50 px-1"><i class="fab fa-linux fa-sm"></i></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex flex-row text-right w-100 align-items-end justify-content-end">
+                                                        <div class="mx-2">
+                                                            <span class="h6 badge-primary btn-sm px-2">-50%</span>
+                                                        </div>
+                                                        <div class="price d-flex flex-column text-right justify-content-end">
+                                                            <span class="small text-white-50"> <del>€ 10,49</del></span>
+                                                            <span class="h6 text-shadow mb-0"> € 10,49</span>   
+                                                        </div>
+                                                        <button class="btn cart-btn btn-sm btn-primary px-2 py-2 ml-2">
+                                                            <i class="fas fa-shopping-cart fa-sm"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>   
+                            <div class="col-lg-4 col-sm-6 col-12">
+                                <div class="card small-card flex-column bg-gray-900 border border-green-lighter mb-lg-3 mt-3">
+                                    <div class="d-flex flex-column">
+                                        <a href="#" class="h-100">
+                                            <div class="img-container">
+                                                <div class="col overflow-hidden px-0">
+                                                    <div class="overlay">
+                                                        <img src="https://cdn.idcgames.com/img/home/hero-versus-logo-xl.png" class="logo-overlay card-img-overlay d-flex align-items-center img-fluid m-auto">
+                                                    </div>
+                                                    <div class="overflow-hidden logo-img-container">
+                                                        <img class="gameCard-img" src="https://cdn.idcgames.com/img/home/hero-versus-detacado.jpg" alt="...">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <div class="card-body text-white position-relative py-2">
+                                            <div class="badges position-absolute">
+                                                <span class="inCart fontSecondary badge-primary box-shadow px-2 mr-3"><i class="fas fa-shopping-cart fa-sm pr-2"></i>In cart</span>
+                                                <span class="soon fontSecondary badge-secondary box-shadow px-2 mr-3"><i class="fas fa-calendar-alt fa-sm pr-2"></i>Soon</span>
+                                            </div>
+                                            <div class="d-flex flex-column justify-content-between h-100"> 
+                                                <div><h4 class="card-title h6 text-shadow mb-0">Name of the game really really long</h4></div>
+                                                <div class="d-flex flex-row align-items-end justify-content-between">
+                                                    <div class="system-btns">
+                                                        <div class="d-lg-flex d-md-none d-sm-flex d-none flex-row flex-row">
+                                                            <span class="text-white-50 pr-1"><i class="fab fa-windows fa-sm"></i></span>
+                                                            <span class="text-white-50 px-1"><i class="fab fa-apple fa-sm"></i></span>
+                                                            <span class="text-white-50 px-1"><i class="fab fa-linux fa-sm"></i></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex flex-row text-right w-100 align-items-end justify-content-end">
+                                                        <div class="mx-2">
+                                                            <span class="h6 badge-primary btn-sm px-2">-50%</span>
+                                                        </div>
+                                                        <div class="price d-flex flex-column text-right justify-content-end">
+                                                            <span class="small text-white-50"> <del>€ 10,49</del></span>
+                                                            <span class="h6 text-shadow mb-0"> € 10,49</span>   
+                                                        </div>
+                                                        <button class="btn cart-btn btn-sm btn-primary px-2 py-2 ml-2">
+                                                            <i class="fas fa-shopping-cart fa-sm"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>   
+                            <div class="col-lg-4 col-sm-6 col-12">
+                                <div class="card small-card flex-column bg-gray-900 border border-green-lighter mb-lg-3 mt-3">
+                                    <div class="d-flex flex-column">
+                                        <a href="#" class="h-100">
+                                            <div class="img-container">
+                                                <div class="col overflow-hidden px-0">
+                                                    <div class="overlay">
+                                                        <img src="https://cdn.idcgames.com/img/home/hero-versus-logo-xl.png" class="logo-overlay card-img-overlay d-flex align-items-center img-fluid m-auto">
+                                                    </div>
+                                                    <div class="overflow-hidden logo-img-container">
+                                                        <img class="gameCard-img" src="https://cdn.idcgames.com/img/home/hero-versus-detacado.jpg" alt="...">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <div class="card-body text-white position-relative py-2">
+                                            <div class="badges position-absolute">
+                                                <span class="inCart fontSecondary badge-primary box-shadow px-2 mr-3"><i class="fas fa-shopping-cart fa-sm pr-2"></i>In cart</span>
+                                                <span class="soon fontSecondary badge-secondary box-shadow px-2 mr-3"><i class="fas fa-calendar-alt fa-sm pr-2"></i>Soon</span>
+                                            </div>
+                                            <div class="d-flex flex-column justify-content-between h-100"> 
+                                                <div><h4 class="card-title h6 text-shadow mb-0">Name of the game really really long</h4></div>
+                                                <div class="d-flex flex-row align-items-end justify-content-between">
+                                                    <div class="system-btns">
+                                                        <div class="d-lg-flex d-md-none d-sm-flex d-none flex-row flex-row">
+                                                            <span class="text-white-50 pr-1"><i class="fab fa-windows fa-sm"></i></span>
+                                                            <span class="text-white-50 px-1"><i class="fab fa-apple fa-sm"></i></span>
+                                                            <span class="text-white-50 px-1"><i class="fab fa-linux fa-sm"></i></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex flex-row text-right w-100 align-items-end justify-content-end">
+                                                        <div class="mx-2">
+                                                            <span class="h6 badge-primary btn-sm px-2">-50%</span>
+                                                        </div>
+                                                        <div class="price d-flex flex-column text-right justify-content-end">
+                                                            <span class="small text-white-50"> <del>€ 10,49</del></span>
+                                                            <span class="h6 text-shadow mb-0"> € 10,49</span>   
+                                                        </div>
+                                                        <button class="btn cart-btn btn-sm btn-primary px-2 py-2 ml-2">
+                                                            <i class="fas fa-shopping-cart fa-sm"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>   
+                        </div>
+                    </div>
+                    <div class="tab-content">
+                        <div id="bestselling" class="tab-pane fade show active" role="tabpanel" aria-labelledby="bestselling-tab">
+                            <div class="d-flex flex-column ">
+                                <div class="game-card-rectangular d-flex flex-row border-bottom border-green-lighter py-3">
+                                    <div class="d-flex align-items-center justify-content-center position-relative pl-3">
+                                        <div class="position-relative">
+                                            <div class="logo-img-container position-absolute w-100">
+                                                <img class="logo-overlay card-img-overlay" src="https://cdn.idcgames.net/storage/148/logo-astro-lords-slide.png" alt="...">
+                                            </div>
+                                            <div class="bg-img-container overflow-hidden box-shadow">
+                                                <img class="gameCard-img" src="https://cdn.idcgames.net/img/home/astrolords.jpg" alt="...">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-sm-row flex-column w-100">
+                                        <div class="col d-flex flex-column justify-content-center">
+                                            <div><h4 class="card-title h6 text-shadow">Name of the game really really long</h4></div>
+                                            <div class="d-flex flex-row">
+                                                <span  class="inCart fontSecondary badge-primary box-shadow px-2 mr-3"><i class="fas fa-shopping-cart fa-sm pr-2"></i>In cart</span>
+                                                <span  class="soon fontSecondary badge-secondary box-shadow px-2 mr-3"><i class="fas fa-calendar-alt fa-sm pr-2"></i>Soon</span>
+                                                <span class="text-white-50 pr-1"><i class="fab fa-windows"></i></span>
+                                                <span class="text-white-50 px-1"><i class="fab fa-apple"></i></span>
+                                                <span class="text-white-50 px-1"><i class="fab fa-linux"></i></span>
+                                            </div>  
+                                        </div>
+                                        <div class="col d-flex flex-row justify-content-end align-items-center">
+                                            <div class="mx-2">
+                                                <span class="h6 badge-primary btn-sm px-2">-50%</span>
+                                            </div>
+                                            <div class="price d-flex flex-column text-right justify-content-center">
+                                                <span class="small text-white-50"> <del>€ 10,49</del></span>
+                                                <span class="h6 text-shadow mb-0"> € 10,49</span>
+                                            </div>
+                                            <button class="btn cart-btn btn-sm btn-primary px-2 mx-2">
+                                                    <i class="fas fa-shopping-cart"></i>
+                                            </button>  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="game-card-rectangular d-flex flex-row border-bottom border-green-lighter py-3">
+                                    <div class="d-flex align-items-center justify-content-center position-relative pl-3">
+                                        <div class="position-relative">
+                                            <div class="logo-img-container position-absolute w-100">
+                                                <img class="logo-overlay card-img-overlay" src="https://cdn.idcgames.net/storage/148/logo-astro-lords-slide.png" alt="...">
+                                            </div>
+                                            <div class="bg-img-container overflow-hidden box-shadow">
+                                                <img class="gameCard-img" src="https://cdn.idcgames.net/img/home/astrolords.jpg" alt="...">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-sm-row flex-column w-100">
+                                        <div class="col d-flex flex-column justify-content-center">
+                                            <div><h4 class="card-title h6 text-shadow">Game coming soon</h4></div>
+                                            <div class="d-flex flex-row">
+                                                <span  class="inCart fontSecondary badge-primary box-shadow px-2 mr-3"><i class="fas fa-shopping-cart fa-sm pr-2"></i>In cart</span>
+                                                <span  class="d-block soon fontSecondary badge-secondary box-shadow px-2 mr-3"><i class="fas fa-calendar-alt fa-sm pr-2"></i>Soon</span>
+                                                <span class="text-white-50 pr-1"><i class="fab fa-windows"></i></span>
+                                                <span class="text-white-50 px-1"><i class="fab fa-apple"></i></span>
+                                                <span class="text-white-50 px-1"><i class="fab fa-linux"></i></span>
+                                            </div>  
+                                        </div>
+                                        <div class="col d-flex flex-row justify-content-end align-items-center">
+                                            <div class="mx-2">
+                                                <span class="h6 badge-primary btn-sm px-2">-50%</span>
+                                            </div>
+                                            <div class="price d-flex flex-column text-right justify-content-center">
+                                                <span class="small text-white-50"> <del>€ 10,49</del></span>
+                                                <span class="h6 text-shadow mb-0"> € 10,49</span>
+                                            </div>
+                                            <button class="btn cart-btn btn-sm btn-primary px-2 mx-2">
+                                                    <i class="fas fa-shopping-cart"></i>
+                                            </button>  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="game-card-rectangular d-flex flex-row border-bottom border-green-lighter py-3">
+                                    <div class="d-flex align-items-center justify-content-center position-relative pl-3">
+                                        <div class="position-relative">
+                                            <div class="logo-img-container position-absolute w-100">
+                                                <img class="logo-overlay card-img-overlay" src="https://cdn.idcgames.net/storage/148/logo-astro-lords-slide.png" alt="...">
+                                            </div>
+                                            <div class="bg-img-container overflow-hidden box-shadow">
+                                                <img class="gameCard-img" src="https://cdn.idcgames.net/img/home/astrolords.jpg" alt="...">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-sm-row flex-column w-100">
+                                        <div class="col d-flex flex-column justify-content-center">
+                                            <div><h4 class="card-title h6 text-shadow">Game without discount</h4></div>
+                                            <div class="d-flex flex-row">
+                                                <span  class="inCart fontSecondary badge-primary box-shadow px-2 mr-3"><i class="fas fa-shopping-cart fa-sm pr-2"></i>In cart</span>
+                                                <span  class="soon fontSecondary badge-secondary box-shadow px-2 mr-3"><i class="fas fa-calendar-alt fa-sm pr-2"></i>Soon</span>
+                                                <span class="text-white-50 pr-1"><i class="fab fa-windows"></i></span>
+                                                <span class="text-white-50 px-1"><i class="fab fa-apple"></i></span>
+                                                <span class="text-white-50 px-1"><i class="fab fa-linux"></i></span>
+                                            </div>  
+                                        </div>
+                                        <div class="col d-flex flex-row justify-content-end align-items-center">
+                                            <div class="d-none mx-2">
+                                                <span class="h6 badge-primary btn-sm px-2">-50%</span>
+                                            </div>
+                                            <div class="price d-flex flex-column text-right justify-content-center">
+                                                <span class="d-none small text-white-50"> <del>€ 10,49</del></span>
+                                                <span class="h6 text-shadow mb-0"> € 10,49</span>
+                                            </div>
+                                            <button class="btn cart-btn btn-sm btn-primary px-2 mx-2">
+                                                    <i class="fas fa-shopping-cart"></i>
+                                            </button>  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="game-card-rectangular d-flex flex-row border-bottom border-green-lighter py-3">
+                                    <div class="d-flex align-items-center justify-content-center position-relative pl-3">
+                                        <div class="position-relative">
+                                            <div class="logo-img-container position-absolute w-100">
+                                                <img class="logo-overlay card-img-overlay" src="https://cdn.idcgames.net/storage/148/logo-astro-lords-slide.png" alt="...">
+                                            </div>
+                                            <div class="bg-img-container overflow-hidden box-shadow">
+                                                <img class="gameCard-img" src="https://cdn.idcgames.net/img/home/astrolords.jpg" alt="...">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-sm-row flex-column w-100">
+                                        <div class="col d-flex flex-column justify-content-center">
+                                            <div><h4 class="card-title h6 text-shadow">Name of the game really really long</h4></div>
+                                            <div class="d-flex flex-row">
+                                                <span  class="inCart fontSecondary badge-primary box-shadow px-2 mr-3"><i class="fas fa-shopping-cart fa-sm pr-2"></i>In cart</span>
+                                                <span  class="soon fontSecondary badge-secondary box-shadow px-2 mr-3"><i class="fas fa-calendar-alt fa-sm pr-2"></i>Soon</span>
+                                                <span class="text-white-50 pr-1"><i class="fab fa-windows"></i></span>
+                                                <span class="text-white-50 px-1"><i class="fab fa-apple"></i></span>
+                                                <span class="text-white-50 px-1"><i class="fab fa-linux"></i></span>
+                                            </div>  
+                                        </div>
+                                        <div class="col d-flex flex-row justify-content-end align-items-center">
+                                            <div class="mx-2">
+                                                <span class="h6 badge-primary btn-sm px-2">-50%</span>
+                                            </div>
+                                            <div class="price d-flex flex-column text-right justify-content-center">
+                                                <span class="small text-white-50"> <del>€ 10,49</del></span>
+                                                <span class="h6 text-shadow mb-0"> € 10,49</span>
+                                            </div>
+                                            <button class="btn cart-btn btn-sm btn-primary px-2 mx-2">
+                                                    <i class="fas fa-shopping-cart"></i>
+                                            </button>  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="game-card-rectangular d-flex flex-row border-bottom border-green-lighter py-3">
+                                    <div class="d-flex align-items-center justify-content-center position-relative pl-3">
+                                        <div class="position-relative">
+                                            <div class="logo-img-container position-absolute w-100">
+                                                <img class="logo-overlay card-img-overlay" src="https://cdn.idcgames.net/storage/148/logo-astro-lords-slide.png" alt="...">
+                                            </div>
+                                            <div class="bg-img-container overflow-hidden box-shadow">
+                                                <img class="gameCard-img" src="https://cdn.idcgames.net/img/home/astrolords.jpg" alt="...">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-sm-row flex-column w-100">
+                                        <div class="col d-flex flex-column justify-content-center">
+                                            <div><h4 class="card-title h6 text-shadow">Name of the game really really long</h4></div>
+                                            <div class="d-flex flex-row">
+                                                <span  class="inCart fontSecondary badge-primary box-shadow px-2 mr-3"><i class="fas fa-shopping-cart fa-sm pr-2"></i>In cart</span>
+                                                <span  class="soon fontSecondary badge-secondary box-shadow px-2 mr-3"><i class="fas fa-calendar-alt fa-sm pr-2"></i>Soon</span>
+                                                <span class="text-white-50 pr-1"><i class="fab fa-windows"></i></span>
+                                                <span class="text-white-50 px-1"><i class="fab fa-apple"></i></span>
+                                                <span class="text-white-50 px-1"><i class="fab fa-linux"></i></span>
+                                            </div>  
+                                        </div>
+                                        <div class="col d-flex flex-row justify-content-end align-items-center">
+                                            <div class="mx-2">
+                                                <span class="h6 badge-primary btn-sm px-2">-50%</span>
+                                            </div>
+                                            <div class="price d-flex flex-column text-right justify-content-center">
+                                                <span class="small text-white-50"> <del>€ 10,49</del></span>
+                                                <span class="h6 text-shadow mb-0"> € 10,49</span>
+                                            </div>
+                                            <button class="btn cart-btn btn-sm btn-primary px-2 mx-2">
+                                                    <i class="fas fa-shopping-cart"></i>
+                                            </button>  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="game-card-rectangular d-flex flex-row border-bottom border-green-lighter py-3">
+                                    <div class="d-flex align-items-center justify-content-center position-relative pl-3">
+                                        <div class="position-relative">
+                                            <div class="logo-img-container position-absolute w-100">
+                                                <img class="logo-overlay card-img-overlay" src="https://cdn.idcgames.net/storage/148/logo-astro-lords-slide.png" alt="...">
+                                            </div>
+                                            <div class="bg-img-container overflow-hidden box-shadow">
+                                                <img class="gameCard-img" src="https://cdn.idcgames.net/img/home/astrolords.jpg" alt="...">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-sm-row flex-column w-100">
+                                        <div class="col d-flex flex-column justify-content-center">
+                                            <div><h4 class="card-title h6 text-shadow">Name of the game really really long</h4></div>
+                                            <div class="d-flex flex-row">
+                                                <span  class="inCart fontSecondary badge-primary box-shadow px-2 mr-3"><i class="fas fa-shopping-cart fa-sm pr-2"></i>In cart</span>
+                                                <span  class="soon fontSecondary badge-secondary box-shadow px-2 mr-3"><i class="fas fa-calendar-alt fa-sm pr-2"></i>Soon</span>
+                                                <span class="text-white-50 pr-1"><i class="fab fa-windows"></i></span>
+                                                <span class="text-white-50 px-1"><i class="fab fa-apple"></i></span>
+                                                <span class="text-white-50 px-1"><i class="fab fa-linux"></i></span>
+                                            </div>  
+                                        </div>
+                                        <div class="col d-flex flex-row justify-content-end align-items-center">
+                                            <div class="mx-2">
+                                                <span class="h6 badge-primary btn-sm px-2">-50%</span>
+                                            </div>
+                                            <div class="price d-flex flex-column text-right justify-content-center">
+                                                <span class="small text-white-50"> <del>€ 10,49</del></span>
+                                                <span class="h6 text-shadow mb-0"> € 10,49</span>
+                                            </div>
+                                            <button class="btn cart-btn btn-sm btn-primary px-2 mx-2">
+                                                    <i class="fas fa-shopping-cart"></i>
+                                            </button>  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="game-card-rectangular d-flex flex-row border-bottom border-green-lighter py-3">
+                                    <div class="d-flex align-items-center justify-content-center position-relative pl-3">
+                                        <div class="position-relative">
+                                            <div class="logo-img-container position-absolute w-100">
+                                                <img class="logo-overlay card-img-overlay" src="https://cdn.idcgames.net/storage/148/logo-astro-lords-slide.png" alt="...">
+                                            </div>
+                                            <div class="bg-img-container overflow-hidden box-shadow">
+                                                <img class="gameCard-img" src="https://cdn.idcgames.net/img/home/astrolords.jpg" alt="...">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-sm-row flex-column w-100">
+                                        <div class="col d-flex flex-column justify-content-center">
+                                            <div><h4 class="card-title h6 text-shadow">Name of the game really really long</h4></div>
+                                            <div class="d-flex flex-row">
+                                                <span  class="inCart fontSecondary badge-primary box-shadow px-2 mr-3"><i class="fas fa-shopping-cart fa-sm pr-2"></i>In cart</span>
+                                                <span  class="soon fontSecondary badge-secondary box-shadow px-2 mr-3"><i class="fas fa-calendar-alt fa-sm pr-2"></i>Soon</span>
+                                                <span class="text-white-50 pr-1"><i class="fab fa-windows"></i></span>
+                                                <span class="text-white-50 px-1"><i class="fab fa-apple"></i></span>
+                                                <span class="text-white-50 px-1"><i class="fab fa-linux"></i></span>
+                                            </div>  
+                                        </div>
+                                        <div class="col d-flex flex-row justify-content-end align-items-center">
+                                            <div class="mx-2">
+                                                <span class="h6 badge-primary btn-sm px-2">-50%</span>
+                                            </div>
+                                            <div class="price d-flex flex-column text-right justify-content-center">
+                                                <span class="small text-white-50"> <del>€ 10,49</del></span>
+                                                <span class="h6 text-shadow mb-0"> € 10,49</span>
+                                            </div>
+                                            <button class="btn cart-btn btn-sm btn-primary px-2 mx-2">
+                                                    <i class="fas fa-shopping-cart"></i>
+                                            </button>  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="game-card-rectangular d-flex flex-row border-bottom border-green-lighter py-3">
+                                    <div class="d-flex align-items-center justify-content-center position-relative pl-3">
+                                        <div class="position-relative">
+                                            <div class="logo-img-container position-absolute w-100">
+                                                <img class="logo-overlay card-img-overlay" src="https://cdn.idcgames.net/storage/148/logo-astro-lords-slide.png" alt="...">
+                                            </div>
+                                            <div class="bg-img-container overflow-hidden box-shadow">
+                                                <img class="gameCard-img" src="https://cdn.idcgames.net/img/home/astrolords.jpg" alt="...">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-sm-row flex-column w-100">
+                                        <div class="col d-flex flex-column justify-content-center">
+                                            <div><h4 class="card-title h6 text-shadow">Name of the game really really long</h4></div>
+                                            <div class="d-flex flex-row">
+                                                <span  class="inCart fontSecondary badge-primary box-shadow px-2 mr-3"><i class="fas fa-shopping-cart fa-sm pr-2"></i>In cart</span>
+                                                <span  class="soon fontSecondary badge-secondary box-shadow px-2 mr-3"><i class="fas fa-calendar-alt fa-sm pr-2"></i>Soon</span>
+                                                <span class="text-white-50 pr-1"><i class="fab fa-windows"></i></span>
+                                                <span class="text-white-50 px-1"><i class="fab fa-apple"></i></span>
+                                                <span class="text-white-50 px-1"><i class="fab fa-linux"></i></span>
+                                            </div>  
+                                        </div>
+                                        <div class="col d-flex flex-row justify-content-end align-items-center">
+                                            <div class="mx-2">
+                                                <span class="h6 badge-primary btn-sm px-2">-50%</span>
+                                            </div>
+                                            <div class="price d-flex flex-column text-right justify-content-center">
+                                                <span class="small text-white-50"> <del>€ 10,49</del></span>
+                                                <span class="h6 text-shadow mb-0"> € 10,49</span>
+                                            </div>
+                                            <button class="btn cart-btn btn-sm btn-primary px-2 mx-2">
+                                                    <i class="fas fa-shopping-cart"></i>
+                                            </button>  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="game-card-rectangular d-flex flex-row border-bottom border-green-lighter py-3">
+                                    <div class="d-flex align-items-center justify-content-center position-relative pl-3">
+                                        <div class="position-relative">
+                                            <div class="logo-img-container position-absolute w-100">
+                                                <img class="logo-overlay card-img-overlay" src="https://cdn.idcgames.net/storage/148/logo-astro-lords-slide.png" alt="...">
+                                            </div>
+                                            <div class="bg-img-container overflow-hidden box-shadow">
+                                                <img class="gameCard-img" src="https://cdn.idcgames.net/img/home/astrolords.jpg" alt="...">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-sm-row flex-column w-100">
+                                        <div class="col d-flex flex-column justify-content-center">
+                                            <div><h4 class="card-title h6 text-shadow">Name of the game really really long</h4></div>
+                                            <div class="d-flex flex-row">
+                                                <span  class="inCart fontSecondary badge-primary box-shadow px-2 mr-3"><i class="fas fa-shopping-cart fa-sm pr-2"></i>In cart</span>
+                                                <span  class="soon fontSecondary badge-secondary box-shadow px-2 mr-3"><i class="fas fa-calendar-alt fa-sm pr-2"></i>Soon</span>
+                                                <span class="text-white-50 pr-1"><i class="fab fa-windows"></i></span>
+                                                <span class="text-white-50 px-1"><i class="fab fa-apple"></i></span>
+                                                <span class="text-white-50 px-1"><i class="fab fa-linux"></i></span>
+                                            </div>  
+                                        </div>
+                                        <div class="col d-flex flex-row justify-content-end align-items-center">
+                                            <div class="mx-2">
+                                                <span class="h6 badge-primary btn-sm px-2">-50%</span>
+                                            </div>
+                                            <div class="price d-flex flex-column text-right justify-content-center">
+                                                <span class="small text-white-50"> <del>€ 10,49</del></span>
+                                                <span class="h6 text-shadow mb-0"> € 10,49</span>
+                                            </div>
+                                            <button class="btn cart-btn btn-sm btn-primary px-2 mx-2">
+                                                    <i class="fas fa-shopping-cart"></i>
+                                            </button>  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-center my-3">
+                                    <button class="btn btn-outline-primary border-green-lighter">Show more</button>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+
+
+        </div>
+    </section>
+
+    <!-- Modal Shopping Cart-->
+    <div class="modal fade shoppingCartModal" tabindex="-1" role="dialog" aria-labelledby="shoppingCartModal" aria-hidden="true">
+        <div class="modal-dialog modal-sm" id="shoppingCartModal">
+            <div class="modal-content modal-bg-img flex-lg-row flex-column">
+                <div class="col-12 p-0 d-flex flex-column">
+                    <div class="modal-header d-flex flex-row py-2">
+                        <div class="d-flex flex-row justify-content-between w-100">
+                            <div class="d-flex flex-column">
+                                <span class="h5 text-white pt-2"><i class="fas fa-shopping-cart pr-3"></i>Your shopping cart:</span>
+                                <span class="h6 text-secondary">3 items added</span>
+                            </div>
+                            <div class="d-flex flex-row align-items-center">
+                                <span class="h2 text-white px-3 mb-0">€ 62</span>
+                                <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Go to checkout</button>
+                            </div>
+                        </div>
+                        <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>                        
+                    </div>
+                    <div class="d-flex flex-column">
+                        <div class="game-card-rectangular d-flex flex-row border-bottom border-green-lighter py-3">
+                            <div class="d-flex align-items-center justify-content-center position-relative pl-3">
+                                <div class="position-relative">
+                                    <div class="logo-img-container position-absolute w-100">
+                                        <img class="logo-overlay card-img-overlay" src="https://cdn.idcgames.net/storage/148/logo-astro-lords-slide.png" alt="...">
+                                    </div>
+                                    <div class="bg-img-container overflow-hidden box-shadow">
+                                        <img class="gameCard-img" src="https://cdn.idcgames.net/img/home/astrolords.jpg" alt="...">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-md-row flex-column w-100">
+                                <div class="col d-flex flex-column justify-content-center">
+                                    <div><h4 class="card-title h6 text-shadow">Game name</h4></div>
+                                    <div class="d-flex flex-row flex-wrap">
+                                        <button class="btn-xs btn btn-secondary box-shadow px-2 py-0 mr-3"><i class="fas fa-trash fa-sm pr-2"></i>Remove</button>
+                                        <button class="btn-xs btn btn-secondary box-shadow px-2 py-0 mr-3"><i class="fas fa-heart fa-sm pr-2"></i>wishlist</button>
+                                        <span class="text-white-50 pr-1"><i class="fab fa-windows"></i></span>
+                                        <span class="text-white-50 px-1"><i class="fab fa-apple"></i></span>
+                                        <span class="text-white-50 px-1"><i class="fab fa-linux"></i></span>
+                                    </div>  
+                                </div>
+                                <div class="col d-flex flex-row justify-content-end align-items-center mt-md-0 mt-2">
+                                    <div class="mx-2">
+                                        <span class="h6 badge-primary btn-sm px-2">-50%</span>
+                                    </div>
+                                    <div class="price d-flex flex-column text-right justify-content-center">
+                                        <span class="small text-white-50"> <del>€ 10,49</del></span>
+                                        <span class="h6 text-shadow mb-0"> € 10,49</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="game-card-rectangular d-flex flex-row border-bottom border-green-lighter py-3">
+                            <div class="d-flex align-items-center justify-content-center position-relative pl-3">
+                                <div class="position-relative">
+                                    <div class="logo-img-container position-absolute w-100">
+                                        <img class="logo-overlay card-img-overlay" src="https://cdn.idcgames.net/storage/148/logo-astro-lords-slide.png" alt="...">
+                                    </div>
+                                    <div class="bg-img-container overflow-hidden box-shadow">
+                                        <img class="gameCard-img" src="https://cdn.idcgames.net/img/home/astrolords.jpg" alt="...">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-md-row flex-column w-100">
+                                <div class="col d-flex flex-column justify-content-center">
+                                    <div><h4 class="card-title h6 text-shadow">Game name</h4></div>
+                                    <div class="d-flex flex-row flex-wrap">
+                                        <button class="btn-xs btn btn-secondary box-shadow px-2 py-0 mr-3"><i class="fas fa-trash fa-sm pr-2"></i>Remove</button>
+                                        <button class="btn-xs btn btn-secondary box-shadow px-2 py-0 mr-3"><i class="fas fa-heart fa-sm pr-2"></i>wishlist</button>
+                                        <span class="text-white-50 pr-1"><i class="fab fa-windows"></i></span>
+                                        <span class="text-white-50 px-1"><i class="fab fa-apple"></i></span>
+                                        <span class="text-white-50 px-1"><i class="fab fa-linux"></i></span>
+                                    </div>  
+                                </div>
+                                <div class="col d-flex flex-row justify-content-end align-items-center mt-md-0 mt-2">
+                                    <div class="mx-2">
+                                        <span class="h6 badge-primary btn-sm px-2">-50%</span>
+                                    </div>
+                                    <div class="price d-flex flex-column text-right justify-content-center">
+                                        <span class="small text-white-50"> <del>€ 10,49</del></span>
+                                        <span class="h6 text-shadow mb-0"> € 10,49</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="game-card-rectangular d-flex flex-row py-3">
+                            <div class="d-flex align-items-center justify-content-center position-relative pl-3">
+                                <div class="position-relative">
+                                    <div class="logo-img-container position-absolute w-100">
+                                        <img class="logo-overlay card-img-overlay" src="https://cdn.idcgames.net/storage/148/logo-astro-lords-slide.png" alt="...">
+                                    </div>
+                                    <div class="bg-img-container overflow-hidden box-shadow">
+                                        <img class="gameCard-img" src="https://cdn.idcgames.net/img/home/astrolords.jpg" alt="...">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-md-row flex-column w-100">
+                                <div class="col d-flex flex-column justify-content-center">
+                                    <div><h4 class="card-title h6 text-shadow">Game name</h4></div>
+                                    <div class="d-flex flex-row flex-wrap">
+                                        <button class="btn-xs btn btn-secondary box-shadow px-2 py-0 mr-3"><i class="fas fa-trash fa-sm pr-2"></i>Remove</button>
+                                        <button class="btn-xs btn btn-secondary box-shadow px-2 py-0 mr-3"><i class="fas fa-heart fa-sm pr-2"></i>wishlist</button>
+                                        <span class="text-white-50 pr-1"><i class="fab fa-windows"></i></span>
+                                        <span class="text-white-50 px-1"><i class="fab fa-apple"></i></span>
+                                        <span class="text-white-50 px-1"><i class="fab fa-linux"></i></span>
+                                    </div>  
+                                </div>
+                                <div class="col d-flex flex-row justify-content-end align-items-center mt-md-0 mt-2">
+                                    <div class="mx-2">
+                                        <span class="h6 badge-primary btn-sm px-2">-50%</span>
+                                    </div>
+                                    <div class="price d-flex flex-column text-right justify-content-center">
+                                        <span class="small text-white-50"> <del>€ 10,49</del></span>
+                                        <span class="h6 text-shadow mb-0"> € 10,49</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <!--RRSS-->
+    <div class="container-fluid border-top border-primary"> 
+        <div class="rrssIcons d-flex flex-row align-items-center justify-content-center mx-lg-5 px-lg-5 px-3">
+                <a class="fa-stack m-lg-4 m-2" href="https://www.facebook.com/IDCgames">
+                <i class="far fa-circle fa-stack-2x primaryColor"></i>
+                <i class="fab fa-facebook-f fa-stack-1x primaryColor"></i>
+                </a>
+                <a class="fa-stack m-lg-4 m-2" href="https://twitter.com/IDCgames">
+                <i class="far fa-circle fa-stack-2x primaryColor"></i>
+                <i class="fab fa-twitter fa-stack-1x primaryColor"></i>
+                </a>
+                <a class="fa-stack m-lg-4 m-2" href="https://www.instagram.com/idcgames/">
+                <i class="far fa-circle fa-stack-2x primaryColor"></i>
+                <i class="fab fa-instagram fa-stack-1x primaryColor"></i>
+                </a>
+                <a class="fa-stack m-lg-4 m-2" href="https://www.pinterest.com/IDCgames/">
+                <i class="far fa-circle fa-stack-2x primaryColor"></i>
+                <i class="fab fa-pinterest-p fa-stack-1x primaryColor"></i>
+                </a>
+                <a class="fa-stack m-lg-4 m-2" href="https://plus.google.com/110959600206128711708/posts">
+                <i class="far fa-circle fa-stack-2x primaryColor"></i>
+                <i class="fab fa-google-plus-g fa-stack-1x primaryColor"></i>
+                </a>
+                <a class="fa-stack m-lg-4 m-2" href="https://www.youtube.com/user/IDCgames">
+                <i class="far fa-circle fa-stack-2x primaryColor"></i>
+                <i class="fab fa-youtube fa-stack-1x primaryColor"></i>
+                </a>
+                <a class="fa-stack m-lg-4 m-2" href="https://www.twitch.tv/idcgames">
+                <i class="far fa-circle fa-stack-2x primaryColor"></i>
+                <i class="fab fa-twitch fa-stack-1x primaryColor"></i>
+                </a>
+                <a class="fa-stack m-lg-4 m-2" href="https://vk.com/id367009144">
+                <i class="far fa-circle fa-stack-2x primaryColor"></i>
+                <i class="fab fa-vk fa-stack-1x primaryColor"></i>
+                </a>
+        </div>
+    </div>
+    <!--Enlaces a noticias-->
+    <div class="container-fluid border-top border-green-lighter pt-3">
+        <div class="d-flex flex-md-row flex-column">
+            <div class="col-md-3 col-12">
+                <ul style="padding: 0;">
+                    <li><h4><a href="//es.idcgames.com/zula/noticias" title="">Zula</a></h4></li>
+                    <li><a href="https://es.idcgames.com/zula/idc-games-event-3459-NT3459.html">IDC/Games Event</a></li>
+                    <li><a href="https://es.idcgames.com/zula/zula-europe-pro-league-2019-summer-split---semana-1---cronica-3458-NT3458.html">Zula Europe Pro League 2019 Summer Split | Semana 1 | Crónica</a></li><li><a href="https://es.idcgames.com/zula/zula-open-championship--26-3457-NT3457.html">Zula Open Championship #26</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 col-12">
+                <ul style="padding: 0;">
+                    <li><h4><a href="//es.idcgames.com/champions-of-titan/noticias" title="">Champions of Titan</a></h4></li>
+                    <li><a href="https://es.idcgames.com/champions-of-titan/san-valentin-llega-a-titan-3337-NT3337.html">San Valentín llega a Titan</a></li>
+                    <li><a href="https://es.idcgames.com/champions-of-titan/el-cyber-monday-llega-a-titan-3203-NT3203.html">El Cyber Monday llega a Titan</a></li>
+                    <li><a href="https://es.idcgames.com/champions-of-titan/el-black-friday-llega-a-titan-3197-NT3197.html">El Black Friday llega a Titan</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 col-12">
+                <ul style="padding: 0;">
+                    <li><h4><a href="//es.idcgames.com/city-battle-virtual-earth/noticias" title="">City Battle Virtual Earth</a></h4></li>
+                    <li><a href="https://es.idcgames.com/city-battle-virtual-earth/idc-games-anuncia-citybattle---virtual-earth--un-nuevo-mmofps-de-tematica-sci-fi-basado-en-batallas-de-robots-que-compiten-por-la-dominacion-del-mundo-3001-NT3001.html">IDC/Games anuncia CityBattle | Virtual Earth, un nuevo MMOFPS de temática sci-fi basado en batallas de Robots que compiten por la dominación del mundo</a></li>
+                    <li><a href="https://es.idcgames.com/city-battle-virtual-earth/nuevo-video-teaser-sobre-citybattle---virtual-earth-2991-NT2991.html">¡Nuevo video teaser sobre CityBattle | Virtual Earth!</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 col-12">
+                <ul style="padding: 0;">
+                    <li><h4><a href="//es.idcgames.com/metal-assault/noticias" title="">Metal Assault</a></h4></li>
+                    <li><a href="https://es.idcgames.com/metal-assault/os-presentamos-la-idc-games-shop-NT2778.html">¡Os presentamos la IDC/Games Shop!</a></li>
+                    <li><a href="https://es.idcgames.com/metal-assault/notas-de-parche-17-10-2017-NT2649.html">Notas de parche [17/10/2017]</a></li>
+                    <li><a href="https://es.idcgames.com/metal-assault/enamórate-del-30-de-descuento-en-san-valentín-NT2323.html">Enamórate del 30% de descuento en San Valentín</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <!--Enlaces generales-->
+    <div class="container-fluid no-gutters p-0">
+        <div class="d-flex flex-lg-row flex-column border-top border-green-lighter pt-4"> 
+            <div class="col-lg-3 col-12 d-flex flex-md-row flex-column border-bottom border-green-lighter"> 
+                <div class="col-md-6 col-12 "> 
+                    <h4>IDC/GAMES</h4> 
+                    <ul class="px-0">  
+                        <li><a title="Warside" href="//es.idcgames.com/warside/">Warside</a></li>
+                        <li><a title="Weapons Of Mythology - New Age" href="//es.idcgames.com/weapons-of-mythology/">Weapons Of Mythology - New Age</a></li>
+                        <li><a title="Zula" href="//es.idcgames.com/zula/">Zula</a></li>
+                        <li><a title="Metal Assault" href="//es.idcgames.com/metal-assault/">Metal Assault</a></li>
+                        <li><a title="Habbo Hotel" href="//es.idcgames.com/habbo/">Habbo Hotel</a></li>
+                        <li><a title="Margonem" href="//es.idcgames.com/margonem/">Margonem</a></li>
+                        <li><a title="Champions of Titan" href="//es.idcgames.com/champions-of-titan/">Champions of Titan</a></li>
+                        <li><a title="City Battle Virtual Earth" href="//es.idcgames.com/city-battle-virtual-earth/">City Battle Virtual Earth</a></li>
+                        <li><a title="PC Futbol Stars" href="//es.idcgames.com/pc-futbol-stars/">PC Futbol Stars</a></li> 
+                    </ul> 
+                </div> 
+                <div class="col-md-6 col-12"> 
+                    <h4>PromoCoins</h4> 
+                    <ul class="px-0">  
+                        <li><a href="//es.idcgames.com/earn-coins">Ganar</a></li>  
+                        <li><a href="//es.idcgames.com/change-coins">Canjear</a></li> 
+                    </ul> 
+                </div> 
+            </div> 
+            <div class="col-lg-3 col-12 d-flex flex-md-row flex-column border-bottom border-green-lighter"> 
+                <div class="col-md-6 col-12">
+                    <h4>Tienda</h4> 
+                    <ul class="px-0">  
+                        <li><a href="https://es.idcgames.com/warside/shop">Warside</a></li>
+                        <li><a href="https://es.idcgames.com/weapons-of-mythology/shop">Weapons Of Mythology - New Age</a></li>
+                        <li><a href="https://es.idcgames.com/metal-assault/shop">Metal Assault</a></li>
+                        <li><a href="https://es.idcgames.com/margonem/shop">Margonem</a></li> 
+                    </ul> 
+                </div> 
+                <div class="col-md-6 col-12"> 
+                    <h4>Foros</h4> 
+                    <ul class="px-0">  
+                        <li> <a>Warside</a> </li>
+                        <li> <a>Weapons Of Mythology - New Age</a> </li>
+                        <li> <a>Zula</a> </li>
+                        <li> <a>Metal Assault</a> </li>
+                        <li> <a>Orbit Legends</a> </li>
+                        <li> <a>Margonem</a> </li>
+                        <li> <a>Champions of Titan</a> </li>
+                        <li> <a>pcfutbol</a> </li>
+                        <li> <a>City Battle Virtual Earth</a> </li> 
+                    </ul> 
+                </div> 
+            </div> 
+            <div class="col-lg-3 col-12 d-flex flex-md-row flex-column border-bottom border-green-lighter"> 
+                <div class="col-md-6 col-12"> 
+                    <h4>Media</h4> 
+                    <ul class="px-0">  
+                        <li><a href="//es.idcgames.com/warside/media">Warside</a></li>
+                        <li><a href="//es.idcgames.com/weapons-of-mythology/media">Weapons Of Mythology - New Age</a></li>
+                        <li><a href="//es.idcgames.com/zula/media">Zula</a></li>
+                        <li><a href="//es.idcgames.com/metal-assault/media">Metal Assault</a></li>
+                        <li><a href="//es.idcgames.com/habbo/media">Habbo Hotel</a></li>
+                        <li><a href="//es.idcgames.com/margonem/media">Margonem</a></li>
+                        <li><a href="//es.idcgames.com/champions-of-titan/media">Champions of Titan</a></li>
+                        <li><a href="//es.idcgames.com/city-battle-virtual-earth/media">City Battle Virtual Earth</a></li>
+                        <li><a href="//es.idcgames.com/pc-futbol-stars/media">PC Futbol Stars</a></li> 
+                    </ul> 
+                </div> 
+                <div class="col-md-6 col-12"> 
+                    <h4>Mi IDC</h4> 
+                    <ul class="px-0">  
+                        <li> <a href="//es.idcgames.com/promociones"> Promociones </a> </li> 
+                        <li><a href="/register?game_id=0">Regístrate</a></li> 
+                        <li><a href="/login?game_id=0">Entrar</a></li> 
+                        <li><a target="_blank" href="/forget?game_id=0">Olvidé mi contraseña</a></li> 
+                        <li><a target="_blank" title="Feed RSS" href="https://es.idcgames.com/rss/feed-es.xml">Feed RSS</a></li> 
+                        <li><a href="https://es.idcgames.com/partners">IDC Partners</a></li> 
+                    </ul> 
+                </div> 
+            </div> 
+            <div class="col-lg-3 col-12 d-flex flex-md-row flex-column border-bottom border-green-lighter"> 
+                <div class="col-md-6 col-12"> 
+                    <h4>Política de Privacidad</h4> 
+                    <ul class="px-0">  
+                        <li><a href="//es.idcgames.com/terms" target="_blank">Condiciones legales</a></li> 
+                        <li><a href="//es.idcgames.com/privacy-policy" target="_blank">Política de Privacidad</a></li> 
+                        <li><a href="//es.idcgames.com/legal-warning" target="_blank">Aviso legal</a></li> 
+                    </ul> 
+                </div> 
+                <div class="col-md-6 col-12">
+                    <a><h4>Tags</h4></a> 
+                    <ul class="px-0">  
+                        <li><a href="/tag/juegos-un-jugador/"><span>Juegos Un jugador</span></a></li>
+                        <li><a href="/tag/juegos-multijugador/"><span>Juegos Multijugador</span></a></li>
+                        <li><a href="/tag/juegos-multijugador-online/"><span>Juegos Multijugador online</span></a></li>
+                        <li><a href="/tag/juegos-multijugador-local/"><span>Juegos Multijugador local</span></a></li>
+                        <li><a href="/tag/juegos-cooperativo/"><span>Juegos Cooperativo</span></a></li>
+                        <li><a href="/tag/juegos-cooperativo-en-línea/"><span>Juegos Cooperativo en línea</span></a></li>
+                        <li><a href="/tag/juegos-multijugador-multiplataforma/"><span>Juegos Multijugador multiplataforma</span></a></li> 
+                    </ul>
+                </div> 
+            </div> 
+        </div>
+    </div>
+    <!--Logos-->
+    <div class="d-flex flex-row justify-content-center align-items-baseline border-bottom border-green-lighter py-2">
+        <a href="#" target="_blank">
+            <img class="logo-pegi" src="https://www.idcgames.com/images/awards-idc.png" title="IDC/Games Awards" alt="IDC/Games IDC/Games Awards">
+        </a>
+        <a href="https://www.idcgames.com/" target="_blank" class="pl-4 logo-idc-footer">
+            <img class="logo-pegi" src="https://idcgames.net/cdn/img/default/logo-idc-light.png" title="IDC/Games" alt="IDC/Games IDC/Games">
+        </a>
+        <a href="https://www.ovhtelecom.fr/">
+            <img class="logo-pegi" src="//idcgames.com/images/logo_ovh.png" alt="OVH">
+        </a>
+    </div> 
+    <!--Licencia-->
+    <div class="d-flex flex-column justify-content-center align-items-center pt-3">
+        <a rel="license" href="//creativecommons.org/licenses/by/4.0/" target="_blank">
+            <img alt="Creative Commons License" src="https://i.creativecommons.org/l/by/4.0/80x15.png">
+        </a>
+        <a rel="license" href="//creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International
+        </a>
+        <p>Memory use: 9.25 mb</p>
+    </div>
+    <!--Idiomas-->
+        <div class="d-flex flex-row justify-content-between px-4 bg-green-lighter text-dark"> 
+            <a href="//en.idcgames.com/idcgames/"> English </a> | 
+            <a href="//es.idcgames.com/idcgames/"> Español </a> | 
+            <a href="//de.idcgames.com/idcgames/"> Deutsch </a> | 
+            <a href="//fr.idcgames.com/idcgames/"> Français </a> | 
+            <a href="//cs.idcgames.com/idcgames/"> Ceština </a> | 
+            <a href="//pl.idcgames.com/idcgames/"> Polski </a> | 
+            <a href="//pt.idcgames.com/idcgames/"> Português </a> | 
+            <a href="//it.idcgames.com/idcgames/"> Italiano </a> | 
+            <a href="//tr.idcgames.com/idcgames/"> Türkçe </a> | 
+            <a href="//el.idcgames.com/idcgames/"> Ελληνικά </a> | 
+            <a href="//ro.idcgames.com/idcgames/"> Român </a> | 
+            <a href="//ru.idcgames.com/idcgames/"> Pусский </a> | 
+            <a href="//vi.idcgames.com/idcgames/"> Tiếng Việt </a> | 
+            <a href="//ja.idcgames.com/idcgames/"> 日本語 </a> | 
+            <a href="//ar.idcgames.com/idcgames/"> عربي/عربى </a> | 
+            <a href="//th.idcgames.com/idcgames/"> ไทย </a> | 
+            <a href="//ko.idcgames.com/idcgames/"> 한국어 </a> 
+        </div> 
+    <!--Copyright-->
+        <div class="d-flex flex-row justify-content-center bg-dark p-2"> 
+            <p>© IDC GAMES 2019. Todos los derechos reservados</p> 
+        </div> 
+    <!--Cookies-->
+        <div class="position-relative d-flex justify-content-center align-items-center">
+            <div class="cookies position-absolute bg-secondary px-2"> 
+                <div class="d-row col-12">
+                    <button type="button" class="close pt-3" aria-label="Close" onclick="aceptar_cookies();">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="d-row col-12">
+                    <p class="avisolegal text-center  pt-3">Este sitio web utiliza cookies propias y de terceros para que usted tenga la mejor experiencia de usuario.
+                        Si continúa navegando está dando su consentimiento para la aceptación de las mencionadas cookies y la aceptación de nuestra política de cookies. <br>
+                        <a href="privacy-policy.html" target="_blank" class="text-primary">Consulte aquí la política de cookies</a> 
+                    </p> 
+                </div>
+
+
+            </div>    
+        </div>
+
+</footer>
+<!-- Javascript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+<script src="js/search.js"></script>
+
+<!-- Iconos animados lottie -->
+<script src="js/lottie_light.min.js"></script>
+
+<!-- Iconos animados lottie hamburguesa menú lateral-->
+<script>
+     var btn = document.getElementById("categoriesBtn");
+     lottieContainer = document.getElementById('lottiehamburguer');
+ 
+     var params = {
+             container: lottieContainer,
+             renderer: 'svg',
+             loop: false,
+             autoplay: false,
+             prerender: true,
+             autoloadSegments: false,
+             path: './https://idcgames.net/cdn/img/iconos-lottie/hamburger.json'
+     };
+ 
+     var anim = bodymovin.loadAnimation(params);
+     
+ 
+     function scriptPlay(){
+             bodymovin.setSpeed(2);
+             bodymovin.setDirection(1);
+             anim.play();
+     }
+ 
+     function scriptPause(){
+             bodymovin.setSpeed(2);
+             bodymovin.setDirection(-1);
+             anim.play();
+     };
+ $( document ).ready(function() {
+ 
+ 
+     $("body").on( "click", ".openMenuBtn", function() {
+         $(this).removeClass("openMenuBtn");
+         $(this).addClass("closeMenuBtn");
+         document.getElementById("sidenav-bar").style.width = "320px";
+         scriptPlay();
+     });
+     $("body").on( "click", ".closeMenuBtn", function() {
+         $(this).removeClass("closeMenuBtn");
+         $(this).addClass("openMenuBtn");
+         document.getElementById("sidenav-bar").style.width = "0";
+         scriptPause();
+     });
+ });
+</script>
+<!-- Iconos animados lottie btn back to top-->
+<script>
+var icon = document.getElementById("scrollToTop");
+lottieContainer2 = document.getElementById('lottieScrollTop');
+
+var params2 = {
+     container: lottieContainer2,
+     renderer: 'svg',
+     loop: false,
+     autoplay: false,
+     prerender: true,
+     autoloadSegments: false,
+     path: './https://idcgames.net/cdn/img/iconos-lottie/scrollTop.json'
+};
+
+var anim2 = bodymovin.loadAnimation(params2);
+function scriptScrollPlay(){
+             bodymovin.setSpeed(2);
+             anim2.goToAndPlay(0);// go to frame 0 and play. Prevents the animation to only run once      
+};
+
+$(document).ready(function() {
+     $("a[href='#top']").click(function() {
+             $("html, body").animate({ scrollTop: 0 }, "slow");
+             scriptScrollPlay();
+             return false;
+     });
+
+     $(window).scroll(function(){
+                if ($(this).scrollTop() > 200) {
+                        $('.btn-scroll-to-top').fadeIn();  
+                } else {
+                        $('.btn-scroll-to-top').fadeOut();
+                }
+     });
+});
+</script>
+
+
+</body>
+</html>
