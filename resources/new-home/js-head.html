@@ -1,0 +1,24 @@
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" integrity="sha256-UK1EiopXIL+KVhfbFa8xrmAWPeBjMVdvYMYkTAEv/HI=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" integrity="sha256-4hqlsNP9KM6+2eA8VUT0kk4RsMRTeS7QGHIM+MZ5sLY=" crossorigin="anonymous" />
+<script>
+//animation idc logo while loading page
+function addSlideOut(){
+    $("#logoIntro").addClass("slideOutUp").addClass("fast");
+    $(".bg1").css("display","none");
+};
+
+function addMenuClases(){
+    $("#menu").addClass("nav-custom-after");
+    $(".sidenav").addClass("sidenav-after");
+    $(".btn-cta-small").css("display","block");
+    $("#menu").addClass("bgDarkTexture");
+	$("#menu").removeClass("bgLightTexture");
+};
+
+function deleteLayer(){
+    $(".intro").css("display","none");
+    $("body").css("position","relative");
+    $(".shopping-cart").css("opacity","1");
+};
+</script>

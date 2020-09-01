@@ -1,0 +1,5 @@
+{
+	"home": ["nav","home","footer"],
+	"new-home": ["nav","new-home","footer","shopping-modal"],
+	"search": ["nav","search","footer","shopping-modal"]
+}
