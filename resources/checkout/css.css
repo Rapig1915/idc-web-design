@@ -1,0 +1,370 @@
+body {
+  top: 0;
+  overflow-x: hidden; }
+
+/*
+======================================================================================================================
+Black line under title and search input
+======================================================================================================================
+*/
+.bg-dark-translucid {
+  background-color: rgba(0, 0, 0, 0.8); }
+
+.h-50px {
+  height: 50px; }
+
+.breadcrumb {
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  white-space: nowrap; }
+
+@media (max-width: 575.98px) {
+  .breadcrumb {
+    padding: 0.5rem 1rem !important;
+    margin-bottom: 0.5rem; }
+    .breadcrumb .display-2 {
+      font-size: calc(1rem + 5.1vw); } }
+
+/*
+======================================================================================================================
+Resto de juegos
+======================================================================================================================
+*/
+.overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-transition: all ease-out .5s;
+  transition: all ease-out .5s; }
+
+.card-img-overlay {
+  z-index: 2;
+  -o-object-fit: contain;
+     object-fit: contain;
+  -webkit-transition: all ease-out .5s;
+  transition: all ease-out .5s; }
+
+.gameCard:hover .gameCard-footer {
+  opacity: 1;
+  -webkit-transition: all ease-out .5s;
+  transition: all ease-out .5s; }
+
+.gameCard:hover .card-img-overlay {
+  padding: .5rem;
+  -webkit-transition: all ease-out .4s;
+  transition: all ease-out .4s; }
+
+.gameCard:hover .overlay {
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5));
+  -webkit-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out; }
+
+.gameCard:hover .box-shadow {
+  -webkit-box-shadow: 1px 3px 8px 3px rgba(0, 0, 0, 0.4);
+          box-shadow: 1px 3px 8px 3px rgba(0, 0, 0, 0.4);
+  -webkit-transition: all ease-out .4s;
+  transition: all ease-out .4s; }
+
+.bg-gradient {
+  background-image: linear-gradient(45deg, springgreen 1%, #314954 50%, #1b1d2c 100%);
+  -webkit-transition: all ease-out .4s;
+  transition: all ease-out .4s; }
+
+/*
+======================================================================================================================
+Shopping cart button
+======================================================================================================================
+*/
+@supports ((position: -webkit-sticky) or (position: sticky)) {
+  .sticky-top-custom {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 55px;
+    z-index: 1020; } }
+
+.dropdown-menu {
+  z-index: 1030; }
+
+.green-custom {
+  color: rgba(0, 255, 126, 0.55); }
+
+.shopping-cart {
+  z-index: 990;
+  position: fixed;
+  top: 47px;
+  right: 85px;
+  height: 60px;
+  width: 60px;
+  border-radius: 0 0 60px 60px;
+  border-color: transparent;
+  -webkit-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out; }
+  .shopping-cart span {
+    right: 2px;
+    top: 2px; }
+
+@-webkit-keyframes rubberBand {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1); }
+  30% {
+    -webkit-transform: scale3d(1.25, 0.75, 1);
+    transform: scale3d(1.25, 0.75, 1); }
+  40% {
+    -webkit-transform: scale3d(0.75, 1.25, 1);
+    transform: scale3d(0.75, 1.25, 1); }
+  50% {
+    -webkit-transform: scale3d(1.15, 0.85, 1);
+    transform: scale3d(1.15, 0.85, 1); }
+  65% {
+    -webkit-transform: scale3d(0.95, 1.05, 1);
+    transform: scale3d(0.95, 1.05, 1); }
+  75% {
+    -webkit-transform: scale3d(1.05, 0.95, 1);
+    transform: scale3d(1.05, 0.95, 1); }
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1); } }
+
+@keyframes rubberBand {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1); }
+  30% {
+    -webkit-transform: scale3d(1.25, 0.75, 1);
+    transform: scale3d(1.25, 0.75, 1); }
+  40% {
+    -webkit-transform: scale3d(0.75, 1.25, 1);
+    transform: scale3d(0.75, 1.25, 1); }
+  50% {
+    -webkit-transform: scale3d(1.15, 0.85, 1);
+    transform: scale3d(1.15, 0.85, 1); }
+  65% {
+    -webkit-transform: scale3d(0.95, 1.05, 1);
+    transform: scale3d(0.95, 1.05, 1); }
+  75% {
+    -webkit-transform: scale3d(1.05, 0.95, 1);
+    transform: scale3d(1.05, 0.95, 1); }
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1); } }
+
+.rubberBand {
+  -webkit-animation-name: rubberBand;
+  animation-name: rubberBand; }
+
+/*
+======================================================================================================================
+Home Gog style
+======================================================================================================================
+*/
+.nav-tabs .nav-link {
+  color: #495057; }
+
+.nav-tabs .nav-link.active {
+  color: #00ff7f; }
+
+.nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: springgreen;
+  border-left-color: transparent; }
+
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+  background-color: transparent;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: springgreen;
+  border-left-color: transparent; }
+
+.object-fit-cover {
+  -o-object-fit: cover;
+     object-fit: cover; }
+
+@media (max-width: 991.98px) {
+  .long-card {
+    height: 443px; } }
+
+@media (min-width: 992px) {
+  .long-card {
+    height: 459px; } }
+
+.gradient-overlay-7 {
+  background-image: linear-gradient(120deg, #314954, rgba(63, 70, 121, 0.7)); }
+
+.gradient-overlay-8 {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0)), color-stop(60%, rgba(0, 0, 0, 0.8)), to(rgba(0, 0, 0, 0.95)));
+  background-image: linear-gradient(-180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 60%, rgba(0, 0, 0, 0.95) 100%); }
+
+h4.card-title.h6 {
+  font-family: "Jura";
+  font-weight: 700; }
+
+@media (max-width: 575.98px) {
+  h4.card-title.h6 {
+    font-size: .825rem; } }
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  h4.card-title.h6 {
+    font-size: .85rem; } }
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  h4.card-title.h6 {
+    font-size: .9rem; } }
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  h4.card-title.h6 {
+    font-size: .95rem; } }
+
+@media (min-width: 1200px) {
+  h4.card-title.h6 {
+    font-size: .95rem; } }
+
+span.btn.btn-primary.btn-sm.px-2, .btn-group-sm > span.btn.btn-primary.px-2 {
+  padding: 0.05rem 1rem; }
+
+.small-card .card {
+  -webkit-box-shadow: 1px 3px 8px 3px rgba(0, 0, 0, 0.5) !important;
+          box-shadow: 1px 3px 8px 3px rgba(0, 0, 0, 0.5) !important; }
+
+.small-card .card-body {
+  height: 95px; }
+
+.small-card .cart-btn {
+  display: none; }
+
+.small-card .system-btns {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex; }
+
+.small-card .price .h6 {
+  margin-top: -4px; }
+
+.small-card .overlay {
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
+  -webkit-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out; }
+
+.small-card .card-img-overlay {
+  padding: 3.5rem; }
+
+.small-card:hover .system-btns {
+  display: none; }
+
+.small-card:hover .cart-btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex; }
+
+.small-card:hover .logo-overlay {
+  padding: 3rem;
+  -webkit-transition: all ease-out .4s;
+  transition: all ease-out .4s; }
+
+.small-card:hover .overlay {
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1));
+  -webkit-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out; }
+
+.small-card .gameCard-img {
+  height: 116px;
+  min-width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover; }
+
+.small-card .badges {
+  top: -24px;
+  left: 0; }
+
+#recommended .small-card .gameCard-img {
+  height: 160px; }
+
+.card.bg-small-card {
+  background-image: linear-gradient(100deg, #00ff7f -80%, #314954 110%); }
+
+.gameCard-footer-inner {
+  height: 95px;
+  background-image: linear-gradient(100deg, #00ff7f -80%, #314954 110%); }
+
+.game-card-rectangular {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+  cursor: pointer; }
+  .game-card-rectangular .cart-btn {
+    display: none; }
+  .game-card-rectangular span.h6.text-shadow.mb-0 {
+    margin-top: -4px; }
+  .game-card-rectangular:hover .cart-btn {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex; }
+  .game-card-rectangular:hover .card-img-overlay {
+    padding: .25rem;
+    -webkit-transition: all ease-out .4s;
+    transition: all ease-out .4s; }
+  .game-card-rectangular:hover .logo-img-container {
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5));
+    -webkit-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out; }
+  .game-card-rectangular img {
+    -o-object-fit: cover;
+       object-fit: cover;
+    height: 76px; }
+  .game-card-rectangular .bg-img-container {
+    height: 76px;
+    width: 136px; }
+  .game-card-rectangular .logo-img-container {
+    -webkit-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out; }
+  .game-card-rectangular .card-img-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: .5rem; }
+
+@media (max-width: 575.98px) {
+  .game-card-rectangular .bg-img-container {
+    height: 100px;
+    width: 100px; }
+  .game-card-rectangular .gameCard-img {
+    height: 100px; }
+  .game-card-rectangular img.logo-overlay.card-img-overlay {
+    height: 55px; } }
+
+.price {
+  white-space: nowrap; }
+
+#featured .left-small img {
+  height: 178px; }
+
+#featured .right-long img {
+  height: 360px; }
+
+#featured .square-img {
+  max-height: 433px; }
+
+.inCart, .soon {
+  display: none;
+  white-space: nowrap; }
+
+.btn-xs {
+  font-size: 1rem !important;
+  white-space: nowrap; }
+
+/*
+======================================================================================================================
+Check out page
+======================================================================================================================
+*/
+.payment-icon {
+  width: 34px;
+  height: 24px;
+  background-size: cover; }
