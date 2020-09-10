@@ -1713,13 +1713,15 @@ span.btn.btn-primary.btn-sm.px-2, .btn-group-sm > span.btn.btn-primary.px-2 {
     right: 0;
     bottom: 0;
     left: 0;
-    padding: .5rem; }
+    padding: .5rem;
+    width: 100% }
 
 @media (max-width: 575.98px) {
   .game-card-rectangular .bg-img-container {
     height: 100px;
     width: 100px; }
   .game-card-rectangular .gameCard-img {
+    width: 100%;
     height: 100px; }
   .game-card-rectangular img.logo-overlay.card-img-overlay {
     height: 55px; } }
@@ -1728,21 +1730,36 @@ span.btn.btn-primary.btn-sm.px-2, .btn-group-sm > span.btn.btn-primary.px-2 {
   white-space: nowrap; }
 
 #featured .left-small img {
-  height: 178px; }
+  height: 178px; 
+  width: 100%;
+  object-fit: cover;
+}
 
 #featured .right-long img {
-  height: 360px; }
+  height: 360px; 
+}
+
+#featured .right-long img.gameCard-img {
+  width: 100%;
+  object-fit: cover;
+}
 
 #featured .square-img {
   max-height: 433px; }
 
-#news .img-overflow {
+.discovered .img-overflow {
   height: 264px; }
 
-#news img.gameCard-img {
+.discovered img.gameCard-img {
   min-width: 100%;
   -o-object-fit: cover;
      object-fit: cover; }
+
+.carouselNews img.gameCard-img {
+min-width: 100%;
+height: 100%;
+-o-object-fit: cover;
+    object-fit: cover; }
 
 .slick-dots li.slick-active button:before {
   color: #00ff7f !important; }
@@ -1757,3 +1774,7 @@ span.btn.btn-primary.btn-sm.px-2, .btn-group-sm > span.btn.btn-primary.px-2 {
 .btn-xs {
   font-size: 1rem !important;
   white-space: nowrap; }
+
+.hidden {
+  display: none !important;
+}

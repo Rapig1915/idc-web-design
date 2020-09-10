@@ -4,3 +4,166 @@ $("body").on("click",".closeCookies",function(){
 	$(".closeCookiesBox").addClass("animated fadeOut");
 });
 </script>
+
+<script>
+	var basketInfo = typeof(readBasketInfo) == 'function' ? readBasketInfo() : null;
+
+	function getEllipseTimeFromTimestamp(timestamp)
+	{
+		var pdate = new Date(timestamp * 1000);
+		var diffMs = (new Date()) - pdate; // milliseconds between now & Christmas
+		var diffDays = Math.floor(diffMs / 86400000); // days
+		var diffHrs = Math.floor((diffMs % 86400000) / 3600000); // hours
+		var diffMins = Math.floor(((diffMs % 86400000) % 3600000) / 60000); // minutes
+		var diffSecs = Math.floor(((diffMs % 86400000) % 3600000) % 60000) / 1000; // seconds
+
+		if(diffDays > 0)
+			return `${diffDays} days ago`;
+
+		if(diffHrs > 0)
+			return `${diffHrs} hrs ago`;
+
+		if(diffMins > 0)
+			return `${diffMins} mins ago`;
+
+		return `${diffSecs} secs ago`;
+	}
+
+	function getEllipseTimeFromPubdate(pubdate)
+	{
+		var arr = pubdate.split("-");
+		var pdate = new Date();
+		pdate.setUTCFullYear(arr[0] || 0);
+		pdate.setUTCMonth(arr[1]-1 || 0);
+		pdate.setUTCDate(arr[2] || 0);
+		pdate.setUTCHours(arr[3] || 0);
+		pdate.setUTCMinutes(arr[4] || 0);
+		pdate.setUTCSeconds(arr[5] || 0);
+		var diffMs = (new Date()) - pdate; // milliseconds between now & Christmas
+		var diffDays = Math.floor(diffMs / 86400000); // days
+		var diffHrs = Math.floor((diffMs % 86400000) / 3600000); // hours
+		var diffMins = Math.floor(((diffMs % 86400000) % 3600000) / 60000); // minutes
+		var diffSecs = Math.floor(((diffMs % 86400000) % 3600000) % 60000) / 1000; // seconds
+
+		if(diffDays > 0)
+			return `${diffDays} days ago`;
+
+		if(diffHrs > 0)
+			return `${diffHrs} hrs ago`;
+
+		if(diffMins > 0)
+			return `${diffMins} mins ago`;
+
+		return `${diffSecs} secs ago`;
+	}
+
+	function firstImg(theString){
+		var reg = /img[^\>]*src="(\S*)"/mi;
+		var m = reg.exec(theString);
+		if (m !== null) {}
+		if( m != null ) {
+			return m[1];
+		}else{
+			return null;
+		}
+	}
+
+	function setObjectValues(elem, data, setSrc = false)
+	{
+		if(!elem || !data)
+			return;
+
+		for(var i = 0; i < data.length; i ++)
+		{
+			var child = $(elem).find(data[i].cls);
+			if(data[i].cls === "")
+				child = $(elem);
+
+			if(!child) continue;
+
+			if(!setSrc)
+				if(!!data[i].attr && data[i].attr == "src") continue;
+
+			if(data[i].hide)
+				$(child).addClass("hidden");
+			if(data[i].remove){
+				$(child).remove();
+				continue;
+			}
+
+			if(!!data[i].value){
+				if(!!data[i].attr)
+					$(child).attr(data[i].attr, data[i].value);
+				else
+					$(child).val(data[i].value);
+			}else if(!!data[i].text){
+				$(child).text(data[i].text);
+			}else if(!!data[i].addClass){
+				$(child).addClass(data[i].addClass);
+			}else if(!!data[i].removeClass){
+				$(child).removeClass(data[i].removeClass);
+			}
+
+			if(data[i].func) data[i].func(child);
+		}
+
+		return elem;
+	}
+
+	function makeDatasetForGame(gData)
+	{
+		if(!gData)	return [];
+
+		var gPrice = getGamePrice(gData);
+		var discount_percent = gData.common_params.game_offer_discount_percent || 0, discount_price = (gPrice * discount_percent / 100).toFixed(2);
+		gPrice = (gPrice - discount_price).toFixed(2);
+		
+		var dataset = [
+			{ cls: ".text-game-name", text: gData.name },
+			{ cls: ".anchor-game-home", attr: "href", value: `/${gData.common_params.game_seo}` },
+			{ cls: ".gameCard-img", attr: "src", value: getGameHomeImage(gData) },
+			{ cls: ".card-img-overlay", attr: "src", value: gData.common_params.game_logo },
+			{ cls: ".show-os-windows", hide: !gData.common_params.flagWindows },
+			{ cls: ".show-os-apple", hide: !gData.common_params.flagApple },
+			{ cls: ".show-os-linux", hide: !gData.common_params.flagLinux },
+			
+			{ cls: ".cart-btn", attr: "id_idcgame", value: gData.common_params.id_idcgame },
+			{ cls: ".cart-btn", attr: "price", value: gPrice },
+			{ cls: ".cart-btn", attr: "currency", value: user_currency },
+		];
+
+		if(discount_percent > 0 && discount_price > 0 && gPrice > 0){
+			dataset.push({ cls: ".text-discount-percent", text: `-${discount_percent}%` });
+			dataset.push({ cls: ".text-discount-price", text: `${user_currency_symbol} ${discount_price}` });
+			dataset.push({ cls: ".text-price", text: `${user_currency_symbol} ${gPrice}` });
+		}else if(gPrice > 0){
+			dataset.push({ cls: ".text-discount-percent", hide: true });
+			dataset.push({ cls: ".text-discount-price", hide: true });
+			dataset.push({ cls: ".text-price", text: `${user_currency_symbol} ${gPrice}` });
+		}else{
+			dataset.push({ cls: ".text-discount-percent", hide: true });
+			dataset.push({ cls: ".text-discount-price", hide: true });
+			dataset.push({ cls: ".text-price", text: `FREE` });
+			dataset.push({ cls: ".cart-btn", remove: true });
+		}
+
+		if(basketInfo && basketInfo.games.includes(gData.common_params.id_idcgame)){
+			dataset.push({ cls: ".inCart", addClass: "d-block" });
+		}
+
+		return dataset;
+	}
+
+	function getGamePrice(gData)
+	{
+		return (gData && gData.common_params && gData.common_params && gData.common_params.game_price && gData.common_params.game_price[user_currency]) || 0;
+	}
+
+	function getGameHomeImage(gData)
+	{
+		var gameID = gData && gData.common_params && gData.common_params.id_idcgame;
+		//return `https://idcgames.com/global_releases/splash/${gameID}.png`;
+		//return `https://cdn.idcgames.com/img/home/${gData.common_params.game_seo}.jpg`;
+		return (gData && gData.store_params && gData.store_params.background_foros) || `https://idcgames.com/global_releases/splash/${gameID}.png`;
+	}
+</script>

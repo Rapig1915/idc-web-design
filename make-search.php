@@ -58,7 +58,8 @@ foreach ($arrayJuegos as $key=>$value) {
 			'price_u50' => $price_usd > 0 && $price_usd <= 50,
 			'price_a50' => $price_usd > 50,
 			'has_offer' => $offer_sum > 0,
-			'offer_discount' => $offer_sum
+			'offer_discount' => $offer_sum,
+			'offers' => $value->common_params->game_offer
 		);
 
 		// store
@@ -90,6 +91,8 @@ foreach ($arrayJuegos as $key=>$value) {
 			$resultArray["offer_on"][] = $data;
 		else
 			$resultArray["offer_off"][] = $data;
+
+		$resultArray["all"][] = $data;
 	}
 }
 
