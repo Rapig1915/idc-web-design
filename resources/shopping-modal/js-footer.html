@@ -28,18 +28,24 @@
 
     saveBasketInfo(basketInfo);
     refreshCartCount(basketInfo.games.length);
+    
+    $(`.cart-btn[id_idcgame=${id_idcgame}]`).closest(".card").find(".inCart").addClass("d-block");
+    $(`.cart-btn[id_idcgame=${id_idcgame}]`).closest(".game-card-rectangular").find(".inCart").addClass("d-block");
   }
-
+  
   function removeGameFromBasket(id_idcgame){
     var basketInfo = readBasketInfo();
-
+    
     const index = basketInfo.games.indexOf(id_idcgame);
     if (index > -1) {
       basketInfo.games.splice(index, 1);
     }
-
+    
     saveBasketInfo(basketInfo);
     refreshCartCount(basketInfo.games.length);
+    
+    $(`.cart-btn[id_idcgame=${id_idcgame}]`).closest(".card").find(".inCart").removeClass("d-block");
+    $(`.cart-btn[id_idcgame=${id_idcgame}]`).closest(".game-card-rectangular").find(".inCart").removeClass("d-block");
   }
 
   function refreshCartCount(count = null){

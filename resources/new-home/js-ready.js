@@ -321,7 +321,7 @@ function initFeaturedGames(max_games = 20)
 
 			var dataset = [
 				{ cls: "", attr: "href", value: `/${gData.common_params.game_seo}` },
-				{ cls: ".gameCard-img", attr: "src", value: getGameHomeImage(gameID, gData) },
+				{ cls: ".gameCard-img", attr: "src", value: getGameHomeImage(gData) },
 				{ cls: ".card-img-overlay", attr: "src", value: gData.common_params.game_logo },
 			];
 
