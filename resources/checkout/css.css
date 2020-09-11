@@ -328,7 +328,9 @@ span.btn.btn-primary.btn-sm.px-2, .btn-group-sm > span.btn.btn-primary.px-2 {
     right: 0;
     bottom: 0;
     left: 0;
-    padding: .5rem; }
+    padding: .5rem; 
+    width: 100%;
+  }
 
 @media (max-width: 575.98px) {
   .game-card-rectangular .bg-img-container {

@@ -92,7 +92,6 @@
       if(gPrice <= 0) continue;
 
       var discount_percent = gData.common_params.game_offer_discount_percent || 0, discount_price = (gPrice * discount_percent / 100).toFixed(2);
-      gPrice = (gPrice - discount_price).toFixed(2);
 
       result.count = result.count + 1;
       result.original_price = (result.original_price - (0-gPrice)).toFixed(2);
