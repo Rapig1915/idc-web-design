@@ -142,6 +142,37 @@ $("body").on("click",".textForMenu",function(){
     $(".navbar-toggler").find("i").addClass("upside-down");
 });
 
+$("body").on("click",".btn-proceed-search",function(){
+    // search games
+    clearGames();
+
+    var paramName = $("input[type=search]").val();
+    var paramPrice = $("input[name=priceRange]:checked").attr("id") || ""
+    var paramCategory = "";
+    var selCategories = $("input[name=gameCategories]:checkbox:checked");
+    for(var i = 0; i < selCategories.length; i ++)
+        paramCategory += $(selCategories[i]).attr("id") + ",";
+
+    $.ajax({
+        type:"POST",
+        url:"/assets/search/searchfilter.php",
+        data: `token=${loadSession('token')}&name=${paramName}&category=${paramCategory}&price=${paramPrice}&has_offer=`,
+        dataType: 'json',
+        async:true,
+        success: function(json){
+            if(typeof(json) !== "undefined" && typeof(json.games) !== "undefined"){
+                gamesSearchResult = json.games;
+                initAll();
+            }else{
+                console.log("Wrong data");
+            }
+        },
+        error: function(error){  
+            console.log("Search failed: ", error);
+        }
+    });
+});
+
 $("body").on("click",".btn-show-more",function(){
     var tab = $(this).attr("data-tab");
     var mode = $(this).attr("data-mode");
@@ -157,8 +188,6 @@ $("body").on("click",".btn-show-more",function(){
 
 function initAll()
 {
-    clearGames();
-
     initGames(gamesSearchResult.all, "all", "square")
     initGames(gamesSearchResult.all, "all", "rectangle")
     initGames(gamesSearchResult.featured, "featured", "square")
@@ -175,6 +204,7 @@ function clearGames()
 {
     $(".tab-pane .game-card-square").remove();
     $(".tab-pane .game-card-rectangle").remove();
+    $(".tab-pane .btn-show-more").removeAttr("n_displayed");
 }
 
 function initGames(games, tab /* all/featured/new/sale/upcoming */, mode/* square/rectangle */, step_games = 10)
@@ -221,4 +251,6 @@ function initGames(games, tab /* all/featured/new/sale/upcoming */, mode/* squar
 	}
 }
 
+clearGames();
 initAll();
+$(".btn-proceed-search").trigger("click");
