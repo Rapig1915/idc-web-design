@@ -1,20 +1,14 @@
-
 // cart buttons
-   
 $("body").on("click",".cart-btn",function(){
-    var type = "rubberBand";
-    var counter = ($(".shopping-cart").find("span").text()*1)+1;
-    $(".shopping-cart").find("i").addClass(type);
-    $(".shopping-cart").find("span").text(counter);
-    $(".shopping-cart").find("span").addClass("bg-gray-900");
     $(this).closest(".game-card-rectangular").find(".inCart").addClass("d-block");
-    $(this).closest(".game-card-rectangular").find(".soon").removeClass("d-block");
-    $(this).closest(".card").find(".inCart").addClass("d-block");
-    $(this).closest(".card").find(".soon").removeClass("d-block");
-    setTimeout(function() {
-        $(".shopping-cart").find("i").removeClass(type);
-        $(".shopping-cart").find("span").removeClass("bg-gray-900");
-    },1000);
+	$(this).closest(".game-card-rectangular").find(".soon").removeClass("d-block");
+	$(this).closest(".card").find(".inCart").addClass("d-block");
+	$(this).closest(".card").find(".soon").removeClass("d-block");
+	
+	if(typeof(putGameInBasket) == "function")
+	{
+		putGameInBasket($(this).attr("id_idcgame"));
+	}
 });
 
 $('input[name = gameCategories]').click(function(){
@@ -148,3 +142,83 @@ $("body").on("click",".textForMenu",function(){
     $(".navbar-toggler").find("i").addClass("upside-down");
 });
 
+$("body").on("click",".btn-show-more",function(){
+    var tab = $(this).attr("data-tab");
+    var mode = $(this).attr("data-mode");
+
+    if(tab !== "all" && tab !== "featured" && tab !== "new" && tab !== "sale" && tab !== "upcoming")
+        return;
+    
+    if(mode !== "square" && mode !== "rectangle")
+        return;
+
+    initGames(gamesSearchResult[tab], tab, mode);
+});
+
+function initAll()
+{
+    clearGames();
+
+    initGames(gamesSearchResult.all, "all", "square")
+    initGames(gamesSearchResult.all, "all", "rectangle")
+    initGames(gamesSearchResult.featured, "featured", "square")
+    initGames(gamesSearchResult.featured, "featured", "rectangle")
+    initGames(gamesSearchResult.new, "new", "square")
+    initGames(gamesSearchResult.new, "new", "rectangle")
+    initGames(gamesSearchResult.sale, "sale", "square")
+    initGames(gamesSearchResult.sale, "sale", "rectangle")
+    initGames(gamesSearchResult.upcoming, "upcoming", "square")
+    initGames(gamesSearchResult.upcoming, "upcoming", "rectangle")
+}
+
+function clearGames()
+{
+    $(".tab-pane .game-card-square").remove();
+    $(".tab-pane .game-card-rectangle").remove();
+}
+
+function initGames(games, tab /* all/featured/new/sale/upcoming */, mode/* square/rectangle */, step_games = 10)
+{
+	if(tab !== "all" && tab !== "featured" && tab !== "new" && tab !== "sale" && tab !== "upcoming")
+        return;
+    
+    if(mode !== "square" && mode !== "rectangle")
+        return;
+
+	var objGameContainer = $(`.tab-content #${tab} .grid-${mode}`);
+
+    var buttonShowMore = $(objGameContainer).find(`.btn-show-more`);
+    var buttonShowMoreWrapper = $(objGameContainer).find(".btn-show-more-wrapper");
+
+	var nDisplayedGames = parseInt($(buttonShowMore).attr("n_displayed") || "0");
+	var nDisplayStep = step_games;
+
+	if(games && nDisplayedGames < games.length){
+		for(var i = nDisplayedGames; i < games.length && i < nDisplayedGames + nDisplayStep; i ++){
+			var gameID = games[i];
+
+            if(typeof(gamedata) == "undefined" || typeof(gamedata[gameID]) == "undefined")
+                continue;
+
+            var newGameBlock = mode === "square"
+                ? $(".game-card-square.clone").clone().removeClass("hidden").removeClass("clone")
+                : $(".game-card-rectangle.clone").clone().removeClass("hidden").removeClass("clone");
+
+			// make dataset and display
+			newGameBlock = setObjectValues(newGameBlock, makeDatasetForGame(gamedata[gameID]));
+
+			// add it
+            $(newGameBlock).insertBefore(buttonShowMoreWrapper);
+		}
+
+		nDisplayedGames += nDisplayStep;
+		if(nDisplayedGames > games.length)
+			nDisplayedGames = games.length;
+
+		$(buttonShowMore).attr("n_displayed", nDisplayedGames);
+		if(nDisplayedGames >= games.length)
+            $(buttonShowMore).addClass("hidden");
+	}
+}
+
+initAll();

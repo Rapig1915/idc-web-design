@@ -6,15 +6,13 @@ setTimeout(addSlideOut, 350);
 setTimeout(addMenuClases, 400).slow;
 setTimeout(deleteLayer, 500).slow;
 
-basketInfo = typeof(readBasketInfo) == 'function' ? readBasketInfo() : null;
-
 $("body").on("click",".cart-btn",function(){
 	$(this).closest(".game-card-rectangular").find(".inCart").addClass("d-block");
 	$(this).closest(".game-card-rectangular").find(".soon").removeClass("d-block");
 	$(this).closest(".card").find(".inCart").addClass("d-block");
 	$(this).closest(".card").find(".soon").removeClass("d-block");
 	
-	if(!!putGameInBasket)
+	if(typeof(putGameInBasket) == "function")
 	{
 		putGameInBasket($(this).attr("id_idcgame"));
 	}

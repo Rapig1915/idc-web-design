@@ -33,7 +33,7 @@ $("body").on("click",".closeCookies",function(){
 </script>
 
 <script>
-	var basketInfo = typeof(readBasketInfo) == 'function' ? readBasketInfo() : null;
+	var gBasketInfo = typeof(readBasketInfo) == 'function' ? readBasketInfo() : null;
 
 	function getEllipseTimeFromTimestamp(timestamp)
 	{
@@ -174,7 +174,7 @@ $("body").on("click",".closeCookies",function(){
 			dataset.push({ cls: ".cart-btn", remove: true });
 		}
 
-		if(basketInfo && basketInfo.games.includes(gData.common_params.id_idcgame)){
+		if(gBasketInfo && gBasketInfo.games.includes(gData.common_params.id_idcgame)){
 			dataset.push({ cls: ".inCart", addClass: "d-block" });
 		}
 
