@@ -425,7 +425,9 @@ body {
     .game-card-rectangular img {
       -o-object-fit: cover;
          object-fit: cover;
-      height: 76px; }
+      height: 76px; 
+      width: 100%
+    }
     .game-card-rectangular .bg-img-container {
       height: 76px;
       width: 136px; }
@@ -438,7 +440,8 @@ body {
       right: 0;
       bottom: 0;
       left: 0;
-      padding: .5rem; }
+      padding: .5rem; 
+    }
   
   @media (max-width: 575.98px) {
     .game-card-rectangular .bg-img-container {

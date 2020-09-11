@@ -204,7 +204,7 @@ function clearGames()
 {
     $(".tab-pane .game-card-square").remove();
     $(".tab-pane .game-card-rectangle").remove();
-    $(".tab-pane .btn-show-more").removeAttr("n_displayed");
+    $(".tab-pane .btn-show-more").attr("n_displayed", "");
 }
 
 function initGames(games, tab /* all/featured/new/sale/upcoming */, mode/* square/rectangle */, step_games = 10)
