@@ -123,7 +123,7 @@
 // ********************************************************************  RENDER  **********************************************************//
 
 	$html = str_replace('src="/','src="https://en.idcgames.com/',$html);
-	$html = str_replace('/unilogin','https://en.idcgames.com/unilogin',$html);
+	//$html = str_replace('/unilogin','https://en.idcgames.com/unilogin',$html);
 	$html = str_replace('idcgames.net','idcgames.com',$html);
 
 	try {

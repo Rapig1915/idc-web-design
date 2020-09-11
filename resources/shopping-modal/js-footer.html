@@ -46,6 +46,9 @@
     
     $(`.cart-btn[id_idcgame=${id_idcgame}]`).closest(".card").find(".inCart").removeClass("d-block");
     $(`.cart-btn[id_idcgame=${id_idcgame}]`).closest(".game-card-rectangular").find(".inCart").removeClass("d-block");
+
+    // speical for checkout orders
+    $(`.btn-remove-cart-item[id_idcgame=${id_idcgame}]`).closest(".game-block.order").remove();
   }
 
   function refreshCartCount(count = null){
@@ -97,7 +100,8 @@
         gameID: basketInfo.games[i],
         currency: result.currency, 
         original_price: gPrice, 
-        discount: discount_price, 
+        discount: discount_price,
+        discount_percent: discount_percent,
         price: (gPrice - discount_price).toFixed(2), 
         data: gData 
       });

@@ -9,25 +9,27 @@ $("body").on("click",".closeCookies",function(){
 	var user_currency = getCookie('currency') || 'EUR';
   var user_currency_symbol = getCookie('simbol') || '€';
 
-  // Calc discount sum and window/apple/linux flag
-  for(var gameID in gamedata){
-    var discount_price = 0, discount_percent = 0;
-    var gData = gamedata[gameID];
-    if(gData && gData.common_params && gData.common_params.game_offer){
-      for(var o = 0; o < gData.common_params.game_offer.length; o ++){
-        var gOffer = gData.common_params.game_offer[o];
-        discount_percent += gOffer.discount;
-      }
+	// Calc discount sum and window/apple/linux flag
+	if(typeof(gamedata) != "undefined"){
+		for(var gameID in gamedata){
+			var discount_price = 0, discount_percent = 0;
+			var gData = gamedata[gameID];
+			if(gData && gData.common_params && gData.common_params.game_offer){
+				for(var o = 0; o < gData.common_params.game_offer.length; o ++){
+					var gOffer = gData.common_params.game_offer[o];
+					discount_percent += gOffer.discount;
+				}
 
-      gamedata[gameID].common_params.game_offer_discount_percent = discount_percent;
-    }
+				gamedata[gameID].common_params.game_offer_discount_percent = discount_percent;
+			}
 
-    if(gData && gData.common_params){
-      gamedata[gameID].common_params.flagWindows = true;
-      gamedata[gameID].common_params.flagApple = false;
-      gamedata[gameID].common_params.flagLinux = false;
-    }
-  }
+			if(gData && gData.common_params){
+				gamedata[gameID].common_params.flagWindows = true;
+				gamedata[gameID].common_params.flagApple = false;
+				gamedata[gameID].common_params.flagLinux = false;
+			}
+		}
+	}
 </script>
 
 <script>

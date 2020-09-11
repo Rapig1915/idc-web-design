@@ -13,6 +13,11 @@ $("body").on("click", ".btn-remove-cart-item", function(){
   if(id_idcgame && typeof(removeGameFromBasket) == 'function'){
     removeGameFromBasket(id_idcgame);
     initCartItems();
+
+    var reloadHandler = $(this).attr("handlerReload");
+    if(reloadHandler && typeof(window[reloadHandler]) == "function"){
+      window[reloadHandler]();
+    }
   }
 })
 

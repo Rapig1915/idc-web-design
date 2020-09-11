@@ -1,3 +1,167 @@
+<script src="/assets/config/gamedata.js?==(current_time)=="></script>
 <script>
+    var idcpayment_transaction_url = "https://idcpayment.com/payment/idcgames/begin_transaction/{transaction_id}/{lang}/{pmpc_id}";
+    
     blackMenu();
+
+    function initOrderItems()
+    {
+        var cartInfo = calcCartPrice();
+
+        var objGameContainer = $(`.checkout-item-container`);
+        objGameContainer.find(".game-block.order").remove();
+
+        if(cartInfo && !!cartInfo.games){
+            $(".order-total-price").text(`${cartInfo.simbol} ${cartInfo.price}`);
+
+            for(var i = 0; i < cartInfo.games.length; i ++){
+                var gameID = cartInfo.games[i].gameID;
+                var newGameBlock = $(".game-block.order.clone").clone().removeClass("hidden").removeClass("clone");
+
+                var dataset = makeDatasetForGame(gamedata[gameID]);
+                dataset.push({ cls: ".btn-remove-cart-item", attr: "id_idcgame", value: gameID });
+        
+                newGameBlock = setObjectValues(newGameBlock, dataset, true);
+                $(newGameBlock).appendTo(objGameContainer);
+            }
+        }
+    }
+
+    function loadPaymentMethods() {
+        console.log("Getting available payment methods from idcpayment...");
+        selected_paymethod_id = 0;
+
+        $(".loading-paymethods").removeClass("d-none");
+
+        var objPMContainer = $(`.payment-methods-container`)
+        objPMContainer.addClass("hidden");
+        objPMContainer.find(".payment-method-block").remove();
+
+        $.ajax({
+            type:"POST",
+            url:"/unilogin/request_idcpayment.php?action=get_pmp_list",
+            // url:"http://idcpayment.localhost/api/v1/idcgames/get_pmp_list",
+            data: `token=${loadSession('token')}`,
+            dataType: 'text',
+            async:true,
+            success: function(json){
+                var result = JSON.parse(json);
+                if (result.success == true){
+                    console.log(result.pmp);
+                    for(var i = 0; i < result.pmp.length; i ++)
+                    {
+                        //$('<div class="col-12 row pb-2 pt-1 paymethod-row"><div class="font-weight-bold col-md-1" style="text-align: left;"><button class="btn-sel-paymethod btn btn-sm btn-secondary py-1 pl-0 pr-0" data-pmp-id="' + result.pmp[i].pmp_id + '" data-paymethod-name="' + result.pmp[i].name + '" style="margin-top:-5px; background:transparent; border: none"><i class="fas fa-circle"></i></button></div><div class="font-weight-bold col-md-10"><img src="' + result.pmp[i].thumb + '" class="img-user pr-1" data-group="common_params" data-type="game_logo" data-target="src" alt="IDC/Games">' + result.pmp[i].name + '</div></div>').appendTo($(".paymethod-row-after"));
+                        var newPMBlock = $(".payment-method-block.clone").clone().removeClass("hidden").removeClass("clone");
+                        var dataset = [
+                            { cls: ".text-pm-name", text: result.pmp[i].name },
+                            { cls: ".payment-icon", attr: "src", value: result.pmp[i].thumb },
+                            { cls: ".custom-control-input", attr: "id", value: `${result.pmp[i].name}` },
+                            { cls: ".custom-control-input", attr: "data-pmp-id", value: `${result.pmp[i].pmp_id}` },
+                            { cls: ".custom-control-input", attr: "data-target", value: `#collpase${result.pmp[i].name}` },
+                            { cls: ".custom-control-input", attr: "aria-controls", value: `collpase${result.pmp[i].name}` },
+                            { cls: ".custom-control-label", attr: "for", value: `${result.pmp[i].name}` },
+                            { cls: ".collapse", attr: "id", value: `collpase${result.pmp[i].name}` },
+                        ];
+                
+                        newPMBlock = setObjectValues(newPMBlock, dataset, true);
+                        $(newPMBlock).appendTo(objPMContainer);
+                    }
+                }
+
+                $(".loading-paymethods").addClass("d-none");
+                $(".payment-methods-container").removeClass("hidden");
+            },
+            error: function(){  
+                console.log("Error getting game pmp data");
+                $(".loading-paymethods").addClass("d-none");
+                $(".no-paymethods").removeClass("d-none");
+            }
+        });
+    }
+
+    function showMessage(type/* success/error/warning */, message)
+    {
+        $(".checkout-feedback").removeClass("d-none");
+        $(".checkout-feedback .text-message")
+            .text(message)
+            .removeClass("text-success")
+            .removeClass("text-warning")
+            .addClass(`text-${type}`);
+
+        setTimeout(function(){
+            $(".checkout-feedback").addClass("d-none");
+        }, 5000);
+    }
+
+    function enableProceedPayment(status, placeholder)
+    {
+        if(status){
+            $(".btn-proceed-payment").removeClass("disabled");
+            $(".btn-proceed-payment").text("PAY NOW");
+        }
+        else{
+            $(".btn-proceed-payment").addClass("disabled");
+            $(".btn-proceed-payment").text(placeholder || "In Process...");
+        }
+    }
+
+    function proceedPayment() {
+        if($(this).hasClass("disabled"))
+            return;
+
+        var selected_paymethod_id = $(".payment-methods-container input[name='paymentMethod']:checked").attr("data-pmp-id");
+        if(!selected_paymethod_id)
+        {
+            showMessage("warning", "No payment method selected.");
+            return;
+        }
+
+        var cartInfo = calcCartPrice();
+        if(cartInfo.price <= 0)
+        {
+            showMessage("warning", "Sorry, your cart is empty!");
+            return;
+        }
+
+        var this_btn = this;
+        var bought_data = '';
+        var b_data = [];
+
+        console.log(cartInfo);
+
+        for(var i = 0; i < cartInfo.games.length; i ++){
+            var item = cartInfo.games[i];
+            b_data.push({"type":"GAME","id_idcgame":item.gameID,"price":item.price,"has_offer":item.discount>0,"offer_discount":item.discount_percent});
+        }
+
+        bought_data = JSON.stringify(b_data);
+
+        console.log(bought_data);
+
+        enableProceedPayment(false);
+
+        $.ajax({
+            type:"POST",
+            url:"/unilogin/request_idcpayment.php?action=create_transaction",
+            data: `token=${loadSession('token')}&amount=${cartInfo.price}&bought_data=${bought_data}&currency=${cartInfo.currency.toUpperCase()}&pmp_id=${selected_paymethod_id}&id_idcuser=${getCookie('id')}&redirect_on_success=https://==(language)==.idcgames.net/clear-cart&redirect_on_fail=https://==(language)==.idcgames.net`,
+            dataType: 'text',
+            async:true,
+            success: function(json){
+                var result = JSON.parse(json);
+                if(result && result.success && result.transaction_id && result.pmpc_id){
+                    window.open(idcpayment_transaction_url.replace("{transaction_id}", result.transaction_id).replace("{lang}", "==(language)==".toUpperCase()).replace("{pmpc_id}", result.pmpc_id));
+                }else{
+                    console.log("Something wrong in creating payment transaction - response error");
+                    showMessage("warning", "Something wrong while proceeding payment...");
+                }
+                enableProceedPayment(true);
+            },
+            error: function(){  
+                console.log("Something wrong in creating payment transaction - connection error");
+                showMessage("warning", "Something wrong while creating transaction...");
+                
+                enableProceedPayment(true);
+            }
+        });
+    }
 </script>

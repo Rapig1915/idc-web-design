@@ -79,7 +79,7 @@ $.get('./idcjson/topgames-panel.json', function(json){
 		{
 			initOfferGames(
 				topgames_panel.offer_categories[offer_name].games,
-				{ name: offer_name, max_percent: topgames_panel.offer_categories[offer_name].max_percent },
+				{ name: offer_name, max_percent: topgames_panel.offer_categories[offer_name].max_percent, updated_at: topgames_panel.offer_categories[offer_name].updated_at },
 				false
 			);
 		}
