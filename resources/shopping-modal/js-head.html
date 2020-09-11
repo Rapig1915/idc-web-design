@@ -49,7 +49,8 @@
     $(`.cart-btn[id_idcgame=${id_idcgame}]`).closest(".game-card-rectangular").find(".inCart").removeClass("d-block");
 
     // speical for checkout orders
-    $(`.btn-remove-cart-item[id_idcgame=${id_idcgame}]`).closest(".game-block.order").remove();
+    if(typeof(initOrderItems) == "function")
+      initOrderItems();
   }
 
   function refreshCartCount(count = null){
