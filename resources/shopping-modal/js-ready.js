@@ -30,7 +30,7 @@ function initCartItems()
 
 	if(cartInfo && !!cartInfo.games){
     $(".shoppingCartModal .text-item-count").text(cartInfo.count);
-    $(".shoppingCartModal .text-discount-price").text(`${cartInfo.simbol} ${cartInfo.discount}`);
+    $(".shoppingCartModal .text-original-price").text(`${cartInfo.simbol} ${cartInfo.original_price}`);
     $(".shoppingCartModal .text-price").text(`${cartInfo.simbol} ${cartInfo.price}`);
 
 		for(var i = 0; i < cartInfo.games.length; i ++){

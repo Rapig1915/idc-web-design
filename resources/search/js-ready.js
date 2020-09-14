@@ -26,6 +26,8 @@ $('input[name = gameCategories]').click(function(){
         $(".categories-title").find("p").removeClass("text-primary");
         $(".categories-title").find("p").addClass("text-white");
     }
+
+    doSearch();
 });
 
 $(".delete-filters-categories").click(function(){
@@ -35,6 +37,8 @@ $(".delete-filters-categories").click(function(){
     $(".categories-title").find("p").removeClass("text-primary");
     $(".categories-title").find("p").addClass("text-white");
     $(".allFilters-title").find(".badge").text($("#categories input:checkbox:checked").length + $("#price input:radio:checked").length);
+
+    doSearch();
 });
 
 $('input[name = priceRange]').click(function(){
@@ -52,6 +56,8 @@ $('input[name = priceRange]').click(function(){
         $(".priceRange-title").find("p").removeClass("text-primary");
         $(".priceRange-title").find("p").addClass("text-white");
     }
+
+    doSearch();
 });
 
 $(".delete-filters-priceRange").click(function(){
@@ -61,6 +67,8 @@ $(".delete-filters-priceRange").click(function(){
     $(".priceRange-title").find("p").removeClass("text-primary");
     $(".priceRange-title").find("p").addClass("text-white");
     $(".allFilters-title").find(".badge").text($("#categories input:checkbox:checked").length + $("#price input:radio:checked").length);
+
+    doSearch();
 });
 
 $('#filtersList').click(function(){
@@ -96,6 +104,8 @@ $(".delete-filters-all").click(function(){
     $(".allFilters-title").find("h4").removeClass("text-primary");
     $(".allFilters-title").find("h4").addClass("text-white");
     $(".allFilters-title").find(".badge").text("0");
+
+    doSearch();
 });
 
 $("body").on("click",'#filtersList input',function(){
@@ -142,7 +152,9 @@ $("body").on("click",".textForMenu",function(){
     $(".navbar-toggler").find("i").addClass("upside-down");
 });
 
-$("body").on("click",".btn-proceed-search",function(){
+var currentSearchId = 1;
+
+function doSearch(){
     // search games
     clearGames();
 
@@ -153,6 +165,8 @@ $("body").on("click",".btn-proceed-search",function(){
     for(var i = 0; i < selCategories.length; i ++)
         paramCategory += $(selCategories[i]).attr("id") + ",";
 
+    var saveSearchId = ++ currentSearchId;
+    
     $.ajax({
         type:"POST",
         url:"/assets/search/searchfilter.php",
@@ -162,7 +176,7 @@ $("body").on("click",".btn-proceed-search",function(){
         success: function(json){
             if(typeof(json) !== "undefined" && typeof(json.games) !== "undefined"){
                 gamesSearchResult = json.games;
-                initAll();
+                initAll(saveSearchId);
             }else{
                 console.log("Wrong data");
             }
@@ -171,7 +185,10 @@ $("body").on("click",".btn-proceed-search",function(){
             console.log("Search failed: ", error);
         }
     });
-});
+}
+
+$("body").on("change","input.input-filter", doSearch);
+$("body").on("click",".btn-proceed-search", doSearch);
 
 $("body").on("click",".btn-show-more",function(){
     var tab = $(this).attr("data-tab");
@@ -186,8 +203,10 @@ $("body").on("click",".btn-show-more",function(){
     initGames(gamesSearchResult[tab], tab, mode);
 });
 
-function initAll()
+function initAll(searchId)
 {
+    if(searchId > 0 && searchId != currentSearchId) return;
+
     initGames(gamesSearchResult.all, "all", "square")
     initGames(gamesSearchResult.all, "all", "rectangle")
     initGames(gamesSearchResult.featured, "featured", "square")
@@ -207,7 +226,7 @@ function clearGames()
     $(".tab-pane .btn-show-more").attr("n_displayed", "");
 }
 
-function initGames(games, tab /* all/featured/new/sale/upcoming */, mode/* square/rectangle */, step_games = 10)
+function initGames(games, tab /* all/featured/new/sale/upcoming */, mode/* square/rectangle */, step_games = 9)
 {
 	if(tab !== "all" && tab !== "featured" && tab !== "new" && tab !== "sale" && tab !== "upcoming")
         return;
@@ -220,11 +239,11 @@ function initGames(games, tab /* all/featured/new/sale/upcoming */, mode/* squar
     var buttonShowMore = $(objGameContainer).find(`.btn-show-more`);
     var buttonShowMoreWrapper = $(objGameContainer).find(".btn-show-more-wrapper");
 
-	var nDisplayedGames = parseInt($(buttonShowMore).attr("n_displayed") || "0");
+	var nNextGameIndex = parseInt($(buttonShowMore).attr("n_displayed") || "0");
 	var nDisplayStep = step_games;
 
-	if(games && nDisplayedGames < games.length){
-		for(var i = nDisplayedGames; i < games.length && i < nDisplayedGames + nDisplayStep; i ++){
+	if(games && nNextGameIndex < games.length){
+		for(var i = nNextGameIndex; i < games.length; i ++){
 			var gameID = games[i];
 
             if(typeof(gamedata) == "undefined" || typeof(gamedata[gameID]) == "undefined")
@@ -239,18 +258,35 @@ function initGames(games, tab /* all/featured/new/sale/upcoming */, mode/* squar
 
 			// add it
             $(newGameBlock).insertBefore(buttonShowMoreWrapper);
+            if(-- nDisplayStep <= 0) break;
 		}
 
-		nDisplayedGames += nDisplayStep;
-		if(nDisplayedGames > games.length)
-			nDisplayedGames = games.length;
+		nNextGameIndex = i;
+		if(nNextGameIndex > games.length)
+            nNextGameIndex = games.length;
 
-		$(buttonShowMore).attr("n_displayed", nDisplayedGames);
-		if(nDisplayedGames >= games.length)
-            $(buttonShowMore).addClass("hidden");
-	}
+    }
+    $(buttonShowMore).attr("n_displayed", nNextGameIndex);
+    if(nNextGameIndex >= games.length)
+        $(buttonShowMore).addClass("hidden");
+    else
+        $(buttonShowMore).removeClass("hidden");
 }
 
 clearGames();
-initAll();
 $(".btn-proceed-search").trigger("click");
+
+switch(getQueryVariable('tab')){
+    case 'featured':
+        $('#featured-tab').tab('show');
+        break;
+    case 'new':
+        $('#new-tab').tab('show');
+        break;
+    case 'sale':
+        $('#sale-tab').tab('show');
+        break;
+    case 'upcoming':
+        $('#upcoming-tab').tab('show');
+        break;
+}

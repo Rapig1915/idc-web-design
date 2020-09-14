@@ -24,7 +24,8 @@ $("body").on("click",".btn-show-more",function(){
 	// 	initDiscoveredGames($(this).attr("type"));
 	// }
 	// go to search page with type
-	window.open("/search", "_blank");
+	var tab = $(this).attr("type") || "";
+	window.open(`/search?tab=${tab}`, "_blank");
 });
 
 //Carousel top
