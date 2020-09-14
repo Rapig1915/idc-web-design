@@ -380,6 +380,8 @@ function initNews()
 		for(var i = 0; i < all_news.global.recent.length; i ++){
 			var newsData = all_news.global.recent[i];
 
+			if(newsData.kind == "Reviews")	continue;
+
 			// check Caresol block
 			if(newsCountInCurrentPage >= newsCountPerPage || pageNumber <= 0){
 				pageNumber ++;
