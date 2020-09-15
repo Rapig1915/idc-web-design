@@ -288,7 +288,7 @@ function initGoodGames(max_games = 20)
 					: $(".game-block.whatsgood.small-card.clone").clone().removeClass("hidden").removeClass("clone");
 
 			// make dataset and display
-			newGameBlock = setObjectValues(newGameBlock, makeDatasetForGame(gamedata[gameID]));
+			newGameBlock = setObjectValues(newGameBlock, makeDatasetForGame(gamedata[gameID], gameCountInCurrentPage == 0));
 
 			// add it
 			if(gameCountInCurrentPage == 0)

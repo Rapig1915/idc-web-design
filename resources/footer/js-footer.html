@@ -137,7 +137,7 @@ $("body").on("click",".closeCookies",function(){
 		return elem;
 	}
 
-	function makeDatasetForGame(gData)
+	function makeDatasetForGame(gData, clip_big = false)
 	{
 		if(!gData)	return [];
 
@@ -148,7 +148,7 @@ $("body").on("click",".closeCookies",function(){
 		var dataset = [
 			{ cls: ".text-game-name", text: gData.name },
 			{ cls: ".anchor-game-home", attr: "href", value: `/${gData.common_params.game_seo}` },
-			{ cls: ".gameCard-img", attr: "src", value: getGameHomeImage(gData) },
+			{ cls: ".gameCard-img", attr: "src", value: getGameHomeImage(gData, clip_big) },
 			{ cls: ".card-img-overlay", attr: "src", value: gData.common_params.game_logo },
 			{ cls: ".show-os-windows", hide: !gData.common_params.flagWindows },
 			{ cls: ".show-os-apple", hide: !gData.common_params.flagApple },
@@ -186,12 +186,12 @@ $("body").on("click",".closeCookies",function(){
 		return (gData && gData.common_params && gData.common_params && gData.common_params.game_price && gData.common_params.game_price[user_currency]) || 0;
 	}
 
-	function getGameHomeImage(gData)
+	function getGameHomeImage(gData, big = false)
 	{
 		var gameID = gData && gData.common_params && gData.common_params.id_idcgame;
 		//return `https://idcgames.com/global_releases/splash/${gameID}.png`;
 		//return `https://cdn.idcgames.com/img/home/${gData.common_params.game_seo}.jpg`;
-		return (gData && gData.store_params && gData.store_params.background_clip_big) ||
+		return (gData && gData.store_params && (big ? gData.store_params.background_clip_big : gData.store_params.background_clip_small)) ||
 					 (gData && gData.store_params && gData.store_params.background_clip_small) ||
 					 (gData && gData.store_params && gData.store_params.background_foros) || `https://idcgames.com/global_releases/splash/${gameID}.png`;
 	}

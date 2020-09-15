@@ -315,7 +315,8 @@ span.btn.btn-primary.btn-sm.px-2, .btn-group-sm > span.btn.btn-primary.px-2 {
   .game-card-rectangular img {
     -o-object-fit: cover;
        object-fit: cover;
-    height: 76px; }
+    height: 76px;
+    min-width: 100%; }
   .game-card-rectangular .bg-img-container {
     height: 76px;
     width: 136px; }
