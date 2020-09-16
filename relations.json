@@ -2,5 +2,6 @@
 	"home": ["nav","home","footer"],
 	"new-home": ["nav","new-home","footer","shopping-modal"],
 	"search": ["nav","search","footer","shopping-modal"],
-	"checkout": ["nav","checkout","footer","shopping-modal"]
+	"checkout": ["nav","checkout","footer","shopping-modal"],
+	"game-home": ["nav-game","game-home","footer","shopping-modal"]
 }
