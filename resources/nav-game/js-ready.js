@@ -75,3 +75,15 @@ $("body").on( "click", ".openMenuBtn", function() {
   $("body").change("#login-user",function(){
 	setCookie("nicklogin", $("#login-user").val(), 365);
   });
+
+  $("body").on("click",".cart-btn",function(){
+    var type = "rubberBand";
+    var counter = ($(".shopping-cart").find("span").text()*1)+1;
+    $(".shopping-cart").find("i").addClass(type);
+    $(".shopping-cart").find("span").text(counter);
+    $(".shopping-cart").find("span").addClass("bg-gray-900");
+    setTimeout(function() {
+        $(".shopping-cart").find("i").removeClass(type);
+        $(".shopping-cart").find("span").removeClass("bg-gray-900");
+    },1000);
+});
