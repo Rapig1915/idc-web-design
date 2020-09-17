@@ -1,0 +1,407 @@
+<script src="/assets/content/%%(id_idcgame)%%-news.js?===(current_time)=="></script>
+<script src="/assets/content/%%(id_idcgame)%%-media.js?===(current_time)=="></script>
+<script src="/assets/content/%%(id_idcgame)%%-guides.js?===(current_time)=="></script>
+<script src="/assets/config/status.js?===(current_time)=="></script>
+<script src="/assets/config/catlang.js?===(current_time)=="></script>
+<script>
+/* Textos */
+var readMore = "==(read_more)==";
+var yt = '__(YouTube_promotional_trailer)__';
+var txtChars = {
+	"game_char_1p": "==(game_char_1p)==",
+	"game_char_mp": "==(game_char_mp)==",
+	"game_char_omp": "==(game_char_omp)==",
+	"game_char_lmp": "==(game_char_lmp)==",
+	"game_char_co": "==(game_char_co)==",
+	"game_char_oco": "==(game_char_oco)==",
+	"game_char_ico": "==(game_char_ico)==",
+	"game_char_sps": "==(game_char_sps)==",
+	"game_char_cpm": "==(game_char_cpm)==",
+	"game_char_iap": "==(game_char_iap)==",
+	"game_char_edit": "==(game_char_edit)=="
+}
+/* Control params */ 
+if( typeof(loadedUD) == "undefined" ){
+	var loadedUD = 0;
+}
+/* Game data */ 
+if( typeof(gamedata) == "undefined" ){
+	var  gamedata = {};
+	var aux = &&([game.current].[full])&&;
+	gamedata[%%(id_idcgame)%%] = aux[0];
+}
+var thisStatus = "s%%(game_status_id)%%";
+var playable = gameStatus[thisStatus].playable;
+var cat = [
+	"x-%%(game_cat1)%%",
+	"x-%%(game_cat2)%%",
+	"x-%%(game_cat3)%%",
+	"x-%%(game_cat4)%%",
+	"x-%%(game_cat5)%%",
+	"x-%%(game_cat6)%%"
+];
+
+/* Funciones */ 
+function html2text(html) {
+    var tag = document.createElement('div');
+    tag.innerHTML = html;
+    return tag.innerText;
+}
+function typeToModal(input){
+	var types = {
+		"0": "",
+		"1": "1",
+		"2": "2",
+		"3": "1",
+		"4": "2",
+		"5": "3"
+	}
+	return types[input];
+}
+function doCarrousel(){
+	$("#carouselAnalisis").find(".carousel-inner").html("");
+	try{
+		if( news.normal.recent.length > 1 ){
+			for(i=1;i<news.normal.recent.length;i++){
+				var url = news.normal.recent[i].url.replace(".html", "");
+				var body = html2text(news.normal.recent[i].body);
+				if( body.length > 285) body = body.substr(0, 280)+'...';
+				$("#carouselAnalisis").find(".carousel-inner").append('<div class="carousel-item flex-column p-lg-5 p-4"><p class="analisisName fontSecondarySmall">'+news.normal.recent[i].author+'</p><p class="analisisDate fontSecondarySmall">'+news.normal.recent[i].pubdate+'</p><p>'+news.normal.recent[i].title+'</p><p>'+body+'</p><p><a href="'+url+'" title="'+news.normal.recent[i].title+'">'+readMore+'</a></p></div>');
+			}
+			$("#carouselAnalisis").find(".carousel-inner").find(".carousel-item:first").addClass("active");
+		}else{
+			$("#carouselAnalisis").addClass(".d-none");
+		}
+	}catch(e){
+		console.log( "Carrousel empty" );
+	}
+}
+function doLast(){
+	var defaultVideo = '__(game_home_video_bg)__';
+	var defaultMedia = '__(background_artwork2)__';
+	$(".dolast").each( function( i, e ){
+		var thisIs = $(this);
+		var type = thisIs.attr("data-type");
+		var kind = thisIs.attr("data-kind");
+		var cont = thisIs.attr("data-cont");
+		var index = thisIs.attr("data-index");
+		if ( typeof(index) == "undefined" ) index = i;
+		try{
+			if( typeof(content[type][kind]['recent'][index]) != "undefined" ){
+				if(cont == "text"){
+					content[type][kind]['recent'][index]['text'] = html2text( content[type][kind]['recent'][index]['body'] );
+					if ( content[type][kind]['recent'][index]['text'].length > 400 ) {
+						content[type][kind]['recent'][index]['text'] = content[type][kind]['recent'][index]['text'].substr(0,396)+" ...";
+					}
+				}
+				var element = content[type][kind]['recent'][index][cont];
+				thisIs.html(element);
+			}
+		}catch(e){
+			thisIs.remove();
+			//console.log( kind+"-"+type );
+		}
+	});
+	$(".dolastAt").each( function( i, e ){
+		var thisIs = $(this);
+		var type = thisIs.attr("data-type");
+		var kind = thisIs.attr("data-kind");
+		var cont = thisIs.attr("data-cont");
+		var style = thisIs.attr("data-style");
+		if ( typeof(style) == "undefined") style = "0";
+		var after = thisIs.attr("data-after");
+		if ( typeof(after) == "undefined") after = "0";
+		var index = thisIs.attr("data-index");
+//console.log("DoLastAt: "+i+"-"+index+"-"+type+"-"+kind+"-"+cont);
+		try{
+//console.log("TypeOf:"+ typeof(content[type][kind]['recent'][index]) );
+			if( typeof(content[type][kind]['recent'][index]) != "undefined" ){
+				var cont = thisIs.attr("data-cont");
+				var cont_array = cont.split(",");
+				var attr = thisIs.attr("data-attr");
+				var attr_array = attr.split(",");
+				$.each( attr_array, function( i, value ){
+					var source = cont_array[i];
+					if ( source == "url" ){
+						var url = content[type][kind]['recent'][index].url.replace(".html", "");
+						thisIs.attr( attr_array[i] , url );
+					}else if ( source == "modal" ){
+						var pointer = ".modal"+typeToModal( content[type][kind]['recent'][index].url_type )
+						thisIs.attr( attr_array[i] , pointer );
+					}else{
+						thisIs.attr( attr_array[i] , content[type][kind]['recent'][index][source] );
+					}
+//console.log("Source: "+source);
+//console.log("Style: "+style);
+
+					if( style == "1" ){
+						var afterRule = "";
+						if (after == "1") afterRule = "::after";
+						if( content[type][kind]['recent'][index].url_type == 5 ){
+							// VIDEO DE YT
+							// http://i3.ytimg.com/vi/gJOZVwnqRcg/hqdefault.jpg
+							// https://img.youtube.com/vi/Yk5ToAttzgY/0.jpg
+							var original = content[type][kind]['recent'][index].body;
+							var res = original.split("/");
+							var len = res.length-1;
+							var img = 'https://img.youtube.com/vi/'+res[len]+'/0.jpg';
+							$("head").append("<style>[data-type='"+type+"'][data-kind='"+kind+"'][data-index='"+index+"']"+afterRule+" { background: url('"+img+"') center no-repeat;background-size: auto 100%; }</style>");
+						}else if( content[type][kind]['recent'][index].url_type == 2 ){
+							$("head").append("<style>[data-type='"+type+"'][data-kind='"+kind+"'][data-index='"+index+"']"+afterRule+" { background: url('"+defaultVideo+"') center no-repeat;background-size: auto 100%; }</style>");
+						}else if( content[type][kind]['recent'][index].thumb != "" ) {
+							$("head").append("<style>[data-type='"+type+"'][data-kind='"+kind+"'][data-index='"+index+"']"+afterRule+" { background: url('"+content[type][kind].recent[index].thumb+"') center no-repeat;background-size: auto 100%; }</style>");
+						}else{
+							var section = thisIs.attr("data-section");
+							if( section == "video" ) {
+								$("head").append("<style>[data-type='"+type+"'][data-kind='"+kind+"'][data-index='"+index+"']"+afterRule+" { background: url('"+defaultVideo+"') center no-repeat;background-size: auto 100%; }</style>");
+							}else{
+								$("head").append("<style>[data-type='"+type+"'][data-kind='"+kind+"'][data-index='"+index+"']"+afterRule+" { background: url('"+defaultMedia+"') center no-repeat;background-size: auto 100%; }</style>");
+							}
+						}
+					}
+
+				});
+			}else{
+				if( style == "1" ){
+					//console.log( "Removed: "+kind+"-"+type );
+					thisIs.remove();
+				}else{
+					//console.log( "Passed: "+kind+"-"+type );
+				}
+			}
+		}catch(e){
+			console.log( "Error: "+kind+"-"+type+"-"+index );
+		}
+	});
+	if ( $(".gameplaysBox").find("a").length == 0 ){
+		$(".gameplaysBox").remove();
+	}
+}
+function doModal(index, tipo, target){
+	var data = content.media[tipo]["recent"][index];
+	if(typeof(content.media[tipo]["recent"][index]) == "string"){
+		var data = JSON.parse( content.media[tipo]["recent"][index] );
+	}
+	var pointer = data["url"].replace("==(language)==/", "");
+	var url = data["url"].replace(".html", "");
+	$(target).find(".post-author").text(data["author"]);
+	$(target).find(".post-title").text(data["title"]);
+	$(target).find(".post-like").text(data["total_like"]);
+	$(target).find(".post-dislike").text(data["total_dislike"]);
+	$(target).find(".post-id").attr("data-target",data["id"]);
+	$(target).find(".post-url").attr("href",url);
+	$(target).find(".post-share").attr("data-url",url);
+	$(target).find(".post-share").attr("data-description",data["title"]);
+	if ( data["url_type"] == 1 || data["url_type"] == 3 ) {
+		// FOTO
+		$(target).find(".post-image").attr("src",data["body"]);
+		$(target).find(".post-image").attr("title",data["title"]);
+	}else{
+		// VIDEO + EXTERNAL (YT)
+		$(target).find(".post-body").children().attr("src",data["body"]);
+		$(target).find(".post-body").find("iframe").removeClass("d-none");
+		if ( data["url_type"] == 2 || data["url_type"] == 4  ){
+			var video = $('video')[0];
+			video.load();
+			video.play();
+		}
+	}	
+}
+function isPlayable(){
+	if( playable == 1 ){
+		var text = gameStatus[thisStatus].name;
+		$(".controlGame").text(text);
+	}else{
+		var text = "==(play_now_txt)==";
+		$(".controlGame").text(text);
+		$(".controlGame").addClass("playGame");
+	}
+}
+function doLangs(){
+	if('%%(game_lang_es_interface)%%%%(game_lang_es_audio)%%%%(game_lang_es_subtitle)%%' == '' ){ $(".lang-es").remove(); }
+	if('%%(game_lang_en_interface)%%%%(game_lang_en_audio)%%%%(game_lang_en_subtitle)%%' == '' ){ $(".lang-en").remove(); }
+	if('%%(game_lang_de_interface)%%%%(game_lang_de_audio)%%%%(game_lang_de_subtitle)%%' == '' ){ $(".lang-de").remove(); }
+	if('%%(game_lang_it_interface)%%%%(game_lang_it_audio)%%%%(game_lang_it_subtitle)%%' == '' ){ $(".lang-it").remove(); }
+	if('%%(game_lang_fr_interface)%%%%(game_lang_fr_audio)%%%%(game_lang_fr_subtitle)%%' == '' ){ $(".lang-fr").remove(); }
+	if('%%(game_lang_pl_interface)%%%%(game_lang_pl_audio)%%%%(game_lang_pl_subtitle)%%' == '' ){ $(".lang-pl").remove(); }
+	if('%%(game_lang_tr_interface)%%%%(game_lang_tr_audio)%%%%(game_lang_tr_subtitle)%%' == '' ){ $(".lang-tr").remove(); }
+	if('%%(game_lang_el_interface)%%%%(game_lang_el_audio)%%%%(game_lang_el_subtitle)%%' == '' ){ $(".lang-el").remove(); }
+	if('%%(game_lang_pt_interface)%%%%(game_lang_pt_audio)%%%%(game_lang_pt_subtitle)%%' == '' ){ $(".lang-pt").remove(); }
+	if('%%(game_lang_cs_interface)%%%%(game_lang_cs_audio)%%%%(game_lang_cs_subtitle)%%' == '' ){ $(".lang-cs").remove(); }
+	if('%%(game_lang_ro_interface)%%%%(game_lang_ro_audio)%%%%(game_lang_ro_subtitle)%%' == '' ){ $(".lang-ro").remove(); }
+	if('%%(game_lang_ru_interface)%%%%(game_lang_ru_audio)%%%%(game_lang_ru_subtitle)%%' == '' ){ $(".lang-ru").remove(); }
+}
+function doAttributes(){
+	$(".atributes-folder").find(".btnSquare").each(function() {
+		var txt = $(this).text();
+		if ( txt == "" ){
+			$(this).remove();
+		}else{ 
+			$(this).find("p").text( txtChars[txt] );
+		}
+	});
+}
+function gameCat(){
+	var a = 0;
+	$.each( cat, function( index, value ){
+		try {
+			if( value != "x-" ){
+				var thiscat = value.replace("x-", "");
+				var url = catlang[thiscat]["url"];
+				var txt = catlang[thiscat]["txt"];
+				var space = ", ";
+				if (a == 0)  space = " ";
+				$(".categories").append(space +'<a href="https://==(language)==.idcgames.com'+url+'/" title="'+txt+'">'+txt+'</a>');		
+				a++;
+			}
+		}catch(e) {
+			console.log(e);
+		}
+	});
+}
+function runFunctions(){
+	console.log("Started");
+	isScrolling = true;
+	gameCat();
+	doLangs();
+	doAttributes()
+	doLast();
+	doCarrousel();
+	if( yt != '' ) {
+	  $(".video-container").html('<div class="position-absolute fontSecondarySmall trailerTitle">==(trailer)==</div><iframe class="embed-responsive embed-responsive-16by9 mx-lg-5 box-shadow" width="1120" height="630" src="'+ yt +'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
+	}
+	var ev = 0;
+	if(typeof(news.events) != "undefined" && news.events.recent.length > 0 ){
+		$.each( news.events.recent, function( index, value ){
+			var x = new Date(value.end_at);
+			if ( x.getTime() < dateNow.getTime() && ev < 3 ){
+				var z = newProgress(value);
+				$(".bodyEvents").append( z.html );
+				ev = ev + 1;
+			}
+			if ( x.getTime() >= dateNow.getTime() ){
+				var z = newProgress(value);
+				$(".bodyEvents").append( z.html );
+				ev = ev + 1;
+			}
+		});
+	}else{
+		$("#stnEvents").remove();
+	}
+	if( '==(language)==' == 'ru' ) {
+		$(".allnews").html('==(news)==');
+		$(".patchnotes").html('<br>==(patch)==');
+		$(".stnGuiasColGuias").find("h4").addClass("langFontSmaller");
+	}
+}
+</script>
+<script>
+/* Funciones timers */ 
+var dateNow = new Date();
+var txtNotStarted = "==(event_not_started)==: ";
+var txtEnded = "==(event_ended)==";
+var txtRem = "==(event_remaining)==: ";
+function secToTime(timer){
+    d = Math.floor( Number(timer)/1000);
+    var h = Math.floor(d / 3600);
+    var m = Math.floor(d % 3600 / 60);
+	if (m < 10) m = '0'+m;
+    var s = Math.floor(d % 3600 % 60);
+	if (s < 10) s = '0'+s;
+	return h+":"+m+":"+s;
+}
+function calcProgress(start,end,id){
+	if( start > dateNow.getTime() ){
+		var tot = end - start;
+		var yell = tot * 0.2;
+		var red = tot * 0.1;
+		return {"txt": txtNotStarted, "col": "bg-gray-900", "valor": 0, "timer": secToTime( start - dateNow.getTime() ), "opened": 1, "tot": tot, "timeout": Math.floor( (start - dateNow.getTime())/1000 )*1000, "yell": yell, "red": red }
+	}else if (end < dateNow.getTime() ){
+		return {"txt": txtEnded, "col": "bg-gray-900", "valor": 100, "timer": "", "opened": 0, "tot": tot, "timeout": 0, "yell": 0, "red": 0 }
+	}else{
+		var elapsed = dateNow.getTime() - start;
+		var tot = end - start;
+		console.log(tot);
+		var resto = secToTime(tot - elapsed);
+		var percent = Math.floor((elapsed * 100)/tot);
+		var color = "bg-green";
+		if( percent > 80 ) color = "bg-warning";
+		if( percent > 90 ) color = "bg-nearEnd";
+		var yell = tot * 0.2;
+		var red = tot * 0.1;
+		return {"txt": txtRem, "col": color, "valor": percent, "timer": ": "+resto, "opened": 2, "tot": tot, "timeout": Math.floor( (tot - elapsed)/1000 )*1000, "yell": yell, "red": red }
+	}
+}
+function newProgress(item){
+	var dateFrom = new Date(item.start_at);
+	var dateTo   = new Date(item.end_at);
+	var logo = "%%(game_logo)%%";
+	var target = calcProgress( dateFrom.getTime(), dateTo.getTime(), item.id );
+	var url = item.url.replace(".html", "");
+	var html = '<div class="flex-row p-3 bg-secondary progressItem mt-3 mb-0" id="pr'+item.id+'" data-ini="'+dateFrom.getTime()+'" data-end="'+dateTo.getTime()+'" data-tot="'+target.tot+'" data-open="'+target.opened+'" data-timeout="'+target.timeout+'" data-yell="'+target.yell+'" data-red="'+target.red+'"><div class="progressLogo bg-gray-900"><img src="'+logo+'" class="img-user-progress" alt="'+item.title+'"></a></div><div class="progressBlock"><div class="progressTitle"><a href="'+url+'">'+item.title+'</a></div><div class="progressBox bg-gray-900 mt-1"><div class="progressText text-secondary"><span class="text">'+target.txt+'</span><span class="clock">'+target.timer+'</span></div><div class="progressBar '+target.col+'"></div></div></div></div>';
+	return {"html": html, "open":target.opened};
+}
+function actTime(){
+	$("body").find(".progressItem").each(function( index ) {
+		var open = $(this).attr("data-open");
+		if ( open == "1" ){
+			var time = $(this).attr("data-timeout");
+			if ( time > 0 ){
+				$(this).attr("data-timeout",time-1000);
+				$(this).find(".clock").text( secToTime(time-1000) );
+			}else{
+				var ini = $(this).attr("data-ini");
+				var end = $(this).attr("data-end");
+				$(this).attr("data-timeout",end-ini);
+				$(this).attr("data-open","2");
+				$(this).find(".progressBar").attr("class","progressBar bg-green");
+				$(this).find(".text").text( txtRem );
+			}
+		}else if ( open == "2" ){
+			var time = $(this).attr("data-timeout")*1;
+			if( time > 0 ){
+				var yell = $(this).attr("data-yell")*1;
+				var red = $(this).attr("data-red")*1;
+				var tot = $(this).attr("data-tot")*1;
+				if ( time < yell && time > red ) $(this).find(".progressBar").attr("class","progressBar bg-warning");
+				if ( time < red ) $(this).find(".progressBar").attr("class","progressBar bg-nearEnd");
+				var percent = (100-((time*100)/tot))+"%";
+				$(this).find(".progressBar").css("width",percent);
+				$(this).attr("data-timeout",time-1000);
+				$(this).find(".clock").text( secToTime(time-1000) );
+			}else{
+				$(this).attr("data-open","0");
+				$(this).find(".progressBar").attr("class","progressBar bg-gray-900");
+				$(this).find(".text").text(txtEnded);
+				$(this).find(".clock").text("");
+			}
+		}
+	});
+}
+/* Contenidos */
+if ( typeof(media) == "undefined") var media = {"global": {"recent": [], "popular": [] } };
+if ( typeof(guide) == "undefined") var guide = {"global": {"recent": [], "popular": [] } };
+if ( typeof(news)  == "undefined") var news =  {"global": {"recent": [], "popular": [] }, "promotions": {"recent": [], "popular": [] } };
+var content = {
+	"media": media,
+	"news": news,
+	"guide": guide
+};
+try { content.media.global.recent.reverse(); } catch(e) { console.log('No Media Global') };
+try { content.guide.global.recent.reverse(); } catch(e) { console.log('No Guide Global') };
+try { content.news.global.recent.reverse(); } catch(e) { console.log('No News Global') };
+try { content.news.promotions.recent.reverse(); } catch(e) { console.log('No promotions') };
+content.media.image = {};
+content.media.video = {};
+content.media.image.recent = [];
+content.media.video.recent = [];
+news.promotions.recent.reverse();
+$.each( content.media.global.recent, function( index, value ){
+	var x = typeToModal(value.url_type);
+	if( x == "1" ){
+		content.media.image.recent.push(content.media.global.recent[index]);
+	}else{
+		content.media.video.recent.push(content.media.global.recent[index]);
+	}
+});
+</script>

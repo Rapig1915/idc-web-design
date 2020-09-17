@@ -1,19 +1,7 @@
-<header class="nolauncher position-relative">
-	<!--Menú Lateral -->
-	<ul id="sidenav-bar" class="sidenav sidenav-closed nav accordion d-flex flex-column border-right border-green-lighter box-shadow sidenav-after bgDarkTexture">
-        <li class="nav-item d-flex d-sm-none logged nolauncher order-lg-5 order-1">
-            <div class="d-lg-none d-flex flex-row justify-content-between align-items-center border-bottom border-green-lighter w-100 featured">
-                <div class="logged nolauncher mb-0 h6 py-2 pl-4">
-                    <a href="https://==(language)==.==(domain)==/==(url_my_account)==" title="==(my_account_txt)==">
-                        <i class="fas fa-user-astronaut cUserNameIcon mr-2"></i><span class="cUserName menu-reduced">==(user_name)==</span>
-                    </a>
-                </div>
-                <div class="pr-4 py-2 logged actLogOff nolauncher">
-                    <a href="#" class="" title="==(sign_out)=="><i class="fas fa-sign-out-alt"></i></a>
-                </div>
-            </div>
-        </li>
-        <li class="nav-item d-flex flex-column order-sm-1 order-3">
+<header>
+    <!--Menú Lateral -->
+    <ul id="sidenav-bar" class="sidenav sidenav-closed nav accordion d-flex flex-column border-right border-green-lighter box-shadow sidenav-after bgDarkTexture nolauncher">
+        <li class="nav-item d-flex flex-column order-lg-1 order-4">
             <div class="bg-gradient d-flex flex-row align-items-center justify-content-between border-bottom border-gray-900 py-1" data-toggle="collapse" data-target="#games-collapse" aria-expanded="true" aria-controls="games-collapse">
 				<div class="d-flex col-10">
 					<p class="text-right colorLight my-1 pl-4"><i class="fas fa-gamepad mr-2"></i>==(games_txt)==</p> 
@@ -51,8 +39,8 @@
 					<a href="https://==(language)==.==(domain)==/==(url_shooter_games)==/">==(shooter_title)==</a>
                 </li>
             </ul> 
-        </li>  
-        <li class="nav-item d-flex flex-column order-sm-2 order-4">
+        </li>
+        <li class="nav-item d-flex flex-column order-lg-2 order-5">
             <div class="bg-gradient d-flex flex-row align-items-center justify-content-between border-bottom border-gray-900 py-1" data-toggle="collapse" data-target="#community-collapse" aria-expanded="true" aria-controls="community-collapse">
                 <div class="d-flex col-10">
                     <p class="text-right colorLight my-1 pl-4"><i class="fas fa-users pr-2"></i>==(community)==</p>
@@ -94,7 +82,7 @@
                 </li>
             </ul>
         </li>
-        <li class="nav-item d-flex flex-column order-sm-3 order-2">
+        <li class="nav-item d-flex flex-column order-lg-3 order-3">
             <div class="bg-gradient d-flex flex-row align-items-center justify-content-between border-bottom border-gray-900 py-1" data-toggle="collapse" data-target="#account-collapse" aria-expanded="true" aria-controls="account-collapse">
                 <div class="d-flex col-10">
                     <p class="text-right colorLight my-1 pl-4"><i class="fas fa-cogs pr-2"></i>==(account)==</p>
@@ -105,132 +93,203 @@
             </div>
             <ul id="account-collapse" class="collapse show list-group">
                 <li class="unlogged h6 border-bottom border-green-lighter mb-0 py-2 pl-4">
-					<a href="https://==(language)==.==(domain)==/==(url_register)==">==(register_txt)==</a>
+					<a href="/==(url_register)==">==(register_txt)==</a>
                 </li>
                 <li class="unlogged h6 border-bottom border-green-lighter mb-0 py-2 pl-4">
-					<a href="https://==(language)==.==(domain)==/==(url_login)==">==(login_txt)==</a>
+					<a href="/==(url_login)==">==(login_txt)==</a>
                 </li>
                 <li class="unlogged h6 border-bottom border-green-lighter mb-0 py-2 pl-4">
-					<a href="https://==(language)==.==(domain)==/==(url_forgot_password)==">==(forgot_password_txt)==</a>
+					<a href="/==(url_forgot_password)==">==(forgot_password_txt)==</a>
                 </li>  
                 <li class="logged h6 border-bottom border-green-lighter mb-0 py-2 pl-4">
-					<a href="https://==(language)==.==(domain)==/==(url_my_account)==">==(my_account_txt)==</a>
+					<a href="/==(url_my_account)==">==(my_account_txt)==</a>
                 </li>
                 <li class="logged h6 border-bottom border-green-lighter mb-0 py-2 pl-4">
-					<a href="https://==(language)==.==(domain)==/==(url_my_games)==">==(my_games_txt)==</a>
+					<a href="/==(url_my_games)==">==(my_games_txt)==</a>
                 </li>
-                <!-- <li class="logged h6 border-bottom border-green-lighter mb-0 py-2 pl-4"> -->
-                <!-- <a href="https://==(language)==.==(domain)==/==(url_my_promo_coins)==">==(my_promo_coins_txt)==</a> -->
-                <!-- </li> -->
-                <!-- <li class="logged h6 border-bottom border-green-lighter mb-0 py-2 pl-4"> -->
-                <!-- <a href="https://==(language)==.==(domain)==/==(url_surveys)==">==(surveys_txt)==</a> -->
-                <!-- </li> -->  
-                <li class="d-sm-none d-block ">
-                    <a class="nav-link d-flex flex-row h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://==(language)==.==(domain)==/" data-toggle="collapse" data-target="#language-collapse" aria-expanded="false" aria-controls="language-collapse">
+                <li class="d-md-none d-flex flex-column">
+                    <a class="nav-link d-flex flex-row h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="/" id="navbarDropdownLanguageLateral" role="button" data-toggle="collapse" data-target="#language-collapse" aria-expanded="false" aria-controls="language-collapse">
                         <img class="flag setflag" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="==(language)==">
                         <div class="pl-2">==(change_language_txt)== <i class="pl-3 fas fa-chevron-down fa-xs mb-0"></i></div>
                     </a>
-                    <div class="collapse" aria-labelledby="navbarDropdown2" id="language-collapse">
-                        <a class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://es.==(domain)==" title="Español"		data-in="es" data-out="es"><img class="flag flag-es mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Español"  >ES</a>           
-                        <a class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://en.==(domain)==" title="English"		data-in="en" data-out="en"><img class="flag flag-en mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="English"  >EN</a>           
-                        <a class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://de.==(domain)==" title="Deutsch"		data-in="de" data-out="de"><img class="flag flag-de mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Deutsch"  >DE</a>
-                        <a class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://fr.==(domain)==" title="Français"		data-in="fr" data-out="fr"><img class="flag flag-fr mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Français"  >FR</a>
-                        <a class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://cs.==(domain)==" title="Ceština"		data-in="cs" data-out="cz"><img class="flag flag-cz mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Ceština"  >CS</a>
-                        <a class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://pl.==(domain)==" title="Polski"		data-in="pl" data-out="pl"><img class="flag flag-pl mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Polski"  >PL</a>
-                        <a class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://pt.==(domain)==" title="Português"	data-in="pt" data-out="pt"><img class="flag flag-pt mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Português" >PT</a>
-                        <a class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://it.==(domain)==" title="Italiano"		data-in="it" data-out="it"><img class="flag flag-it mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Italiano"  >IT</a>
-                        <a class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://tr.==(domain)==" title="Türkçe"		data-in="tr" data-out="tr"><img class="flag flag-tr mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Türkçe"  >TR</a>
-                        <a class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://el.==(domain)==" title="Ελληνικά"		data-in="el" data-out="gr"><img class="flag flag-gr mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="????????"  >EL</a>
-                        <a class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://ro.==(domain)==" title="Român"		data-in="ro" data-out="ro"><img class="flag flag-ro mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Român"  >RO</a>
-                        <a class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://ru.==(domain)==" title="Русский"		data-in="ru" data-out="ru"><img class="flag flag-ru mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="P??????"  >RU</a>
-                        <a class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://vi.==(domain)==" title="Việt nam"		data-in="vi" data-out="vn"><img class="flag flag-vn mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Ti?ng Vi?t" >VI</a>
-                        <a class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://ja.==(domain)==" title="日本人"		data-in="ja" data-out="jp"><img class="flag flag-jp mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="???"  >JA</a>
-                        <a class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://ar.==(domain)==" title="العربية"			data-in="ar" data-out="sa"><img class="flag flag-sa mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="????/????"  >AR</a>
-                        <a class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://th.==(domain)==" title="ไทย"			data-in="th" data-out="th"><img class="flag flag-th mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="???"   >TH</a>
-                        <a class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://ko.==(domain)==" title="한국인"			data-in="ko" data-out="kr"><img class="flag flag-kr mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="???"   >KO</a>
+                    <div class="collapse" aria-labelledby="navbarDropdownLanguageLateral" id="language-collapse">
+                        <a class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://es.==(domain)==/%%(game_seo)%%/" title="Español"		data-in="es" data-out="es"><img class="flag flag-es mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Español"  >ES</a>           
+                        <a class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://en.==(domain)==/%%(game_seo)%%/" title="English"		data-in="en" data-out="en"><img class="flag flag-en mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="English"  >EN</a>           
+                        <a class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://de.==(domain)==/%%(game_seo)%%/" title="Deutsch"		data-in="de" data-out="de"><img class="flag flag-de mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Deutsch"  >DE</a>
+                        <a class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://fr.==(domain)==/%%(game_seo)%%/" title="Français"		data-in="fr" data-out="fr"><img class="flag flag-fr mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Français"  >FR</a>
+                        <a class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://cs.==(domain)==/%%(game_seo)%%/" title="Ceština"		data-in="cs" data-out="cz"><img class="flag flag-cz mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Ceština"  >CS</a>
+                        <a class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://pl.==(domain)==/%%(game_seo)%%/" title="Polski"		data-in="pl" data-out="pl"><img class="flag flag-pl mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Polski"  >PL</a>
+                        <a class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://pt.==(domain)==/%%(game_seo)%%/" title="Português"	data-in="pt" data-out="pt"><img class="flag flag-pt mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Português" >PT</a>
+                        <a class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://it.==(domain)==/%%(game_seo)%%/" title="Italiano"		data-in="it" data-out="it"><img class="flag flag-it mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Italiano"  >IT</a>
+                        <a class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://tr.==(domain)==/%%(game_seo)%%/" title="Türkçe"		data-in="tr" data-out="tr"><img class="flag flag-tr mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Türkçe"  >TR</a>
+                        <a class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://el.==(domain)==/%%(game_seo)%%/" title="Ελληνικά"		data-in="el" data-out="gr"><img class="flag flag-gr mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Ελληνικά"  >EL</a>
+                        <a class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://ro.==(domain)==/%%(game_seo)%%/" title="Român"		data-in="ro" data-out="ro"><img class="flag flag-ro mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Român"  >RO</a>
+                        <a class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://ru.==(domain)==/%%(game_seo)%%/" title="Pусский"		data-in="ru" data-out="ru"><img class="flag flag-ru mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Pусский"  >RU</a>
+                        <a class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://vi.==(domain)==/%%(game_seo)%%/" title="Tiếng Việt"	data-in="vi" data-out="vn"><img class="flag flag-vn mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Tiếng Việt" >VI</a>
+                        <a class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://ja.==(domain)==/%%(game_seo)%%/" title="日本語"		data-in="ja" data-out="jp"><img class="flag flag-jp mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="日本語"  >JA</a>
+                        <a class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://ar.==(domain)==/%%(game_seo)%%/" title="عربي/عربى"		data-in="ar" data-out="sa"><img class="flag flag-sa mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="عربي/عربى"  >AR</a>
+                        <a class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://th.==(domain)==/%%(game_seo)%%/" title="ไทย"			data-in="th" data-out="th"><img class="flag flag-th mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="ไทย"   >TH</a>
+                        <a class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4" href="https://ko.==(domain)==/%%(game_seo)%%/" title="한국어"			data-in="ko" data-out="kr"><img class="flag flag-kr mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="한국어"   >KO</a>
                     </div>
                 </li>
             </ul>
         </li>
-	</ul>
-	<!--Menú Barra Superior/ Menú Específico Juego-->
-    <nav id="menu" class="navbar fixed-top nav-custom nav-custom-after">
-        <div class="d-flex flex-row align-items-center justify-content-sm-start justify-content-between col-sm-6 col-12 px-0">
-            <div id="categoriesBtn" class="openMenuBtn d-flex pl-md-2 pr-md-3 px-1">
-                <div class="lottie" id="lottiehamburguer" data-bm-renderer='svg'></div>
-            </div>
-            <div class="d-flex">
-                <a class="navbar-brand mx-0" href="https://==(language)==.==(domain)==/"></a>
-            </div>
-            <div class="d-sm-flex d-none">
-                <span id="btn-cta-small" class="btn-cta btn-cta-small animated fadeInLeft fast d-block playGame" data-play="0">==(play_now_txt)==</span>
-            </div>  
-			<!--div class="d-sm-flex"-->
-        </div>
-        <div class="d-sm-flex flex-row d-none align-items-center">
-			<div class="d-none">
-				<form id="searchForm">
-					<span class="fa fa-search form-control-feedback"></span>
-					<input class="search-control" id="searchBox" type="text" placeholder="==(search_your_game)==" style="width: 300px;text-align: right;padding: 4px;padding-right: 10px;">
-				</form>
-				<div id="searched_game" class="bgDarkTexture" style=" position: fixed; width: 500px; height: 80px; top: 47px; right: 42px; display: none;">
-					<div class="item">==(not_found)==</div>
-				</div>
-			</div>
-            <div class="d-sm-flex d-none justify-content-xl-end justify-content-lg-end justify-content-sm-end" id="navbarNav">
-                <ul class="navbar m-0 p-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://==(language)==.==(domain)==/==(url_search)==" title="Search...">
-                            <i class="fas fa-search cUserNameIcon" title="Search..."></i>
-                        </a>
-                    </li>
-                    <li class="nav-item logged">
-                        <a class="nav-link" href="https://==(language)==.==(domain)==/==(url_my_account)==" title="==(my_account_txt)==">
-                            <i class="fas fa-user-astronaut cUserNameIcon"></i><span class="fontSecondarySmall pl-2 cUserName menu-reduced">==(user_name)==</span>
-                        </a>
-                    </li>
-                    <li class="nav-item logged actLogOff">
-                        <a href="#" class="nav-link" title="==(sign_out)=="><i class="fas fa-sign-out-alt"></i></a>
-                    </li>
-                    <li class="nav-item dropdown unlogged">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-sign-in-alt"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right mt-2" aria-labelledby="navbarDropdown1">
-                            <button class="dropdown-item fontSecondarySmall" type="button" data-toggle="modal" data-target=".loginModal">==(login_txt)==</button>
-                            <div class="dropdown-divider"></div>
-                            <button class="dropdown-item fontSecondarySmall" type="button" data-toggle="modal" data-target=".registerModal">==(register_txt)==</button>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <!-- Flags/languages -->            
-            <div class="nav-item dropdown d-sm-block d-none">
-                <a class="nav-link" href="https://==(language)==.==(domain)==/" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="flag setflag" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="==(language)==">
-                </a>
-                <div class="dropdown-menu dropdown-menu-right language-menu p-0 border-0 bg-transparent" aria-labelledby="navbarDropdown2">
-                    <a class="h6 mb-0 d-flex flex-row px-3 py-2 border-right border-bottom border-green-lighter bgDarkTexture box-shadow" href="https://es.==(domain)==" title="Español"	data-in="es" data-out="es"><img class="flag flag-es mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Español"  >ES</a>           
-                    <a class="h6 mb-0 d-flex flex-row px-3 py-2 border-right border-bottom border-green-lighter bgDarkTexture box-shadow" href="https://en.==(domain)==" title="English"	data-in="en" data-out="en"><img class="flag flag-en mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="English"  >EN</a>           
-                    <a class="h6 mb-0 d-flex flex-row px-3 py-2 border-right border-bottom border-green-lighter bgDarkTexture box-shadow" href="https://de.==(domain)==" title="Deutsch"	data-in="de" data-out="de"><img class="flag flag-de mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Deutsch"  >DE</a>
-                    <a class="h6 mb-0 d-flex flex-row px-3 py-2 border-right border-bottom border-green-lighter bgDarkTexture box-shadow" href="https://fr.==(domain)==" title="Français"	data-in="fr" data-out="fr"><img class="flag flag-fr mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Français"  >FR</a>
-                    <a class="h6 mb-0 d-flex flex-row px-3 py-2 border-right border-bottom border-green-lighter bgDarkTexture box-shadow" href="https://cs.==(domain)==" title="Ceština"	data-in="cs" data-out="cz"><img class="flag flag-cz mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Ceština"  >CS</a>
-                    <a class="h6 mb-0 d-flex flex-row px-3 py-2 border-right border-bottom border-green-lighter bgDarkTexture box-shadow" href="https://pl.==(domain)==" title="Polski"		data-in="pl" data-out="pl"><img class="flag flag-pl mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Polski"  >PL</a>
-                    <a class="h6 mb-0 d-flex flex-row px-3 py-2 border-right border-bottom border-green-lighter bgDarkTexture box-shadow" href="https://pt.==(domain)==" title="Português"	data-in="pt" data-out="pt"><img class="flag flag-pt mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Português" >PT</a>
-                    <a class="h6 mb-0 d-flex flex-row px-3 py-2 border-right border-bottom border-green-lighter bgDarkTexture box-shadow" href="https://it.==(domain)==" title="Italiano"	data-in="it" data-out="it"><img class="flag flag-it mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Italiano"  >IT</a>
-                    <a class="h6 mb-0 d-flex flex-row px-3 py-2 border-right border-bottom border-green-lighter bgDarkTexture box-shadow" href="https://tr.==(domain)==" title="Türkçe"		data-in="tr" data-out="tr"><img class="flag flag-tr mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Türkçe"  >TR</a>
-                    <a class="h6 mb-0 d-flex flex-row px-3 py-2 border-right border-bottom border-green-lighter bgDarkTexture box-shadow" href="https://el.==(domain)==" title="Ελληνικά"	data-in="el" data-out="gr"><img class="flag flag-gr mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="????????"  >EL</a>
-                    <a class="h6 mb-0 d-flex flex-row px-3 py-2 border-right border-bottom border-green-lighter bgDarkTexture box-shadow" href="https://ro.==(domain)==" title="Român"		data-in="ro" data-out="ro"><img class="flag flag-ro mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Român"  >RO</a>
-                    <a class="h6 mb-0 d-flex flex-row px-3 py-2 border-right border-bottom border-green-lighter bgDarkTexture box-shadow" href="https://ru.==(domain)==" title="Русский"	data-in="ru" data-out="ru"><img class="flag flag-ru mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="P??????"  >RU</a>
-                    <a class="h6 mb-0 d-flex flex-row px-3 py-2 border-right border-bottom border-green-lighter bgDarkTexture box-shadow" href="https://vi.==(domain)==" title="Việt nam"	data-in="vi" data-out="vn"><img class="flag flag-vn mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Ti?ng Vi?t" >VI</a>
-                    <a class="h6 mb-0 d-flex flex-row px-3 py-2 border-right border-bottom border-green-lighter bgDarkTexture box-shadow" href="https://ja.==(domain)==" title="日本人"		data-in="ja" data-out="jp"><img class="flag flag-jp mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="???"  >JA</a>
-                    <a class="h6 mb-0 d-flex flex-row px-3 py-2 border-right border-bottom border-green-lighter bgDarkTexture box-shadow" href="https://ar.==(domain)==" title="العربية"		data-in="ar" data-out="sa"><img class="flag flag-sa mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="????/????"  >AR</a>
-                    <a class="h6 mb-0 d-flex flex-row px-3 py-2 border-right border-bottom border-green-lighter bgDarkTexture box-shadow" href="https://th.==(domain)==" title="ไทย"			data-in="th" data-out="th"><img class="flag flag-th mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="???"   >TH</a>
-                    <a class="h6 mb-0 d-flex flex-row px-3 py-2 border-right border-bottom border-green-lighter bgDarkTexture box-shadow" href="https://ko.==(domain)==" title="한국인"		data-in="ko" data-out="kr"><img class="flag flag-kr mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="???"   >KO</a>
+        <li class="nav-item d-flex d-lg-none logged nolauncher order-lg-5 order-1">
+            <div class="d-lg-none d-flex flex-row justify-content-between align-items-center border-bottom border-green-lighter w-100 featured">
+                <div class="logged nolauncher mb-0 h6 py-2 pl-4">
+                    <a href="/==(url_my_account)==" title="==(my_account_txt)==">
+                        <i class="fas fa-user-astronaut cUserNameIcon mr-2"></i><span class="cUserName menu-reduced">==(user_name)==</span>
+                    </a>
                 </div>
-            </div>  
-        </div>
-    </nav>
+                <div class="pr-4 py-2 logged actLogOff nolauncher">
+                    <a href="#" class="" title="==(sign_out)=="><i class="fas fa-sign-out-alt"></i></a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item d-flex d-lg-none flex-column order-lg-4 order-2">
+            <div class="bg-gradient d-flex flex-row align-items-center justify-content-between border-bottom border-gray-900 py-1" data-toggle="collapse" data-target="#game-lateral-collapse" aria-expanded="true" aria-controls="game-lateral-collapse">
+                <div class="d-flex col-10">
+                    <p class="text-right colorLight my-1 pl-4"><i class="fas fa-cogs pr-2"></i>==(the_game)==</p>
+                </div> 
+                <div class="d-flex col-2">
+                    <i class="fas fa-chevron-down"></i>
+                </div> 
+            </div>
+            <ul id="game-lateral-collapse" class="collapse show list-group">
+                <!--li class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4">
+                    <a href="/%%(game_seo)%%/#stnIntroduction" class="menu-reduced" title="==(introduction)==">==(introduction)==</a>
+                </li-->
+                <li class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4">
+                    <a href="/%%(game_seo)%%/#stnHeader"  title="==(the_game)==">==(the_game)==</a>
+                </li>
+                <li class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4">
+                    <a href="/%%(game_seo)%%/gameplays" title="Gameplays">Gameplays </a>
+                </li>
+                <li class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4">
+                    <a href="/%%(game_seo)%%/==(url_events)==" title="==(events)==">==(events)== </a>
+                </li>
+                <li class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4">
+                    <a href="/%%(game_seo)%%/==(url_news)==/" title="==(news)==">==(news)== </a>
+                </li>
+                <li class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4">
+                    <a href="/%%(game_seo)%%/==(url_media)==/" title="==(media)==">==(media)==</a>
+                </li>
+                <li class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4">
+                    <a href="/%%(game_seo)%%/==(url_guides)==/" title="==(guides)==">==(guides)==</a>
+                </li>
+                <!-- <li class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4"> -->
+                    <!-- <a href="==(url_support)==" target="_blank" title="==(support)==">==(support)==</a> -->
+                <!-- </li> -->
+                <!-- <li class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4"> -->
+                    <!-- <a href="/==(url_forums)==" class="menu-reduced" title="==(forums)==">==(forums)==</a> -->
+                <!-- </li> -->
+                <li class="h6 border-bottom border-green-lighter mb-0 py-2 pl-4">
+                    <a href="/%%(game_seo)%%/==(url_shop)==" title="==(shop)==">==(shop)==</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <!--Menú Barra Superior/ Menú Específico Juego-->
+       <nav id="menu" class="navbar navbar-expand-lg fixed-top nav-custom nav-custom-after d-lg-flex d-inline-block justify-content-lg-between bgDarkTexture">
+            <div class="d-flex flex-row align-items-center justify-content-sm-start justify-content-between px-0 mr-md-0 mr-3">
+                <div id="categoriesBtn" class="openMenuBtn d-flex pl-md-2 pr-md-3 px-1 nolauncher">
+                    <div class="lottie" id="lottiehamburguer" data-bm-renderer='svg'></div>
+                </div>
+                <div class="d-flex">
+                    <a class="navbar-brand mx-0" href="/"></a>
+                </div>
+                <div class="d-sm-flex d-none nolauncher">
+                    <span id="btn-cta-small" class="btn-cta btn-cta-small animated fadeInLeft fast d-block cursor-pointer playGame" data-play="0">==(play_now_txt)==</span>
+                </div>
+            </div>
+            <div class="d-lg-flex flex-row d-none">
+                <div class="navbar m-0 p-0 flex-sm-row flex-column justify-content-sm-end justify-content-center align-items-center" id="navbarNav">
+                    <ul class="navbar m-0 p-0">
+                        <li class="nav-item">
+                            <a href="/%%(game_seo)%%/#stnHeader" class="nav-link active" title="==(the_game)=="><span class="h6 mb-0">==(the_game)==</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/%%(game_seo)%%/gameplays" class="nav-link" title="==(news)=="><span class="h6 mb-0">Gameplays</span> </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/%%(game_seo)%%/==(url_events)==" class="nav-link" title="==(events)=="><span class="h6 mb-0">==(events)==</span> </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/%%(game_seo)%%/==(url_news)==/" class="nav-link" title="==(news)=="><span class="h6 mb-0">==(news)==</span> </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/%%(game_seo)%%/==(url_media)==/" class="nav-link" title="==(media)=="><span class="h6 mb-0">==(media)==</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/%%(game_seo)%%/==(url_guides)==/" class="nav-link" title="==(guides)=="><span class="h6 mb-0">==(guides)==</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="==(url_support)==" target="_blank" class="nav-link" title="==(support)=="><span class="h6 mb-0">==(support)==</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/==(url_forums)==" class="nav-link menu-reduced" title="==(forums)=="><span class="h6 mb-0">==(forums)==</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/%%(game_seo)%%/==(url_shop)==" class="nav-link" title="==(shop)=="><span class="h6 mb-0">==(shop)==</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/==(url_search)==" title="Search...">
+                                <i class="fas fa-search cUserNameIcon" title="Search..."></i>
+                            </a>
+						</li>
+						<li class="nav-item">
+							<div class="nav-link shopping-cart animated" data-toggle="modal" data-target=".shoppingCartModal" style="opacity: 1;">
+								<i class="fas fa-shopping-cart text-dark px-2 py-3 animated"></i>
+								<span class="badge badge-pill badge-secondary position-absolute animated">0</span>
+							</div>
+                        </li>
+                        <li class="nav-item logged nolauncher">
+                            <a class="nav-link" href="/==(url_my_account)==" title="==(my_account_txt)==">
+                                <i class="fas fa-user-astronaut cUserNameIcon"></i><span class="h6 mb-0 pl-2 cUserName menu-reduced">==(user_name)==</span>
+                            </a>
+                        </li>
+                        <li class="nav-item logged actLogOff nolauncher">
+                            <a href="#" class="nav-link" title="==(sign_out)=="><i class="fas fa-sign-out-alt"></i></a>
+                        </li>
+                        <li class="nav-item dropdown unlogged nolauncher">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-sign-in-alt"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right mt-2" aria-labelledby="navbarDropdown1">
+                                <button class="dropdown-item h6 mb-0" type="button" data-toggle="modal" data-target=".loginModal">==(login_txt)==</button>
+                                <div class="dropdown-divider"></div>
+                                <button class="dropdown-item h6 mb-0" type="button" data-toggle="modal" data-target=".registerModal">==(register_txt)==</button>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="nav-item dropdown nolauncher d-md-block d-none">
+                        <a class="nav-link" href="/" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img class="flag setflag" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="==(language)==">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right language-menu p-0 border-0 bg-transparent" aria-labelledby="navbarDropdown2">
+                            <a class="h6 mb-0 d-flex flex-row px-3 py-2 border-right border-bottom border-green-lighter bgDarkTexture box-shadow" href="https://es.==(domain)==/%%(game_seo)%%/" title="Español"	data-in="es" data-out="es"><img class="flag flag-es mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Español"  >ES</a>           
+                            <a class="h6 mb-0 d-flex flex-row px-3 py-2 border-right border-bottom border-green-lighter bgDarkTexture box-shadow" href="https://en.==(domain)==/%%(game_seo)%%/" title="English"	data-in="en" data-out="en"><img class="flag flag-en mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="English"  >EN</a>           
+                            <a class="h6 mb-0 d-flex flex-row px-3 py-2 border-right border-bottom border-green-lighter bgDarkTexture box-shadow" href="https://de.==(domain)==/%%(game_seo)%%/" title="Deutsch"	data-in="de" data-out="de"><img class="flag flag-de mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Deutsch"  >DE</a>
+                            <a class="h6 mb-0 d-flex flex-row px-3 py-2 border-right border-bottom border-green-lighter bgDarkTexture box-shadow" href="https://fr.==(domain)==/%%(game_seo)%%/" title="Français"	data-in="fr" data-out="fr"><img class="flag flag-fr mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Français"  >FR</a>
+                            <a class="h6 mb-0 d-flex flex-row px-3 py-2 border-right border-bottom border-green-lighter bgDarkTexture box-shadow" href="https://cs.==(domain)==/%%(game_seo)%%/" title="Ceština"	data-in="cs" data-out="cz"><img class="flag flag-cz mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Ceština"  >CS</a>
+                            <a class="h6 mb-0 d-flex flex-row px-3 py-2 border-right border-bottom border-green-lighter bgDarkTexture box-shadow" href="https://pl.==(domain)==/%%(game_seo)%%/" title="Polski"		data-in="pl" data-out="pl"><img class="flag flag-pl mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Polski"  >PL</a>
+                            <a class="h6 mb-0 d-flex flex-row px-3 py-2 border-right border-bottom border-green-lighter bgDarkTexture box-shadow" href="https://pt.==(domain)==/%%(game_seo)%%/" title="Português"	data-in="pt" data-out="pt"><img class="flag flag-pt mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Português" >PT</a>
+                            <a class="h6 mb-0 d-flex flex-row px-3 py-2 border-right border-bottom border-green-lighter bgDarkTexture box-shadow" href="https://it.==(domain)==/%%(game_seo)%%/" title="Italiano"	data-in="it" data-out="it"><img class="flag flag-it mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Italiano"  >IT</a>
+                            <a class="h6 mb-0 d-flex flex-row px-3 py-2 border-right border-bottom border-green-lighter bgDarkTexture box-shadow" href="https://tr.==(domain)==/%%(game_seo)%%/" title="Türkçe"		data-in="tr" data-out="tr"><img class="flag flag-tr mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Türkçe"  >TR</a>
+                            <a class="h6 mb-0 d-flex flex-row px-3 py-2 border-right border-bottom border-green-lighter bgDarkTexture box-shadow" href="https://el.==(domain)==/%%(game_seo)%%/" title="Ελληνικά"	data-in="el" data-out="gr"><img class="flag flag-gr mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Ελληνικά"  >EL</a>
+                            <a class="h6 mb-0 d-flex flex-row px-3 py-2 border-right border-bottom border-green-lighter bgDarkTexture box-shadow" href="https://ro.==(domain)==/%%(game_seo)%%/" title="Român"		data-in="ro" data-out="ro"><img class="flag flag-ro mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Român"  >RO</a>
+                            <a class="h6 mb-0 d-flex flex-row px-3 py-2 border-right border-bottom border-green-lighter bgDarkTexture box-shadow" href="https://ru.==(domain)==/%%(game_seo)%%/" title="Pусский"	data-in="ru" data-out="ru"><img class="flag flag-ru mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Pусский"  >RU</a>
+                            <a class="h6 mb-0 d-flex flex-row px-3 py-2 border-right border-bottom border-green-lighter bgDarkTexture box-shadow" href="https://vi.==(domain)==/%%(game_seo)%%/" title="Tiếng Việt"	data-in="vi" data-out="vn"><img class="flag flag-vn mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Tiếng Việt" >VI</a>
+                            <a class="h6 mb-0 d-flex flex-row px-3 py-2 border-right border-bottom border-green-lighter bgDarkTexture box-shadow" href="https://ja.==(domain)==/%%(game_seo)%%/" title="日本語"		data-in="ja" data-out="jp"><img class="flag flag-jp mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="日本語"  >JA</a>
+                            <a class="h6 mb-0 d-flex flex-row px-3 py-2 border-right border-bottom border-green-lighter bgDarkTexture box-shadow" href="https://ar.==(domain)==/%%(game_seo)%%/" title="عربي/عربى"	data-in="ar" data-out="sa"><img class="flag flag-sa mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="عربي/عربى"  >AR</a>
+                            <a class="h6 mb-0 d-flex flex-row px-3 py-2 border-right border-bottom border-green-lighter bgDarkTexture box-shadow" href="https://th.==(domain)==/%%(game_seo)%%/" title="ไทย"			data-in="th" data-out="th"><img class="flag flag-th mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="ไทย"   >TH</a>
+                            <a class="h6 mb-0 d-flex flex-row px-3 py-2 border-right border-bottom border-green-lighter bgDarkTexture box-shadow" href="https://ko.==(domain)==/%%(game_seo)%%/" title="한국어"		data-in="ko" data-out="kr"><img class="flag flag-kr mr-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="한국어"   >KO</a>
+                        </div>
+                    </div>
+                </div>              
+ 
+            </div>
+       </nav>
 	<!-- Login -->
 	<div class="loginModal modal fade">
 		<div class="modal-dialog modal-dialog-centered modal-lg">
@@ -257,7 +316,7 @@
 											<input type="checkbox" class="form-check-input" id="loggedIn" checked="checked">
 											<label class="form-check-label" for="loggedIn">==(stay_connected_txt)==</label>
 										</div>
-										<div class="col-6 text-right"><a href="==(url_forgot_password)==" class="text-primary">==(forgot_password_txt)==</a></div>
+										<div class="col-6 text-right"><a href="/==(url_forgot_password)==" class="text-primary">==(forgot_password_txt)==</a></div>
 									</div>
 									<div class="alert-transparent mx-0 my-0 d-block"></div>
 									<div class="mx-0 mt-3">
@@ -337,7 +396,7 @@
 											<input type="checkbox" class="form-check-input" id="registerIn" checked="checked">
 											<label class="form-check-label" for="registerIn">==(stay_connected_txt)==</label>
 										</div>
-										<div class="col-6 text-right"><a href="==(url_forgot_password)==" class="text-primary">==(forgot_password_txt)==</a></div>
+										<div class="col-6 text-right"><a href="/==(url_forgot_password)==" class="text-primary">==(forgot_password_txt)==</a></div>
 									</div>
 									<div class="alert-transparent mx-0 my-0 d-block"></div>
 									<div class="mx-0 mt-3">
@@ -376,7 +435,6 @@
 							</div>
 						</div>
 						<div class="pt-xl-4 pt-2">
-							<!--p class="fontPrimarySmall">==(by_signing_help_1)== <a class="text-primary" href="https://==(language)==.==(domain)==/==(url_legal_conditions)==">==(legal_conditions_txt)==</a>, ==(by_signing_help_2)== <a class="text-primary" href="https://==(language)==.==(domain)==/==(url_privacy_policy)==">==(privacy_policy_txt)==</a> ==(by_signing_help_3)== <a class="text-primary" href="https://==(language)==.==(domain)==/==(url_use_of_cookies)==">==(use_of_cookies_txt)==</a> ==(by_signing_help_4)==</p-->
 							<p class="fontPrimarySmall">By signing up, I agree to the Legal conditions, the Privacy Policy and the use of cookies of IDC/Games.</p>
 						</div>
 					</div>

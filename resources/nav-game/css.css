@@ -1,4 +1,3 @@
-html[data-useragent*='idclauncher'] header{margin-bottom: 3rem!important;}
 /*
 ======================================================================================================================
 Sidebar-nav -- MenÃº lateral de navegaciÃ³n en IDC
@@ -82,12 +81,18 @@ Sidebar-nav -- MenÃº lateral de navegaciÃ³n en IDC
 Menu especi­fico del juego Top
 ======================================================================================================================
 */
+/*
+======================================================================================================================
+MenÃº especÃ­fico del juego Top
+======================================================================================================================
+*/
 .navbar li {
     list-style: none;
 }
 
 .navbar-brand {
-    background-image: url("==(logoidc_dark)==");
+    /* background-image: url("==(logoidc_dark)=="); */
+    background-image: url(https://cdn.idcgames.net/img/default/logo-idc-dark.png);
     height: 50px;
     width: 44px;
     background-position: center;
@@ -96,7 +101,8 @@ Menu especi­fico del juego Top
 }
 
 .nav-custom-after .navbar-brand {
-    background-image: url("==(logoidc_white)==");
+    /* background-image: url("==(logoidc_white)=="); */
+    background-image: url(https://cdn.idcgames.net/img/default/logo-idc-light.png);
     height: 40px;
 }
 
@@ -127,6 +133,7 @@ Menu especi­fico del juego Top
     color: #fff;
 }
 
+
 .nav-custom .logged  a {
     color: #314954;
 }
@@ -135,8 +142,43 @@ Menu especi­fico del juego Top
     color: #00ff7f!important;
 }
 
-@media (min-width: 576px) and (max-width: 767.98px){
-    #navbarNav .fontSecondarySmall {
+.navbar-collapse.show, .navbar-collapse.collapsing {
+    background-color: #13181d;
+    border-top: 1px solid white;
+    position: absolute;
+    right: 0;
+    -webkit-box-shadow: 1px 3px 8px 3px rgba(0, 0, 0, 0.2);
+    box-shadow: 1px 3px 8px 3px rgba(0, 0, 0, 0.2); 
+    margin-top: .35rem;
+}
+
+.navbar-collapse.show .nav-link, .navbar-collapse.collapsing .nav-link {
+    padding: 0.5rem 2rem;
+}
+
+.nav-custom-after .navbar-collapse.show, .nav-custom-after .navbar-collapse.collapsing {
+    margin-top: 0;
+    -webkit-transition: all 0.35s ease;
+    transition: all 0.35s ease;
+}
+@media (max-width: 991px) {
+    .navbar-collapse ul {
+        display: flex;
+        flex-direction: column;
+        color: #00ff7f;
+    }
+    .navbar-collapse ul a{
+        color: #00ff7f;
+    }
+    .navbar-collapse ul li{
+        width: 100%;
+        padding: 0.25em 0;
+        border-bottom: 1px solid rgba(0,255,126,.25);
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1620px){
+    #navbarNav .h6 {
         font-size: 1.05rem;
     }
     #navbarNav ul {
@@ -148,6 +190,24 @@ Menu especi­fico del juego Top
     #navbarNav .menu-reduced {
         display: none;
     }
+}
+
+.nav-custom-after .navbar-toggler i{
+    color: #00ff7f;
+}
+
+.navbar-toggler {
+    outline: none !important;
+    top: 0;
+    right: 0;
+    position: absolute;
+    padding: 1.2rem 1rem;
+}
+
+.nav-custom-after .navbar-toggler {
+    padding: .75rem 1rem;
+    -webkit-transition: all 0.35s ease;
+    transition: all 0.35s ease;
 }
 
 .dropdown-menu-right {
@@ -163,7 +223,7 @@ Menu especi­fico del juego Top
 .btn-cta-small {
     display: none;
     white-space: nowrap;
-    padding: 17px 30px;
+    padding: 17px 20px;
     font-size: 1.5em;
     line-height: 0.1em;
     border: 5px solid black;
@@ -171,7 +231,7 @@ Menu especi­fico del juego Top
     cursor: pointer;
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 1040px) {
 .btn-cta-small {
     padding: 17px 15px;}
  }
@@ -328,212 +388,212 @@ Menu especi­fico del juego Top
   /*# sourceMappingURL=main.css.map */
   
 
-/*
-======================================================================================================================
-REGISTER/LOGIN CSS IDC GAMES
-======================================================================================================================
-*/
-
-
-.modal-content {
-    border: none;
-    box-shadow: 1px 3px 9px 3px rgba(0,0,0,0.8);
-}
-
-@media (min-width: 1200px) {
-    .loginModal .modal-lg, .registerModal .modal-lg {
-        max-width: 830px;
-    }
-}
-@media (min-width: 992px) and (max-width: 1199px) {
-    .loginModal .modal-lg, .registerModal .modal-lg {
-        max-width: 830px;
-    }
-}
-@media (min-width: 768px) and (max-width: 991px) {
-    .loginModal .modal-lg, .registerModal .modal-lg {
-        max-width: 80vw;
-    }
-}
-@media (min-width: 576px) and (max-width: 767px) {
-    .loginModal .modal-lg, .registerModal .modal-lg {
-        max-width: 85vw;
-    }
-}
-
-@media (min-width: 768px) {
-   .loginModal .close, .registerModal .close {
-        display: none;
-    } 
-}
-@media (max-width: 767px) {
-   .loginModal .close, .registerModal .close {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-    } 
-}
-
-.modal-backdrop {
- position:fixed;
- top:0;
- right:0;
- bottom:0;
- left:0;
- z-index:1040;
-}
-
-.modal-backdrop.fade {
- opacity:0;
-}
-.modal-backdrop.show {
- opacity:.7;
-}
-
-/*
-================================
-Fonts
-================================
-*/
-.alredyRegistered p, .noYetRegistered p {
-    font-size: 0.9rem; 
-}
-
-/*
-================================
-Upper link
-================================
-*/
-
-.alredyRegistered {
-    position: absolute;
-    top: 15px;
-}
-
-.noYetRegistered .lineaHorizontalEstrecha {
-    width: 45%;
-    float: right;
-}
-    @media (max-width: 575px) {
-       .noYetRegistered .lineaHorizontalEstrecha {
-            display: none;
-        } 
-    }
-
-.alredyRegistered .lineaHorizontalEstrecha {
-    width: 40%;
-    float: right;
-}
-    @media (max-width: 575px) {
-       .alredyRegistered .lineaHorizontalEstrecha {
-            display: none;
-        } 
-    }
-
-/*
-================================
-Main container
-================================
-*/
-.modalMainContentContainer {
-    position: relative;
-    max-width: 100%;
-}
-
-.loginModal .btn-cta, .registerModal .btn-cta {
-    font-size: 1.7rem;
-    padding: 1% 5%;
-}
-    @media (max-width: 575px) {
-        .loginModal .btn-cta, .registerModal .btn-cta {
-            font-size: 1.6rem;
-            padding: 2% 5%;
-        }
-    }
-
-/*
-================================
-Or Register with
-================================
-*/
-.btn-social {
-  max-height: 46px;
-  width: 182px;
-  padding: 10px;
-  text-align: center;
-  border-radius: 2px;
-  white-space: nowrap;
-  font-family: 'Jura', sans-serif!important;
-}
-.modal .btn-social {
-  max-height: 40px;
-  width: 163px;
-  font-size: .7rem;
-  line-height: .7rem;
-}
-
-.btn-social:focus {
- outline:0;
- box-shadow:0 0 0 .2rem rgba(52,58,64,.5)
-}
-
-.btn-msn {
-    color: #fff;
-    background-color: #3f729b;
-    max-height: 41px;
-    border-color: rgba(0, 0, 0, .2);
-}
-
-.btn-msn svg {
-    max-height: 22px;
-}
-.btn-msn path {
+  /*
+  ======================================================================================================================
+  REGISTER/LOGIN CSS IDC GAMES
+  ======================================================================================================================
+  */
+  
+  
+  .modal-content {
+      border: none;
+      box-shadow: 1px 3px 9px 3px rgba(0,0,0,0.8);
+  }
+  
+  @media (min-width: 1200px) {
+      .loginModal .modal-lg, .registerModal .modal-lg {
+          max-width: 830px;
+      }
+  }
+  @media (min-width: 992px) and (max-width: 1199px) {
+      .loginModal .modal-lg, .registerModal .modal-lg {
+          max-width: 830px;
+      }
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+      .loginModal .modal-lg, .registerModal .modal-lg {
+          max-width: 80vw;
+      }
+  }
+  @media (min-width: 576px) and (max-width: 767px) {
+      .loginModal .modal-lg, .registerModal .modal-lg {
+          max-width: 85vw;
+      }
+  }
+  
+  @media (min-width: 768px) {
+     .loginModal .close, .registerModal .close {
+          display: none;
+      } 
+  }
+  @media (max-width: 767px) {
+     .loginModal .close, .registerModal .close {
+          position: absolute;
+          top: 20px;
+          right: 20px;
+      } 
+  }
+  
+  .modal-backdrop {
+   position:fixed;
+   top:0;
+   right:0;
+   bottom:0;
+   left:0;
+   z-index:1040;
+  }
+  
+  .modal-backdrop.fade {
+   opacity:0;
+  }
+  .modal-backdrop.show {
+   opacity:.7;
+  }
+  
+  /*
+  ================================
+  Fonts
+  ================================
+  */
+  .alredyRegistered p, .noYetRegistered p {
+      font-size: 0.9rem; 
+  }
+  
+  /*
+  ================================
+  Upper link
+  ================================
+  */
+  
+  .alredyRegistered {
+      position: absolute;
+      top: 15px;
+  }
+  
+  .noYetRegistered .lineaHorizontalEstrecha {
+      width: 45%;
+      float: right;
+  }
+      @media (max-width: 575px) {
+         .noYetRegistered .lineaHorizontalEstrecha {
+              display: none;
+          } 
+      }
+  
+  .alredyRegistered .lineaHorizontalEstrecha {
+      width: 40%;
+      float: right;
+  }
+      @media (max-width: 575px) {
+         .alredyRegistered .lineaHorizontalEstrecha {
+              display: none;
+          } 
+      }
+  
+  /*
+  ================================
+  Main container
+  ================================
+  */
+  .modalMainContentContainer {
+      position: relative;
+      max-width: 100%;
+  }
+  
+  .loginModal .btn-cta, .registerModal .btn-cta {
+      font-size: 1.7rem;
+      padding: 1% 5%;
+  }
+      @media (max-width: 575px) {
+          .loginModal .btn-cta, .registerModal .btn-cta {
+              font-size: 1.6rem;
+              padding: 2% 5%;
+          }
+      }
+  
+  /*
+  ================================
+  Or Register with
+  ================================
+  */
+  .btn-social {
+      max-height: 46px;
+      width: 182px;
+      padding: 10px;
+      text-align: center;
+      border-radius: 2px;
+      white-space: nowrap;
+      font-family: 'Jura', sans-serif!important;
+  }
+  
+  .modal .btn-social {
+    max-height: 40px;
+    width: 163px;
+	font-size: .7rem;
+    line-height: .7rem;
+  }
+  
+  .btn-social:focus {
+   outline:0;
+   box-shadow:0 0 0 .2rem rgba(52,58,64,.5)
+  }
+  
+  .btn-msn {
+      color: #fff;
+      background-color: #3f729b;
+      max-height: 41px;
+      border-color: rgba(0, 0, 0, .2);
+  }
+  
+  .btn-msn svg {
+      max-height: 22px;
+  }
+  .btn-msn path {
     fill: #FFF;
 }
-
-.btn-twitter {
-    color: #fff;
-    background-color: #55acee;
-    border-color: rgba(0, 0, 0, .2);
-}
-
-.btn-yahoo {
-    color: #fff;
-    background-color: #720e9e;
-    border-color: rgba(0, 0, 0, .2);
-}
-
+  .btn-twitter {
+      color: #fff;
+      background-color: #55acee;
+      border-color: rgba(0, 0, 0, .2);
+  }
+  
+  .btn-yahoo {
+      color: #fff;
+      background-color: #720e9e;
+      border-color: rgba(0, 0, 0, .2);
+  }
+  
 .btn-steam {
     color: #0b0d11;
     background-color: #ffffff;
     border-color: rgba(0, 0, 0, .2);
 }
+  
+  .btn-google {
+      color: #757575;
+      background-color: #fff;
+      border-color: rgba(0, 0, 0, .2);
+  }
+  
+  .btn-facebook {
+      color: #fff;
+      background-color: #3b5998;
+      border-color: rgba(0, 0, 0, .2);
+  }
 
-.btn-google {
-    color: #757575;
-    background-color: #fff;
-    border-color: rgba(0, 0, 0, .2);
-}
+	.btn-twitch {
+		color: #FFF;
+		background: #451793;
+		border-color: rgba(0, 0, 0, .2);
+	}
 
-.btn-facebook {
-    color: #fff;
-    background-color: #3b5998;
-    border-color: rgba(0, 0, 0, .2);
-}
+	.btn-discord {
+		color: #fff;
+		background-color: #7289DA;
+		border-color: rgba(0, 0, 0, .2);
+	}
 
-.btn-twitch {
-    color: #FFF;
-    background: #451793;
-    border-color: rgba(0, 0, 0, .2);
-}
-
-.btn-discord {
-    color: #fff;
-    background-color: #7289DA;
-    border-color: rgba(0, 0, 0, .2);
-}
-
-/*Responsive basado en la altura de la pantalla y no en el ancho*/
+  /*Responsive basado en la altura de la pantalla y no en el ancho*/
 @media (max-height: 740px) {
     .modal .display-4 {
         font-size: 3rem;
@@ -559,31 +619,94 @@ Or Register with
         padding-top: .5rem !important;
     }
 }
-/*
-======================================================================================================================
-Botones de logado/no logado
-======================================================================================================================
-*/
- .unlogged, .logged {
-    display: none;
+
+
+  /*
+  ======================================================================================================================
+  Botones de logado/no logado
+  ======================================================================================================================
+  */
+  .unlogged, .logged {
+      display: none;
+  }
+.noscroll {
+ overflow: hidden;
 }
 /*
 .alert-transparent {
     height:60px;
 }
 */
-#searchForm .search-control {
-    padding-left: 2.375rem;
-}
 
-#searchForm .form-control-feedback {
-    position: absolute;
-    z-index: 2;
-    display: block;
-    width: 2.375rem;
-    height: 2.375rem;
-    line-height: 2.375rem;
-    text-align: center;
-    pointer-events: none;
-    color: #aaa;
-}
+  /*
+  ======================================================================================================================
+Shopping cart
+  ======================================================================================================================
+  */
+
+  .dropdown-menu {
+    z-index: 1030; }
+  
+  .green-custom {
+    color: rgba(0, 255, 126, 0.55); }
+  
+  .shopping-cart {
+    opacity: 0;
+    z-index: 990;
+    position: relative;
+    border-color: transparent;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out; }
+    .shopping-cart span {
+        right: 0px;
+        top: 10px;}
+  
+  @-webkit-keyframes rubberBand {
+    0% {
+      -webkit-transform: scale3d(1, 1, 1);
+      transform: scale3d(1, 1, 1); }
+    30% {
+      -webkit-transform: scale3d(1.25, 0.75, 1);
+      transform: scale3d(1.25, 0.75, 1); }
+    40% {
+      -webkit-transform: scale3d(0.75, 1.25, 1);
+      transform: scale3d(0.75, 1.25, 1); }
+    50% {
+      -webkit-transform: scale3d(1.15, 0.85, 1);
+      transform: scale3d(1.15, 0.85, 1); }
+    65% {
+      -webkit-transform: scale3d(0.95, 1.05, 1);
+      transform: scale3d(0.95, 1.05, 1); }
+    75% {
+      -webkit-transform: scale3d(1.05, 0.95, 1);
+      transform: scale3d(1.05, 0.95, 1); }
+    100% {
+      -webkit-transform: scale3d(1, 1, 1);
+      transform: scale3d(1, 1, 1); } }
+  
+  @keyframes rubberBand {
+    0% {
+      -webkit-transform: scale3d(1, 1, 1);
+      transform: scale3d(1, 1, 1); }
+    30% {
+      -webkit-transform: scale3d(1.25, 0.75, 1);
+      transform: scale3d(1.25, 0.75, 1); }
+    40% {
+      -webkit-transform: scale3d(0.75, 1.25, 1);
+      transform: scale3d(0.75, 1.25, 1); }
+    50% {
+      -webkit-transform: scale3d(1.15, 0.85, 1);
+      transform: scale3d(1.15, 0.85, 1); }
+    65% {
+      -webkit-transform: scale3d(0.95, 1.05, 1);
+      transform: scale3d(0.95, 1.05, 1); }
+    75% {
+      -webkit-transform: scale3d(1.05, 0.95, 1);
+      transform: scale3d(1.05, 0.95, 1); }
+    100% {
+      -webkit-transform: scale3d(1, 1, 1);
+      transform: scale3d(1, 1, 1); } }
+  
+  .rubberBand {
+    -webkit-animation-name: rubberBand;
+    animation-name: rubberBand; }
