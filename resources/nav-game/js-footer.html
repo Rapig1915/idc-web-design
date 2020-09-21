@@ -15,12 +15,14 @@
 		$(".sidenav").addClass("sidenav-after");
 		$(".btn-cta-small").addClass("d-block");
 		$("#menu").addClass("bgDarkTexture");
+		$(".shopping-cart").addClass("shopping-cart-after")
 	}
 	function blackMenu(){
 		$("#menu").removeClass("nav-custom-after");
 		$(".sidenav").removeClass("sidenav-after");
 		$(".btn-cta-small").removeClass("d-block");
 		$("#menu").removeClass("bgDarkTexture");
+		$(".shopping-cart").removeClass("shopping-cart-after")
 	}
 
 	$(window).scroll(function() {
@@ -28,11 +30,12 @@
 			$("#menu").addClass("nav-custom-after");
 			$(".sidenav").addClass("sidenav-after");
 			$(".btn-cta-small").css("display","block");
-
+			$(".shopping-cart").addClass("shopping-cart-after")
 		} else {
 			$("#menu").removeClass("nav-custom-after");
 			$(".sidenav").removeClass("sidenav-after");
 			$(".btn-cta-small").css("display","none");
+			$(".shopping-cart").removeClass("shopping-cart-after")
 		}
 	});
 

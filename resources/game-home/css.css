@@ -2500,3 +2500,106 @@
       font-size: 2rem;
       padding: 1% 10%;
   }
+
+/* Button cart */
+  @supports ((position: -webkit-sticky) or (position: sticky)) {
+    .sticky-top-custom {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 55px;
+      z-index: 1020; } }
+  
+  .dropdown-menu {
+    z-index: 1030; }
+  
+  .green-custom {
+    color: rgba(0, 255, 126, 0.55); }
+  
+  .shopping-cart {
+    opacity: 1;
+    z-index: 1020;
+    position: fixed;
+    top: 59px;
+    right: 85px;
+    height: 60px;
+    width: 60px;
+    border-radius: 0 0 60px 60px;
+    border-color: transparent;
+    background-color: #00ff7f;
+    -webkit-transition: all .35s ease;
+    transition: all .35s ease; }
+    .shopping-cart span {
+      right: 2px;
+      top: 2px; }
+
+      @media (max-width: 575.98px) {
+        .shopping-cart {
+          right: 33px;
+          height: 55px;
+          width: 55px;
+          border-radius: 0 0 55px 55px;
+      }}
+      @media (min-width: 576px) {
+        .shopping-cart {
+          right: 85px;
+          height: 60px;
+          width: 60px;
+          border-radius: 0 0 60px 60px;
+      }}
+
+    .shopping-cart-after{
+      -webkit-transition: all 0.35s ease;
+      transition: all 0.35s ease;
+      background-color: #00ff7f;
+      top: 47px!important;
+    }
+  
+  @-webkit-keyframes rubberBand {
+    0% {
+      -webkit-transform: scale3d(1, 1, 1);
+      transform: scale3d(1, 1, 1); }
+    30% {
+      -webkit-transform: scale3d(1.25, 0.75, 1);
+      transform: scale3d(1.25, 0.75, 1); }
+    40% {
+      -webkit-transform: scale3d(0.75, 1.25, 1);
+      transform: scale3d(0.75, 1.25, 1); }
+    50% {
+      -webkit-transform: scale3d(1.15, 0.85, 1);
+      transform: scale3d(1.15, 0.85, 1); }
+    65% {
+      -webkit-transform: scale3d(0.95, 1.05, 1);
+      transform: scale3d(0.95, 1.05, 1); }
+    75% {
+      -webkit-transform: scale3d(1.05, 0.95, 1);
+      transform: scale3d(1.05, 0.95, 1); }
+    100% {
+      -webkit-transform: scale3d(1, 1, 1);
+      transform: scale3d(1, 1, 1); } }
+  
+  @keyframes rubberBand {
+    0% {
+      -webkit-transform: scale3d(1, 1, 1);
+      transform: scale3d(1, 1, 1); }
+    30% {
+      -webkit-transform: scale3d(1.25, 0.75, 1);
+      transform: scale3d(1.25, 0.75, 1); }
+    40% {
+      -webkit-transform: scale3d(0.75, 1.25, 1);
+      transform: scale3d(0.75, 1.25, 1); }
+    50% {
+      -webkit-transform: scale3d(1.15, 0.85, 1);
+      transform: scale3d(1.15, 0.85, 1); }
+    65% {
+      -webkit-transform: scale3d(0.95, 1.05, 1);
+      transform: scale3d(0.95, 1.05, 1); }
+    75% {
+      -webkit-transform: scale3d(1.05, 0.95, 1);
+      transform: scale3d(1.05, 0.95, 1); }
+    100% {
+      -webkit-transform: scale3d(1, 1, 1);
+      transform: scale3d(1, 1, 1); } }
+  
+  .rubberBand {
+    -webkit-animation-name: rubberBand;
+    animation-name: rubberBand; }

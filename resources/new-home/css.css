@@ -1418,16 +1418,26 @@ Slider
   z-index: 990;
   position: fixed;
   top: 47px;
-  right: 85px;
-  height: 60px;
-  width: 60px;
-  border-radius: 0 0 60px 60px;
   border-color: transparent;
   -webkit-transition: all .3s ease-in-out;
   transition: all .3s ease-in-out; }
   .shopping-cart span {
     right: 2px;
     top: 2px; }
+    @media (max-width: 575.98px) {
+      .shopping-cart {
+        right: 33px;
+        height: 55px;
+        width: 55px;
+        border-radius: 0 0 55px 55px;
+    }}
+    @media (min-width: 576px) {
+      .shopping-cart {
+        right: 85px;
+        height: 60px;
+        width: 60px;
+        border-radius: 0 0 60px 60px;
+    }}
 
 @-webkit-keyframes rubberBand {
   0% {
