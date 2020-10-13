@@ -235,6 +235,9 @@ function initRecommendedGames(max_games = 20)
 		
 		for(var i = 0; i < topgames.topCcu.length && i < max_games; i ++){
 			var gameID = topgames.topCcu[i];
+			var gameStatus = gamedata && gamedata[gameID] && gamedata[gameID].common_params && gamedata[gameID].common_params.game_status;
+			if(!gameStatus || gameStatus === "developing" || gameStatus === "inactive")
+				continue;
 
 			// check Caresol block
 			if(gameCountInCurrentPage >= gameCountPerPage || pageNumber <= 0){
@@ -273,6 +276,9 @@ function initGoodGames(max_games = 20)
 		
 		for(var i = 0; i < topgames.topLogin.length && i < max_games; i ++){
 			var gameID = topgames.topLogin[i];
+			var gameStatus = gamedata && gamedata[gameID] && gamedata[gameID].common_params && gamedata[gameID].common_params.game_status;
+			if(!gameStatus || gameStatus === "developing" || gameStatus === "inactive")
+				continue;
 
 			// check Caresol block
 			if(gameCountInCurrentPage >= gameCountPerPage || pageNumber <= 0){
