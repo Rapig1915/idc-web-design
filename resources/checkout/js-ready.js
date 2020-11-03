@@ -1,4 +1,4 @@
 initOrderItems();
 loadPaymentMethods();
 
-$("body").on("click", ".btn-proceed-payment", proceedPayment);
+$("body").on("click", ".btn-proceed-payment", loadUserAndProceed);
