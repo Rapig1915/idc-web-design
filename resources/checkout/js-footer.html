@@ -126,12 +126,13 @@
         var this_btn = this;
         var bought_data = '';
         var b_data = [];
+        const domain = window.location.host;
 
-        console.log(cartInfo);
+        console.log(domain, cartInfo);
 
         for(var i = 0; i < cartInfo.games.length; i ++){
             var item = cartInfo.games[i];
-            b_data.push({"type":"GAME","id_idcgame":item.gameID,"price":item.price,"has_offer":item.discount>0,"offer_discount":item.discount_percent});
+            b_data.push({"type":"GAME","id_idcgame":item.gameID,"price":item.price,"has_offer":item.discount>0?1:0,"discount":(item.price*item.discount_percent/100).toFixed(2)});
         }
 
         bought_data = JSON.stringify(b_data);
@@ -143,7 +144,7 @@
         $.ajax({
             type:"POST",
             url:"/unilogin/request_idcpayment.php?action=create_transaction",
-            data: `token=${loadSession('token')}&amount=${cartInfo.price}&bought_data=${bought_data}&currency=${cartInfo.currency.toUpperCase()}&pmp_id=${selected_paymethod_id}&id_idcuser=${getCookie('id')}&redirect_on_success=https://==(language)==.idcgames.net/clear-cart&redirect_on_fail=https://==(language)==.idcgames.net`,
+            data: `token=${loadSession('token')}&amount=${cartInfo.price}&bought_data=${bought_data}&currency=${cartInfo.currency.toUpperCase()}&pmp_id=${selected_paymethod_id}&id_idcuser=${getCookie('id')}&redirect_on_success=https://${domain}/clear-cart.html&redirect_on_fail=https://${domain}`,
             dataType: 'text',
             async:true,
             success: function(json){

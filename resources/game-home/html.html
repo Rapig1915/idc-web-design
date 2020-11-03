@@ -53,26 +53,26 @@
                         <div class="bottom colorLightBg animatedX slideInDown fast bgLightTexture"></div>
                     </div>
                     <div class="texture2"></div>
-                    <div class="col-md-7 col-12 d-flex hero-left">
+                    <div class="col-md-7 col-12 d-flex hero-left game-block">
                         <div class="hero-text d-flex flex-column">
                             <h1 class="logo text-hide animatedX fadeInUp slow">%%(game_name)%%</h1> 
                             <h2 class="animatedX fadeInUp slow slow pt-md-3 fontPrimaryMedium colorDark">__(game_short_description)__</h2>
                             <div class="mt-1 fontSecondarySmall colorDark">__(meta_titles)__</div>
                             <div class="d-flex flex-row align-items-center animated fadeInLeft fast mt-3">
                                <div class="mr-2">
-                                    <span class="h6 btn btn-secondary btn-sm px-2 mb-0">-50%</span>
+                                    <span class="h6 btn btn-secondary btn-sm px-2 mb-0 text-discount-percent">-50%</span>
                                 </div>
                                 <div class="mr-2">
-                                  <a href="/free-to-play/" class="btn btn-dark btn-sm price" data-play="%%(id_idcgame)%%">==(free_to_play)==</a>  
+                                  <a href="/free-to-play/" class="btn btn-dark btn-sm price btn-free-to-play" data-play="%%(id_idcgame)%%">==(free_to_play)==</a>  
                                 </div>
                                 <div class="btn btn-dark btn-sm price d-flex flex-row align-items-baseline">
-                                    <span class="small text-white-50 mr-2"> <del>€ 10,49</del></span>
-                                    <span class="text-shadow text-white mb-0"> € 10,49</span>
+                                    <span class="small text-white-50 mr-2"> <del class="text-original-price">€ 10,49</del></span>
+                                    <span class="text-shadow text-white mb-0 text-price"> € 10,49</span>
                                 </div>
                             </div>
                         </div>
                         <button id="btn-cta" class="btn-cta animatedX fadeInLeft fast controlGame " data-play="%%(id_idcgame)%%"><i class="fas fa-spinner fa-pulse"></i></button>
-                        <button id="btn-cta-shopping" class="btn-cta cart-btn animatedX fadeInLeft fast controlGame " data-play="%%(id_idcgame)%%"><i class="fas fa-shopping-cart"></i><span class="ml-3">Buy now</span></button>
+                        <button id="btn-cta-shopping" class="btn-cta cart-btn animatedX fadeInLeft fast buyGame " data-play="%%(id_idcgame)%%"><i class="fas fa-shopping-cart"></i><span class="ml-3">Buy now</span></button>
                     </div>
                     <div class="col-md-5 col-12 p-0 d-flex hero-right">
                         <img class="hero-img animatedX slideInRight" src="__(characters_front_right)__" alt="%%(game_name)%%">

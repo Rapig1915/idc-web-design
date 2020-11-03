@@ -25,11 +25,11 @@ if( typeof(loadedUD) == "undefined" ){
 	var loadedUD = 0;
 }
 /* Game data */ 
-if( typeof(gamedata) == "undefined" ){
-	var  gamedata = {};
-	var aux = &&([game.current].[full])&&;
-	gamedata[%%(id_idcgame)%%] = aux[0];
-}
+// if( typeof(gamedata) == "undefined" ){
+// 	var  gamedata = {};
+// 	var aux = &&([game.current].[full])&&;
+// 	gamedata[gameID] = aux[0];
+// }
 var thisStatus = "s%%(game_status_id)%%";
 var playable = gameStatus[thisStatus].playable;
 var cat = [
@@ -208,7 +208,7 @@ function doModal(index, tipo, target){
 	}	
 }
 function isPlayable(){
-	if( playable == 1 ){
+	if( playable && playable == 1 ){
 		var text = gameStatus[thisStatus].name;
 		$(".controlGame").text(text);
 	}else{

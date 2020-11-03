@@ -49,3 +49,27 @@ $("body").on( "click", ".setModal", function() {
 if( $(".progressItem").length > 0 ) {
  timeout = setInterval(function(){ actTime(); }, 1000);
 }
+
+var gData = gamedata[%%(id_idcgame)%%];
+var gPrice = getGamePrice(gData);
+var dataset = makeDatasetForGame(gData) || [];
+dataset.push({ cls: ".btn-free-to-play", hide: true });
+if(gPrice > 0){
+    dataset.push({ cls: "#btn-cta", hide: true });
+}else{
+    dataset.push({ cls: "#btn-cta-shopping", hide: true });
+}
+
+setObjectValues($("#main .game-block"), dataset);
+
+$("body").on("click",".cart-btn",function(){
+    // $(this).closest(".game-card-rectangular").find(".inCart").addClass("d-block");
+    // $(this).closest(".game-card-rectangular").find(".soon").removeClass("d-block");
+    // $(this).closest(".card").find(".inCart").addClass("d-block");
+    // $(this).closest(".card").find(".soon").removeClass("d-block");
+
+    if(typeof(putGameInBasket) == "function")
+    {
+        putGameInBasket($(this).attr("data-play"));
+    }
+})
