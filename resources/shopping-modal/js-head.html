@@ -70,12 +70,25 @@
       },1000);
   }
 
-  function calcCartPrice()
+  function calcCartPrice(pmp = null, currencies = null)
   {
+    const getConversionRate = (code, code_vs) => {
+        if(!currencies || !currencies[code] || !currencies[code_vs])
+            return NaN;
+        return currencies[code].rate_vs_eur / currencies[code_vs].rate_vs_eur;
+    }
+
+    const vat_rate = parseFloat(pmp && pmp.vat) || 0;
     var result = { 
       count: 0, 
       original_price: 0, 
-      price: 0, 
+
+      price: 0,  // Net
+      vat: 0,
+      feeIdcpayment: 0,
+      feePaymethod: 0,
+      total: 0,
+
       discount: 0, 
       currency: user_currency || "EUR", 
       simbol: user_currency_symbol || "€",
@@ -97,16 +110,53 @@
       result.original_price = (result.original_price - (0-gPrice)).toFixed(2);
       result.price = (result.price - (0 - (gPrice - discount_price).toFixed(2))).toFixed(2);
       result.discount = (result.discount -(0 - discount_price)).toFixed(2);
-      result.games.push({ 
+
+      const g = { 
         gameID: basketInfo.games[i],
         currency: result.currency, 
         original_price: gPrice, 
         discount: discount_price,
         discount_percent: discount_percent,
-        price: (gPrice - discount_price).toFixed(2), 
-        data: gData 
-      });
+        data: gData,
+
+        price_net: (gPrice - discount_price).toFixed(2),
+        price: ((gPrice - discount_price)*(100+vat_rate)/100).toFixed(2)
+      };
+
+      result.vat = (parseFloat(result.vat) + parseFloat(g.price)-parseFloat(g.price_net)).toFixed(2);
+
+      result.games.push(g);
     }
+
+    if(pmp && pmp.fee_idcpayment && pmp.fee_idcpayment.currency){
+      const fixedFee = getConversionRate(pmp.fee_idcpayment.currency, result.currency) * (parseFloat(pmp.fee_idcpayment.fixed) || 0);
+      const minFee = getConversionRate(pmp.fee_idcpayment.currency, result.currency) * (parseFloat(pmp.fee_idcpayment.min)||0);
+      const maxFee = getConversionRate(pmp.fee_idcpayment.currency, result.currency) * (parseFloat(pmp.fee_idcpayment.max)|| 0);
+      result.feeIdcpayment = ((parseFloat(pmp.fee_idcpayment.percent) || 0)*parseFloat(result.price)/100 + fixedFee).toFixed(2);
+      
+      console.log(pmp.fee_idcpayment)
+      console.log("Fee Idcpayment: ", pmp.fee_idcpayment.percent, result.price, result.feeIdcpayment, fixedFee, minFee, maxFee)
+
+      if(result.feeIdcpayment < minFee)
+        result.feeIdcpayment = minFee;
+      if(result.feeIdcpayment > maxFee)
+        result.feeIdcpayment = maxFee;
+    }
+    if(pmp && pmp.fee_paymethod && pmp.fee_paymethod.currency){
+      const fixedFee = getConversionRate(pmp.fee_paymethod.currency, result.currency) * (parseFloat(pmp.fee_paymethod.fixed) || 0);
+      const minFee = getConversionRate(pmp.fee_paymethod.currency, result.currency) * (parseFloat(pmp.fee_paymethod.min) || 0);
+      result.feePaymethod = ((parseFloat(pmp.fee_paymethod.percent) || 0)*parseFloat(result.price)/100 + fixedFee).toFixed(2);
+
+      console.log(pmp.fee_paymethod)
+      console.log("Fee Paymethod: ", pmp.fee_idcpayment.percent, result.price, result.feePaymethod, fixedFee, minFee)
+
+      if(result.feeIdcpayment < minFee)
+        result.feeIdcpayment = minFee;
+    }
+
+    result.vat = (parseFloat(result.vat) + parseFloat(((parseFloat(result.feeIdcpayment)+parseFloat(result.feePaymethod))*vat_rate/100).toFixed(2))).toFixed(2);
+
+    result.total = (parseFloat(result.price) + parseFloat(result.feeIdcpayment) + parseFloat(result.feePaymethod) + parseFloat(result.vat)).toFixed(2);
 
     return result;
   }
