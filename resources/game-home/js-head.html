@@ -208,14 +208,14 @@ function doModal(index, tipo, target){
 	}	
 }
 function isPlayable(){
-	if( playable && playable == 1 ){
-		var text = gameStatus[thisStatus].name;
-		$(".controlGame").text(text);
+	var text = gameStatus[thisStatus].name;
+	$(".controlGame").text(text);
+	/*if( playable && playable == 1 ){
 	}else{
 		var text = "==(play_now_txt)==";
 		$(".controlGame").text(text);
 		$(".controlGame").addClass("playGame");
-	}
+	}*/
 }
 function doLangs(){
 	if('%%(game_lang_es_interface)%%%%(game_lang_es_audio)%%%%(game_lang_es_subtitle)%%' == '' ){ $(".lang-es").remove(); }

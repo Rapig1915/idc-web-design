@@ -54,10 +54,14 @@ var gData = gamedata[%%(id_idcgame)%%];
 var gPrice = getGamePrice(gData);
 var dataset = makeDatasetForGame(gData) || [];
 dataset.push({ cls: ".btn-free-to-play", hide: true });
-if(gPrice > 0){
+if(gPrice > 0 && gameStatus[thisStatus].purchasable == 1){
     dataset.push({ cls: "#btn-cta", hide: true });
 }else{
     dataset.push({ cls: "#btn-cta-shopping", hide: true });
+}
+
+if(false){ // playable check : f2p playable || p2p bought
+    $(".controlGame").text("==(play_now_txt)==");
 }
 
 setObjectValues($("#main .game-block"), dataset);

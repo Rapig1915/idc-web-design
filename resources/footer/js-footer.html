@@ -196,6 +196,12 @@ $("body").on("click",".closeCookies",function(){
 					 (gData && gData.store_params && gData.store_params.background_foros) || `https://idcgames.com/global_releases/splash/${gameID}.png`;
 	}
 
+	function getFeaturedSquareImage(gData)
+	{
+		var gameID = gData && gData.common_params && gData.common_params.id_idcgame;
+		return (gData && gData.store_params && gData.store_params.background_clip_medium) || getGameHomeImage(gData);
+	}
+
 	function getQueryVariable(variable) {
     var query = window.location.search.substring(1);
     var vars = query.split('&');

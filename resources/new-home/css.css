@@ -1743,7 +1743,7 @@ span.btn.btn-primary.btn-sm.px-2, .btn-group-sm > span.btn.btn-primary.px-2 {
 #featured .left-small img {
   height: 178px; 
   width: 100%;
-  object-fit: cover;
+  /* object-fit: cover; */
 }
 
 #featured .right-long img {

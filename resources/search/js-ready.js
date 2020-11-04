@@ -261,7 +261,7 @@ function initGames(games, tab /* all/featured/new/sale/upcoming */, mode/* squar
             if(-- nDisplayStep <= 0) break;
 		}
 
-		nNextGameIndex = i;
+		nNextGameIndex = i+1;
 		if(nNextGameIndex > games.length)
             nNextGameIndex = games.length;
 

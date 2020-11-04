@@ -313,7 +313,7 @@ function initGoodGames(max_games = 20)
 
 function initFeaturedGames(max_games = 20)
 {
-	var nMaxFeatured = 5;
+	var nMaxFeatured = 6;
 
 	if(topgames_panel && !!topgames_panel.featured){
 		for(var i = 0; i < topgames_panel.featured.length && i < max_games; i ++){
@@ -326,7 +326,7 @@ function initFeaturedGames(max_games = 20)
 
 			var dataset = [
 				{ cls: "", attr: "href", value: `/${gData.common_params.game_seo}` },
-				{ cls: ".gameCard-img", attr: "src", value: getGameHomeImage(gData) },
+				{ cls: ".gameCard-img", attr: "src", value: getFeaturedSquareImage(gData) },
 				{ cls: ".card-img-overlay", attr: "src", value: gData.common_params.game_logo },
 			];
 
