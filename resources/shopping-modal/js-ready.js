@@ -31,7 +31,7 @@ function initCartItems()
 	if(cartInfo && !!cartInfo.games){
     $(".shoppingCartModal .text-item-count").text(cartInfo.count);
     $(".shoppingCartModal .text-original-price").text(`${cartInfo.simbol} ${cartInfo.original_price}`);
-    $(".shoppingCartModal .text-price").text(`${cartInfo.simbol} ${cartInfo.price}`);
+    $(".shoppingCartModal .text-price").text(`${cartInfo.simbol} ${cartInfo.total}`);
 
 		for(var i = 0; i < cartInfo.games.length; i ++){
 			var gameID = cartInfo.games[i].gameID;

@@ -16,7 +16,7 @@
         objGameContainer.find(".game-block.order").remove();
 
         if(cartInfo && !!cartInfo.games){
-            $(".order-net-price").text(  `Net   ${cartInfo.simbol} ${cartInfo.price}`);
+            $(".order-net-price").text(  `Net   ${cartInfo.simbol} ${cartInfo.net}`);
             $(".order-vat-price").text(  `Vat   ${cartInfo.simbol} ${cartInfo.vat}`);
             $(".order-fee-price").text(  `Fee   ${cartInfo.simbol} ${parseFloat(cartInfo.feeIdcpayment)+parseFloat(cartInfo.feePaymethod)}`);
             $(".order-total-price").text(`Total ${cartInfo.simbol} ${cartInfo.total}`);
@@ -162,7 +162,7 @@
         }
 
         var cartInfo = calcCartPrice(selected_pmp, all_currencies);
-        if(cartInfo.price <= 0)
+        if(cartInfo.total <= 0)
         {
             showMessage("warning", "Sorry, your cart is empty!");
             enableProceedPayment(true);
@@ -182,7 +182,7 @@
         const queryData = {
             token: loadSession('token'),
 
-            amount_net: cartInfo.price,
+            amount_net: cartInfo.net,
             amount_fee_idcpayment: cartInfo.feeIdcpayment,
             amount_fee_paymthod: cartInfo.feePaymethod,
             amount_vat: cartInfo.vat,

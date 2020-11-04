@@ -83,7 +83,7 @@
       count: 0, 
       original_price: 0, 
 
-      price: 0,  // Net
+      net: 0,  // Net
       vat: 0,
       feeIdcpayment: 0,
       feePaymethod: 0,
@@ -108,7 +108,6 @@
 
       result.count = result.count + 1;
       result.original_price = (result.original_price - (0-gPrice)).toFixed(2);
-      result.price = (result.price - (0 - (gPrice - discount_price).toFixed(2))).toFixed(2);
       result.discount = (result.discount -(0 - discount_price)).toFixed(2);
 
       const g = { 
@@ -119,11 +118,13 @@
         discount_percent: discount_percent,
         data: gData,
 
-        price_net: (gPrice - discount_price).toFixed(2),
-        price: ((gPrice - discount_price)*(100+vat_rate)/100).toFixed(2)
+        price: (gPrice - discount_price).toFixed(2),
+        price_net: ((gPrice - discount_price)*100/(100+vat_rate)).toFixed(2)
       };
 
       result.vat = (parseFloat(result.vat) + parseFloat(g.price)-parseFloat(g.price_net)).toFixed(2);
+      result.net = (parseFloat(result.net) + parseFloat(g.price_net)).toFixed(2);
+      result.total = (parseFloat(result.total) + parseFloat(g.price)).toFixed(2);
 
       result.games.push(g);
     }
@@ -132,10 +133,10 @@
       const fixedFee = getConversionRate(pmp.fee_idcpayment.currency, result.currency) * (parseFloat(pmp.fee_idcpayment.fixed) || 0);
       const minFee = getConversionRate(pmp.fee_idcpayment.currency, result.currency) * (parseFloat(pmp.fee_idcpayment.min)||0);
       const maxFee = getConversionRate(pmp.fee_idcpayment.currency, result.currency) * (parseFloat(pmp.fee_idcpayment.max)|| 0);
-      result.feeIdcpayment = ((parseFloat(pmp.fee_idcpayment.percent) || 0)*parseFloat(result.price)/100 + fixedFee).toFixed(2);
+      result.feeIdcpayment = ((parseFloat(pmp.fee_idcpayment.percent) || 0)*parseFloat(result.total)/100 + fixedFee).toFixed(2);
       
       console.log(pmp.fee_idcpayment)
-      console.log("Fee Idcpayment: ", pmp.fee_idcpayment.percent, result.price, result.feeIdcpayment, fixedFee, minFee, maxFee)
+      console.log("Fee Idcpayment: ", pmp.fee_idcpayment.percent, result.total, result.feeIdcpayment, fixedFee, minFee, maxFee)
 
       if(result.feeIdcpayment < minFee)
         result.feeIdcpayment = minFee;
@@ -145,18 +146,18 @@
     if(pmp && pmp.fee_paymethod && pmp.fee_paymethod.currency){
       const fixedFee = getConversionRate(pmp.fee_paymethod.currency, result.currency) * (parseFloat(pmp.fee_paymethod.fixed) || 0);
       const minFee = getConversionRate(pmp.fee_paymethod.currency, result.currency) * (parseFloat(pmp.fee_paymethod.min) || 0);
-      result.feePaymethod = ((parseFloat(pmp.fee_paymethod.percent) || 0)*parseFloat(result.price)/100 + fixedFee).toFixed(2);
+      result.feePaymethod = ((parseFloat(pmp.fee_paymethod.percent) || 0)*parseFloat(result.total)/100 + fixedFee).toFixed(2);
 
       console.log(pmp.fee_paymethod)
-      console.log("Fee Paymethod: ", pmp.fee_idcpayment.percent, result.price, result.feePaymethod, fixedFee, minFee)
+      console.log("Fee Paymethod: ", pmp.fee_idcpayment.percent, result.total, result.feePaymethod, fixedFee, minFee)
 
       if(result.feeIdcpayment < minFee)
         result.feeIdcpayment = minFee;
     }
 
-    result.vat = (parseFloat(result.vat) + parseFloat(((parseFloat(result.feeIdcpayment)+parseFloat(result.feePaymethod))*vat_rate/100).toFixed(2))).toFixed(2);
+    // result.vat = (parseFloat(result.vat) + parseFloat(((parseFloat(result.feeIdcpayment)+parseFloat(result.feePaymethod))*vat_rate/100).toFixed(2))).toFixed(2);
 
-    result.total = (parseFloat(result.price) + parseFloat(result.feeIdcpayment) + parseFloat(result.feePaymethod) + parseFloat(result.vat)).toFixed(2);
+    result.total = (parseFloat(result.total) + parseFloat(result.feeIdcpayment) + parseFloat(result.feePaymethod)).toFixed(2);
 
     return result;
   }
