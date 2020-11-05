@@ -16,10 +16,10 @@
         objGameContainer.find(".game-block.order").remove();
 
         if(cartInfo && !!cartInfo.games){
-            $(".order-net-price").text(  `Net   ${cartInfo.simbol} ${cartInfo.net}`);
-            $(".order-vat-price").text(  `Vat   ${cartInfo.simbol} ${cartInfo.vat}`);
-            $(".order-fee-price").text(  `Fee   ${cartInfo.simbol} ${parseFloat(cartInfo.feeIdcpayment)+parseFloat(cartInfo.feePaymethod)}`);
-            $(".order-total-price").text(`Total ${cartInfo.simbol} ${cartInfo.total}`);
+            $(".order-net-price").text(  `${cartInfo.simbol} ${cartInfo.net}`);
+            $(".order-vat-price").text(  `${cartInfo.simbol} ${cartInfo.vat}`);
+            $(".order-fee-price").text(  `${cartInfo.simbol} ${parseFloat(cartInfo.feeIdcpayment)+parseFloat(cartInfo.feePaymethod)}`);
+            $(".order-total-price").text(`${cartInfo.simbol} ${cartInfo.total}`);
 
             for(var i = 0; i < cartInfo.games.length; i ++){
                 var gameID = cartInfo.games[i].gameID;
