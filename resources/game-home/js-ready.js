@@ -53,15 +53,21 @@ if( $(".progressItem").length > 0 ) {
 var gData = gamedata[%%(id_idcgame)%%];
 var gPrice = getGamePrice(gData);
 var dataset = makeDatasetForGame(gData) || [];
+var sGame = getGameStatus(gData);
 dataset.push({ cls: ".btn-free-to-play", hide: true });
-if(gPrice > 0 && gameStatus[thisStatus].purchasable == 1){
+// if(gPrice > 0 && gameStatus[thisStatus].purchasable == 1){
+if(sGame && sGame.purchasable){
     dataset.push({ cls: "#btn-cta", hide: true });
 }else{
     dataset.push({ cls: "#btn-cta-shopping", hide: true });
 }
 
-if(false){ // playable check : f2p playable || p2p bought
+if(sGame && sGame.playable){ // playable check : f2p playable || p2p bought
     $(".controlGame").text("==(play_now_txt)==");
+}else if(sGame){
+    $(".controlGame").text(sGame.status);
+}else{
+    $(".controlGame").text("Null");
 }
 
 setObjectValues($("#main .game-block"), dataset);

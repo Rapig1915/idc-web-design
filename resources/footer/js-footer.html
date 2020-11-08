@@ -202,6 +202,22 @@ $("body").on("click",".closeCookies",function(){
 		return (gData && gData.store_params && gData.store_params.background_clip_medium) || getGameHomeImage(gData);
 	}
 
+	function getGameStatus(gData) {
+		if(!gData || !gData.common_params)
+			return null;
+		const price = getGamePrice(gData);
+		const status = gData.common_params.game_status;
+		const bought = JSON.parse(loadSession("games") || "[]").filter(x => x.IDJUEGO === parseInt(gData.common_params.id_idcgame)).length > 0;
+		return { 
+			id_idcgame: gData.common_params.id_idcgame, 
+			f2p: price <= 0, 
+			status, 
+			bought, 
+			playable: status==="production" && (price<=0 || bought),
+			purchasable: status==="production" && (price > 0 && !bought) 
+		};
+	}
+
 	function getQueryVariable(variable) {
     var query = window.location.search.substring(1);
     var vars = query.split('&');
