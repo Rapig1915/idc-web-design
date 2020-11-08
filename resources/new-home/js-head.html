@@ -38,12 +38,13 @@ function loadUserGames(cb){
 			}
 			if (userData.rc == 200 ){			
 				if( userData.data.length > 0 ) { 
-                    localStorage.setItem("games", JSON.stringify(userData.data.filter(x => x.IDJUEGO !== 0)));
-                    if(cb) cb();
-                    return true;
+					localStorage.setItem("games", JSON.stringify(userData.data.filter(x => x.IDJUEGO !== 0)));
+					if(cb) cb();
+					return true;
 				}
 			}else if (userData.rc == 404 ) {
-                localStorage.setItem("games", "[]");
+				localStorage.setItem("games", "[]");
+				if(cb) cb();
 				return false;
 			}else{
                 deleteSession();
