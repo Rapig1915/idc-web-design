@@ -64,6 +64,7 @@ if(sGame && sGame.purchasable){
 
 if(sGame && sGame.playable){ // playable check : f2p playable || p2p bought
     $(".controlGame").text("==(play_now_txt)==");
+    $(".controlGame").addClass("playGame");
 }else if(sGame){
     $(".controlGame").text(sGame.status);
 }else{
