@@ -1,7 +1,6 @@
 // setTimeout(addSlideOut, 3500);
 // setTimeout(addMenuClases, 4000).slow;
 // setTimeout(deleteLayer, 5000).slow;
-
 setTimeout(addSlideOut, 350);
 setTimeout(addMenuClases, 400).slow;
 setTimeout(deleteLayer, 500).slow;
@@ -54,42 +53,6 @@ $("body").on('shown.bs.tab', '.anchor-tab', function (e) {
 	for(var i = 0; i < listOfferCarousel.length; i++){
 		controlSlick($(listOfferCarousel[i]), 'setPosition');
 	}
-})
-
-// Load topgames json and init page
-$.get('./idcjson/topgames.json', function(json){
-	topgames = json;
-
-	initRecommendedGames();
-	initGoodGames();
-})
-
-$.get('./idcjson/topgames-panel.json', function(json){
-	topgames_panel = json;
-
-	initFeaturedGames();
-	initDiscoveredGames("bestselling");
-	initDiscoveredGames("new");
-	initDiscoveredGames("upcoming");
-
-	if(topgames_panel && topgames_panel.offer && topgames_panel.offer_categories){
-		initOfferGames(topgames_panel.offer, topgames_panel.offer_categories, true);
-		for(var offer_name in topgames_panel.offer_categories)
-		{
-			initOfferGames(
-				topgames_panel.offer_categories[offer_name].games,
-				{ name: offer_name, max_percent: topgames_panel.offer_categories[offer_name].max_percent, updated_at: topgames_panel.offer_categories[offer_name].updated_at },
-				false
-			);
-		}
-	}
-})
-
-// Load news
-$.get('./assets/content/all-news.json', function(json){
-	all_news = json;
-
-	initNews();
 })
 
 // Init functions
@@ -467,3 +430,43 @@ function controlSlick(elem, command)
 	if(!!command && $(elem).hasClass("slick-initialized"))
 		$(elem).slick(command)
 }
+
+loadUserGames(() => {
+	
+	// Load topgames json and init page
+	$.get('./idcjson/topgames.json', function(json){
+		topgames = json;
+
+		initRecommendedGames();
+		initGoodGames();
+	})
+
+	$.get('./idcjson/topgames-panel.json', function(json){
+		topgames_panel = json;
+
+		initFeaturedGames();
+		initDiscoveredGames("bestselling");
+		initDiscoveredGames("new");
+		initDiscoveredGames("upcoming");
+
+		if(topgames_panel && topgames_panel.offer && topgames_panel.offer_categories){
+			initOfferGames(topgames_panel.offer, topgames_panel.offer_categories, true);
+			for(var offer_name in topgames_panel.offer_categories)
+			{
+				initOfferGames(
+					topgames_panel.offer_categories[offer_name].games,
+					{ name: offer_name, max_percent: topgames_panel.offer_categories[offer_name].max_percent, updated_at: topgames_panel.offer_categories[offer_name].updated_at },
+					false
+				);
+			}
+		}
+	})
+
+	// Load news
+	$.get('./assets/content/all-news.json', function(json){
+		all_news = json;
+
+		initNews();
+	})
+
+});
