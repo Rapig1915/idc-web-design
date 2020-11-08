@@ -18,8 +18,13 @@
 
   function putGameInBasket(id_idcgame){
     if(!gamedata || !gamedata[id_idcgame]){
-      consonle.log(`Error: adding invalid game ${id_idcgame}`)
-      return;
+      console.log(`Error: adding invalid game ${id_idcgame}`)
+      return false;
+    }
+
+    if(JSON.parse(loadSession("games") || "[]").filter(x => x.IDJUEGO === parseInt(`${id_idcgame}`)).length > 0){
+      console.log(`Error: Game ${id_idcgame} already bought`)
+      return false;
     }
 
     var basketInfo = readBasketInfo();
@@ -32,6 +37,7 @@
     
     $(`.cart-btn[id_idcgame=${id_idcgame}]`).closest(".card").find(".inCart").addClass("d-block");
     $(`.cart-btn[id_idcgame=${id_idcgame}]`).closest(".game-card-rectangular").find(".inCart").addClass("d-block");
+    return true;
   }
   
   function removeGameFromBasket(id_idcgame){
