@@ -126,7 +126,8 @@ function initOfferGames(games, categories, all = true, max_games = 20)
 			newOfferBlock = setObjectValues(newOfferBlock, [
 				{ cls: ".anchor-offer", attr: "href", value: "#" },
 				{ cls: ".text-offer-name", text: offer_name },
-				{ cls: ".text-discount-percent", text: `${oData.max_percent}%` },
+				{ cls: ".text-discount-percent", text: `==(discount_param)==`.replace("{discount}", oData.max_percent) },
+				{ cls: ".text-discount-prefix", text: `==(up_to_discount)==`.replace("{discount}", oData.max_percent) },
 				{ cls: ".text-updated-at", text: getEllipseTimeFromTimestamp(oData.updated_at) },
 				{ cls: ".offerCard-img", attr: "src", value: "" },
 			]);

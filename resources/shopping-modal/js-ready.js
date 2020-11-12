@@ -29,7 +29,7 @@ function initCartItems()
 	objGameContainer.find(".cart-item-game").remove();
 
 	if(cartInfo && !!cartInfo.games){
-    $(".shoppingCartModal .text-item-count").text(cartInfo.count);
+    $(".shoppingCartModal .text-item-note").text("==(items_added)==".replace("{items}", cartInfo.count));
     $(".shoppingCartModal .text-original-price").text(`${cartInfo.simbol} ${cartInfo.original_price}`);
     $(".shoppingCartModal .text-price").text(`${cartInfo.simbol} ${cartInfo.total}`);
 

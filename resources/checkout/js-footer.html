@@ -70,6 +70,7 @@
                         var newPMBlock = $(".payment-method-block.clone").clone().removeClass("hidden").removeClass("clone");
                         var dataset = [
                             { cls: ".text-pm-name", text: result.pmp[i].name },
+                            { cls: ".text-pm-note", text: `==(after_pay_now)==`.replace("{paymethod}", result.pmp[i].name) },
                             { cls: ".payment-icon", attr: "src", value: result.pmp[i].thumb },
                             { cls: ".custom-control-input", attr: "id", value: `${result.pmp[i].name}` },
                             { cls: ".custom-control-input", attr: "data-pmp-id", value: `${result.pmp[i].pmp_id}` },
@@ -113,11 +114,11 @@
     {
         if(status){
             $(".btn-proceed-payment").removeClass("disabled");
-            $(".btn-proceed-payment").text("PAY NOW");
+            $(".btn-proceed-payment").text("==(pay_now)==");
         }
         else{
             $(".btn-proceed-payment").addClass("disabled");
-            $(".btn-proceed-payment").text(placeholder || "In Process...");
+            $(".btn-proceed-payment").text(placeholder || "==(in_process)==...");
         }
     }
 
@@ -156,7 +157,7 @@
         var selected_paymethod_id = $(".payment-methods-container input[name='paymentMethod']:checked").attr("data-pmp-id");
         if(!selected_paymethod_id)
         {
-            showMessage("warning", "No payment method selected.");
+            showMessage("warning", "==(no_payment_method)==.");
             enableProceedPayment(true);
             return;
         }
@@ -219,13 +220,13 @@
                     window.open(idcpayment_transaction_url.replace("{transaction_id}", result.transaction_id).replace("{lang}", "==(language)==".toUpperCase()).replace("{pmpc_id}", result.pmpc_id));
                 }else{
                     console.log("Something wrong in creating payment transaction - response error");
-                    showMessage("warning", "Something wrong while proceeding payment...");
+                    showMessage("warning", "==(error_paying)==...");
                 }
                 enableProceedPayment(true);
             },
             error: function(){  
                 console.log("Something wrong in creating payment transaction - connection error");
-                showMessage("warning", "Something wrong while creating transaction...");
+                showMessage("warning", "==(wrong_transaction)==...");
                 
                 enableProceedPayment(true);
             }
