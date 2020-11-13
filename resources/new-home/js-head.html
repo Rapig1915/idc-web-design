@@ -32,8 +32,9 @@ function loadUserGames(cb){
 			try {
 				userData = JSON.parse(e);
 			}catch (e){
-                deleteSession();
-                localStorage.setItem("games", "[]");
+				deleteSession();
+				localStorage.setItem("games", "[]");
+				if(cb) cb();
 				return false;
 			}
 			if (userData.rc == 200 ){			
@@ -47,10 +48,14 @@ function loadUserGames(cb){
 				if(cb) cb();
 				return false;
 			}else{
-                deleteSession();
-                localStorage.setItem("games", "[]");
+				deleteSession();
+				localStorage.setItem("games", "[]");
+				if(cb) cb();
 				return false;
 			}
+		},
+		error: function(e){
+			if(cb) cb();
 		}
 	});
 }
