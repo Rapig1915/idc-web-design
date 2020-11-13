@@ -1,4 +1,8 @@
 // cart buttons
+$(".custom-control-label.price-tag").each(function(index, label){
+    $(label).text($(label).text().replace("{price}", $(label).attr("data-price")).replace("{symbol}", user_currency_symbol));
+})
+
 $("body").on("click",".cart-btn",function(){
     if(typeof(putGameInBasket) == "function" && putGameInBasket($(this).attr("id_idcgame")))
 	{
@@ -168,7 +172,7 @@ function doSearch(){
     $.ajax({
         type:"POST",
         url:"/assets/search/searchfilter.php",
-        data: `token=${loadSession('token')}&name=${paramName}&category=${paramCategory}&price=${paramPrice}&has_offer=`,
+        data: `token=${loadSession('token')}&currency=${user_currency}&name=${paramName}&category=${paramCategory}&price=${paramPrice}&has_offer=`,
         dataType: 'json',
         async:true,
         success: function(json){

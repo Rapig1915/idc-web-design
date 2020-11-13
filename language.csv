@@ -401,3 +401,5 @@
 ==(fighting_title)==;Fighting games
 ==(url_search)==;search
 ==(st_demo)==;Demo
+==(under_price)==;Meno di {price} {symbol}
+==(above_price)==;Por encima de {price} {symbol}
