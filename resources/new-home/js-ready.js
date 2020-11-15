@@ -279,11 +279,19 @@ function initFeaturedGames(max_games = 20)
 	var nMaxFeatured = 6;
 
 	if(topgames_panel && !!topgames_panel.featured){
-		for(var i = 0; i < topgames_panel.featured.length && i < max_games; i ++){
+		const getShuffledArr = arr => {
+				if (arr.length === 1) {return arr};
+				const rand = Math.floor(Math.random() * arr.length);
+				return [arr[rand], ...getShuffledArr(arr.filter((_, i) => i != rand))];
+		};
+
+		const data = getShuffledArr(topgames_panel.featured);
+
+		for(var i = 0; i < data.length && i < max_games; i ++){
 			if(i >= nMaxFeatured)
 				break;
 
-			var gameID = topgames_panel.featured[i];
+			var gameID = data[i];
 
 			var gData = gamedata[gameID];
 
