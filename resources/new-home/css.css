@@ -1273,30 +1273,123 @@ Resto de juegos
 Slider
 ======================================================================================================================
 */
-.carousel {
-  top: 0; }
+.carousel-item {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+.carousel-top .slick-slide {
+  opacity: 30%;
+}
+.carousel-top .slick-current {
+  opacity: 100%;
+}
+.carousel-top .slick-list {
+  padding: 0 calc((100vw - 1140px) / 2)!important;
+}
+.carousel-top .img-logo {
+  max-width: 30vw;
+  height: 100px;
+  object-fit: contain;
+  object-position: left;
+}
+.carousel-top .slick-slide .no-visible {
+  opacity: 0;
+}
 
-@media (min-width: 768px) {
-  #sliderhome, .carousel-inner {
-    height: 85vh; }
-  .slider-layer-2, .slider-layer-3 {
-    min-height: 85vh;
+@media (max-width: 575.98px) {
+  .carousel-top {
+    height: 283px;
+    margin-top: 46px;
+  }
+  .carousel-top .slider-layer-2, .carousel-top .slider-layer-3 {
+    height: 283px;
     -o-object-fit: cover;
-       object-fit: cover; } }
+        object-fit: cover;
+  }
+  .carousel-top .slick-next {
+    right: 10px;
+  }
+  .carousel-top .slick-prev {
+    left: 10px;
+  }}
 
-@media (max-width: 991.98px) {
-  #sliderhome, .carousel-inner {
-    height: 95vh; }
-  .slider-layer-2, .slider-layer-3 {
-    min-height: 95vh;
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .carousel-top {
+    height: 283px;
+    margin-top: 46px;
+  }
+  .carousel-top .slider-layer-2, .carousel-top .slider-layer-3 {
+    height: 283px;
     -o-object-fit: cover;
-       object-fit: cover; } }
+        object-fit: cover;
+  }
+  .carousel-top .slick-next {
+    right: 30px;
+  }
+  .carousel-top .slick-prev {
+    left: 30px;
+  }}
+        
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .carousel-top {
+    height: 396px;
+    margin-top: 46px;
+  }
+  .carousel-top .slider-layer-2, .carousel-top .slider-layer-3 {
+    height: 396px;
+    -o-object-fit: cover;
+      object-fit: cover;
+  } 
+  .carousel-top .slick-next {
+    right: 30px;
+  }
+  .carousel-top .slick-prev {
+    left: 30px;
+  }}
 
-.carousel-control-prev,
-.carousel-control-next {
-  z-index: 100 !important; }
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .carousel-top {
+    height: 490px;
+    margin-top: 46px;
+  }
+  .carousel-top .slider-layer-2, .carousel-top .slider-layer-3 {
+    height: 490px;
+    -o-object-fit: cover;
+      object-fit: cover;
+  }
+  .carousel-top .slick-next {
+    right: 30px;
+  }
+  .carousel-top .slick-prev {
+    left: 30px;
+  }}
 
-.bg-1 {
+@media (min-width: 1200px) {
+  .carousel-top {
+    height: 490px;
+    margin-top: 46px;
+  }
+  .carousel-top .slider-layer-2, .carousel-top .slider-layer-3 {
+    height: 490px;
+    -o-object-fit: cover;
+      object-fit: cover;
+  }
+  .carousel-top .slick-next {
+    right: calc((100vw - 1160px) / 2);
+  }
+  .carousel-top .slick-prev {
+    left: calc((100vw - 1160px) / 2);
+  }
+}
+
+.carousel-top .slick-next,
+.carousel-top .slick-prev {
+  z-index: 100;
+}
+.carousel-top .slick-slide .bg-1{
+  background-image: linear-gradient(45deg, rgba(0, 255, 127, .3) 0%, rgba(49, 73, 84, .3) 50%, rgba(0, 255, 127, .3) 100%);
+}
+.carousel-top .slick-current .bg-1 {
   background-image: linear-gradient(-115deg, rgba(32, 35, 40, 0) 0%, rgba(32, 35, 40, 0.1) 40%, rgba(32, 35, 40, 0.3) 65%, rgba(0, 0, 0, 0.8) 100%);
   background-size: 120% 120%; }
 
@@ -1326,12 +1419,12 @@ Slider
 .slider-layer-2 {
   z-index: 2;
   margin-right: -40px !important;
-  width: calc(100vw + 40px); }
+  width: calc(100% + 40px); }
 
 .slider-layer-3 {
   z-index: 1;
   margin-left: -40px !important;
-  width: calc(100vw + 40px); }
+  width: calc(100% + 40px); }
 
 .carousel-caption-custom {
   top: 0px; }
@@ -1343,32 +1436,31 @@ Slider
 
 @media (max-width: 991.98px) {
   .carousel-caption-custom-item {
-    margin: 1rem auto;
+    margin: .5rem auto;
     width: 80vw; }
   .img-logo {
     margin-bottom: .5rem;
-    padding-top: 3rem;
     max-height: 20vh;
     -o-object-fit: contain;
        object-fit: contain; } }
 
 @-webkit-keyframes slideInLeftCustom {
   from {
-    -webkit-transform: translate3d(-3%, 0, 0);
-            transform: translate3d(-3%, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
     visibility: visible; }
   to {
-    -webkit-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0); } }
+    -webkit-transform: translate3d(-3%, 0, 0);
+            transform: translate3d(-3%, 0, 0); } }
 
 @keyframes slideInLeftCustom {
   from {
-    -webkit-transform: translate3d(-3%, 0, 0);
-            transform: translate3d(-3%, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
     visibility: visible; }
   to {
-    -webkit-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0); } }
+    -webkit-transform: translate3d(-3%, 0, 0);
+            transform: translate3d(-3%, 0, 0); } }
 
 .slideInLeftCustom {
   -webkit-animation-name: slideInLeftCustom;
@@ -1376,21 +1468,21 @@ Slider
 
 @-webkit-keyframes slideInRightCustom {
   from {
-    -webkit-transform: translate3d(2%, 0, 0);
-            transform: translate3d(2%, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
     visibility: visible; }
   to {
-    -webkit-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0); } }
+    -webkit-transform: translate3d(2%, 0, 0);
+            transform: translate3d(2%, 0, 0); } }
 
 @keyframes slideInRightCustom {
   from {
-    -webkit-transform: translate3d(2%, 0, 0);
-            transform: translate3d(2%, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
     visibility: visible; }
   to {
-    -webkit-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0); } }
+    -webkit-transform: translate3d(2%, 0, 0);
+            transform: translate3d(2%, 0, 0); } }
 
 .slideInRightCustom {
   -webkit-animation-name: slideInRightCustom;

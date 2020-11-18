@@ -27,19 +27,31 @@ $("body").on("click",".btn-show-more",function(){
 });
 
 //Carousel top
-$("body").on("slide.bs.carousel","#sliderhome",function(){
-    $(".animatable").addClass("fadeInLeft");
-    $(".animatable-custom-left").addClass("slideInLeftCustom");
-    $(".animatable-custom-right").addClass("slideInRightCustom");
-    $(".animatable-custom-gradient").addClass("bg-gradient-animation");
-    $(".animatable-up").addClass("fadeInUp");
+$("body").on("afterChange","#sliderhome",function(){
+    $(".slick-current").find(".animatable").addClass("fadeInLeft");
+    $(".slick-current").find(".animatable-custom-left").addClass("slideInLeftCustom");
+    $(".slick-current").find(".animatable-custom-right").addClass("slideInRightCustom");
+    $(".slick-current").find(".animatable-custom-gradient").addClass("bg-gradient-animation");
+    $(".slick-current").find(".animatable-up").addClass("fadeInUp");
 });
-/*
-$('#sliderhome').carousel({
-    interval: 5000,
-    pause: false
-})
-*/
+$("body").on("beforeChange","#sliderhome",function(){
+    $(".slick-current").find(".animatable").removeClass("fadeInLeft");
+    $(".slick-current").find(".animatable-custom-left").removeClass("slideInLeftCustom");
+    $(".slick-current").find(".animatable-custom-right").removeClass("slideInRightCustom");
+    $(".slick-current").find(".animatable-custom-gradient").removeClass("bg-gradient-animation");
+    $(".slick-current").find(".animatable-up").removeClass("fadeInUp");
+});
+
+$('.carousel-top').slick({
+	centerMode: true,
+	centerPadding: '10%',
+	slidesToShow: 1,
+	autoplay: true,
+	arrows: true,
+	speed: 1000,
+	pauseOnHover: true,
+  });
+
 //<!-- slick carousel -->
 
 activateSlick($('.carouselWhatsGood'));
