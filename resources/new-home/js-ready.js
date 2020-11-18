@@ -323,6 +323,8 @@ function initDiscoveredGames(type /* bestselling/new/upcoming */, max_games = 20
 		for(var i = nDisplayedGames; i < topgames_panel[type].length && i < nDisplayedGames + nDisplayStep && i < max_games; i ++){
 			var gameID = topgames_panel[type][i];
 
+			if(!gamedata[gameID]) continue;
+
 			var newGameBlock = $(".game-block.discovered.clone").clone().removeClass("hidden").removeClass("clone");
 
 			// make dataset and display		
@@ -344,7 +346,7 @@ function initDiscoveredGames(type /* bestselling/new/upcoming */, max_games = 20
 
 function initNews()
 {
-	var newsCountPerPage = 3;
+	var newsCountPerPage = 2;
 	var objGameContainer = $('.carouselNews');
 	controlSlick(objGameContainer, 'unslick');
 	objGameContainer.find(".carousel-page.news").remove();
@@ -359,6 +361,7 @@ function initNews()
 			var newsData = all_news.global.recent[i];
 
 			if(newsData.kind == "Reviews")	continue;
+			console.log(newsData.title);
 
 			// check Caresol block
 			if(newsCountInCurrentPage >= newsCountPerPage || pageNumber <= 0){
@@ -383,7 +386,7 @@ function initNews()
 			newsCountInCurrentPage ++;
 		}
 
-		for(var j = newsCountInCurrentPage+1; j <= 3; j ++)
+		for(var j = newsCountInCurrentPage+1; j <= 2; j ++)
 			$(objCurrentPage).find(`.news-${j}`).remove();
 
 		activateSlick(objGameContainer);
