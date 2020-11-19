@@ -1421,13 +1421,13 @@ Slider
 .slider-layer-2 {
   z-index: 2;
   margin-right: -40px !important;
-  /* width: calc(100% + 40px);  */
+  max-width: calc(100% + 40px); 
 }
 
 .slider-layer-3 {
   z-index: 1;
   margin-left: -40px !important;
-  /* width: calc(100% + 40px) !important; */
+  max-width: calc(100% + 40px) !important;
 }
 
 .carousel-caption-custom {
@@ -1881,3 +1881,8 @@ height: 100%;
 .btn-xs {
   font-size: 1rem !important;
   white-space: nowrap; }
+
+.btn-outline-primary:hover, a.bg-dark:hover {
+  background-color: #00ff7f!important;
+}
+  
