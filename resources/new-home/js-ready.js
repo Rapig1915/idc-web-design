@@ -1,6 +1,3 @@
-// setTimeout(addSlideOut, 3500);
-// setTimeout(addMenuClases, 4000).slow;
-// setTimeout(deleteLayer, 5000).slow;
 setTimeout(addSlideOut, 350);
 setTimeout(addMenuClases, 400).slow;
 setTimeout(deleteLayer, 500).slow;
@@ -27,6 +24,17 @@ $("body").on("click",".btn-show-more",function(){
 });
 
 //Carousel top
+//<!-- slick carousel -->
+$('.carousel-top').slick({
+	centerMode: true,
+	centerPadding: '10%',
+	slidesToShow: 1,
+	autoplay: true,
+	arrows: true,
+	speed: 1000,
+	pauseOnHover: true,
+  });
+
 $("body").on("afterChange","#sliderhome",function(){
     $(".slick-current").find(".animatable").addClass("fadeInLeft");
     $(".slick-current").find(".animatable-custom-left").addClass("slideInLeftCustom");
@@ -41,18 +49,13 @@ $("body").on("beforeChange","#sliderhome",function(){
     $(".slick-current").find(".animatable-custom-gradient").removeClass("bg-gradient-animation");
     $(".slick-current").find(".animatable-up").removeClass("fadeInUp");
 });
-
-$('.carousel-top').slick({
-	centerMode: true,
-	centerPadding: '10%',
-	slidesToShow: 1,
-	autoplay: true,
-	arrows: true,
-	speed: 1000,
-	pauseOnHover: true,
-  });
-
-//<!-- slick carousel -->
+$('.carousel-top').on("init","#sliderhome",function(){
+    $(".slick-current").find(".animatable").addClass("fadeInLeft");
+    $(".slick-current").find(".animatable-custom-left").addClass("slideInLeftCustom");
+    $(".slick-current").find(".animatable-custom-right").addClass("slideInRightCustom");
+    $(".slick-current").find(".animatable-custom-gradient").addClass("bg-gradient-animation");
+    $(".slick-current").find(".animatable-up").addClass("fadeInUp");
+});
 
 activateSlick($('.carouselWhatsGood'));
 activateSlick($('.carouselRecommended'));
@@ -493,3 +496,4 @@ loadUserGames(() => {
 	})
 
 });
+
