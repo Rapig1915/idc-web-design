@@ -1287,7 +1287,7 @@ Slider
   padding: 0 calc((100vw - 1140px) / 2)!important;
 }
 .carousel-top .img-logo {
-  max-width: 30vw;
+  /* max-width: 30vw; */
   height: 100px;
   object-fit: contain;
   object-position: left;
@@ -1421,13 +1421,15 @@ Slider
 .slider-layer-2 {
   z-index: 2;
   margin-right: -40px !important;
-  max-width: calc(100% + 40px); 
+  max-width: calc(100% + 40px)!important; 
+  min-width: calc(100% + 40px) !important;
 }
 
 .slider-layer-3 {
   z-index: 1;
   margin-left: -40px !important;
   max-width: calc(100% + 40px) !important;
+  min-width: calc(100% + 40px) !important;
 }
 
 .carousel-caption-custom {
@@ -1436,15 +1438,14 @@ Slider
 @media (min-width: 992px) {
   .carousel-caption-custom-item {
     margin-left: 7rem;
-    width: 30vw; } }
+    width: 40%; } }
 
 @media (max-width: 991.98px) {
   .carousel-caption-custom-item {
     margin: .5rem auto;
     width: 80vw; }
   .img-logo {
-    margin-bottom: .5rem;
-    max-height: 20vh;
+    max-height: 85px;
     -o-object-fit: contain;
        object-fit: contain; } }
 
@@ -1886,3 +1887,181 @@ height: 100%;
   background-color: #00ff7f!important;
 }
   
+/* Crop text */
+@media (max-width: 575.98px) {
+  .datatext {
+    --max-lines: 3;
+    position: relative;
+    max-height: calc(var(--lh) * var(--max-lines));
+    overflow: hidden;
+    /* space for ellipsis */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical; 
+    margin-bottom: 0!important;}
+  
+  html {
+    --lh: 1.5rem;
+    line-height: var(--lh); }
+  
+  .datatext::before {
+    position: absolute;
+    content: "   ";
+    inset-block-end: 0;
+    /* "bottom" */
+    inset-inline-end: 0;
+    /* "right" */ }
+  
+  .datatext::after {
+    content: "";
+    position: absolute;
+    inset-inline-end: 0;
+    /* "right" */
+    width: 1rem;
+    height: 1rem; }
+  
+  .datatext p {
+    margin-bottom: 0; }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .datatext {
+    --max-lines: 4;
+    position: relative;
+    max-height: calc(var(--lh) * var(--max-lines));
+    overflow: hidden;
+    /* space for ellipsis */
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical; 
+    margin-bottom: 0!important;
+    margin-top: 0!important;}
+  
+  html {
+    --lh: 1.5rem;
+    line-height: var(--lh); }
+  
+  .datatext::before {
+    position: absolute;
+    content: "   ";
+    inset-block-end: 0;
+    /* "bottom" */
+    inset-inline-end: 0;
+    /* "right" */ }
+  
+  .datatext::after {
+    content: "";
+    position: absolute;
+    inset-inline-end: 0;
+    /* "right" */
+    width: 1rem;
+    height: 1rem; }
+  
+  .datatext p {
+    margin-bottom: 0; }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .datatext {
+    --max-lines: 6;
+    position: relative;
+    max-height: calc(var(--lh) * var(--max-lines));
+    overflow: hidden;
+    /* space for ellipsis */
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical; }
+  
+  html {
+    --lh: 1.5rem;
+    line-height: var(--lh); }
+  
+  .datatext::before {
+    position: absolute;
+    content: "   ";
+    inset-block-end: 0;
+    /* "bottom" */
+    inset-inline-end: 0;
+    /* "right" */ }
+  
+  .datatext::after {
+    content: "";
+    position: absolute;
+    inset-inline-end: 0;
+    /* "right" */
+    width: 1rem;
+    height: 1rem; }
+  
+  .datatext p {
+    margin-bottom: 0; }
+ }
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .datatext {
+    --max-lines: 10;
+    position: relative;
+    max-height: calc(var(--lh) * var(--max-lines));
+    overflow: hidden;
+    /* space for ellipsis */
+    display: -webkit-box;
+    -webkit-line-clamp: 10;
+    -webkit-box-orient: vertical; }
+  
+  html {
+    --lh: 1.5rem;
+    line-height: var(--lh); }
+  
+  .datatext::before {
+    position: absolute;
+    content: "   ";
+    inset-block-end: 0;
+    /* "bottom" */
+    inset-inline-end: 0;
+    /* "right" */ }
+  
+  .datatext::after {
+    content: "";
+    position: absolute;
+    inset-inline-end: 0;
+    /* "right" */
+    width: 1rem;
+    height: 1rem; }
+  
+  .datatext p {
+    margin-bottom: 0; }
+}
+
+@media (min-width: 1200px) {
+  .datatext {
+    --max-lines: 10;
+    position: relative;
+    max-height: calc(var(--lh) * var(--max-lines));
+    overflow: hidden;
+    /* space for ellipsis */
+    display: -webkit-box;
+    -webkit-line-clamp: 10;
+    -webkit-box-orient: vertical; }
+  
+  html {
+    --lh: 1.5rem;
+    line-height: var(--lh); }
+  
+  .datatext::before {
+    position: absolute;
+    content: "   ";
+    inset-block-end: 0;
+    /* "bottom" */
+    inset-inline-end: 0;
+    /* "right" */ }
+  
+  .datatext::after {
+    content: "";
+    position: absolute;
+    inset-inline-end: 0;
+    /* "right" */
+    width: 1rem;
+    height: 1rem; }
+  
+  .datatext p {
+    margin-bottom: 0; }
+}
