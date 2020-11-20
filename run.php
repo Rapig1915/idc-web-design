@@ -36,10 +36,10 @@
 	$file_handle = fopen('vars.csv', "r");
 	$vars = array();
 	if ($file_handle !== FALSE) {
-		while ( ($data = fgetcsv($file_handle)) !== FALSE) {
-			$row = explode(';',$data[0],2);
-			$index = $row[0];
-			$value = $row[1];
+		while ( ($data = fgetcsv($file_handle, 1000, ';')) !== FALSE) {
+			// $row = explode(';',$data[0],2);
+			$index = $data[0];
+			$value = $data[1];
 			$vars[$index] = $value;
 		}
 		fclose($file_handle);
