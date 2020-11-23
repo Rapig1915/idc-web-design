@@ -1273,6 +1273,19 @@ Resto de juegos
 Slider
 ======================================================================================================================
 */
+body {
+  position: relative!important;
+}
+.carousel-top {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1s ease;
+  -webkit-transition: opacity 1s ease;
+}
+.carousel-top.slick-initialized { 
+  visibility: visible;
+  opacity: 1;    
+}
 .carousel-item {
   overflow-x: hidden;
   max-width: 100%;
