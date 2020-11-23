@@ -1,3 +1,4 @@
+
 $("body").on("click",".cart-btn",function(){
 	
 	if(typeof(putGameInBasket) == "function" && putGameInBasket($(this).attr("id_idcgame")))
@@ -20,6 +21,14 @@ $("body").on("click",".btn-show-more",function(){
 });
 
 //Carousel top
+$("body").on('init',"#sliderhome",function(){
+    $(".slick-current").find(".animatable").addClass("fadeInLeft");
+    $(".slick-current").find(".animatable-custom-left").addClass("slideInLeftCustom");
+    $(".slick-current").find(".animatable-custom-right").addClass("slideInRightCustom");
+    $(".slick-current").find(".animatable-custom-gradient").addClass("bg-gradient-animation");
+    $(".slick-current").find(".animatable-up").addClass("fadeInUp");
+});
+
 //<!-- slick carousel -->
 $('.carousel-top').slick({
 	centerMode: true,
@@ -30,6 +39,7 @@ $('.carousel-top').slick({
 	speed: 1000,
 	pauseOnHover: true,
   });
+
 
 $("body").on("afterChange","#sliderhome",function(){
     $(".slick-current").find(".animatable").addClass("fadeInLeft");
@@ -45,13 +55,7 @@ $("body").on("beforeChange","#sliderhome",function(){
     $(".slick-current").find(".animatable-custom-gradient").removeClass("bg-gradient-animation");
     $(".slick-current").find(".animatable-up").removeClass("fadeInUp");
 });
-$('.carousel-top').on("init","#sliderhome",function(){
-    $(".slick-current").find(".animatable").addClass("fadeInLeft");
-    $(".slick-current").find(".animatable-custom-left").addClass("slideInLeftCustom");
-    $(".slick-current").find(".animatable-custom-right").addClass("slideInRightCustom");
-    $(".slick-current").find(".animatable-custom-gradient").addClass("bg-gradient-animation");
-    $(".slick-current").find(".animatable-up").addClass("fadeInUp");
-});
+
 
 activateSlick($('.carouselWhatsGood'));
 activateSlick($('.carouselRecommended'));
