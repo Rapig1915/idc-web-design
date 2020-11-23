@@ -1524,7 +1524,6 @@ body {
   color: rgba(0, 255, 126, 0.55); }
 
 .shopping-cart {
-  opacity: 0;
   z-index: 990;
   position: fixed;
   top: 47px;
