@@ -38,6 +38,7 @@ $('.carousel-top').slick({
 	arrows: true,
 	speed: 1000,
 	pauseOnHover: true,
+	autoplaySpeed: 6000,
   });
 
 
@@ -70,6 +71,52 @@ $("body").on('shown.bs.tab', '.anchor-tab', function (e) {
 })
 
 // Init functions
+var topSliderInited = false;
+function initTopSlider(max_games=5){
+	if(topSliderInited)
+		return;
+	
+	if(!topgames || !topgames_panel) return;
+
+	topSliderInited = true;
+		
+	var gameList = [];
+	var datasources = [
+		topgames && topgames.topLogin, 
+		topgames && topgames.topCcu, 
+		topgames_panel && topgames_panel.featured, 
+		topgames_panel && topgames_panel["bestselling"], 
+		topgames_panel && topgames_panel["new"], 
+		topgames_panel && topgames_panel["upcoming"], 
+		topgames_panel && topgames_panel["bestselling"], 
+		topgames_panel && topgames_panel.offer
+	];
+
+	datasources.map(src => {
+		if(src && src.length > 0){
+			for(var i = 0; i < src.length && i < max_games; i ++){
+				if(!gameList.includes(src[i]) && gamedata[src[i]]){
+					gameList.push(src[i]);
+					max_games--;
+					break;
+				}
+			}
+		}
+	})
+
+	for(var i = 0; i < gameList.length; i ++){
+		var gameID = gameList[i];
+
+		var newGameBlock = $(`#sliderhome .carousel-item.item-${i+1}`);
+
+		// make dataset and display		
+		newGameBlock = setObjectValues(newGameBlock, makeDatasetForGame(gamedata[gameID]));
+	}
+	for(; i <max_games; i ++){
+		$(`#sliderhome .carousel-item.item-${i+1}`).remove();
+	}
+}
+
 function initOfferGames(games, categories, all = true, max_games = 20)
 {
 	var offer_list = {};
@@ -482,6 +529,7 @@ loadUserGames(() => {
 	$.get('./idcjson/topgames.json', function(json){
 		topgames = json;
 
+		initTopSlider();
 		initRecommendedGames();
 		initGoodGames();
 	})
@@ -489,6 +537,7 @@ loadUserGames(() => {
 	$.get('./idcjson/topgames-panel.json', function(json){
 		topgames_panel = json;
 
+		initTopSlider();
 		initFeaturedGames();
 		initDiscoveredGames("bestselling");
 		initDiscoveredGames("new");

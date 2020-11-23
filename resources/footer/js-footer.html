@@ -153,6 +153,12 @@ $("body").on("click",".closeCookies",function(){
 			{ cls: ".show-os-windows", hide: !gData.common_params.flagWindows },
 			{ cls: ".show-os-apple", hide: !gData.common_params.flagApple },
 			{ cls: ".show-os-linux", hide: !gData.common_params.flagLinux },
+
+			{ cls: ".img-topslider-gamechar", attr: "src", value: gData.store_params.slider_game_character },
+			{ cls: ".img-topslider-gameback", attr: "src", value: gData.store_params.slider_game_background },
+			{ cls: ".img-topslider-gamelogo", attr: "src", value: gData.common_params.game_logo },
+			{ cls: ".txt-topslider-gameintro", text: gData.store_params.game_short_description },
+			{ cls: ".anchor-topslider-gamelink", attr: "href", value: `/${gData.common_params.game_seo}` },
 			
 			{ cls: ".cart-btn", attr: "id_idcgame", value: gData.common_params.id_idcgame },
 			{ cls: ".cart-btn", attr: "price", value: newPrice },
