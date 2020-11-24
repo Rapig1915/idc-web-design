@@ -85,3 +85,23 @@ $("body").on("click",".cart-btn",function(){
         putGameInBasket($(this).attr("data-play"));
     }
 })
+
+$("body").on("click",".wishlist",function(){
+    $(this).addClass("wishlisted");
+    $(this).removeClass("wishlist");
+    $(this).addClass("btn-secondary");
+    $(this).removeClass("btn-outline-secondary");
+    $(this).find("i").addClass("fas");
+    $(this).find("i").removeClass("far");
+    $(this).find("span").text("On wishlist");
+
+})
+$("body").on("click",".wishlisted",function(){
+    $(this).addClass("wishlist");
+    $(this).removeClass("wishlisted");
+    $(this).addClass("btn-outline-secondary");
+    $(this).removeClass("btn-secondary");
+    $(this).find("i").addClass("far");
+    $(this).find("i").removeClass("fas");
+    $(this).find("span").text("Add to your wishlist");
+})

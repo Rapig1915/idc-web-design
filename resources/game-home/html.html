@@ -57,17 +57,23 @@
                         <div class="hero-text d-flex flex-column">
                             <h1 class="logo text-hide animatedX fadeInUp slow">%%(game_name)%%</h1> 
                             <h2 class="animatedX fadeInUp slow slow pt-md-3 fontPrimaryMedium colorDark">__(game_short_description)__</h2>
-                            <div class="mt-1 fontSecondarySmall colorDark">__(meta_titles)__</div>
-                            <div class="d-flex flex-row align-items-center animated fadeInLeft fast mt-3">
-                               <div class="mr-2">
-                                    <span class="h6 btn btn-secondary btn-sm px-2 mb-0 text-discount-percent">-50%</span>
+                            <div class="mt-1 fontSecondarySmall colorDark mb-2">__(meta_titles)__</div>
+                            <div class="d-flex flex-row flex-wrap align-items-start animated fadeInLeft fast mt-3">
+                               <div class="mt-2">
+                                    <span class="h6 btn btn-secondary btn-sm px-2 mb-0 text-discount-percent mr-2">-50%</span>
                                 </div>
-                                <div class="mr-2">
-                                  <a href="/free-to-play/" class="btn btn-dark btn-sm price btn-free-to-play" data-play="%%(id_idcgame)%%">==(free_to_play)==</a>  
+                                <div class="mt-2">
+                                  <a href="/free-to-play/" class="btn btn-dark btn-sm price btn-free-to-play mr-2" data-play="%%(id_idcgame)%%">==(free_to_play)==</a>  
                                 </div>
-                                <div class="btn btn-dark btn-sm price d-flex flex-row align-items-baseline">
+                                <div class="btn btn-dark btn-sm price d-flex flex-row align-items-baseline mr-2 mt-2">
                                     <span class="small text-white-50 mr-2"> <del class="text-original-price">€ 10,49</del></span>
                                     <span class="text-shadow text-white mb-0 text-price"> € 10,49</span>
+                                </div>
+                                <div class="mt-2">
+                                    <button class="btn btn-outline-secondary btn-sm wishlist-btn wishlist mr-2">
+                                        <i class="far fa-heart pr-2"></i>
+                                        <span>Add to your wishlist</span>
+                                    </button>  
                                 </div>
                             </div>
                         </div>
