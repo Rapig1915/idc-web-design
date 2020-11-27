@@ -32,6 +32,10 @@ function initCartItems()
     $(".shoppingCartModal .text-item-note").text("==(items_added)==".replace("{items}", cartInfo.count));
     $(".shoppingCartModal .text-original-price").text(`${cartInfo.simbol} ${cartInfo.original_price}`);
     $(".shoppingCartModal .text-price").text(`${cartInfo.simbol} ${cartInfo.total}`);
+    if(cartInfo.total == cartInfo.original_price)
+      $(".shoppingCartModal .text-original-price").hide();
+    else
+      $(".shoppingCartModal .text-original-price").show();
 
 		for(var i = 0; i < cartInfo.games.length; i ++){
 			var gameID = cartInfo.games[i].gameID;
