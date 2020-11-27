@@ -105,3 +105,10 @@ $("body").on("click",".wishlisted",function(){
     $(this).find("i").removeClass("fas");
     $(this).find("span").text("Add to your wishlist");
 })
+
+// hide shop
+var ingame_shop_enabled = "__(ingame_shop_enabled)__".toLowerCase() == "yes";
+if(!ingame_shop_enabled){
+    $(".nav-item.nav-shop").addClass("d-none");
+    $(".btnSquare2.square-shop").addClass("d-none");
+}
