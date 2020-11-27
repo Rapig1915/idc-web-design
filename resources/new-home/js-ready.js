@@ -36,7 +36,7 @@ $('.carousel-top').slick({
 	slidesToShow: 1,
 	autoplay: true,
 	arrows: true,
-	speed: 1000,
+	speed: 950,
 	pauseOnHover: true,
 	autoplaySpeed: 6000,
   });
