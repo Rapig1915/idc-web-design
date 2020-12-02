@@ -105,8 +105,6 @@ function initTopSlider(max_games=5){
 		gameList.push(data[ind]);
 	}
 
-	console.log(gameList);
-
 	// datasources.map(src => {
 	// 	if(src && src.length > 0){
 	// 		for(var i = 0; i < src.length && i < max_games; i ++){
@@ -438,7 +436,6 @@ function initNews()
 			var newsData = all_news.global.recent[i];
 
 			if(newsData.kind == "Reviews")	continue;
-			console.log(newsData.title);
 
 			// check Caresol block
 			if(newsCountInCurrentPage >= newsCountPerPage || pageNumber <= 0){
