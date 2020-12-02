@@ -84,25 +84,40 @@ function initTopSlider(max_games=5){
 	var datasources = [
 		topgames && topgames.topLogin, 
 		topgames && topgames.topCcu, 
-		topgames_panel && topgames_panel.featured, 
 		topgames_panel && topgames_panel["bestselling"], 
 		topgames_panel && topgames_panel["new"], 
 		topgames_panel && topgames_panel["upcoming"], 
-		topgames_panel && topgames_panel["bestselling"], 
-		topgames_panel && topgames_panel.offer
 	];
 
-	datasources.map(src => {
-		if(src && src.length > 0){
-			for(var i = 0; i < src.length && i < max_games; i ++){
-				if(!gameList.includes(src[i]) && gamedata[src[i]]){
-					gameList.push(src[i]);
-					max_games--;
-					break;
-				}
-			}
-		}
-	})
+	var alternative = topgames_panel && topgames_panel.featured;
+
+	for(var i = 0; i < datasources.length; i ++){
+		var data = (datasources[i]&&datasources[i].length) ? datasources[i] : alternative;
+		var ind = Math.min(1, Math.floor(Math.random()*2));
+		if(ind >= data.length) ind = data.length-1;
+		gameList.push(data[ind]);
+	}
+
+	for(var i = 0; i < datasources.length; i ++){
+		var data = (datasources[i]&&datasources[i].length) ? datasources[i] : alternative;
+		var ind = Math.min(4,Math.floor(Math.random()*3)+2);
+		if(ind >= data.length) ind = data.length-1;
+		gameList.push(data[ind]);
+	}
+
+	console.log(gameList);
+
+	// datasources.map(src => {
+	// 	if(src && src.length > 0){
+	// 		for(var i = 0; i < src.length && i < max_games; i ++){
+	// 			if(!gameList.includes(src[i]) && gamedata[src[i]]){
+	// 				gameList.push(src[i]);
+	// 				max_games--;
+	// 				break;
+	// 			}
+	// 		}
+	// 	}
+	// })
 
 	for(var i = 0; i < gameList.length; i ++){
 		var gameID = gameList[i];
