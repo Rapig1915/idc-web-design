@@ -22,7 +22,7 @@
       return false;
     }
 
-    if(JSON.parse(loadSession("games") || "[]").filter(x => x.IDJUEGO === parseInt(`${id_idcgame}`)).length > 0){
+    if(JSON.parse(localStorage.getItem("games") || "[]").filter(x => x.IDJUEGO === parseInt(`${id_idcgame}`)).length > 0){
       console.log(`Error: Game ${id_idcgame} already bought`)
       return false;
     }

@@ -67,12 +67,12 @@ function actIntro(){
 }
 function myGames(){
 	if( loadSession('token') != false && $("#myGames").length > 0 ){
-		if( loadSession("games") == "" ){
+		if( !localStorage.getItem("games") ){
 			loginToken(loadSession("token"));
 		}
 		var a = 0;
 		try {
-			var myGameList = JSON.parse( loadSession("games") );
+			var myGameList = JSON.parse( localStorage.getItem("games") );
 			if( myGameList.length > 0){
 				$("#myGamesContainer").html("");
 				$.each(myGameList, function( index ) {

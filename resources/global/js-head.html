@@ -60,11 +60,11 @@ function saveSession(data){
 		setCookie("simbol", data.simbol, 365);
 		setCookie("nick", encodeURIComponent(data.nick), 365);
 		setCookie("token", data.token, 365);
-		//localStorage.setItem("games", data.games);
-		setCookie("games", data.games, 365);
+		localStorage.setItem("games", data.games);
+		// setCookie("games", data.games, 365);
 		if( typeof( data.purchased ) != "undefined") {
-			setCookie("games", data.purchased, 365);
-			// localStorage.setItem("games", data.purchased);
+			// setCookie("games", data.purchased, 365);
+			localStorage.setItem("games", data.purchased);
 		}
 	}else{
 		document.cookie = "id="+data.id+";domain=idcgames.net";
@@ -74,8 +74,10 @@ function saveSession(data){
 		document.cookie = "token="+data.token+";domain=idcgames.net";
 		document.cookie = "games="+data.games+";domain=idcgames.net";
 		// sessionStorage.setItem("games", data.games);
+		localStorage.setItem("games", data.games);
 		if( typeof( data.purchased ) != "undefined"){
-			sessionStorage.setItem("games", data.purchased);
+			// sessionStorage.setItem("games", data.purchased);
+			localStorage.setItem("games", data.purchased);
 		}
 	}
 }
@@ -96,7 +98,7 @@ function deleteSession(){
 	setCookie("currency", "", 0);
 	setCookie("nick", "", 0);
 	setCookie("token", "", 0);
-	setCookie("games", "", 0);
+	// setCookie("games", "", 0);
 	localStorage.clear();
 	sessionStorage.clear();
 	$(".logged").hide();

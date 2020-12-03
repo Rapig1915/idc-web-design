@@ -62,7 +62,7 @@ if(sGame && sGame.purchasable){
     dataset.push({ cls: "#btn-cta-shopping", hide: true });
 }
 
-if(sGame && (gameStatus[thisStatus].playable === 1 || sGame.bought)){ // playable check : f2p playable || p2p bought
+if(sGame && sGame.playable){ // playable check : production && (f2p playable || p2p bought)
     $(".controlGame").text("==(play_now_txt)==");
     $(".controlGame").addClass("playGame");
 }else if(sGame){
