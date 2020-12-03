@@ -1,0 +1,364 @@
+<main id="main">
+    <!--Contenido-->
+    <!--Página Categorías de juegos-->
+    <section>
+        <div id="top"></div>
+        <div class="container-fluid d-flex flex-row align-items-baseline breadcrumb-nav-post bg-gradient mt-5 pt-4 px-0">
+            <div class="col animated slideInLeft delay-2">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb align-items-baseline">
+                        <li class="breadcrumb-item"><a class="fontSecondarySmall text-secondary" href="/">IDC</a></li>
+                        <li class="breadcrumb-item active"><h1 class="display-2 text-white text-shadow d-inline-block pl-2 maintitle">##(name)## </h1></li>
+                    </ol>
+                </nav>  
+            </div>
+            <div class="col px-0">
+                <div class="lineaHorizontalAncha primaryColorBg active w-100 animated slideInRight"></div>
+            </div>
+        </div>
+        <a href="#top" id="ScrollTop" class="btn-scroll-to-top" title="Go to top">
+                <div class="lottie" id="lottieScrollTop" data-bm-renderer='svg'></div>
+        </a>
+        <div class="container-fluid px-0">
+            <nav class="navbar navbar-light bg-dark-translucid justify-content-between align-items-center box-shadow mb-3 animated fadeIn delay-6">
+                <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                    <li class="nav-item"><a class="nav-link h6 mb-0 active" id="base-tab" data-toggle="pill" href="#base" role="tab" aria-controls="base" aria-selected="false">==(most_recent)==</a></li>
+                    <li class="nav-item"><a class="nav-link h6 mb-0 actContent" id="playing-tab" data-toggle="pill" href="#playing" role="tab" aria-controls="playing" aria-selected="true">==(most_popular)==</a></li>
+                    <li class="nav-item"><a class="nav-link h6 mb-0 actContent" id="like-tab" data-toggle="pill" href="#like" role="tab" aria-controls="like" aria-selected="true">==(most_like)==</a></li>
+                    <li class="nav-item"><a class="nav-link h6 mb-0 actContent" id="paid-tab" data-toggle="pill" href="#paid" role="tab" aria-controls="paid" aria-selected="true">==(most_paid)==</a></li>
+                    <li class="nav-item"><a class="nav-link h6 mb-0 actContent" id="price-tab" data-toggle="pill" href="#price" role="tab" aria-controls="price" aria-selected="true">==(most_price)==</a></li>
+                </ul>
+                <!--form class="form-inline">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form-->
+            </nav>
+            <div class="tab-content pt-5">
+                <div class="tab-pane fade show active" id="base" role="tabpanel" aria-labelledby="base-tab"></div>
+                <div class="tab-pane fade" id="playing" role="tabpanel" aria-labelledby="playing-tab"></div>
+                <div class="tab-pane fade" id="like" role="tabpanel" aria-labelledby="like-tab"></div>
+                <div class="tab-pane fade" id="paid" role="tabpanel" aria-labelledby="paid-tab"></div>
+                <div class="tab-pane fade" id="price" role="tabpanel" aria-labelledby="price-tab"></div>
+                </div>  
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container-fluid bg-gradient">
+            <div class="container mt-5 py-5">
+                <h3 class="display-3 maintitle">##(name)##</h3>
+                <p class="h4">##(short_desc_lang)##</p>
+                <br>
+                <p>##(long_desc_lang)##</p>
+            </div>  
+        </div>
+    </section>
+    <section>
+        <!-- Modal tipo img // Cada enlace llevará la suya-->
+        <div class="modal fade modal1" tabindex="-1" role="dialog" aria-labelledby="ModalImg" aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-dialog-centered container-fluid" id="ModalImg">
+                <div class="modal-content modal-bg-img flex-lg-row flex-column">
+                    <div class="col-xl-6 col-lg-7 col-12 p-0 img-modal-left-container bg-dark">
+                        <!--div><i class="fas fa-external-link-alt text-primary p-2 position-absolute"></i></div-->
+                        <a href="#" class="post-url"><img src="https://cdn.idcgames.net/img/default/bg-artwork-small.jpg" class="img-modal-left post-image" alt=""></a>
+                    </div>
+                    <div class="col-xl-6 col-lg-5 col-12 p-0 d-flex flex-column">
+                        <div class="modal-header">                   
+                            <div class="d-flex flex-row align-items-baseline">
+                                <div class="col-auto p-0">
+                                    <img src="https://cdn.idcgames.net/img/default/bg-artwork-small.jpg" class="img-user" alt="avatar">
+                                </div>
+                                <div class="col-11">
+                                    <p class="fontSecondarySmall m-0 post-author">Whoever post this user name</p>
+                                </div>
+                            </div>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <div>
+                                    <h2 class="h1 font-weight-bold post-title">Title of the post!!</h2>
+                                </div>
+                                <div class="d-flex flex-row">
+                                    <span class="text-primary mr-5"><i class="fas fa-thumbs-up pr-2"></i><b class="post-like">87</b> persons like this</span>
+                                    <span class="text-secondary"><i class="fas fa-thumbs-down pr-2"></i><b class="post-dislike">87</b> persons dislike this</span>
+                                </div>
+                                <div class="d-flex flex-row mt-5">
+                                    <div class="col-6 p-0">
+                                        <button type="button" class="btn btn-outline-secondary btn-sm socialAct post-id" data-act="like" data-target="" data-extra=""><i class="fas fa-thumbs-up"></i></button>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm socialAct post-id" data-act="dislike" data-target="" data-extra=""><i class="fas fa-thumbs-down"></i></button>
+                                    </div>
+                                    <div class="col-6 d-flex flex-row justify-content-end p-0">
+                                        <div class="addthis_inline_share_toolbox_e3c6"></div>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm px-2 post-share runShare" data-toggle="tooltip" data-placement="top" title="==(share)==" data-url="" data-description=""><i class="fas fa-share-alt"></i></button>
+                                        <!--
+                                            <button type="button" class="btn btn-outline-secondary btn-sm px-2" data-toggle="tooltip" data-placement="bottom" title="Favoritos"><i class="fas fa-star"></i></button>
+                                            <button type="button" class="btn btn-outline-secondary btn-sm px-2" data-toggle="tooltip" data-placement="top" title="Seguir"><i class="fas fa-user-plus"></i></button>
+                                        -->
+                                        <button type="button" class="btn btn-outline-secondary btn-sm px-2" data-toggle="tooltip" data-placement="bottom" title="==(report)=="><i class="fas fa-flag"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="border-green-lighter">
+                            <div class="d-flex flex-column pt-3 comments">
+                                <div class="d-flex flex-row pb-3">
+                                    <div class="col-auto p-0">
+                                        <img src="https://cdn.idcgames.net/img/default/bg-artwork-small.jpg" class="img-user" alt="avatar">
+                                    </div>
+                                    <div class="col-11">
+                                        <div>
+                                            <a class="fontSecondarySmall">Author user name</a>
+                                            <span class="text-secondary pl-3">15 jul 2018 a las 22:30</span>
+                                        </div>
+                                        <p class="">I like this artwork very much.</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row pb-3">
+                                    <div class="col-auto p-0">
+                                        <img src="https://cdn.idcgames.net/img/default/bg-artwork-small.jpg" class="img-user" alt="avatar">
+                                    </div>
+                                    <div class="col-11">
+                                        <div>
+                                            <a class="fontSecondarySmall">Author user name</a>
+                                            <span class="text-secondary pl-3">15 jul 2018 a las 22:30</span>
+                                        </div>
+                                        <p class="">This is a longer comment. I like this artwork very much. This is a longer comment. I like this artwork very much.</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row pb-3">
+                                    <div class="col-auto p-0">
+                                        <img src="https://cdn.idcgames.net/img/default/bg-artwork-small.jpg" class="img-user" alt="avatar">
+                                    </div>
+                                    <div class="col-11">
+                                        <div>
+                                            <a class="fontSecondarySmall">Author user name</a>
+                                            <span class="text-secondary pl-3">15 jul 2018 a las 22:30</span>
+                                        </div>
+                                        <p class="">I like this artwork very much.</p>
+                                    </div>
+                                </div>
+                                <a href="#" class="btn btn-outline-primary btn-sm btn-block post-url">==(read_more)==</a>
+                            </div>
+                        </div>
+                        <div class="modal-footer flex-sm-row flex-column border-green-lighter py-sm-3 ">
+                            <div class="col-sm-3 col-12">
+                                <p class="h6 text-secondary">==(tags)==:</p>
+                            </div>
+                            <div class="col-sm-9 col-12 d-flex justify-content-sm-end justify-content-between">
+                                <span class="badge badge-secondary mx-2">%%(game_name)%%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!--Ejemplo Modal tipo video embebido: cada video lleva el suyo-->
+        <div class="modal fade modal2" tabindex="-1" role="dialog" aria-labelledby="ModalVideo" aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-dialog-centered container-fluid" id="ModalImg">
+                <div class="modal-content modal-bg-img flex-lg-row flex-column">
+                    <div class="col-xl-6 col-lg-7 col-12 p-0 img-modal-left-container">
+                        <div><i class="fas fa-external-link-alt text-primary p-2 position-absolute"></i></div>
+                        <video class="img-modal-left post-body">
+                            <source src="#" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="col-xl-6 col-lg-5 col-12 p-0 d-flex flex-column">
+                        <div class="modal-header">                   
+                            <div class="d-flex flex-row align-items-baseline">
+                                <div class="col-auto p-0">
+                                    <img src="https://cdn.idcgames.net/img/default/bg-artwork-small.jpg" class="img-user" alt="avatar">
+                                </div>
+                                <div class="col-11">
+                                    <p class="fontSecondarySmall m-0 post-author">Whoever post this user name</p>
+                                </div>
+                            </div>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <div>
+                                    <h2 class="h1 font-weight-bold post-title">Title of the post!!</h2>
+                                </div>
+                                <div class="d-flex flex-row">
+                                    <span class="text-primary mr-5"><i class="fas fa-thumbs-up pr-2"></i><b class="post-like">87</b> persons like this</span>
+                                    <span class="text-secondary"><i class="fas fa-thumbs-down pr-2"></i><b class="post-dislike">87</b> persons dislike this</span>
+                                </div>
+                                <div class="d-flex flex-row mt-5">
+                                    <div class="col-6 p-0">
+                                        <button type="button" class="btn btn-outline-secondary btn-sm socialAct post-id" data-act="like" data-target="" data-extra=""><i class="fas fa-thumbs-up"></i></button>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm socialAct post-id" data-act="dislike" data-target="" data-extra=""><i class="fas fa-thumbs-down"></i></button>
+                                    </div>
+                                    <div class="col-6 d-flex flex-row justify-content-end p-0">
+                                        <div class="addthis_inline_share_toolbox_e3c6"></div>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm px-2 post-share runShare" data-toggle="tooltip" data-placement="top" title="==(share)==" data-url="" data-description=""><i class="fas fa-share-alt"></i></button>
+                                        <!--
+                                            <button type="button" class="btn btn-outline-secondary btn-sm px-2" data-toggle="tooltip" data-placement="bottom" title="Favoritos"><i class="fas fa-star"></i></button>
+                                            <button type="button" class="btn btn-outline-secondary btn-sm px-2" data-toggle="tooltip" data-placement="top" title="Seguir"><i class="fas fa-user-plus"></i></button>
+                                        -->
+                                        <button type="button" class="btn btn-outline-secondary btn-sm px-2" data-toggle="tooltip" data-placement="bottom" title="==(report)=="><i class="fas fa-flag"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="border-green-lighter">
+                            <div class="d-flex flex-column pt-3 comments">
+                                <div class="d-flex flex-row pb-3">
+                                    <div class="col-auto p-0">
+                                        <img src="https://cdn.idcgames.net/img/default/bg-artwork-small.jpg" class="img-user" alt="avatar">
+                                    </div>
+                                    <div class="col-11">
+                                        <div>
+                                            <a class="fontSecondarySmall">Author user name</a>
+                                            <span class="text-secondary pl-3">15 jul 2018 a las 22:30</span>
+                                        </div>
+                                        <p class="">I like this artwork very much.</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row pb-3">
+                                    <div class="col-auto p-0">
+                                        <img src="https://cdn.idcgames.net/img/default/bg-artwork-small.jpg" class="img-user" alt="avatar">
+                                    </div>
+                                    <div class="col-11">
+                                        <div>
+                                            <a class="fontSecondarySmall">Author user name</a>
+                                            <span class="text-secondary pl-3">15 jul 2018 a las 22:30</span>
+                                        </div>
+                                        <p class="">This is a longer comment. I like this artwork very much. This is a longer comment. I like this artwork very much.</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row pb-3">
+                                    <div class="col-auto p-0">
+                                        <img src="https://cdn.idcgames.net/img/default/bg-artwork-small.jpg" class="img-user" alt="avatar">
+                                    </div>
+                                    <div class="col-11">
+                                        <div>
+                                            <a class="fontSecondarySmall">Author user name</a>
+                                            <span class="text-secondary pl-3">15 jul 2018 a las 22:30</span>
+                                        </div>
+                                        <p class="">I like this artwork very much.</p>
+                                    </div>
+                                </div>
+                                <a href="#" class="btn btn-outline-primary btn-sm btn-block post-url">==(read_more)==</a>
+                            </div>
+                        </div>
+                        <div class="modal-footer flex-sm-row flex-column border-green-lighter py-sm-3 ">
+                            <div class="col-sm-3 col-12">
+                                <p class="h6 text-secondary">==(tags)==:</p>
+                            </div>
+                            <div class="col-sm-9 col-12 d-flex justify-content-sm-end justify-content-between">
+                                <span class="badge badge-secondary mx-2">%%(game_name)%%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>		
+    
+        <!--Ejemplo Modal tipo video externo: cada video lleva el suyo-->
+        <div class="modal fade modal3" tabindex="-1" role="dialog" aria-labelledby="ModalEmbedVideo" aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-dialog-centered container-fluid" id="ModalEmbedVideo">
+                <div class="modal-content modal-bg-img flex-lg-row flex-column">
+                    <div class="col-xl-6 col-lg-7 col-12 p-0 img-modal-left-container">
+                        <div><i class="fas fa-external-link-alt text-primary p-2 position-absolute"></i></div>
+                        <div class="embed-responsive embed-responsive-1by1 post-body">
+                            <iframe class="embed-responsive-item" src="about:blank" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-5 col-12 p-0 d-flex flex-column">
+                        <div class="modal-header">                   
+                            <div class="d-flex flex-row align-items-baseline">
+                                <div class="col-auto p-0">
+                                    <img src="https://cdn.idcgames.net/img/default/bg-artwork-small.jpg" class="img-user" alt="avatar">
+                                </div>
+                                <div class="col-11">
+                                    <p class="fontSecondarySmall m-0">Whoever post this user name</p>
+                                </div>
+                            </div>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <div>
+                                    <h2 class="h1 font-weight-bold post-title">Title of the post!!</h2>
+                                </div>
+                                <div class="d-flex flex-row">
+                                    <span class="text-primary mr-5"><i class="fas fa-thumbs-up pr-2"></i><b class="post-like">87</b> persons like this</span>
+                                    <span class="text-secondary"><i class="fas fa-thumbs-down pr-2"></i><b class="post-dislike">87</b> persons dislike this</span>
+                                </div>
+                                <div class="d-flex flex-row mt-5">
+                                    <div class="col-6 p-0">
+                                        <button type="button" class="btn btn-outline-secondary btn-sm socialAct post-id" data-act="like" data-target="" data-extra=""><i class="fas fa-thumbs-up"></i></button>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm socialAct post-id" data-act="dislike" data-target="" data-extra=""><i class="fas fa-thumbs-down"></i></button>
+                                    </div>
+                                    <div class="col-6 d-flex flex-row justify-content-end p-0">
+                                        <div class="addthis_inline_share_toolbox_e3c6"></div>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm px-2 post-share runShare" data-toggle="tooltip" data-placement="top" title="==(share)==" data-url="" data-description=""><i class="fas fa-share-alt"></i></button>
+                                        <!--
+                                            <button type="button" class="btn btn-outline-secondary btn-sm px-2" data-toggle="tooltip" data-placement="bottom" title="Favoritos"><i class="fas fa-star"></i></button>
+                                            <button type="button" class="btn btn-outline-secondary btn-sm px-2" data-toggle="tooltip" data-placement="top" title="Seguir"><i class="fas fa-user-plus"></i></button>
+                                        -->
+                                        <button type="button" class="btn btn-outline-secondary btn-sm px-2" data-toggle="tooltip" data-placement="bottom" title="==(report)=="><i class="fas fa-flag"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="border-green-lighter">
+                            <div class="d-flex flex-column pt-3 comments">
+                                <div class="d-flex flex-row pb-3">
+                                    <div class="col-auto p-0">
+                                        <img src="https://cdn.idcgames.net/img/default/bg-artwork-small.jpg" class="img-user" alt="avatar">
+                                    </div>
+                                    <div class="col-11">
+                                        <div>
+                                            <a class="fontSecondarySmall">Author user name</a>
+                                            <span class="text-secondary pl-3">15 jul 2018 a las 22:30</span>
+                                        </div>
+                                        <p class="">I like this artwork very much.</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row pb-3">
+                                    <div class="col-auto p-0">
+                                        <img src="https://cdn.idcgames.net/img/default/bg-artwork-small.jpg" class="img-user" alt="avatar">
+                                    </div>
+                                    <div class="col-11">
+                                        <div>
+                                            <a class="fontSecondarySmall">Author user name</a>
+                                            <span class="text-secondary pl-3">15 jul 2018 a las 22:30</span>
+                                        </div>
+                                        <p class="">This is a longer comment. I like this artwork very much. This is a longer comment. I like this artwork very much.</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row pb-3">
+                                    <div class="col-auto p-0">
+                                        <img src="https://cdn.idcgames.net/img/default/bg-artwork-small.jpg" class="img-user" alt="avatar">
+                                    </div>
+                                    <div class="col-11">
+                                        <div>
+                                            <a class="fontSecondarySmall">Author user name</a>
+                                            <span class="text-secondary pl-3">15 jul 2018 a las 22:30</span>
+                                        </div>
+                                        <p class="">I like this artwork very much.</p>
+                                    </div>
+                                </div>
+                                <a href="#" class="btn btn-outline-primary btn-sm btn-block post-url">==(read_more)==</a>
+                            </div>
+                        </div>
+                        <div class="modal-footer flex-sm-row flex-column border-green-lighter py-sm-3 ">
+                            <div class="col-sm-3 col-12">
+                                <p class="h6 text-secondary">==(tags)==:</p>
+                            </div>
+                            <div class="col-sm-9 col-12 d-flex justify-content-sm-end justify-content-between">
+                                <span class="badge badge-secondary mx-2">%%(game_name)%%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </main>
