@@ -86,25 +86,114 @@ $("body").on("click",".cart-btn",function(){
     }
 })
 
-$("body").on("click",".wishlist",function(){
-    $(this).addClass("wishlisted");
-    $(this).removeClass("wishlist");
-    $(this).addClass("btn-secondary");
-    $(this).removeClass("btn-outline-secondary");
-    $(this).find("i").addClass("fas");
-    $(this).find("i").removeClass("far");
-    $(this).find("span").text("On wishlist");
+function setWishlistedState(wishlisted = false){
+    var btn = $(".wishlist-btn");
+    if(!wishlisted){
+        $(btn).addClass("wishlist");
+        $(btn).removeClass("wishlisted");
+        $(btn).addClass("btn-outline-secondary");
+        $(btn).removeClass("btn-secondary");
+        $(btn).find("i").addClass("far");
+        $(btn).find("i").removeClass("fas");
+        $(btn).find("span").text("==(add_to_wishlist)==");
+    }else{
+        $(btn).addClass("wishlisted");
+        $(btn).removeClass("wishlist");
+        $(btn).addClass("btn-secondary");
+        $(btn).removeClass("btn-outline-secondary");
+        $(btn).find("i").addClass("fas");
+        $(btn).find("i").removeClass("far");
+        $(btn).find("span").text("==(on_wishlist)==");    
+    }
+}
 
+function makeWishRequest(id_idcgame, id_dlc, crear, cbSuccess, cbError)
+{
+    var res = {};
+	if (isCef() > 0 ) {
+		var referer = 'LAUNCHER';
+	}else{
+		var referer = 'WEB-'+lastG+' ('+document.baseURI+')';;
+	}
+	$.ajax({
+		type:"POST",
+        url:"/unilogin/crearUserWishJuego.php",
+		data: `token=${loadSession("token")}&iIDJuego=${id_idcgame}&iIDDlc=${id_dlc}&cReferer=${referer}&crear=${crear}`,
+		dataType: 'text',
+		async:false,
+		error: function(objeto, quepaso, otroobj){
+			lastE = quepaso;
+			res = {
+				"rc": 500,
+				"txt": "KO",
+				"data": {}
+            };
+            
+            if(cbError) cbError(res, lastE)
+		},
+		success: function(json){
+			res = JSON.parse(json);
+			if (res.rc == 200){
+                if(cbSuccess) cbSuccess(res);
+			}else{
+				res = {
+					"rc": 404,
+					"txt": "KO",
+					"data": {}
+                };
+                if(cbError) cbError(res)
+            }
+		}
+	});
+}
+
+$("body").on("click",".wishlist",function(){
+    makeWishRequest(%%(id_idcgame)%%, '', true, 
+        res => {
+            console.log("Wishing game success: ", res);
+            setWishlistedState(true);
+        },
+        res => {
+            console.log("Wishing game fail: ", res);
+        }
+    );
 })
 $("body").on("click",".wishlisted",function(){
-    $(this).addClass("wishlist");
-    $(this).removeClass("wishlisted");
-    $(this).addClass("btn-outline-secondary");
-    $(this).removeClass("btn-secondary");
-    $(this).find("i").addClass("far");
-    $(this).find("i").removeClass("fas");
-    $(this).find("span").text("Add to your wishlist");
+    makeWishRequest(%%(id_idcgame)%%, '', false,
+        res => {
+            console.log("Unwishing game success: ", res);
+            setWishlistedState(false);
+        },
+        res => {
+            console.log("Unwishing game fail: ", res);
+        }
+    );
 })
+
+// init whitelisted state
+setWishlistedState(false);
+$.ajax({
+    type:"POST",
+    url:"/unilogin/listarUserWishedJuegos.php",
+    data: 'token='+loadSession("token"),
+    dataType: 'text',
+    async:false,
+    success: function(e){
+        myGameData = JSON.parse(e);
+        if (myGameData.rc == 200 ){
+            for (i=0;i<myGameData.data.length;i++) {
+                try {
+                    var idGame = myGameData.data[i].IDJUEGO;
+                    if(idGame === %%(id_idcgame)%%)
+                        setWishlistedState(true);
+                }catch(e){
+                    // console.log("Error gamelist: "+i);
+                }
+            }
+        }else if (myGameData.rc == 404 ) {
+        }
+    }
+});
 
 // hide shop
 var ingame_shop_enabled = "__(ingame_shop_enabled)__".toLowerCase() == "yes";

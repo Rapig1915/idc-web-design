@@ -1,0 +1,851 @@
+<main id="main">
+	<section>
+			<div id="top"></div>
+			<div class="container-fluid d-flex flex-row align-items-baseline breadcrumb-nav-post bg-gradient mt-5 pt-4 px-0">
+					<div class="col animated slideInLeft delay-2">
+							<nav aria-label="breadcrumb">
+									<ol class="breadcrumb align-items-baseline">
+											<li class="breadcrumb-item"><a class="fontSecondarySmall text-secondary" href="/">IDC</a></li>
+											<li class="breadcrumb-item active"><h1 class="display-2 text-white text-shadow d-inline-block pl-2">==(account_of_txt)== <span id="account_username">==(user_txt)==</span></h1></li>
+									</ol>
+							</nav>  
+					</div>
+					<div class="col px-0">
+							<div class="lineaHorizontalAncha primaryColorBg active w-100 animated slideInRight"></div>
+					</div>
+			</div>
+			<a href="#top" id="ScrollTop" class="btn-scroll-to-top" title="Go to top">
+					<div class="lottie" id="lottieScrollTop" data-bm-renderer='svg'></div>
+			</a>
+		<div class="container-fluid px-0 unlogged">
+					<div class="pt-5">
+				<div class="tab-pane fade show active animated fadeInUp fast">
+					<div class="container">
+						<h3 class="h1 text-primary">==(contact_information_txt)==</h3>
+						<hr>
+						<div class="py-2 px-0 reqLog mb-5">
+							<p class="alert alert-danger" role="alert">==(requiere_logged_txt)==</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid px-0 logged">
+					<nav class="navbar navbar-light bg-dark-translucid justify-content-between align-items-center box-shadow mb-3 animated fadeIn delay-6">
+				<ul class="nav nav-pills" id="pills-tab" role="tablist">					
+					<li class="nav-item">
+						<a id="user-info-tab" class="nav-link active h6 mb-0" data-toggle="pill" href="#user-info" role="tab" aria-controls="user-info" aria-selected="true">==(profile_txt)==</a>
+					</li>
+					<li class="nav-item">
+						<a id="my-games-tab" class="nav-link h6 mb-0" data-toggle="pill" href="#my-games" role="tab" aria-controls="my-games" aria-selected="false">==(my_games_txt)==</a>
+					</li>
+					<li class="nav-item">
+						<a id="wish-games-tab" class="nav-link h6 mb-0" data-toggle="pill" href="#wish-games" role="tab" aria-controls="wish-games" aria-selected="false">==(wish_games_txt)==</a>
+					</li>
+					<li class="nav-item">
+						<a id="payment-info-tab" class="nav-link h6 mb-0" data-toggle="pill" href="#payment-info" role="tab" aria-controls="payment-info" aria-selected="false">==(idc_wallet)==</a>
+					</li>
+					<li class="nav-item">
+						<a id="insert-code-tab" class="nav-link h6 mb-0" data-toggle="pill" href="#insert-code" role="tab" aria-controls="insert-code" aria-selected="false">==(redeem_code)==</a>
+					</li>
+				</ul>
+					</nav>
+					<div class="tab-content pt-3">
+				<div class="tab-pane fade show active animated fadeInUp fast" id="user-info" role="tabpanel" aria-labelledby="user-info-tab">
+					<div class="container">
+						<h3 class="h1 text-primary">==(profile_txt)==</h3>
+						<hr>
+						<div class="form-group row">
+							<label for="Username" class="col-sm-3 col-form-label h4"><i class="fas fa-user fa-xs mr-3"></i>==(user_name_txt)==:</label>
+							<div class="col-sm-9">
+							<input type="text" readonly class="form-control-plaintext" id="Username" value="Username">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="Password" class="col-sm-3 col-form-label h4"><i class="fas fa-lock fa-xs mr-3"></i>==(password)==:</label>
+							<div class="col-sm-4">
+								<input type="text" readonly class="form-control-plaintext" id="Password" value="********">
+							</div>
+							<div class="col-sm-5 d-flex justify-content-end d-none" id="change_pass">
+								<a href="#changePassword" data-toggle="collapse" class="btn btn-secondary" role="button" aria-expanded="false" aria-controls="changePassword">==(change_password_txt)==</a>
+							</div>
+							<div class="col-sm-5 d-flex justify-content-end d-none" id="create_pass">
+								<a href="#changePassword" data-toggle="collapse" class="btn btn-secondary" role="button" aria-expanded="false" aria-controls="changePassword">==(create_password_txt)==</a>
+							</div>
+							<div id="changePassword" class="collapse py-2 w-100">
+								<div id="changePasswordDiv">
+									<div class="d-none actualPassword">
+										<label for="actualPassword" class="col-form-label text-primary pl-3">==(insert_password_txt)==:</label>
+										<div class="d-flex flex-row ">
+											<div class="col-4 input-group show_hide_password">
+												<input type="password" class="form-control passinput" id="actualPassword" placeholder="==(actual_password_txt)==">
+												<div class="input-group-append">
+													<span class="input-group-text bg-transparent text-primary togglepass"><i class="fa fa-eye" aria-hidden="true"></i></span>
+												</div>
+											</div>
+										</div>
+										<div class="alert alert-danger text-center mt-4 mx-3 d-none passerror" id="incorrect_password" role="alert" ><i class="far fa-times-circle mr-3"></i>
+											==(incorrect_password_txt)== <a href="==(url_forgot_password)==">==(here_txt)==</a>
+										</div>
+									</div>
+									<div class="confirmPassword">
+										<label for="newPassword" class="col-form-label text-primary pl-3">==(write_new_password_txt)==:</label>
+										<div class="d-flex flex-row">
+											<div class="col-4 input-group show_hide_password">
+												<input type="password" class="form-control passinput" id="newPassword" placeholder="==(new_password_txt)==">
+												<div class="input-group-append">
+													<span class="input-group-text bg-transparent text-primary togglepass"><i class="fa fa-eye" aria-hidden="true"></i></span>
+												</div>
+											</div>
+											<div class="col-4 input-group show_hide_password">
+												<input type="password" class="form-control passinput" id="newPasswordRepeat" placeholder="==(repeat_your_txt)==">
+												<div class="input-group-append">
+													<span class="input-group-text bg-transparent text-primary togglepass"><i class="fa fa-eye" aria-hidden="true"></i></span>
+												</div>
+											</div>
+											<div class="col-4  d-flex justify-content-end">
+												<button class="btn btn-primary submit_pass">==(change_password_txt)==</button>
+											</div>
+										</div>
+										<div class="alert alert-danger text-center mt-4 mx-3 d-none passerror" id="password_not_mail" role="alert" ><i class="far fa-times-circle mr-3"></i>
+											==(change_password_alert_txt)==
+										</div>
+										<div class="alert alert-danger text-center mt-4 mx-3 d-none passerror" id="password_not_match" role="alert" ><i class="far fa-times-circle mr-3"></i>
+											==(password_not_match_txt)==
+										</div>
+										<div class="alert alert-danger text-center mt-4 mx-3 d-none passerror" id="generic_error_pass" role="alert"><i class="far fa-times-circle mr-3"></i>
+											==(generic_error_txt)==
+										</div>
+	
+									</div>
+									<div class="d-none changePasswordConfirmDiv">
+										<div class="verifyDiv">
+											<p class="text-primary pl-3 pt-2">==(recovery_password_step2_txt)==</p>
+										</div>
+										<div class="form-group d-flex flex-row py-2 verifyDiv" id="verifyDiv">
+											<label for="verifyPassword" class="col-sm-3 col-form-label h4"><i class="fas fa-shield-alt mr-3"></i>==(code_txt)==</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" id="verifyPassword" placeholder="==(code_txt)==" value="">
+											</div>								
+											<div class="col-sm-2 d-flex justify-content-end">
+												<button class="btn btn-primary submit_codep">==(validate_txt)==</button>
+											</div>
+										</div>										
+										<div class="alert alert-danger text-center mt-4 mx-3 d-none passerror" id="wrong_code_alert" role="alert"><i class="far fa-times-circle mr-3"></i>
+											==(wrong_code_txt)==
+										</div>
+										<div class="alert alert-danger text-center mt-4 mx-3 d-none passerror" id="generic_error_pass2" role="alert"><i class="far fa-times-circle mr-3"></i>
+											==(generic_error_txt)==
+										</div>
+										<div class="alert alert-light text-center mt-4 mx-3 d-none passerror" id="password_changed" role="alert"><i class="far fa-check-circle mr-3"></i>
+											==(password_changed_txt)==
+										</div>
+									</div>						
+								</div>
+							</div>
+							
+						</div>
+						
+						<hr class="border-green-lighter">
+						<div class="form-group row py-2 yes-mail d-none">
+							<label for="currentEmail" class="col-sm-3 col-form-label h4"><i class="fas fa-envelope fa-xs mr-3"></i>==(email_txt)==:</label>
+							<div class="col-sm-4">
+								<input type="text" readonly class="form-control-plaintext" id="currentEmail" value="example@email.com">
+							</div>
+							<div class="col-sm-5 d-flex justify-content-end">
+								<a href="#changeEmail" data-toggle="collapse" class="btn btn-secondary" role="button" aria-expanded="false" aria-controls="changeEmail">==(change_mail_txt)==</a>
+							</div>
+							<div id="changeEmail" class="collapse py-2 w-100">
+								<div id="changeMailDiv d-flex justify-content-end">
+									<label for="inputEmailNew" class="col-form-label text-primary pl-3">==(mail_required)==:</label>
+									<div class="d-flex flex-row ">
+										<div class="col-8 input-group">
+											<input type="email" class="form-control" id="inputEmailNew" placeholder="==(email_txt)==">
+										</div>
+										<div class="col-4 d-flex justify-content-end">
+											<button class="btn btn-primary submit_mailn">==(send_txt)==</button>
+										</div>
+									</div>
+								</div>
+								<div class="alert alert-light text-center mt-4 mx-3 w-100 d-none mailerror" id="mailn_sent" role="alert"><i class="far fa-check-circle mr-3"></i>
+									==(mail_sent_txt)==
+								</div>
+								<div class="alert alert-light text-center mt-4 mx-3 w-100 d-none mailerror" id="mailn_sent2" role="alert"><i class="far fa-check-circle mr-3"></i>
+									==(mail_sent_both_txt)==
+								</div>
+								<div class="alert alert-danger text-center mt-4 mx-3 w-100 d-none mailerror" id="no_mailn" role="alert"><i class="far fa-times-circle mr-3"></i>
+									==(mail_required)==
+								</div>
+								<div class="alert alert-danger text-center mt-4 mx-3 w-100 d-none mailerror" id="generic_error_mailn" role="alert"><i class="far fa-times-circle mr-3"></i>
+									==(generic_error_txt)==
+								</div>
+							</div>
+						</div>
+						<div class="no-mail d-none mailsent">
+							<p class="text-primary pt-2">==(link_mail_txt)==</p>
+						</div>
+						<div class="form-group row pb-2 no-mail d-none" id="link_mail">
+							<label for="inputEmail" class="col-sm-3 col-form-label h4 mailsent"><i class="fas fa-envelope fa-xs mr-3"></i>==(email_txt)==:</label>
+							<div class="col-sm-7 mailsent">
+								<input type="email" class="form-control" id="inputEmail" placeholder="==(your_email_txt)==">
+							</div>
+							<div class="col-sm-2  d-flex justify-content-end mailsent">
+								<button class="btn btn-primary submit_mail">==(send_txt)==</button>
+							</div>
+							<div class="alert alert-light text-center mt-4 mx-3 w-100 d-none mailerror" id="mail_sent" role="alert"><i class="far fa-check-circle mr-3"></i>
+								==(mail_sent_txt)==
+							</div>
+							<div class="alert alert-danger text-center mt-4 mx-3 w-100 d-none mailerror" id="no_mail" role="alert"><i class="far fa-times-circle mr-3"></i>
+								==(mail_required)==
+							</div>
+							<div class="alert alert-danger text-center mt-4 mx-3 w-100 d-none mailerror" id="generic_error_mail1" role="alert"><i class="far fa-times-circle mr-3"></i>
+								==(generic_error_txt)==
+							</div>
+						</div>
+						<div class="code-mail d-none codesent">
+							<p class="text-primary pt-2">==(mail_link_code_confirm_txt)==</p>
+						</div>
+						<div class="form-group row py-2 code-mail d-none">
+							<label for="verifyEmail" class="col-sm-3 col-form-label h4 codesent"><i class="fas fa-shield-alt mr-3"></i>==(code_txt)==</label>
+							<div class="col-sm-7 codesent">
+								<input type="text" class="form-control" id="verifyEmail" placeholder="==(code_txt)==" value="">
+							</div>								
+							<div class="col-sm-2 d-flex justify-content-end codesent">
+								<button class="btn btn-primary submit_code">==(validate_txt)==</button>
+							</div>
+							
+							<div class="alert alert-danger text-center mt-4 mx-3 w-100 d-none mailerror" id="wrong_code_mail" role="alert"><i class="far fa-times-circle mr-3"></i>
+								==(wrong_code_txt)==
+							</div>
+							<div class="alert alert-danger text-center mt-4 mx-3 w-100 d-none mailerror" id="mailinuse" role="alert"><i class="far fa-times-circle mr-3"></i>
+								==(mailinuse_txt)==
+							</div>
+							<div class="alert alert-danger text-center mt-4 mx-3 w-100 d-none mailerror" id="generic_error_mail2" role="alert"><i class="far fa-times-circle mr-3"></i>
+								==(generic_error_txt)==
+							</div>
+							<div class="alert alert-light text-center mt-4 mx-3 w-100 d-none mailerror" id="mail_linked" role="alert"><i class="far fa-check-circle mr-3"></i>
+								==(mail_linked_txt)==
+							</div>
+						</div>
+						<hr class="border-green-lighter">
+						<div>
+							<p class="text-primary pt-2">==(link_socials_txt)==</p>
+						</div>
+					</div>
+					<div class="container">
+						<div class="d-flex card-deck flex-lg-row flex-column mx-0 socialbtns">
+							<div class="card card-custom my-3 bgDarkTexture aos-init aos-animate " data-aos="fade-down" data-aos-duration="500">
+								<div class="card-body mb-0">
+									<h5 class="card-title h3">Google</h5>
+									<p class="card-text text-center"><img src="https://lh4.googleusercontent.com/-v0soe-ievYE/AAAAAAAAAAI/AAAAAAAAAAA/OixOH_h84Po/s0-c-k-no-ns/photo.jpg" alt="Login with Google" title="Login with Google" class="my-2 bg-white btn-google socialLogo" data-opt="add" data-origen="google" data-id="GC"></p>
+								</div>
+								<div class="card-footer px-0 py-0 mt-0">
+									<div class="mx-3 mb-3">
+									<button class="btn btn-block btn-primary btn-google" data-opt="add" data-id="GC" data-origen="google">==(connect_txt)==</button></div>
+								</div>
+							</div>
+							<div class="card card-custom my-3 bgDarkTexture aos-init aos-animate" data-aos="fade-down" data-aos-duration="500">
+								<div class="card-body mb-0">
+									<h5 class="card-title h3">Facebook</h5>
+									<p class="card-text text-center"><img src="https://www.facebook.com/images/fb_icon_325x325.png" alt="Login with Facebook" title="Login with Facebook" class="my-2 bg-white btn-facebook socialLogo" data-opt="add" data-origen="facebook" data-id="FB"></p>
+								</div>
+								<div class="card-footer px-0 py-0 mt-0">
+									<div class="mx-3 mb-3">
+										<button class="btn btn-primary btn-block btn-facebook" data-opt="add" data-id="FB" data-origen="facebook">==(connect_txt)==</button>
+									</div>
+								</div>
+							</div>
+							<div class="card card-custom my-3 bgDarkTexture aos-init aos-animate" data-aos="fade-down" data-aos-duration="500">
+								<div class="card-body mb-0">
+									<h5 class="card-title h3">Twitter</h5>
+									<p class="card-text text-center"><img src="https://help.twitter.com/content/dam/help-twitter/brand/logo.png" alt="Login with Twitter" title="Login with Twitter" class="my-2 bg-white btn-twitter socialLogo" data-opt="add" data-origen="twitter" data-id="TW"></p>
+								</div>
+								<div class="card-footer px-0 py-0 mt-0">
+									<div class="mx-3 mb-3">
+										
+									<button class="btn btn-primary btn-block btn-twitter" data-opt="add" data-id="TW" data-origen="twitter">==(connect_txt)==</button></div>
+								</div>
+							</div>
+							<div class="card card-custom my-3 bgDarkTexture aos-init aos-animate" data-aos="fade-down" data-aos-duration="500">
+								<div class="card-body mb-0">
+									<h5 class="card-title h3">Steam</h5>
+									<p class="card-text text-center"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Steam_icon_logo.svg/512px-Steam_icon_logo.svg.png" alt="Login with Steam" title="Login with Steam" class="my-2 bg-black btn-steam socialLogo" data-opt="add" data-origen="steam" data-id="ST"></p>
+								</div>
+								<div class="card-footer px-0 py-0 mt-0">
+									<div class="mx-3 mb-3">
+									<button class="btn btn-primary btn-block btn-steam" data-opt="add" data-id="ST" data-origen="steam">==(connect_txt)==</button></div>
+								</div>
+							</div>
+						</div>
+						<div class="d-flex card-deck flex-lg-row flex-column mx-0 socialbtns mb-5">
+							<div class="card card-custom my-3 bgDarkTexture aos-init aos-animate" data-aos="fade-down" data-aos-duration="500">
+								<div class="card-body mb-0">
+									<h5 class="card-title h3">Yahoo</h5>
+									<p class="card-text text-center">
+										<i class="fab fa-yahoo fa-4x px-2 py-2 my-2 btn-yahoo socialLogo" data-opt="add" alt="Login with Yahoo" title="Login with Yahoo" data-origen="yahoo" data-id="YH"></i>
+									</p>
+								</div>
+								<div class="card-footer px-0 py-0 mt-0">
+									<div class="mx-3 mb-3">
+									<button class="btn btn-block btn-primary btn-yahoo" data-opt="add" data-id="YH" data-origen="yahoo" data-origen="yahoo">==(connect_txt)==</button></div>
+								</div>
+							</div>
+							<div class="card card-custom my-3 bgDarkTexture aos-init aos-animate" data-aos="fade-down" data-aos-duration="500">
+								<div class="card-body mb-0">
+									<h5 class="card-title h3">Microsoft</h5>
+									<p class="card-text text-center">
+										<img src="https://www.tonystam.com/es/img/Microsoft-portfolio.png" alt="Login with Microsoft" title="Login with Microsoft" class="my-2 btn-msn socialLogo" data-opt="add" data-origen="msn" data-id="MS">
+									</p>
+								</div>
+								<div class="card-footer px-0 py-0 mt-0">
+									<div class="mx-3 mb-3">
+										<button class="btn btn-primary btn-block btn-msn" data-opt="add" data-id="MS" data-origen="msn">==(connect_txt)==</button>
+									</div>
+								</div>
+							</div>
+							<div class="card card-custom my-3 bgDarkTexture aos-init aos-animate" data-aos="fade-down" data-aos-duration="500">
+								<div class="card-body mb-0">
+									<h5 class="card-title h3">Twitch</h5>
+									<p class="card-text text-center"><img src="https://static-cdn.jtvnw.net/jtv_user_pictures/27bfa19d-e9ab-4d31-bff5-eea89e47a3df-profile_image-300x300.png" alt="Login with Twitch" title="Login with Twitch" class="my-2 bg-white btn-twitch socialLogo" data-opt="add" data-origen="twitch" data-id="TC"></p>
+								</div>
+								<div class="card-footer px-0 py-0 mt-0">
+									<div class="mx-3 mb-3">
+									<button class="btn btn-primary btn-block btn-twitch" data-opt="add" data-id="TC" data-origen="twitch">==(connect_txt)==</button></div>
+								</div>
+							</div>
+							<div class="card card-custom my-3 bgDarkTexture aos-init aos-animate" data-aos="fade-down" data-aos-duration="500">
+								<div class="card-body mb-0">
+									<h5 class="card-title h3">Discord</h5>
+									<p class="card-text text-center">
+										<svg class="my-2 btn-discord socialLogo" alt="Login with Discord" title="Login with Discord" data-opt="add" data-origen="discord" data-id="DI" viewBox="0 0 33 36"><ellipse cx="19.6" cy="17.1" rx="1.9" ry="2"></ellipse><ellipse cx="12.8" cy="17.1" rx="1.9" ry="2"></ellipse><path d="M28.5,0H3.8A3.778,3.778,0,0,0,0,3.7V28a3.714,3.714,0,0,0,3.8,3.7h21l-1-3.3,2.4,2.1,2.2,2,4,3.4V3.7A3.937,3.937,0,0,0,28.5,0ZM21.4,23.5s-.7-.8-1.2-1.5a5.958,5.958,0,0,0,3.3-2.1A22.059,22.059,0,0,1,21.4,21a13.817,13.817,0,0,1-2.7.8,15.394,15.394,0,0,1-4.8,0,12.544,12.544,0,0,1-2.7-.8c-.4-.2-.9-.4-1.4-.6-.1,0-.1-.1-.2-.1H9.5A5.2,5.2,0,0,0,9,20a5.932,5.932,0,0,0,3.2,2.1c-.6.7-1.2,1.5-1.2,1.5-4.1-.1-5.6-2.7-5.6-2.7A23.4,23.4,0,0,1,8.1,10.4a8.948,8.948,0,0,1,5.2-1.9l.2.2A10.672,10.672,0,0,0,8.7,11s.4-.2,1.1-.5A13.33,13.33,0,0,1,14,9.4h.3a15.243,15.243,0,0,1,3.7,0,16.225,16.225,0,0,1,5.6,1.7A12.081,12.081,0,0,0,19,8.8l.3-.3a8.948,8.948,0,0,1,5.2,1.9,23.4,23.4,0,0,1,2.7,10.5A7.865,7.865,0,0,1,21.4,23.5Z"></path></svg>
+									</p>
+								</div>
+								<div class="card-footer px-0 py-0 mt-0">
+									<div class="mx-3 mb-3">
+									<button class="btn btn-primary btn-block btn-discord" data-opt="add" data-id="DI" data-origen="discord">==(connect_txt)==</button></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="container d-flex flex-row flex-wrap align-items-center justify-content-center mb-5 pb-2 socialbtns">
+						<div class="d-flex flex-column">
+							<div class="alert alert-danger text-center mt-4 mx-3 w-100 d-none socialerror" role="alert" id="social_in_use"><i class="far fa-times-circle mr-3"></i>
+								==(socialinuse_txt)==
+							</div>
+							<div class="alert alert-danger text-center mt-4 mx-3 w-100 d-none socialerror" role="alert" id="genericerror_social"><i class="far fa-times-circle mr-3"></i>
+								==(generic_error_txt)==
+							</div>
+							<div class="alert alert-light text-center mt-4 mx-3 w-100  d-none socialerror" role="alert" id="social_linked"><i class="far fa-check-circle mr-3"></i>
+								==(social_linked_txt)==
+							</div>
+							<div class="alert alert-danger text-center mt-4 mx-3 w-100 d-none socialerror" role="alert" id="social_unlink_act"><i class="far fa-times-circle mr-3"></i>
+								==(social_unlink_act_txt)==
+							</div>
+							<div class="alert alert-light text-center mt-4 mx-3 w-100  d-none socialerror" role="alert" id="social_unlinked"><i class="far fa-check-circle mr-3"></i>
+								==(social_unlinked_txt)==
+							</div>
+						</div>
+					</div>
+							</div>
+							<div class="tab-pane fade animated fadeInUp fast" id="payment-info" role="tabpanel" aria-labelledby="payment-info-tab">
+					<div class="container mb-5">
+						<h3 class="h1 text-primary">==(balance_account)==</h3>
+						<hr>
+						<div class="form-group row">
+							<label for="mywallet" class="col-sm-3 col-form-label h4"><i class="fas fa-user fa-xs mr-3"></i>==(balance)==:</label>
+							<div class="col-sm-9">
+							<input type="text" readonly class="form-control-plaintext" id="mywallet" value="0,00 €">
+							</div>
+							<div class="col-sm-9 mt-3">
+							<!-- <button class="btn btn-secondary mr-3" id="chargeMoney" data-toggle="modal" data-target=".modalCharge">==(charge_wallet)==</button> -->
+							<!-- <button class="btn btn-secondary d-none" id="loadCode" data-toggle="modal" data-target=".modalCard">Canjear tarjeta regalo</button> -->
+							</div>
+						</div>
+					</div>
+					<div class="container mb-5">
+						<h3 class="h1 text-primary">==(payment_history)==</h3>
+						<hr>
+						<div>
+							<table class="table tableBorderedPrimaryColor primaryColor">
+								<thead class="fontSecondarySmall btn-secondary">
+									<tr>
+										<th>==(date_txt)==</th>
+										<th>==(game_txt)==</th>
+										<th>==(items_txt)==</th>
+										<th>==(price_txt)==</th>
+										<th>==(currency_txt)==</th>
+									</tr>
+								</thead>
+								<tbody class="historyPay">
+									<tr>
+										<td colspan="5">==(no_payment_history)==</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="container mb-5">
+						<h3 class="h1 text-primary">==(charge_history)==</h3>
+						<hr>
+						<div>
+							<table class="table tableBorderedPrimaryColor primaryColor">
+								<thead class="fontSecondarySmall btn-secondary">
+									<tr>
+										<th>==(date_txt)==</th>
+										<th>==(amount_txt)==</th>
+										<th>==(currency_txt)==</th>
+									</tr>
+								</thead>
+								<tbody class="historyCharge">
+									<tr>
+										<td colspan="3">==(no_charge_history)==</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane fade animated fadeInUp fast pb-5" id="my-games" role="tabpanel" aria-labelledby="my-games-tab">
+					<div class="container-fluid d-flex flex-row align-items-baseline breadcrumb-nav-post px-0 mx-0">
+						<div class="px-3">
+							<p class="h4 text-primary d-inline-block pl-2">==(all_your_games_txt)==</p>
+						</div>
+						<div class="col px-0">
+							<div class="lineaHorizontalAncha primaryColorBg active w-100"></div>
+						</div>
+					</div>
+					<div class="container-fluid pb-5" id="myGamesContainer">
+						<div class="container">
+							<div class="d-flex flex-row">
+								<div><img src="https://cdn.idcgames.net/img/password-forgot/IDC-troll.png" alt="IDC troll"></div>
+								<div class="d-flex flex-column justify-content-between pl-3 primary-text">
+									<div class="mt-5">
+										<p class="h4 display-4"><i class="far fa-check-circle mr-3"></i>==(oh_oh_txt)==</p>
+										<p class="h4">==(have_not_played_yet)==</p>
+									</div>
+									<div class="my-2">
+										<p class="d-flex justify-self-end text-primary py-2">==(make_the_troll_happy)==</p>
+										<a href="/" class="btn btn-primary" data-unsp-sanitized="clean">==(got_it_txt)==</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane fade animated fadeInUp fast pb-5" id="wish-games" role="tabpanel" aria-labelledby="wish-games-tab">
+					<div class="container-fluid d-flex flex-row align-items-baseline breadcrumb-nav-post px-0 mx-0">
+						<div class="px-3">
+							<p class="h4 text-primary d-inline-block pl-2">==(all_your_games_txt)==</p>
+						</div>
+						<div class="col px-0">
+							<div class="lineaHorizontalAncha primaryColorBg active w-100"></div>
+						</div>
+					</div>
+					<div class="container-fluid pb-5" id="wishGamesContainer">
+						<div class="container">
+							<div class="d-flex flex-row">
+								<div><img src="https://cdn.idcgames.net/img/password-forgot/IDC-troll.png" alt="IDC troll"></div>
+								<div class="d-flex flex-column justify-content-between pl-3 primary-text">
+									<div class="mt-5">
+										<p class="h4 display-4"><i class="far fa-check-circle mr-3"></i>==(oh_oh_txt)==</p>
+										<p class="h4">==(have_not_played_yet)==</p>
+									</div>
+									<div class="my-2">
+										<p class="d-flex justify-self-end text-primary py-2">==(make_the_troll_happy)==</p>
+										<a href="/" class="btn btn-primary" data-unsp-sanitized="clean">==(got_it_txt)==</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane fade animated fadeInUp fast" id="insert-code" role="tabpanel" aria-labelledby="insert-code-tab">
+					<div class="container mb-5">
+						<h3 class="h1 text-primary">==(redeem_code)==</h3>
+						<hr>
+						<div>
+							<p class="text-primary pt-2">==(insert_code_instructions)==</p>
+						</div>
+						<div class="form-group row">
+							<label for="selectGame" class="col-sm-3 col-form-label h4"><i class="fas fa-user fa-xs mr-3"></i>==(select_game_txt)==:</label>
+							<div class="col-sm-9 mb-2">
+								<select name="selectGame" id="selectGame" class="form-control"></select>
+							</div>
+							<label for="insertCode" class="col-sm-3 col-form-label h4"><i class="fas fa-user fa-xs mr-3"></i>==(insert_code)==:</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="insertCode" value="">
+							</div>
+							<div class="col-sm-9 mt-3">
+								<button class="btn btn-secondary mr-3" id="redeemCode">==(redeem_txt)==</button>
+							</div>
+						</div>
+					</div>
+					<div class="container d-flex flex-row flex-wrap align-items-center justify-content-center mb-5 pb-2">
+						<div class="d-flex flex-column">
+							<div class="alert alert-success text-center mt-4 mx-3 d-none iCodeControl" id="game_added_ok" role="alert" ><i class="far fa-check-circle mr-3"></i>
+								==(game_added_ok)==
+							</div>
+							<div class="alert alert-danger text-center mt-4 mx-3 d-none iCodeControl" id="key_already_used" role="alert" ><i class="far fa-times-circle mr-3"></i>
+								==(key_already_used)==
+							</div>
+							<div class="alert alert-danger text-center mt-4 mx-3 d-none iCodeControl" id="invalid_key_game" role="alert" ><i class="far fa-times-circle mr-3"></i>
+								==(invalid_key_game)==
+							</div>
+							<div class="alert alert-danger text-center mt-4 mx-3 d-none iCodeControl" id="already_purchased" role="alert" ><i class="far fa-times-circle mr-3"></i>
+								==(already_purchased)==
+							</div>
+							<div class="alert alert-danger text-center mt-4 mx-3 d-none iCodeControl" id="generic_error" role="alert" ><i class="far fa-times-circle mr-3"></i>
+								==(generic_error_txt)==
+							</div>
+							<div class="alert alert-danger text-center mt-4 mx-3 d-none iCodeControl" id="params_requiered" role="alert" ><i class="far fa-times-circle mr-3"></i>
+								==(params_requiered)==
+							</div>
+						</div>
+					</div>
+				</div>
+					</div>
+			</div>
+	</section>
+	<section>
+		<div class="modal fade modal1" tabindex="-1" role="dialog" aria-labelledby="ModalImg" aria-hidden="true">
+			<div class="modal-dialog modal-xl modal-dialog-centered container-fluid" id="ModalImg">
+				<div class="modal-content modal-bg-img flex-lg-row flex-column">
+					<div class="col-xl-6 col-lg-7 col-12 p-0 img-modal-left-container bg-dark">
+						<!--div><i class="fas fa-external-link-alt text-primary p-2 position-absolute"></i></div-->
+						<a href="#" class="post-url"><img src="https://cdn.idcgames.net/img/default/bg-artwork-small.jpg" class="img-modal-left post-image" alt=""></a>
+					</div>
+					<div class="col-xl-6 col-lg-5 col-12 p-0 d-flex flex-column">
+						<div class="modal-header">                   
+							<div class="d-flex flex-row align-items-baseline">
+								<div class="col-auto p-0">
+									<img src="https://cdn.idcgames.net/img/default/bg-artwork-small.jpg" class="img-user" alt="avatar">
+								</div>
+								<div class="col-11">
+									<p class="fontSecondarySmall m-0 post-author">Whoever post this user name</p>
+								</div>
+							</div>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div>
+								<div>
+									<h2 class="h1 font-weight-bold post-title">Title of the post!!</h2>
+								</div>
+								<div class="d-flex flex-row">
+									<span class="text-primary mr-5"><i class="fas fa-thumbs-up pr-2"></i><b class="post-like">87</b> persons like this</span>
+									<span class="text-secondary"><i class="fas fa-thumbs-down pr-2"></i><b class="post-dislike">87</b> persons dislike this</span>
+								</div>
+								<div class="d-flex flex-row mt-5">
+									<div class="col-6 p-0">
+										<button type="button" class="btn btn-outline-secondary btn-sm socialAct post-id" data-act="like" data-target="" data-extra=""><i class="fas fa-thumbs-up"></i></button>
+										<button type="button" class="btn btn-outline-secondary btn-sm socialAct post-id" data-act="dislike" data-target="" data-extra=""><i class="fas fa-thumbs-down"></i></button>
+									</div>
+									<div class="col-6 d-flex flex-row justify-content-end p-0">
+										<div class="addthis_inline_share_toolbox_e3c6"></div>
+										<button type="button" class="btn btn-outline-secondary btn-sm px-2 post-share runShare" data-toggle="tooltip" data-placement="top" title="==(share)==" data-url="" data-description=""><i class="fas fa-share-alt"></i></button>
+										<!--
+											<button type="button" class="btn btn-outline-secondary btn-sm px-2" data-toggle="tooltip" data-placement="bottom" title="Favoritos"><i class="fas fa-star"></i></button>
+											<button type="button" class="btn btn-outline-secondary btn-sm px-2" data-toggle="tooltip" data-placement="top" title="Seguir"><i class="fas fa-user-plus"></i></button>
+										-->
+										<button type="button" class="btn btn-outline-secondary btn-sm px-2" data-toggle="tooltip" data-placement="bottom" title="==(report)=="><i class="fas fa-flag"></i></button>
+									</div>
+								</div>
+							</div>
+							<hr class="border-green-lighter">
+							<div class="d-flex flex-column pt-3 comments">
+								<div class="d-flex flex-row pb-3">
+									<div class="col-auto p-0">
+										<img src="https://cdn.idcgames.net/img/default/bg-artwork-small.jpg" class="img-user" alt="avatar">
+									</div>
+									<div class="col-11">
+										<div>
+											<a class="fontSecondarySmall">Author user name</a>
+											<span class="text-secondary pl-3">15 jul 2018 a las 22:30</span>
+										</div>
+										<p class="">I like this artwork very much.</p>
+									</div>
+								</div>
+								<div class="d-flex flex-row pb-3">
+									<div class="col-auto p-0">
+										<img src="https://cdn.idcgames.net/img/default/bg-artwork-small.jpg" class="img-user" alt="avatar">
+									</div>
+									<div class="col-11">
+										<div>
+											<a class="fontSecondarySmall">Author user name</a>
+											<span class="text-secondary pl-3">15 jul 2018 a las 22:30</span>
+										</div>
+										<p class="">This is a longer comment. I like this artwork very much. This is a longer comment. I like this artwork very much.</p>
+									</div>
+								</div>
+								<div class="d-flex flex-row pb-3">
+									<div class="col-auto p-0">
+										<img src="https://cdn.idcgames.net/img/default/bg-artwork-small.jpg" class="img-user" alt="avatar">
+									</div>
+									<div class="col-11">
+										<div>
+											<a class="fontSecondarySmall">Author user name</a>
+											<span class="text-secondary pl-3">15 jul 2018 a las 22:30</span>
+										</div>
+										<p class="">I like this artwork very much.</p>
+									</div>
+								</div>
+								<a href="#" class="btn btn-outline-primary btn-sm btn-block post-url">==(read_more)==</a>
+							</div>
+						</div>
+						<div class="modal-footer flex-sm-row flex-column border-green-lighter py-sm-3 ">
+							<div class="col-sm-3 col-12">
+								<p class="h6 text-secondary">==(tags)==:</p>
+							</div>
+							<div class="col-sm-9 col-12 d-flex justify-content-sm-end justify-content-between">
+								<span class="badge badge-secondary mx-2">%%(game_name)%%</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal2" tabindex="-1" role="dialog" aria-labelledby="ModalVideo" aria-hidden="true">
+			<div class="modal-dialog modal-xl modal-dialog-centered container-fluid" id="ModalImg">
+				<div class="modal-content modal-bg-img flex-lg-row flex-column">
+					<div class="col-xl-6 col-lg-7 col-12 p-0 img-modal-left-container">
+						<div><i class="fas fa-external-link-alt text-primary p-2 position-absolute"></i></div>
+						<video class="img-modal-left post-body">
+							<source src="#" type="video/mp4">
+						</video>
+					</div>
+					<div class="col-xl-6 col-lg-5 col-12 p-0 d-flex flex-column">
+						<div class="modal-header">                   
+							<div class="d-flex flex-row align-items-baseline">
+								<div class="col-auto p-0">
+									<img src="https://cdn.idcgames.net/img/default/bg-artwork-small.jpg" class="img-user" alt="avatar">
+								</div>
+								<div class="col-11">
+									<p class="fontSecondarySmall m-0 post-author">Whoever post this user name</p>
+								</div>
+							</div>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div>
+								<div>
+									<h2 class="h1 font-weight-bold post-title">Title of the post!!</h2>
+								</div>
+								<div class="d-flex flex-row">
+									<span class="text-primary mr-5"><i class="fas fa-thumbs-up pr-2"></i><b class="post-like">87</b> persons like this</span>
+									<span class="text-secondary"><i class="fas fa-thumbs-down pr-2"></i><b class="post-dislike">87</b> persons dislike this</span>
+								</div>
+								<div class="d-flex flex-row mt-5">
+									<div class="col-6 p-0">
+										<button type="button" class="btn btn-outline-secondary btn-sm socialAct post-id" data-act="like" data-target="" data-extra=""><i class="fas fa-thumbs-up"></i></button>
+										<button type="button" class="btn btn-outline-secondary btn-sm socialAct post-id" data-act="dislike" data-target="" data-extra=""><i class="fas fa-thumbs-down"></i></button>
+									</div>
+									<div class="col-6 d-flex flex-row justify-content-end p-0">
+										<div class="addthis_inline_share_toolbox_e3c6"></div>
+										<button type="button" class="btn btn-outline-secondary btn-sm px-2 post-share runShare" data-toggle="tooltip" data-placement="top" title="==(share)==" data-url="" data-description=""><i class="fas fa-share-alt"></i></button>
+										<!--
+											<button type="button" class="btn btn-outline-secondary btn-sm px-2" data-toggle="tooltip" data-placement="bottom" title="Favoritos"><i class="fas fa-star"></i></button>
+											<button type="button" class="btn btn-outline-secondary btn-sm px-2" data-toggle="tooltip" data-placement="top" title="Seguir"><i class="fas fa-user-plus"></i></button>
+										-->
+										<button type="button" class="btn btn-outline-secondary btn-sm px-2" data-toggle="tooltip" data-placement="bottom" title="==(report)=="><i class="fas fa-flag"></i></button>
+									</div>
+								</div>
+							</div>
+							<hr class="border-green-lighter">
+							<div class="d-flex flex-column pt-3 comments">
+								<div class="d-flex flex-row pb-3">
+									<div class="col-auto p-0">
+										<img src="https://cdn.idcgames.net/img/default/bg-artwork-small.jpg" class="img-user" alt="avatar">
+									</div>
+									<div class="col-11">
+										<div>
+											<a class="fontSecondarySmall">Author user name</a>
+											<span class="text-secondary pl-3">15 jul 2018 a las 22:30</span>
+										</div>
+										<p class="">I like this artwork very much.</p>
+									</div>
+								</div>
+								<div class="d-flex flex-row pb-3">
+									<div class="col-auto p-0">
+										<img src="https://cdn.idcgames.net/img/default/bg-artwork-small.jpg" class="img-user" alt="avatar">
+									</div>
+									<div class="col-11">
+										<div>
+											<a class="fontSecondarySmall">Author user name</a>
+											<span class="text-secondary pl-3">15 jul 2018 a las 22:30</span>
+										</div>
+										<p class="">This is a longer comment. I like this artwork very much. This is a longer comment. I like this artwork very much.</p>
+									</div>
+								</div>
+								<div class="d-flex flex-row pb-3">
+									<div class="col-auto p-0">
+										<img src="https://cdn.idcgames.net/img/default/bg-artwork-small.jpg" class="img-user" alt="avatar">
+									</div>
+									<div class="col-11">
+										<div>
+											<a class="fontSecondarySmall">Author user name</a>
+											<span class="text-secondary pl-3">15 jul 2018 a las 22:30</span>
+										</div>
+										<p class="">I like this artwork very much.</p>
+									</div>
+								</div>
+								<a href="#" class="btn btn-outline-primary btn-sm btn-block post-url">==(read_more)==</a>
+							</div>
+						</div>
+						<div class="modal-footer flex-sm-row flex-column border-green-lighter py-sm-3 ">
+							<div class="col-sm-3 col-12">
+								<p class="h6 text-secondary">==(tags)==:</p>
+							</div>
+							<div class="col-sm-9 col-12 d-flex justify-content-sm-end justify-content-between">
+								<span class="badge badge-secondary mx-2">%%(game_name)%%</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>		
+		<div class="modal fade modal3" tabindex="-1" role="dialog" aria-labelledby="ModalEmbedVideo" aria-hidden="true">
+			<div class="modal-dialog modal-xl modal-dialog-centered container-fluid" id="ModalEmbedVideo">
+				<div class="modal-content modal-bg-img flex-lg-row flex-column">
+					<div class="col-xl-6 col-lg-7 col-12 p-0 img-modal-left-container">
+						<div><i class="fas fa-external-link-alt text-primary p-2 position-absolute"></i></div>
+						<div class="embed-responsive embed-responsive-1by1 post-body">
+							<iframe class="embed-responsive-item" src="about:blank" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+						</div>
+					</div>
+					<div class="col-xl-6 col-lg-5 col-12 p-0 d-flex flex-column">
+						<div class="modal-header">                   
+							<div class="d-flex flex-row align-items-baseline">
+								<div class="col-auto p-0">
+									<img src="https://cdn.idcgames.net/img/default/bg-artwork-small.jpg" class="img-user" alt="avatar">
+								</div>
+								<div class="col-11">
+									<p class="fontSecondarySmall m-0">Whoever post this user name</p>
+								</div>
+							</div>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div>
+								<div>
+									<h2 class="h1 font-weight-bold post-title">Title of the post!!</h2>
+								</div>
+								<div class="d-flex flex-row">
+									<span class="text-primary mr-5"><i class="fas fa-thumbs-up pr-2"></i><b class="post-like">87</b> persons like this</span>
+									<span class="text-secondary"><i class="fas fa-thumbs-down pr-2"></i><b class="post-dislike">87</b> persons dislike this</span>
+								</div>
+								<div class="d-flex flex-row mt-5">
+									<div class="col-6 p-0">
+										<button type="button" class="btn btn-outline-secondary btn-sm socialAct post-id" data-act="like" data-target="" data-extra=""><i class="fas fa-thumbs-up"></i></button>
+										<button type="button" class="btn btn-outline-secondary btn-sm socialAct post-id" data-act="dislike" data-target="" data-extra=""><i class="fas fa-thumbs-down"></i></button>
+									</div>
+									<div class="col-6 d-flex flex-row justify-content-end p-0">
+										<div class="addthis_inline_share_toolbox_e3c6"></div>
+										<button type="button" class="btn btn-outline-secondary btn-sm px-2 post-share runShare" data-toggle="tooltip" data-placement="top" title="==(share)==" data-url="" data-description=""><i class="fas fa-share-alt"></i></button>
+										<!--
+											<button type="button" class="btn btn-outline-secondary btn-sm px-2" data-toggle="tooltip" data-placement="bottom" title="Favoritos"><i class="fas fa-star"></i></button>
+											<button type="button" class="btn btn-outline-secondary btn-sm px-2" data-toggle="tooltip" data-placement="top" title="Seguir"><i class="fas fa-user-plus"></i></button>
+										-->
+										<button type="button" class="btn btn-outline-secondary btn-sm px-2" data-toggle="tooltip" data-placement="bottom" title="==(report)=="><i class="fas fa-flag"></i></button>
+									</div>
+								</div>
+							</div>
+							<hr class="border-green-lighter">
+							<div class="d-flex flex-column pt-3 comments">
+								<div class="d-flex flex-row pb-3">
+									<div class="col-auto p-0">
+										<img src="https://cdn.idcgames.net/img/default/bg-artwork-small.jpg" class="img-user" alt="avatar">
+									</div>
+									<div class="col-11">
+										<div>
+											<a class="fontSecondarySmall">Author user name</a>
+											<span class="text-secondary pl-3">15 jul 2018 a las 22:30</span>
+										</div>
+										<p class="">I like this artwork very much.</p>
+									</div>
+								</div>
+								<div class="d-flex flex-row pb-3">
+									<div class="col-auto p-0">
+										<img src="https://cdn.idcgames.net/img/default/bg-artwork-small.jpg" class="img-user" alt="avatar">
+									</div>
+									<div class="col-11">
+										<div>
+											<a class="fontSecondarySmall">Author user name</a>
+											<span class="text-secondary pl-3">15 jul 2018 a las 22:30</span>
+										</div>
+										<p class="">This is a longer comment. I like this artwork very much. This is a longer comment. I like this artwork very much.</p>
+									</div>
+								</div>
+								<div class="d-flex flex-row pb-3">
+									<div class="col-auto p-0">
+										<img src="https://cdn.idcgames.net/img/default/bg-artwork-small.jpg" class="img-user" alt="avatar">
+									</div>
+									<div class="col-11">
+										<div>
+											<a class="fontSecondarySmall">Author user name</a>
+											<span class="text-secondary pl-3">15 jul 2018 a las 22:30</span>
+										</div>
+										<p class="">I like this artwork very much.</p>
+									</div>
+								</div>
+								<a href="#" class="btn btn-outline-primary btn-sm btn-block post-url">==(read_more)==</a>
+							</div>
+						</div>
+						<div class="modal-footer flex-sm-row flex-column border-green-lighter py-sm-3 ">
+							<div class="col-sm-3 col-12">
+								<p class="h6 text-secondary">==(tags)==:</p>
+							</div>
+							<div class="col-sm-9 col-12 d-flex justify-content-sm-end justify-content-between">
+								<span class="badge badge-secondary mx-2">%%(game_name)%%</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modalCharge" tabindex="-1" role="dialog" aria-labelledby="modalCharge" aria-hidden="true">
+			<div class="modal-dialog modal-xl modal-dialog-centered container-fluid" id="modalCharge">
+				<div class="modal-content modal-bg-img flex-lg-row flex-column">
+					<div class="col-12 p-0 d-flex flex-column">
+						<div class="modal-header">
+							<div class="d-flex flex-row align-items-baseline">
+								<div class="col-12"><p class="h1 fontSecondarySmall m-0 post-author">==(charge_wallet)==</p></div>
+							</div>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+						</div>
+						<div class="modal-body">
+							<iframe class="embed-responsive-item" src="about:blank" allow="accelerometer; gyroscope; picture-in-picture"></iframe>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade rechargeModal" tabindex="-1" role="dialog" aria-labelledby="rechargeModal" aria-hidden="true">
+			<div class="modal-dialog modal-xl modal-dialog-centered container-fluid" id="rechargeModal">
+				<div class="modal-content modal-bg-img flex-lg-row flex-column">					
+					<div class="col-12 p-0 d-flex flex-column">
+						<div class="modal-header">                   
+							<div class="d-flex flex-row align-items-baseline">
+								<div class="col-auto p-0">
+									<img src="https://cdn.idcgames.net/img/default/bg-artwork-small.jpg" class="img-user" alt="User Avatar">
+								</div>
+								<div class="col-11">
+									<p class="fontSecondarySmall m-0">==(charge_wallet)==</p>
+								</div>
+							</div>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body px-5 mx-3 theShop"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	</main>

@@ -1,0 +1,9 @@
+<script>
+  blackMenu();
+  if( loadSession('token') != false ){
+     loadUserData();
+  }else{
+     $("[data-target='.loginModal']").click();
+  }
+  doCodesGames();
+</script>

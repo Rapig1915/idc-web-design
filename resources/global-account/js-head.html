@@ -1,0 +1,560 @@
+<script src="/assets/content/categories.js?==(current_timestamp)=="></script>
+<script src="/assets/config/catlang.js?==(current_timestamp)=="></script>
+<script src="/assets/config/gamedata.js?==(current_timestamp)=="></script>
+<script src="/assets/config/status.js?==(current_timestamp)=="></script>
+<script>
+var con = '==(connect_txt)==';
+var dis = '==(disconnect_txt)==';
+var play_now_txt = "==(play_now_txt)==";
+var more_info_txt = "==(more_info)==";
+if ( typeof(coin) == "undefined"){
+	var coin = "EUR";
+	var coinTxt = "€";
+}
+var exist = {};
+
+function addSocial(result){
+	$(".socialerror").addClass("d-none");
+	if (result.rc == 200){
+		$("#social_linked").removeClass("d-none");
+	}else if (result.rc == 404){
+		$("#social_in_use").removeClass("d-none");
+	}else{
+		$("#genericerror_social").removeClass("d-none");
+	}
+	changeSocial(1,result.data);
+}
+function removeSocial(data){
+	$(".socialerror").addClass("d-none");
+	if ( typeof(data) != 'undefined') {
+		$.ajax({
+			type:"POST",
+			url:"/unilogin/removeSocial.php",
+			data: 'token='+loadSession("token")+'&data='+data,
+			dataType: 'text',
+			async:false,
+			success: function(json){
+				var result = JSON.parse(json);
+				if (result.rc == 200){
+					$("#social_unlinked").removeClass("d-none");
+					changeSocial(0,result.data);
+				}else if (result.rc == 404){
+					$("#social_unlink_act").removeClass("d-none");
+				}else{
+					$("#genericerror_social").removeClass("d-none");
+				}
+			}
+		});
+	}
+}
+function changeSocial(status,id){
+	var origen = $(".card").find("[data-id='"+id+"']").attr("data-origen");
+	if(status == 0 ){
+		$(".card").find("button[data-id='"+id+"']").text(con);
+		$(".card").find("button[data-id='"+id+"']").addClass("btn-primary");
+		$(".card").find("button[data-id='"+id+"']").removeClass("btn-secondary");
+		$(".card").find("button[data-id='"+id+"']").removeClass("unsocial");
+		$(".card").find("[data-origen='"+origen+"']").addClass("btn-"+origen);
+		$(".card").find("[data-origen='"+origen+"']").removeClass("off-"+origen);
+	}else{
+		$(".card").find("button[data-id='"+id+"']").text(dis);
+		$(".card").find("button[data-id='"+id+"']").addClass("btn-secondary");
+		$(".card").find("button[data-id='"+id+"']").removeClass("btn-primary");
+		$(".card").find("button[data-id='"+id+"']").addClass("unsocial");
+		$(".card").find("[data-origen='"+origen+"']").addClass("off-"+origen);
+		$(".card").find("[data-origen='"+origen+"']").removeClass("btn-"+origen);
+	}
+}
+
+function loadUserData(){
+	$(".alert").addClass("d-none");
+	$(".reqLog").find(".alert").removeClass("d-none");
+	$(".changePasswordConfirmDiv").addClass("d-none");
+	$(".code-mail").addClass("d-none");
+	$(".codesent").addClass("d-none");
+	$(".verifyDiv").removeClass("d-none");
+	$(".socialbtns").find(".btn-toggle").addClass("cursor-default");
+	$(".socialbtns").find(".btn-toggle").removeClass("active");
+	$(".socialbtns").find(".btn-toggle").attr("aria-pressed","false");
+	$(".actualPassword").addClass("d-none");
+	$("#account_username").text( getCookie("nick") );
+	$("#Username").val( getCookie("nick") );
+	$.ajax({
+		type:"POST",
+		url:"/unilogin/userData.php",
+		data: 'token='+loadSession("token"),
+		dataType: 'text',
+		async:false,
+		success: function(e){
+			var res = JSON.parse(e);
+			if (res.rc == 200) {
+				var userData = res.data;
+				$(".card").find("button[data-opt='add']").removeClass("btn-secondary");
+				$(".card").find("button[data-opt='add']").addClass("btn-primary");
+				$(".card").find("button[data-opt='add']").text(con);
+				if (userData.email != '') {
+					$("#currentEmail").val(userData.email);
+					$(".yes-mail").removeClass("d-none");
+					$(".no-mail").addClass("d-none");
+				}else{
+					$(".no-mail").removeClass("d-none");
+					$(".yes-mail").addClass("d-none");
+				}
+				if (userData.nick == 0) {
+					$("#create_pass").removeClass("d-none");
+					$("#Password").val("-");
+				}else{
+					$("#change_pass").removeClass("d-none");
+					$(".actualPassword").removeClass("d-none");
+				}
+				$.each( userData.social, function( index, value ){
+					if( value == 1 ){
+						changeSocial(1,index);
+					}
+				});
+				$.ajax({
+					type:"POST",
+					url:"/unilogin/listarUserJuegos.php",
+					data: 'token='+loadSession("token"),
+					dataType: 'text',
+					async:false,
+					success: function(e){
+						myGameData = JSON.parse(e);
+						if (myGameData.rc == 200 ){
+							var divID = 1;
+							var html = "";
+
+							for (i=0;i<myGameData.data.length;i++) {
+								try {
+									var idGame = myGameData.data[i].IDJUEGO;
+									//Si no está en la lista, lo saltamos
+									if (typeof(gamedata[idGame]) == 'undefined' ) {
+										continue;
+									}
+									var thisStatus = "s"+gamedata[idGame].common_params.game_status_id;
+									if ( gameStatus[thisStatus].playable == 0 ) {
+										continue;
+									}
+									html = html + buildGame(idGame);
+								}catch(e){
+									console.log("Error gamelist: "+i);
+								}
+							}
+
+							if( html != "" ){
+								$("#myGamesContainer").html(html);	
+							}
+							
+						}else if (myGameData.rc == 404 ) {
+							return undefined;
+						}
+					}
+        });
+        $.ajax({
+					type:"POST",
+					url:"/unilogin/listarUserWishedJuegos.php",
+					data: 'token='+loadSession("token"),
+					dataType: 'text',
+					async:false,
+					success: function(e){
+						myGameData = JSON.parse(e);
+						if (myGameData.rc == 200 ){
+							var divID = 1;
+							var html = "";
+
+							for (i=0;i<myGameData.data.length;i++) {
+								try {
+									var idGame = myGameData.data[i].IDJUEGO;
+									//Si no está en la lista, lo saltamos
+									if (typeof(gamedata[idGame]) == 'undefined' ) {
+										continue;
+									}
+									var thisStatus = "s"+gamedata[idGame].common_params.game_status_id;
+									if ( gameStatus[thisStatus].playable == 0 ) {
+										continue;
+									}
+									html = html + buildGame(idGame);
+								}catch(e){
+									console.log("Error gamelist: "+i);
+								}
+							}
+
+							if( html != "" ){
+								$("#wishGamesContainer").html(html);	
+							}
+							
+						}else if (myGameData.rc == 404 ) {
+							return undefined;
+						}
+					}
+				});
+				$.ajax({
+					type:"POST",
+					url:"/unilogin/getHistory.php",
+					data: 'token='+loadSession("token"),
+					dataType: 'text',
+					async:false,
+					success: function(e){
+						if (typeof e !== 'undefined') {
+							var res = JSON.parse(e);
+							try {
+								var saldo = res.data.balance[coin];
+							}catch(e){
+								console.log("Saldo error");
+								var saldo = '0';
+							}
+							saldo = Math.round((saldo + Number.EPSILON) * 100) / 100;
+							setCookieWT("coins", saldo);
+							if( Number.isInteger( saldo ) == true ){
+								saldo = saldo + ".00" + coinTxt;
+							}else{
+								saldo = saldo + coinTxt;
+							}
+							$("#mywallet").val(saldo);
+							$(".historyPay").html("");
+							$(".historyCharge").html("");
+							$.each( res.data.history, function( index, value ){
+								var datetime = new Date(value.transaction_time);
+								var txt_articles = "GAME";
+								/*
+								try{
+									var articles = JSON.parse(value.articles);
+									if( typeof(articles[0].kind) == "text" && articles[0].kind == "GAME" ){
+										var txt_articles = "Game";
+									}
+								}catch(e){
+									console.log(e);
+									console.log(value.articles);
+								}
+								*/
+								$(".historyPay").append('<tr><td class="text-left">'+datetime.toLocaleString()+'</td><td>'+value.game_name+'</td><td>'+txt_articles+'</td><td class="text-right">'+value.total_price+'</td><td>'+value.currency+'</td>');
+							});
+							$.each( res.data.chargelog, function( index, value ){
+								var datetime = new Date(value.date);
+								$(".historyCharge").append('<tr><td class="text-left">'+datetime.toLocaleString()+'</td><td class="text-right">'+value.amount+'</td><td>'+value.currency+'</td>');
+							});
+						}
+					}
+				});
+			}else{
+				deleteSession();
+				$("[data-target='.loginModal']").click();
+			}
+		}
+	});
+}
+function contentByType(thisMedia,thisGame){
+	if( typeof(thisMedia) != "undefined" && typeof(thisGame) != "undefined" ){
+		var x = [
+			"",	 // 0
+			"1", // 1
+			"2", // 2
+			"1", // 3
+			"2", // 4
+			"3"	 // 5
+		];
+		var tipo = x[thisMedia.url_type];
+		var prev = thisMedia.body.replace("https://www.youtube.com/embed/", "");
+		var theurl = [
+			"",
+			thisMedia.thumb,
+			thisGame.store_params.game_home_video_bg_embebed,
+			'https://img.youtube.com/vi/'+prev+'/0.jpg'
+		];
+		if (theurl[tipo] == "") theurl = thisGame.store_params.thumb_slider;
+		if (theurl[tipo] == "") theurl = "https://cdn.idcgames.net/img/landing/thumb-landing-carrusel-default.jpg";
+		var after = '';
+		if ( tipo == 2 || tipo == 3 ) after = '<div class="fa-stack position-absolute bgDarkTexture b-radius"><i class="far fa-square fa-stack-2x primaryColor"></i><i class="fas fa-play fa-stack-1x fa-xs primaryColor"></i></div>';
+		var z = {
+			"modal": x[thisMedia.url_type],
+			"image": '<img class="img-fluid-custom box-shadow" src="' + theurl[tipo] + '" alt="' + thisGame.name + '">' + after,
+		};
+	}else{
+		var z = {
+			"modal": " ",
+			"image": '<img class="img-fluid-custom box-shadow" src="https://cdn.idcgames.net/img/landing/thumb-landing-carrusel-default.jpg" alt="IDC/Games">',
+		};
+	}
+	return z;
+}
+function makeImg(game_info,index){
+	if ( typeof(media[game_info.name]) != "undefined" && typeof(media[game_info.name][index]) != "undefined" ){
+		var thisMedia = media[game_info.name][index];
+		var thisContent = contentByType(thisMedia,game_info);
+		var x = '<div class="col-md-3 col-12 pl-0 py-md-0 py-3">'+
+		'<button class="d-flex align-items-center justify-content-center btn btn-link setModal" data-toggle="modal" data-target=".modal'+thisContent.modal+'" data-game="'+game_info.name+'" data-index="'+index+'">'+
+			thisContent.image +
+		'</button></div>';
+		return x;
+	}
+	return "";
+}
+function gameCat(thiscat){
+	if( catlang[thiscat] != undefined ) {
+		var url = catlang[thiscat]["url"];
+		var txt = catlang[thiscat]["txt"].toLowerCase();
+		return '<a href="'+url+'/" class="badge badge-secondary mx-2">'+txt+'</a>';
+	}else{
+		return "";
+	}
+}
+function buildGame(gameId){
+	var game_info = gamedata[gameId];
+    if(typeof game_info == 'undefined')
+        return "";
+    if(game_info.common_params.id_idcgame == "0")
+        return "";
+    var langs = '';
+    for(var i = 0; i < game_info.game_langs.length; i ++){
+        if(!game_info.game_langs[i].interface)  continue;
+        langs += '<span class="d-flex flex-row px-2 text-light" href="#"><img class="flag flag-' + game_info.game_langs[i].code.toLowerCase() + '" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="' + game_info.game_langs[i].name.toLowerCase() + '"></span>';
+    }
+
+    var categories = '';
+	categories += gameCat(game_info.common_params.game_cat1);
+	categories += gameCat(game_info.common_params.game_cat2);
+	categories += gameCat(game_info.common_params.game_cat3);
+	categories += gameCat(game_info.common_params.game_cat4);
+	categories += gameCat(game_info.common_params.game_cat5);
+
+    var res = '<div class="container-custom pt-5 mt-3 pb-4">' +
+		'<div class="card mt-2 gradient-overlay-5">' +
+		'                    <div class="row no-gutters">' +
+		'                        <div class="col-md-4">' +
+//            '                            <div class="overflow-hidden img-container-up-left box-shadow"><a href="/'+game_info.common_params.game_seo+'/"><img src="' + game_info.store_params.square_image + '" class="card-img img-zoom" alt="'+game_info.name+'"></a></div>' +
+		'                            <div class="overflow-hidden img-container-up-left box-shadow"><button class="myZoom playGame" data-play="'+game_info.common_params.id_idcgame+'"><img src="' + game_info.store_params.square_image + '" class="card-img img-zoom" alt="'+game_info.name+'"></a></div>' +
+		'                        </div>' +
+		'                        <div class="col-md-8">' +
+		'                            <div class="card-body mt-4 mr-4">' +
+		'                                <div class="d-flex">' +
+		'                                    <a class="text-white" href="/'+game_info.common_params.game_seo+'/"><h3 class="card-title display-4 bordered-bottom border-expanded-left text-shadow pr-2">' + game_info.name + '</h3></a></div>' +
+		'                                <p class="card-text">' + game_info.store_params.game_short_description + '</p>' +
+		'                                <div class="d-flex flex-md-row flex-column py-3">' + 
+											makeImg(game_info,0) + 
+											makeImg(game_info,1) + 
+											makeImg(game_info,2) + 
+											makeImg(game_info,3) +
+		'                                </div>' +
+//            '                                <div class="d-flex flex-row flex-wrap pt-3 pr-3"><button class="btn btn-primary btn-sm btn-block playGame" data-play="'+game_info.common_params.id_idcgame+'">' + play_now_txt + '</button></div>' +
+		'                                <div class="d-flex flex-sm-row flex-column pt-3 pr-3"><button class="btn btn-primary btn-sm btn-block mr-sm-2 playGame" data-play="'+game_info.common_params.id_idcgame+'">' + play_now_txt + '</button><a class="btn btn-secondary btn-sm btn-block ml-sm-2 mt-sm-0" href="/'+game_info.common_params.game_seo+'/">'+more_info_txt+'</a></div>' +
+		'                            </div>' +
+		'                        </div>' +
+		'                    </div>' +
+		'                    <div class="card-footer bg-dark-translucid d-flex flex-row col-12 align-items-center m-0">' +
+		'                        <div class="col-8 d-flex flex-row flex-wrap align-items-center flag-small">' +
+		'                            <p class="d-flex fontSecondarySmall mb-0">Languages:</p>' +
+									langs +
+		'                        </div>' +
+		'                        <div class="col-4 d-flex flex-row flex-wrap justify-content-end">' + categories + '</div>' +
+		'                    </div>' +
+		'                </div>' +
+		'            </div>';
+    return res;
+}
+function sendMailN(mail){ 
+	$.ajax({
+		type:"POST",
+		url:"/unilogin/sendMail.php",
+		data: 'mail='+mail+'&token='+loadSession("token"),
+		dataType: 'text',
+		async:false,
+		success: function(e){
+			$(".mailerror").addClass("d-none");
+			if (e=='OK') {
+				$(".changeMailDiv").addClass("d-none");
+				$("#mailn_sent").removeClass("d-none");
+				$(".code-mail").removeClass("d-none");
+				$(".codesent").find(".mailerror").addClass("d-none");
+				$(".codesent").removeClass("d-none");
+			}else if (e=='OK2') {
+				$(".changeMailDiv").addClass("d-none");
+				$("#mailn_sent2").removeClass("d-none");
+				$(".code-mail").removeClass("d-none");
+				$(".codesent").find(".mailerror").addClass("d-none");
+				$(".codesent").removeClass("d-none");
+			}else if (e=='NOTMAIL'){
+				$('#no_mail').removeClass("d-none");
+			}else{
+				$('#generic_error_mail1').removeClass("d-none");
+			}
+		}
+	});
+}
+function sendMail(mail){ 
+	$.ajax({
+		type:"POST",
+		url:"/unilogin/sendMail.php",
+		data: 'mail='+mail+'&token='+loadSession("token"),
+		dataType: 'text',
+		async:false,
+		success: function(e){
+			$("#link_mail").removeClass("d-none");
+			$(".mailerror").addClass("d-none");
+			if (e=='OK') {
+				$(".mailsent").addClass("d-none");
+				$("#mail_sent").removeClass("d-none");
+				$(".code-mail").removeClass("d-none");
+				$(".codesent").find(".mailerror").addClass("d-none");
+				$(".codesent").removeClass("d-none");
+			}else if (e=='NOTMAIL'){
+				$('#no_mail').removeClass("d-none");
+			}else{
+				$('#generic_error_mail1').removeClass("d-none");
+			}
+		}
+	});
+}
+function confirmMail(code){ 
+	$.ajax({
+		type:"POST",
+		url:"/unilogin/checkMail.php",
+		data: 'code='+code+'&token='+loadSession("token"),
+		dataType: 'text',
+		async:false,
+		success: function(e){
+			$(".no-mail").addClass("d-none");
+			$(".mailerror").addClass("d-none");
+			if (e=='OK') {
+				$("#mail_linked").removeClass("d-none");
+			}else if (e=='MAILINUSE'){
+				$("#mailinuse").removeClass("d-none");
+				$("#link_mail").removeClass("d-none");
+				$("#link_mail").find(".mailerror").addClass("d-none");
+				$(".mailsent").removeClass("d-none");
+				$(".codesent").addClass("d-none");
+			}else if (e=='WRONGCODE'){
+				$("#wrong_code_mail").removeClass("d-none");
+			}else{
+				$("#generic_error_mail2").removeClass("d-none");
+			}
+		}
+	});
+}
+function changePass(code){
+	$.ajax({
+		type:"POST",
+		url:"/unilogin/changePass.php",
+		data: 'actual='+code.actual+'&new='+code.newp+'&token='+loadSession("token"),
+		dataType: 'text',
+		async:false,
+		success: function(e){
+			$(".passerror").addClass("d-none");
+			if (e=='OK') {
+				$(".actualPassword").addClass("d-none");
+				$(".confirmPassword").addClass("d-none");
+				$(".changePasswordConfirmDiv").removeClass("d-none");
+			}else if (e=='NOMAIL'){
+				$(".no-mail").removeClass("d-none");
+				$(".yes-mail").addClass("d-none");
+				$("#password_not_mail").removeClass("d-none");
+			}else if (e=='BADPASS'){
+				$("#incorrect_password").removeClass("d-none");
+			}else{
+				$("#generic_error_pass").removeClass("d-none");
+			}
+		}
+	});
+}
+function confirmPass(code){
+	$.ajax({
+		type:"POST",
+		url:"/unilogin/confirmPass.php",
+		data: 'code='+code+'&token='+loadSession("token"),
+		dataType: 'text',
+		async:false,
+		success: function(e){
+			var result = JSON.parse(e);
+			$(".passerror").addClass("d-none");
+			if ( result.rc == 200 ) {
+				saveSession(result.data)
+				$(".verifyDiv").addClass("d-none");
+				$("#password_changed").removeClass("d-none");
+			}else if ( result.rc == 404 ){
+				$("#wrong_code_alert").removeClass("d-none");
+			}else if ( result.rc == 403 ){
+				//$("#generic_error_pass2").removeClass("d-none");
+				deleteSession();
+				$("[data-target='.loginModal']").click();
+			}else{
+				$("#generic_error_pass2").removeClass("d-none");
+			}
+			
+		}
+	});
+}
+function doModal(index, game, target){
+	var data = media[game][index];
+	data["url"] = data["url"].replace("==(language)==/", "");
+	$(target).find(".post-author").text(data["author"]);
+	$(target).find(".post-title").text(data["title"]);
+	$(target).find(".post-like").text(data["total_like"]);
+	$(target).find(".post-dislike").text(data["total_dislike"]);
+	$(target).find(".post-id").attr("data-target",data["id"]);
+	$(target).find(".post-url").attr("href",data["url"]);
+	$(target).find(".post-share").attr("data-url",data["url"]);
+	$(target).find(".post-share").attr("data-description",data["title"]);
+	if ( data["url_type"] == 1 || data["url_type"] == 3 ) {
+		// FOTO
+		$(target).find(".post-image").attr("src",data["body"]);
+		$(target).find(".post-image").attr("title",data["title"]);
+	}else{
+		// VIDEO + EXTERNAL (YT)
+		$(target).find(".post-body").children().attr("src",data["body"]);
+		if ( data["url_type"] == 2 || data["url_type"] == 4  ){
+			var video = $('video')[0];
+			video.load();
+			video.play();
+		}		
+	}
+}
+function doCodesGames(){
+	$("#selectGame").html("");
+	$.each( gamedata, function( index, value ){
+		var nameg = value.common_params.game_name;
+		var thisStatus = "s"+value.common_params.game_status_id;
+		if( gameStatus[thisStatus].redeemable == 1 && ( value.common_params.free_2_play == "false" || gameStatus[thisStatus].playable == 2 ) ){
+			$("#selectGame").append('<option value="'+index+'">'+nameg+'</option>');
+		}
+	});
+}
+function redeemCode(){
+	$(".iCodeControl").addClass("d-none");
+	var code = $("#insertCode").val();
+	var game = $("#selectGame").val();
+	if( code != "" && game != "" ){
+		$.ajax({
+			type:"POST",
+			url:"/unilogin/redeemCode.php",
+			data: 'code='+code+'&game='+game+'&token='+loadSession("token"),
+			dataType: 'text',
+			async:false,
+			success: function(e){
+				try{
+					var result = JSON.parse(e);
+				}catch(e){
+					var result = {
+						"rc": 500,
+						"txt": "KO",
+						"data": ""
+					}
+				}
+				if( result.rc == 200 ){
+					$("#game_added_ok").removeClass("d-none");
+				}else if( result.rc == 404 ){
+					$("#invalid_key_game").removeClass("d-none");
+				}else if( result.rc == 502 ){
+					$("#already_purchased").removeClass("d-none");
+				}else if( result.rc == 504 ){
+					$("#key_already_used").removeClass("d-none");
+				}else if( result.rc == 403 ){
+					deleteSession();
+				}else{
+					$("#generic_error").removeClass("d-none");
+				}
+			}
+		});
+	}else{
+		$("#params_requiered").removeClass("d-none");
+	}
+}
+</script>
