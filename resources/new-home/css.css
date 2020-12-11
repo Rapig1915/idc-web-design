@@ -2081,3 +2081,31 @@ height: 100%;
 .text-shadow2 {
   text-shadow: 2px 2px 5px rgba(0,0,0,.9);
 }
+
+/* //wishlist button */
+a:focus {
+  outline: none;
+}
+.big-card .wishlist-btn {
+  top: -18px;
+  right: 0;
+  z-index: 999;
+}
+.small-card .wishlist-btn {
+  top: -18px;
+  right: 0;
+  z-index: 999;
+}
+
+button.btn.btn-outline-primary.btn-sm.wishlist-btn.wishlist.px-2.py-0.mr-3 {
+  line-height: 1.2;
+}
+
+button.btn.btn-sm.wishlist-btn.px-2.py-0.mr-3.wishlisted.btn-primary {
+  line-height: 1.2;
+}
+
+.btn-outline-primary.focus, .btn-outline-primary:focus, .btn-primary.focus, .btn-primary:focus {
+  -webkit-box-shadow: none; 
+  box-shadow: none;
+}

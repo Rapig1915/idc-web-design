@@ -577,3 +577,31 @@ loadUserGames(() => {
 
 });
 
+$("body").on("click",".wishlist",function(){
+	$(this).addClass("wishlisted");
+	$(this).removeClass("wishlist");
+	$(this).addClass("btn-primary");
+	$(this).removeClass("btn-outline-primary");
+	$(this).find("i").addClass("fas");
+	$(this).find("i").removeClass("far");
+	$(this).attr({
+		"title" : "==(on_wishlist)==",
+		"data-original-title" : "==(on_wishlist)=="
+	});
+});
+$("body").on("click",".wishlisted",function(){
+	$(this).addClass("wishlist");
+	$(this).removeClass("wishlisted");
+	$(this).addClass("btn-outline-primary");
+	$(this).removeClass("btn-primary");
+	$(this).find("i").addClass("far");
+	$(this).find("i").removeClass("fas");
+	$(this).attr({
+		"title" : "==(add_to_wishlist)==",
+		"data-original-title" : "==(add_to_wishlist)=="
+	});
+});
+
+$(function () {
+	$('[data-toggle="tooltip"]').tooltip()
+});

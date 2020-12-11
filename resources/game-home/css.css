@@ -1010,8 +1010,13 @@
   .stnGuiasColPatchnotes:hover::after {
     opacity: 0.5; }
   
+  .stnGuiasColPatchnotes h4{
+    overflow-x: hidden;
+    overflow-wrap: break-word;
+    word-break: break-word; }
+
   .stnGuiasColPatchnotes h4::first-line {
-    font-size: 2em;
+    font-size: 1.8em;
     line-height: 0.9em; }
   
   @media (min-width: 992px) and (max-width: 1199.98px) {
