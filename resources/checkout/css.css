@@ -368,6 +368,6 @@ Check out page
 ======================================================================================================================
 */
 .payment-icon {
-  width: 34px;
-  height: 24px;
-  background-size: cover; }
+  width: 100px;
+  /* height: 24px; */
+  background-size: contain; }

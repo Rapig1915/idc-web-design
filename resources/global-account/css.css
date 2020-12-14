@@ -1146,7 +1146,7 @@ html {
 }
 .card .socialLogo.btn-msn, .card .socialLogo.off-msn {
   max-height: none;
-  transform: scale(1.4);
+  /* transform: scale(1.4); */
 }
 .card .btn-msn {
  max-height: none;

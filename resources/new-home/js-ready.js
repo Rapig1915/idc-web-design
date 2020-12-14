@@ -1,4 +1,14 @@
 
+
+const getShuffledArr = arr => {
+	const newArr = arr.slice()
+	for (let i = newArr.length - 1; i > 0; i--) {
+			const rand = Math.floor(Math.random() * (i + 1));
+			[newArr[i], newArr[rand]] = [newArr[rand], newArr[i]];
+	}
+	return newArr
+};
+
 $("body").on("click",".cart-btn",function(){
 	
 	if(typeof(putGameInBasket) == "function" && putGameInBasket($(this).attr("id_idcgame")))
@@ -72,7 +82,7 @@ $("body").on('shown.bs.tab', '.anchor-tab', function (e) {
 
 // Init functions
 var topSliderInited = false;
-function initTopSlider(max_games=5){
+function initTopSlider(max_games=10){
 	if(topSliderInited)
 		return;
 	
@@ -89,33 +99,16 @@ function initTopSlider(max_games=5){
 		topgames_panel && topgames_panel["upcoming"], 
 	];
 
-	var alternative = topgames_panel && topgames_panel.featured;
-
-	for(var i = 0; i < datasources.length; i ++){
-		var data = (datasources[i]&&datasources[i].length) ? datasources[i] : alternative;
-		var ind = Math.min(1, Math.floor(Math.random()*2));
-		if(ind >= data.length) ind = data.length-1;
-		gameList.push(data[ind]);
+	var max_try = 5;
+	while(gameList.length < max_games && max_try-->0){
+		for(var i = 0; i < datasources.length; i ++){
+			var picks = getShuffledArr(gameList.length<max_games/2 ? datasources[i].slice(0,2) : datasources[i].slice(2,5));
+			var id = picks.length>0 ? picks[0] : 0;
+			(id && !gameList.includes(id)) && gameList.push(id);
+		}
 	}
 
-	for(var i = 0; i < datasources.length; i ++){
-		var data = (datasources[i]&&datasources[i].length) ? datasources[i] : alternative;
-		var ind = Math.min(4,Math.floor(Math.random()*3)+2);
-		if(ind >= data.length) ind = data.length-1;
-		gameList.push(data[ind]);
-	}
-
-	// datasources.map(src => {
-	// 	if(src && src.length > 0){
-	// 		for(var i = 0; i < src.length && i < max_games; i ++){
-	// 			if(!gameList.includes(src[i]) && gamedata[src[i]]){
-	// 				gameList.push(src[i]);
-	// 				max_games--;
-	// 				break;
-	// 			}
-	// 		}
-	// 	}
-	// })
+	console.log("top slider games: ", gameList);
 
 	for(var i = 0; i < gameList.length; i ++){
 		var gameID = gameList[i];
@@ -354,11 +347,6 @@ function initFeaturedGames(max_games = 20)
 	var nMaxFeatured = 6;
 
 	if(topgames_panel && !!topgames_panel.featured){
-		const getShuffledArr = arr => {
-				if (arr.length === 1) {return arr};
-				const rand = Math.floor(Math.random() * arr.length);
-				return [arr[rand], ...getShuffledArr(arr.filter((_, i) => i != rand))];
-		};
 
 		const data = getShuffledArr(topgames_panel.featured);
 
