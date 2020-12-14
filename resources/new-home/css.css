@@ -2109,3 +2109,8 @@ button.btn.btn-sm.wishlist-btn.px-2.py-0.mr-3.wishlisted.btn-primary {
   -webkit-box-shadow: none; 
   box-shadow: none;
 }
+
+.demoBadge {
+  color: #fff;
+  background-color: #0b2e3e;
+}

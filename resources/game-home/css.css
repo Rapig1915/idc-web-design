@@ -2666,3 +2666,48 @@
     height: 100px; }
   .game-card-rectangular img.logo-overlay.card-img-overlay {
     height: 55px; } }
+/*
+======================================================================================================================
+BTN CTA
+======================================================================================================================
+*/
+.btn-cta-secondary {
+  align-self: flex-start;
+  border: 10px solid #000000;
+  -webkit-transform: perspective(1px) translateZ(0);
+          transform: perspective(1px) translateZ(0);
+  -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+          box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  position: relative;
+  background: #000000;
+  -webkit-transition-property: color;
+  transition-property: color;
+  -webkit-transition-duration: 0.2s;
+          transition-duration: 0.2s; }
+
+.btn-cta-secondary:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #314954;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+  -webkit-transition-property: -webkit-transform;
+  transition-property: -webkit-transform;
+  transition-property: transform;
+  transition-property: transform, -webkit-transform;
+  -webkit-transition-duration: 0.2s;
+          transition-duration: 0.2s;
+  -webkit-transition-timing-function: ease-out;
+          transition-timing-function: ease-out; }
+
+.btn-cta-.btn-cta-secondary, .btn-cta-secondary:focus, .btn-cta-secondary:active {
+  color: #66ffb2; }
+
+.btn-cta-secondary:hover:before, .btn-cta-secondary:focus:before, .btn-cta-secondary:active:before {
+  -webkit-transform: scale(0);
+          transform: scale(0); }
