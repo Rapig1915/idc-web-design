@@ -175,6 +175,9 @@ function doLast(){
 	});
 	if ( $(".gameplaysBox").find("a").length == 0 ){
 		$(".gameplaysBox").remove();
+                if ( typeof(AOS) == "object" ){
+			AOS.refresh();
+		}
 	}
 }
 function doModal(index, tipo, target){
