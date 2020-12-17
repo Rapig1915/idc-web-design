@@ -5,7 +5,7 @@ if(typeof(refreshCartCount) == 'function'){
 $('.shoppingCartModal').on('shown.bs.modal', initCartItems);
 
 $("body").on("click", ".btn-checkout", function(){
-  window.location.href = "/checkout";
+  window.location.href = "/==(url_checkout)==";
 })
 
 $("body").on("click", ".btn-remove-cart-item", function(){
