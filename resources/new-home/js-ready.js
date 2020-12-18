@@ -369,9 +369,9 @@ function initFeaturedGames(max_games = 20)
 	}
 }
 
-function initDiscoveredGames(type /* bestselling/new/upcoming */, max_games = 20)
+function initDiscoveredGames(type /* bestselling/new/upcoming/demo */, max_games = 20)
 {
-	if(type !== "bestselling" && type !== "new" && type !== "upcoming")
+	if(type !== "bestselling" && type !== "new" && type !== "upcoming" && type !== "demo")
 		return;
 
 	var objGameContainer = $(`.discovered-${type}-container`);
@@ -542,6 +542,7 @@ loadUserGames(() => {
 		initDiscoveredGames("bestselling");
 		initDiscoveredGames("new");
 		initDiscoveredGames("upcoming");
+		initDiscoveredGames("demo");
 
 		if(topgames_panel && topgames_panel.offer && topgames_panel.offer_categories){
 			initOfferGames(topgames_panel.offer, topgames_panel.offer_categories, true);
