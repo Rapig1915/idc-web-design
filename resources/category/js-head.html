@@ -1,226 +1,43 @@
-<script src="/assets/config/gamedata.js?==(current_time)=="></script>
-<script src="/assets/config/catlang.js?==(current_time)=="></script>
-<script src="/assets/content/categories.js?==(current_time)=="></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" integrity="sha256-UK1EiopXIL+KVhfbFa8xrmAWPeBjMVdvYMYkTAEv/HI=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" integrity="sha256-4hqlsNP9KM6+2eA8VUT0kk4RsMRTeS7QGHIM+MZ5sLY=" crossorigin="anonymous" />
 <script>
-var current_category = "##(name)##";
-var play_now_txt = "==(play_now_txt)==";
-var more_info_txt = "==(more_info)==";
-
-list_base.reverse();
-list_playing.reverse();
-list_like.reverse();
-list_paid.reverse();
-
-function contentByType(thisMedia,thisGame){
-	if( typeof(thisMedia) != "undefined" && typeof(thisGame) != "undefined" ){
-		var x = [
-			"",	 // 0
-			"1", // 1
-			"2", // 2
-			"1", // 3
-			"2", // 4
-			"3"	 // 5
-		];
-		var tipo = x[thisMedia.url_type];
-		var prev = thisMedia.body.replace("https://www.youtube.com/embed/", "");
-		var theurl = [
-			"",
-			thisMedia.thumb,
-			thisGame.store_params.game_home_video_bg_embebed,
-			'https://img.youtube.com/vi/'+prev+'/0.jpg'
-		];
-		if (theurl[tipo] == "") theurl = thisGame.store_params.thumb_slider;
-		if (theurl[tipo] == "") theurl = "https://cdn.idcgames.net/img/landing/thumb-landing-carrusel-default.jpg";
-		var after = '';
-		if ( tipo == 2 || tipo == 3 ) after = '<div class="fa-stack position-absolute bgDarkTexture b-radius"><i class="far fa-square fa-stack-2x primaryColor"></i><i class="fas fa-play fa-stack-1x fa-xs primaryColor"></i></div>';
-		var z = {
-			"modal": x[thisMedia.url_type],
-			"image": '<img class="img-fluid-custom box-shadow" src="' + theurl[tipo] + '" alt="' + thisGame.name + '">' + after,
-		};
-	}else{
-		var z = {
-			"modal": " ",
-			"image": '<img class="img-fluid-custom box-shadow" src="https://cdn.idcgames.net/img/landing/thumb-landing-carrusel-default.jpg" alt="IDC/Games">',
-		};
-	}
-	return z;
-}
-function makeImg(game_info,index){
-	if ( typeof(media[game_info.name]) != "undefined" && typeof(media[game_info.name][index]) != "undefined" ){
-		var thisMedia = media[game_info.name][index];
-		var thisContent = contentByType(thisMedia,game_info);
-		var x = '<div class="col-md-3 col-12 pl-0 py-md-0 py-3">'+
-		'<button class="d-flex align-items-center justify-content-center btn btn-link setModal" data-toggle="modal" data-target=".modal'+thisContent.modal+'" data-game="'+game_info.name+'" data-index="'+index+'">'+
-			thisContent.image +
-		'</button></div>';
-		return x;
-	}
-	return "";
-}
-function gameCat(thiscat){
-	if(thiscat != "" && thiscat != current_category){
-		var url = catlang[thiscat]["url"];
-		var txt = catlang[thiscat]["txt"].toLowerCase();
-		return '<a href="'+url+'/" class="badge badge-secondary mx-2">'+txt+'</a>';
-	}
-	return "";
-}
-function make_left_padded_content(game_info){
-    if(typeof game_info == 'undefined')
-        return "";
-    if(game_info.common_params.id_idcgame == "0")
-        return "";
-    var langs = '';
-    for(var i = 0; i < game_info.game_langs.length; i ++){
-        if(!game_info.game_langs[i].interface)  continue;
-        langs += '<span class="d-flex flex-row px-2 text-light" href="#"><img class="flag flag-' + game_info.game_langs[i].code.toLowerCase() + '" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="' + game_info.game_langs[i].name.toLowerCase() + '"></span>';
-    }
-
-    var categories = '';
-	categories += gameCat(game_info.common_params.game_cat1);
-	categories += gameCat(game_info.common_params.game_cat2);
-	categories += gameCat(game_info.common_params.game_cat3);
-	categories += gameCat(game_info.common_params.game_cat4);
-	categories += gameCat(game_info.common_params.game_cat5);
-
-    var res = 
-        '<div class="container-custom pt-5 mt-3 pb-4">' +
-            '<div class="card mt-2 gradient-overlay-5" data-aos="fade-right" data-aos-delay="100" data-aos-duration="500">' +
-            '                    <div class="row no-gutters">' +
-            '                        <div class="col-md-4">' +
-            '                            <div class="overflow-hidden img-container-up-left box-shadow"><a href="/'+game_info.common_params.game_seo+'/"><img src="' + game_info.store_params.square_image + '" class="card-img img-zoom" alt="'+game_info.name+'"></a></div>' +
-            '                        </div>' +
-            '                        <div class="col-md-8">' +
-            '                            <div class="card-body mt-4 mr-4">' +
-            '                                <div class="d-flex">' +
-            '                                    <a class="text-white" href="/'+game_info.common_params.game_seo+'/"><h3 class="card-title display-4 bordered-bottom border-expanded-left text-shadow pr-2">' + game_info.name + '</h3></a></div>' +
-            '                                <p class="card-text">' + game_info.store_params.game_short_description + '</p>' +
-            '                                <div class="d-flex flex-md-row flex-column py-3">' + 
-												makeImg(game_info,0) + 
-												makeImg(game_info,1) + 
-												makeImg(game_info,2) + 
-												makeImg(game_info,3) +
-            '                                </div>' +
-//            '                                <div class="d-flex flex-row flex-wrap pt-3 pr-3"><button class="btn btn-primary btn-sm btn-block playGame" data-play="'+game_info.common_params.id_idcgame+'">' + play_now_txt + '</button></div>' +
-			'                                <div class="d-flex flex-sm-row flex-column pt-3 pr-3"><button class="btn btn-primary btn-sm btn-block mr-sm-2 playGame" data-play="'+game_info.common_params.id_idcgame+'">' + play_now_txt + '</button><a class="btn btn-secondary btn-sm btn-block ml-sm-2 mt-sm-0" href="/'+game_info.common_params.game_seo+'/">'+more_info_txt+'</a></div>' +
-            '                            </div>' +
-            '                        </div>' +
-            '                    </div>' +
-            '                    <div class="card-footer bg-dark-translucid d-flex flex-row col-12 align-items-center m-0">' +
-            '                        <div class="col-8 d-flex flex-row flex-wrap align-items-center flag-small">' +
-            '                            <p class="d-flex fontSecondarySmall mb-0">==(languages)==:</p>' +
-                                        langs +
-            '                        </div>' +
-            '                        <div class="col-4 d-flex flex-row flex-wrap justify-content-end">' + categories + '</div>' +
-            '                    </div>' +
-            '                </div>' +
-            '            </div>';
-    return res;
-}
-function make_right_padded_content(game_info){
-    if(typeof game_info == 'undefined')
-        return "";
-    if(game_info.common_params.id_idcgame == "0")
-        return "";
-
-    var langs = '';
-    for(var i = 0; i < game_info.game_langs.length; i ++){
-        if(!game_info.game_langs[i].interface)  continue;
-        langs += '<span class="d-flex flex-row px-2 text-light"><img class="flag flag-' + game_info.game_langs[i].code.toLowerCase() + '" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="' + game_info.game_langs[i].name.toLowerCase() + '"></span>';
-    }
-
-    var categories = '';
-	categories += gameCat(game_info.common_params.game_cat1);
-	categories += gameCat(game_info.common_params.game_cat2);
-	categories += gameCat(game_info.common_params.game_cat3);
-	categories += gameCat(game_info.common_params.game_cat4);
-	categories += gameCat(game_info.common_params.game_cat5);
-
-    var res = 
-        '<div class="container-custom pt-5 mt-3 pb-4">' +
-            '<div class="card mt-2 gradient-overlay-5-inverse" data-aos="fade-left" data-aos-delay="100" data-aos-duration="500">' +
-            '                    <div class="row no-gutters">' +
-            '                        <div class="col-md-8">' +
-            '                            <div class="card-body mt-4 ml-4">' +
-            '                                <div class="d-flex justify-content-end">' +
-            '                                    <a class="text-white" href="/'+game_info.common_params.game_seo+'/"><h3 class="card-title display-4 bordered-bottom border-expanded-right text-shadow text-right">' + game_info.name + '</h3></a></div>' +
-            '                                <p class="card-text text-right">' + game_info.store_params.game_short_description + '</p>' +
-            '                                <div class="d-flex flex-md-row flex-column py-3">' +
-												makeImg(game_info,0) + 
-												makeImg(game_info,1) + 
-												makeImg(game_info,2) + 
-												makeImg(game_info,3) +
-            '                                </div>' +
-//            '                                <div class="d-flex flex-row flex-wrap pt-3 pl-3"><button class="btn btn-primary btn-sm btn-block playGame" data-play="'+game_info.common_params.id_idcgame+'">' + play_now_txt + '</button></div>' +
-			'                                <div class="d-flex flex-sm-row flex-column pt-3 pl-3"><button class="btn btn-primary btn-sm btn-block mr-sm-2 playGame" data-play="'+game_info.common_params.id_idcgame+'">' + play_now_txt + '</button><a class="btn btn-secondary btn-sm btn-block ml-sm-2 mt-sm-0" href="/'+game_info.common_params.game_seo+'/">'+more_info_txt+'</a></div>' +
-            '                            </div>' +
-            '                        </div>' +
-            '                        <div class="col-md-4">' +
-            '                            <div class="overflow-hidden img-container-up-right box-shadow"><a href="/'+game_info.common_params.game_seo+'/"><img src="' + game_info.store_params.square_image + '" class="card-img img-zoom" alt="'+game_info.name+'"></a></div>' +
-            '                        </div>' +
-            '                    </div>' +
-            '                    <div class="card-footer bg-dark-translucid d-flex flex-row col-12 align-items-center m-0">' +
-            '                        <div class="col-8 d-flex flex-row flex-wrap align-items-center flag-small">' +
-            '                            <p class="d-flex fontSecondarySmall mb-0">==(languages)==:</p>' +
-                                        langs +
-            '                        </div>' +
-            '                        <div class="col-4 d-flex flex-row flex-wrap justify-content-end">' + categories + '</div>' +
-            '                    </div>' +
-            '                </div>' +
-            '            </div>';
-
-    return res;
-}
-function isValid( game ){
-	if ( game.name == "IDC/Games") return false;
-	if ( game.common_params.game_status_id == 1 ) return false;
-	if ( game.common_params.game_status_id == 10 ) return false;
-	if ( game.common_params.game_cat1 == current_category || game.common_params.game_cat2 == current_category || game.common_params.game_cat3 == current_category || game.common_params.game_cat4 == current_category || game.common_params.game_cat5 == current_category) return true;
-	return false;
-}
-function doContent( input='base' ){
-	var a = 0;
-	var aux = 'list_'+input;
-	var list = window[aux];
-	$("#"+input+" *").remove();
-	for(var i = 0; i < list.length; i ++){
-		var game = getGame(aux,i);
-		if( isValid( game ) ){ 
-			var res = (a%2==0) ? make_left_padded_content( game ) : make_right_padded_content( game );
-			if(res != ""){
-				$("#"+input).append(res);
-				a++;
+function loadUserGames(cb){
+	$.ajax({
+		type:"POST",
+		url:"/unilogin/listarUserJuegos.php",
+		data: 'token='+loadSession("token"),
+		dataType: 'text',
+		async:false,
+		success: function(e){
+			try {
+				userData = JSON.parse(e);
+			}catch (e){
+				deleteSession();
+				localStorage.setItem("games", "[]");
+				if(cb) cb();
+				return false;
 			}
+			if (userData.rc == 200 ){			
+				if( userData.data.length > 0 ) { 
+					localStorage.setItem("games", JSON.stringify(userData.data.filter(x => x.IDJUEGO !== 0)));
+					if(cb) cb();
+					return true;
+				}
+			}else if (userData.rc == 404 ) {
+				localStorage.setItem("games", "[]");
+				if(cb) cb();
+				return false;
+			}else{
+				deleteSession();
+				localStorage.setItem("games", "[]");
+				if(cb) cb();
+				return false;
+			}
+		},
+		error: function(e){
+			if(cb) cb();
 		}
-	}
-	var title = catlang[current_category]["title"];
-	if ( title != "" ){
-		$(".maintitle").text(title);
-	}
+	});
 }
-function doModal(index, game, target){
-	var data = media[game][index];
-	data["url"] = data["url"].replace("==(language)==/", "");
-	$(target).find(".post-author").text(data["author"]);
-	$(target).find(".post-title").text(data["title"]);
-	$(target).find(".post-like").text(data["total_like"]);
-	$(target).find(".post-dislike").text(data["total_dislike"]);
-	$(target).find(".post-id").attr("data-target",data["id"]);
-	$(target).find(".post-url").attr("href",data["url"]);
-	$(target).find(".post-share").attr("data-url",data["url"]);
-	$(target).find(".post-share").attr("data-description",data["title"]);
-	if ( data["url_type"] == 1 || data["url_type"] == 3 ) {
-		// FOTO
-		$(target).find(".post-image").attr("src",data["body"]);
-		$(target).find(".post-image").attr("title",data["title"]);
-	}else{
-		// VIDEO + EXTERNAL (YT)
-		$(target).find(".post-body").children().attr("src",data["body"]);
-		if ( data["url_type"] == 2 || data["url_type"] == 4  ){
-			var video = $('video')[0];
-			video.load();
-			video.play();
-		}		
-	}
-}
+
 </script>
