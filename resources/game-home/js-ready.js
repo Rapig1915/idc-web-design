@@ -172,29 +172,18 @@ $("body").on("click",".wishlisted",function(){
 
 // init whitelisted state
 setWishlistedState(false);
-$.ajax({
-    type:"POST",
-    url:"/unilogin/listarUserWishedJuegos.php",
-    data: 'token='+loadSession("token"),
-    dataType: 'text',
-    async:false,
-    success: function(e){
-        myGameData = JSON.parse(e);
-        if (myGameData.rc == 200 ){
-            for (i=0;i<myGameData.data.length;i++) {
-                try {
-                    var idGame = myGameData.data[i].IDJUEGO;
-                    if(idGame === %%(id_idcgame)%%)
-                        setWishlistedState(true);
-                }catch(e){
-                    // console.log("Error gamelist: "+i);
-                }
-            }
-        }else if (myGameData.rc == 404 ) {
+loadUserWishGames(() => {
+    var wishGames = JSON.parse(loadSession("wish_games") || "[]");
+    for (i=0;i<wishGames.length;i++) {
+        try {
+            var idGame = wishGames[i].IDJUEGO;
+            if(idGame === %%(id_idcgame)%%)
+                setWishlistedState(true);
+        }catch(e){
+            // console.log("Error gamelist: "+i);
         }
     }
 });
-
 // hide shop
 var ingame_shop_enabled = "__(ingame_shop_enabled)__".toLowerCase() == "yes";
 if(!ingame_shop_enabled){

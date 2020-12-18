@@ -112,80 +112,56 @@ function loadUserData(){
 						changeSocial(1,index);
 					}
 				});
-				$.ajax({
-					type:"POST",
-					url:"/unilogin/listarUserJuegos.php",
-					data: 'token='+loadSession("token"),
-					dataType: 'text',
-					async:false,
-					success: function(e){
-						myGameData = JSON.parse(e);
-						if (myGameData.rc == 200 ){
-							var divID = 1;
-							var html = "";
+				loadUserGames(() => {
+						var divID = 1;
+						var html = "";
 
-							for (i=0;i<myGameData.data.length;i++) {
-								try {
-									var idGame = myGameData.data[i].IDJUEGO;
-									//Si no está en la lista, lo saltamos
-									if (typeof(gamedata[idGame]) == 'undefined' ) {
-										continue;
-									}
-									var thisStatus = "s"+gamedata[idGame].common_params.game_status_id;
-									if ( gameStatus[thisStatus].playable == 0 ) {
-										continue;
-									}
-									html = html + buildGame(idGame);
-								}catch(e){
-									console.log("Error gamelist: "+i);
+						var myGames = JSON.parse(loadSession("games") || "[]");
+						for (i=0;i<myGames.length;i++) {
+							try {
+								var idGame = myGames[i].IDJUEGO;
+								//Si no está en la lista, lo saltamos
+								if (typeof(gamedata[idGame]) == 'undefined' ) {
+									continue;
 								}
+								var thisStatus = "s"+gamedata[idGame].common_params.game_status_id;
+								if ( gameStatus[thisStatus].playable == 0 ) {
+									continue;
+								}
+								html = html + buildGame(idGame);
+							}catch(e){
+								console.log("Error gamelist: "+i);
 							}
+						}
 
-							if( html != "" ){
-								$("#myGamesContainer").html(html);	
+						if( html != "" ){
+							$("#myGamesContainer").html(html);	
+						}
+				});
+				loadUserWishGames(() => {
+					var divID = 1;
+					var html = "";
+
+					var myWishGames = JSON.parse(loadSession("wish_games") || "[]");
+					for (i=0;i<myWishGames.length;i++) {
+						try {
+							var idGame = myWishGames[i].IDJUEGO;
+							//Si no está en la lista, lo saltamos
+							if (typeof(gamedata[idGame]) == 'undefined' ) {
+								continue;
 							}
-							
-						}else if (myGameData.rc == 404 ) {
-							return undefined;
+							var thisStatus = "s"+gamedata[idGame].common_params.game_status_id;
+							if ( gameStatus[thisStatus].playable == 0 ) {
+								continue;
+							}
+							html = html + buildGame(idGame);
+						}catch(e){
+							console.log("Error gamelist: "+i);
 						}
 					}
-        });
-        $.ajax({
-					type:"POST",
-					url:"/unilogin/listarUserWishedJuegos.php",
-					data: 'token='+loadSession("token"),
-					dataType: 'text',
-					async:false,
-					success: function(e){
-						myGameData = JSON.parse(e);
-						if (myGameData.rc == 200 ){
-							var divID = 1;
-							var html = "";
 
-							for (i=0;i<myGameData.data.length;i++) {
-								try {
-									var idGame = myGameData.data[i].IDJUEGO;
-									//Si no está en la lista, lo saltamos
-									if (typeof(gamedata[idGame]) == 'undefined' ) {
-										continue;
-									}
-									var thisStatus = "s"+gamedata[idGame].common_params.game_status_id;
-									if ( gameStatus[thisStatus].playable == 0 ) {
-										continue;
-									}
-									html = html + buildGame(idGame);
-								}catch(e){
-									console.log("Error gamelist: "+i);
-								}
-							}
-
-							if( html != "" ){
-								$("#wishGamesContainer").html(html);	
-							}
-							
-						}else if (myGameData.rc == 404 ) {
-							return undefined;
-						}
+					if( html != "" ){
+						$("#wishGamesContainer").html(html);	
 					}
 				});
 				$.ajax({
