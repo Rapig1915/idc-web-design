@@ -118,51 +118,12 @@ function setWishlistedState(wishlisted = false){
     }
 }
 
-function makeWishRequest(id_idcgame, id_dlc, crear, cbSuccess, cbError)
-{
-    var res = {};
-	if (isCef() > 0 ) {
-		var referer = 'LAUNCHER';
-	}else{
-		var referer = 'WEB-'+lastG+' ('+document.baseURI+')';;
-	}
-	$.ajax({
-		type:"POST",
-        url:"/unilogin/crearUserWishJuego.php",
-		data: `token=${loadSession("token")}&iIDJuego=${id_idcgame}&iIDDlc=${id_dlc}&cReferer=${referer}&crear=${crear}`,
-		dataType: 'text',
-		async:false,
-		error: function(objeto, quepaso, otroobj){
-			lastE = quepaso;
-			res = {
-				"rc": 500,
-				"txt": "KO",
-				"data": {}
-            };
-            
-            if(cbError) cbError(res, lastE)
-		},
-		success: function(json){
-			res = JSON.parse(json);
-			if (res.rc == 200){
-                if(cbSuccess) cbSuccess(res);
-			}else{
-				res = {
-					"rc": 404,
-					"txt": "KO",
-					"data": {}
-                };
-                if(cbError) cbError(res)
-            }
-		}
-	});
-}
-
 $("body").on("click",".wishlist",function(){
     makeWishRequest(%%(id_idcgame)%%, '', true, 
         res => {
             console.log("Wishing game success: ", res);
             setWishlistedState(true);
+            loadUserWishGames(null);
         },
         res => {
             console.log("Wishing game fail: ", res);
@@ -174,6 +135,7 @@ $("body").on("click",".wishlisted",function(){
         res => {
             console.log("Unwishing game success: ", res);
             setWishlistedState(false);
+            loadUserWishGames(null);
         },
         res => {
             console.log("Unwishing game fail: ", res);

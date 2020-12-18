@@ -179,6 +179,7 @@ function doSearch(){
             if(typeof(json) !== "undefined" && typeof(json.games) !== "undefined"){
                 gamesSearchResult = json.games;
                 initAll(saveSearchId);
+                initWishGames();
             }else{
                 console.log("Wrong data");
             }
@@ -242,7 +243,13 @@ function initGames(games, tab /* all/featured/new/sale/upcoming */, mode/* squar
     var buttonShowMoreWrapper = $(objGameContainer).find(".btn-show-more-wrapper");
 
 	var nNextGameIndex = parseInt($(buttonShowMore).attr("n_displayed") || "0");
-	var nDisplayStep = step_games;
+    var nDisplayStep = step_games;
+    
+    var wishGames = JSON.parse(loadSession("wish_games") || "[]");
+    var wishGameIDs = [];
+    for (i=0;i<wishGames.length;i++) {
+        wishGameIDs.push(wishGames[i].IDJUEGO);
+    }
 
 	if(games && nNextGameIndex < games.length){
 		for(var i = nNextGameIndex; i < games.length; i ++){
@@ -256,7 +263,9 @@ function initGames(games, tab /* all/featured/new/sale/upcoming */, mode/* squar
                 : $(".game-card-rectangle.clone").clone().removeClass("hidden").removeClass("clone");
 
 			// make dataset and display
-			newGameBlock = setObjectValues(newGameBlock, makeDatasetForGame(gamedata[gameID]));
+            newGameBlock = setObjectValues(newGameBlock, makeDatasetForGame(gamedata[gameID]));
+            if(wishGameIDs.includes(gameID*1))
+                setWishlistedState($(newGameBlock).find(`.wishlist-btn[data-play="${gameID}"]`), true);
 
 			// add it
             $(newGameBlock).insertBefore(buttonShowMoreWrapper);
@@ -274,6 +283,66 @@ function initGames(games, tab /* all/featured/new/sale/upcoming */, mode/* squar
     else
         $(buttonShowMore).removeClass("hidden");
 }
+
+function initWishGames(){
+	loadUserWishGames(() => {
+		var wishGames = JSON.parse(loadSession("wish_games") || "[]");
+        for (i=0;i<wishGames.length;i++) {
+            try {
+                var idGame = wishGames[i].IDJUEGO;
+                $(`.wishlist-btn[data-play="${idGame}"]`).each((k,btn) => setWishlistedState(btn, true));
+            }catch(e){
+                // console.log("Error gamelist: "+i);
+            }
+        }
+	});
+}
+
+function setWishlistedState(btn, wishlisted = false){
+	// var btn = $(`.wishlist-btn[data-play="${id_idcgame}"]`);
+	if(!btn) return;
+
+	if(!wishlisted){
+		$(btn).addClass("wishlist");
+		$(btn).removeClass("wishlisted");
+		$(btn).addClass("btn-outline-primary");
+		$(btn).removeClass("btn-primary");
+		$(btn).find("i").addClass("far");
+		$(btn).find("i").removeClass("fas");
+		$(btn).attr({
+			"title" : "==(add_to_wishlist)==",
+			"data-original-title" : "==(add_to_wishlist)=="
+		});
+	}else{
+		$(btn).addClass("wishlisted");
+		$(btn).removeClass("wishlist");
+		$(btn).addClass("btn-primary");
+		$(btn).removeClass("btn-outline-primary");
+		$(btn).find("i").addClass("fas");
+		$(btn).find("i").removeClass("far");
+		$(btn).attr({
+			"title" : "==(on_wishlist)==",
+			"data-original-title" : "==(on_wishlist)=="
+		}); 
+	}
+}
+
+$("body").on("click",".wishlist-btn",function(){
+	var gameID = $(this).attr("data-play");
+	if(!gameID) return;
+
+	var bWannaWish = $(this).hasClass("wishlist");
+	makeWishRequest(gameID, '', bWannaWish,
+			res => {
+					console.log(`Wishing game ${gameID} success: `, res);
+					$(`.wishlist-btn[data-play="${gameID}"]`).each((k,btn) => setWishlistedState(btn, bWannaWish));
+					loadUserWishGames(null);
+			},
+			res => {
+					console.log(`Wishing game ${gameID} fail: `, res);
+			}
+	);
+})
 
 clearGames();
 $(".btn-proceed-search").trigger("click");

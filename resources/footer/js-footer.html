@@ -167,6 +167,7 @@ $("body").on("click",".closeCookies",function(){
 			{ cls: ".cart-btn", remove: (!gStatus||!gStatus.purchasable) },
 
 			{ cls: ".demoBadge", hide: !gData.common_params.demo_game },
+			{ cls: ".wishlist-btn", attr: "data-play", value: gData.common_params.id_idcgame },
 		];
 
 		if(discount_percent > 0 && gPrice > 0 && newPrice > 0){

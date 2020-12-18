@@ -81,14 +81,24 @@ $("body").on('shown.bs.tab', '.anchor-tab', function (e) {
 })
 
 // Init functions
-var topSliderInited = false;
-function initTopSlider(max_games=10){
-	if(topSliderInited)
-		return;
-	
+function initWishGames(){
 	if(!topgames || !topgames_panel) return;
 
-	topSliderInited = true;
+	loadUserWishGames(() => {
+		var wishGames = JSON.parse(loadSession("wish_games") || "[]");
+    for (i=0;i<wishGames.length;i++) {
+        try {
+            var idGame = wishGames[i].IDJUEGO;
+						$(`.wishlist-btn[data-play="${idGame}"]`).each((k,btn) => setWishlistedState(btn, true));
+        }catch(e){
+            // console.log("Error gamelist: "+i);
+        }
+    }
+	});
+}
+
+function initTopSlider(max_games=10){
+	if(!topgames || !topgames_panel) return;
 		
 	var gameList = [];
 	var datasources = [
@@ -532,6 +542,8 @@ loadUserGames(() => {
 		initTopSlider();
 		initRecommendedGames();
 		initGoodGames();
+
+		initWishGames();
 	})
 
 	$.get('./idcjson/topgames-panel.json', function(json){
@@ -555,6 +567,8 @@ loadUserGames(() => {
 				);
 			}
 		}
+
+		initWishGames();
 	})
 
 	// Load news
@@ -566,30 +580,51 @@ loadUserGames(() => {
 
 });
 
-$("body").on("click",".wishlist",function(){
-	$(this).addClass("wishlisted");
-	$(this).removeClass("wishlist");
-	$(this).addClass("btn-primary");
-	$(this).removeClass("btn-outline-primary");
-	$(this).find("i").addClass("fas");
-	$(this).find("i").removeClass("far");
-	$(this).attr({
-		"title" : "==(on_wishlist)==",
-		"data-original-title" : "==(on_wishlist)=="
-	});
-});
-$("body").on("click",".wishlisted",function(){
-	$(this).addClass("wishlist");
-	$(this).removeClass("wishlisted");
-	$(this).addClass("btn-outline-primary");
-	$(this).removeClass("btn-primary");
-	$(this).find("i").addClass("far");
-	$(this).find("i").removeClass("fas");
-	$(this).attr({
-		"title" : "==(add_to_wishlist)==",
-		"data-original-title" : "==(add_to_wishlist)=="
-	});
-});
+function setWishlistedState(btn, wishlisted = false){
+	// var btn = $(`.wishlist-btn[data-play="${id_idcgame}"]`);
+	if(!btn) return;
+
+	if(!wishlisted){
+		$(btn).addClass("wishlist");
+		$(btn).removeClass("wishlisted");
+		$(btn).addClass("btn-outline-primary");
+		$(btn).removeClass("btn-primary");
+		$(btn).find("i").addClass("far");
+		$(btn).find("i").removeClass("fas");
+		$(btn).attr({
+			"title" : "==(add_to_wishlist)==",
+			"data-original-title" : "==(add_to_wishlist)=="
+		});
+	}else{
+		$(btn).addClass("wishlisted");
+		$(btn).removeClass("wishlist");
+		$(btn).addClass("btn-primary");
+		$(btn).removeClass("btn-outline-primary");
+		$(btn).find("i").addClass("fas");
+		$(btn).find("i").removeClass("far");
+		$(btn).attr({
+			"title" : "==(on_wishlist)==",
+			"data-original-title" : "==(on_wishlist)=="
+		}); 
+	}
+}
+
+$("body").on("click",".wishlist-btn",function(){
+	var gameID = $(this).attr("data-play");
+	if(!gameID) return;
+
+	var bWannaWish = $(this).hasClass("wishlist");
+	makeWishRequest(gameID, '', bWannaWish,
+			res => {
+					console.log(`Wishing game ${gameID} success: `, res);
+					$(`.wishlist-btn[data-play="${gameID}"]`).each((k,btn) => setWishlistedState(btn, bWannaWish));
+					loadUserWishGames(null);
+			},
+			res => {
+					console.log(`Wishing game ${gameID} fail: `, res);
+			}
+	);
+})
 
 $(function () {
 	$('[data-toggle="tooltip"]').tooltip()
