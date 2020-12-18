@@ -61,6 +61,17 @@ if(sGame && sGame.purchasable){
 }else{
     dataset.push({ cls: "#btn-cta-shopping", hide: true });
 }
+if(gData.common_params && gData.common_params.demo_game){
+    $("#btn-demo").removeClass("d-none").addClass("d-flex");
+    var idCG = gData.common_params.id_commercial_game || 0;
+    var gCG = gamedata[idCG];
+    if(gCG){
+        $("#btn-commercial-game").removeClass("d-none");
+        $("body").on("click", "#btn-commercial-game", () => {
+            gCG.common_params.game_seo && window.open(`/${gCG.common_params.game_seo}`);
+        })
+    }
+}
 
 if(sGame && sGame.playable){ // playable check : production && (f2p playable || p2p bought)
     $(".controlGame").text("==(play_now_txt)==");
@@ -107,51 +118,12 @@ function setWishlistedState(wishlisted = false){
     }
 }
 
-function makeWishRequest(id_idcgame, id_dlc, crear, cbSuccess, cbError)
-{
-    var res = {};
-	if (isCef() > 0 ) {
-		var referer = 'LAUNCHER';
-	}else{
-		var referer = 'WEB-'+lastG+' ('+document.baseURI+')';;
-	}
-	$.ajax({
-		type:"POST",
-        url:"/unilogin/crearUserWishJuego.php",
-		data: `token=${loadSession("token")}&iIDJuego=${id_idcgame}&iIDDlc=${id_dlc}&cReferer=${referer}&crear=${crear}`,
-		dataType: 'text',
-		async:false,
-		error: function(objeto, quepaso, otroobj){
-			lastE = quepaso;
-			res = {
-				"rc": 500,
-				"txt": "KO",
-				"data": {}
-            };
-            
-            if(cbError) cbError(res, lastE)
-		},
-		success: function(json){
-			res = JSON.parse(json);
-			if (res.rc == 200){
-                if(cbSuccess) cbSuccess(res);
-			}else{
-				res = {
-					"rc": 404,
-					"txt": "KO",
-					"data": {}
-                };
-                if(cbError) cbError(res)
-            }
-		}
-	});
-}
-
 $("body").on("click",".wishlist",function(){
     makeWishRequest(%%(id_idcgame)%%, '', true, 
         res => {
             console.log("Wishing game success: ", res);
             setWishlistedState(true);
+            loadUserWishGames(null);
         },
         res => {
             console.log("Wishing game fail: ", res);
@@ -163,6 +135,7 @@ $("body").on("click",".wishlisted",function(){
         res => {
             console.log("Unwishing game success: ", res);
             setWishlistedState(false);
+            loadUserWishGames(null);
         },
         res => {
             console.log("Unwishing game fail: ", res);
@@ -172,29 +145,18 @@ $("body").on("click",".wishlisted",function(){
 
 // init whitelisted state
 setWishlistedState(false);
-$.ajax({
-    type:"POST",
-    url:"/unilogin/listarUserWishedJuegos.php",
-    data: 'token='+loadSession("token"),
-    dataType: 'text',
-    async:false,
-    success: function(e){
-        myGameData = JSON.parse(e);
-        if (myGameData.rc == 200 ){
-            for (i=0;i<myGameData.data.length;i++) {
-                try {
-                    var idGame = myGameData.data[i].IDJUEGO;
-                    if(idGame === %%(id_idcgame)%%)
-                        setWishlistedState(true);
-                }catch(e){
-                    // console.log("Error gamelist: "+i);
-                }
-            }
-        }else if (myGameData.rc == 404 ) {
+loadUserWishGames(() => {
+    var wishGames = JSON.parse(loadSession("wish_games") || "[]");
+    for (i=0;i<wishGames.length;i++) {
+        try {
+            var idGame = wishGames[i].IDJUEGO;
+            if(idGame === %%(id_idcgame)%%)
+                setWishlistedState(true);
+        }catch(e){
+            // console.log("Error gamelist: "+i);
         }
     }
 });
-
 // hide shop
 var ingame_shop_enabled = "__(ingame_shop_enabled)__".toLowerCase() == "yes";
 if(!ingame_shop_enabled){

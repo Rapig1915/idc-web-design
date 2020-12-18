@@ -3,7 +3,7 @@
 
   function readBasketInfo()
   {
-    var basketInfo = JSON.parse(localStorage.getItem(cookieBasketInfo) || "{}");
+    var basketInfo = JSON.parse(loadSession(cookieBasketInfo) || "{}");
     if(!basketInfo.games)
       basketInfo.games = [];
 
@@ -12,7 +12,7 @@
 
   function saveBasketInfo(basketInfo)
   {
-    localStorage.setItem(cookieBasketInfo, JSON.stringify(basketInfo), 30);
+    setCookie(cookieBasketInfo, JSON.stringify(basketInfo), 30);
     gBasketInfo = basketInfo;
   }
 
@@ -22,7 +22,7 @@
       return false;
     }
 
-    if(JSON.parse(localStorage.getItem("games") || "[]").filter(x => x.IDJUEGO === parseInt(`${id_idcgame}`)).length > 0){
+    if(JSON.parse(loadSession("games") || "[]").filter(x => x.IDJUEGO === parseInt(`${id_idcgame}`)).length > 0){
       console.log(`Error: Game ${id_idcgame} already bought`)
       return false;
     }
