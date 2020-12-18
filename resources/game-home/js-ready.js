@@ -61,6 +61,17 @@ if(sGame && sGame.purchasable){
 }else{
     dataset.push({ cls: "#btn-cta-shopping", hide: true });
 }
+if(gData.common_params && gData.common_params.demo_game){
+    $("#btn-demo").removeClass("d-none").addClass("d-flex");
+    var idCG = gData.common_params.id_commercial_game || 0;
+    var gCG = gamedata[idCG];
+    if(gCG){
+        $("#btn-commercial-game").removeClass("d-none");
+        $("body").on("click", "#btn-commercial-game", () => {
+            gCG.common_params.game_seo && window.open(`/${gCG.common_params.game_seo}`);
+        })
+    }
+}
 
 if(sGame && sGame.playable){ // playable check : production && (f2p playable || p2p bought)
     $(".controlGame").text("==(play_now_txt)==");
