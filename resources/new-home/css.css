@@ -1887,7 +1887,7 @@ height: 100%;
 .slick-dots li button:before {
   color: #00ff7f !important; }
 
-.inCart, .soon {
+.inCart, .soon, .demoBadge {
   display: none;
   white-space: nowrap; }
 

@@ -15,8 +15,10 @@ $("body").on("click",".cart-btn",function(){
 	{
 		$(this).closest(".game-card-rectangular").find(".inCart").addClass("d-block");
 		$(this).closest(".game-card-rectangular").find(".soon").removeClass("d-block");
+		$(this).closest(".game-card-rectangular").find(".demoBadge").removeClass("d-block");
 		$(this).closest(".card").find(".inCart").addClass("d-block");
 		$(this).closest(".card").find(".soon").removeClass("d-block");
+		$(this).closest(".card").find(".demoBadge").removeClass("d-block");
 	}
 });
 
