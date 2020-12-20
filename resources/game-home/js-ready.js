@@ -73,12 +73,38 @@ if(gData.common_params && gData.common_params.demo_game){
     }
 }
 
-if(sGame && sGame.playable){ // playable check : production && (f2p playable || p2p bought)
-    $(".controlGame").text("==(play_now_txt)==");
-    $(".controlGame").addClass("playGame");
-}else if(sGame){
+if(sGame){ // playable check : production && (f2p playable || p2p bought)
     var text = gameStatus[thisStatus].name;
     $(".controlGame").text(text);
+    if((gameStatus[thisStatus].playable) && (sGame.bought || sGame.f2p))
+        $(".controlGame").addClass("playGame");
+
+    if(thisStatus == "s12" || thisStatus == "limited_beta"){        
+        $.ajax({
+            type:"POST",
+            url:"/unilogin/getLimitedBetaStatus.php",
+            data: `token=${loadSession("token")}&iIDJuego=%%(id_idcgame)%%`,
+            dataType: 'text',
+            async:false,
+            success: function(e){
+                try {
+                    var result = JSON.parse(e);
+                }catch (e){
+                    return false;
+                }
+                if (result.rc == 200 ){			
+                    $(".controlGame").text(`${text} (${result.iLimite*1-result.iUsuarios*1} Remaining)`);
+                }else{
+                    $(".controlGame").text(text + "(Not Available)");
+                    $(".controlGame").removeClass("playGame");
+                }
+            },
+            error: function(e){
+                $(".controlGame").text(text + "(Not Available)");
+                $(".controlGame").removeClass("playGame");
+            }
+        });
+    }
 }else{
     $(".controlGame").text("Null");
 }
