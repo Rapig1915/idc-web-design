@@ -148,7 +148,7 @@ $("body").on("click",".closeCookies",function(){
 
 		var dataset = [
 			{ cls: ".text-game-name", text: gData.name },
-			{ cls: ".anchor-game-home", attr: "href", value: `/${gData.common_params.game_seo}` },
+			{ cls: ".anchor-game-home", attr: "href", value: `/${(gData.common_params.demo_game&&"demo/")||""}${gData.common_params.game_seo}` },
 			{ cls: ".gameCard-img", attr: "src", value: getGameHomeImage(gData, clip_big) },
 			{ cls: ".card-img-overlay", attr: "src", value: gData.common_params.game_logo },
 			{ cls: ".show-os-windows", hide: !gData.common_params.flagWindows },
@@ -166,7 +166,7 @@ $("body").on("click",".closeCookies",function(){
 			{ cls: ".cart-btn", attr: "currency", value: user_currency },
 			{ cls: ".cart-btn", remove: (!gStatus||!gStatus.purchasable) },
 
-			{ cls: ".demoBadge", hide: !gData.common_params.demo_game },
+			{ cls: ".demoBadge", addClass: (gData.common_params.demo_game&&"d-block") || "" },
 			{ cls: ".wishlist-btn", attr: "data-play", value: gData.common_params.id_idcgame },
 		];
 
