@@ -93,9 +93,9 @@ if(sGame){ // playable check : production && (f2p playable || p2p bought)
                     return false;
                 }
                 if (result.rc == 200 ){			
-                    $(".controlGame").text(`${text} (${result.iLimite*1-result.iUsuarios*1} Remaining)`);
+                    $(".controlGame").text(text + " (==(x_remaining)==)".replace("X", result.iLimite*1-result.iUsuarios*1));
                 }else{
-                    $(".controlGame").text(text + "(Not Available)");
+                    $(".controlGame").text(text + "(==(not_available)==)");
                     $(".controlGame").removeClass("playGame");
                 }
             },
