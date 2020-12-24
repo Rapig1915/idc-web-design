@@ -381,7 +381,7 @@ function initFeaturedGames(max_games = 20)
 	}
 }
 
-function initDiscoveredGames(type /* bestselling/new/upcoming/demo */, max_games = 20)
+function initDiscoveredGames(type /* bestselling/new/upcoming/demo */, max_games = 8)
 {
 	if(type !== "bestselling" && type !== "new" && type !== "upcoming" && type !== "demo")
 		return;
@@ -628,6 +628,5 @@ $("body").on("click",".wishlist-btn",function(){
 	);
 })
 
-$(function () {
-	$('[data-toggle="tooltip"]').tooltip()
-});
+//Tooltip
+$('[data-toggle="tooltip"]').tooltip();

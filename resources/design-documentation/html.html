@@ -1,0 +1,1072 @@
+        <!--Contenido-->
+        <main id="main">
+            <!--Contenido-->
+            <!--Página Noticias General o juego en concreto-->
+            <section>
+                <div id="top"></div>
+                <div class="container-fluid d-flex flex-row align-items-baseline breadcrumb-nav-post bg-gradient mt-5 pt-4 px-0">
+                    <div class="col animated slideInLeft delay-2">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb align-items-baseline">
+                                <li class="breadcrumb-item"><a class="fontSecondarySmall text-secondary" href="#">IDC/Games</a></li>
+                                <li class="breadcrumb-item active">
+                                    <h1 class="display-2 text-white text-shadow d-inline-block pl-2">Documentación</h1>
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col px-0">
+                        <div class="lineaHorizontalAncha primaryColorBg active w-100 animated slideInRight"></div>
+                    </div>
+                </div>
+                <a href="#top" id="ScrollTop" class="btn-scroll-to-top" title="Go to top">
+                    <div class="lottie" id="lottieScrollTop" data-bm-renderer='svg'></div>
+                </a>
+                <div class="container-fluid px-0">
+                    <nav class="navbar navbar-light bg-dark-translucid justify-content-between align-items-center mb-3">
+                        <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active h6 mb-0" id="structure-tab" data-toggle="pill" href="#structure" role="tab" aria-controls="structure" aria-selected="false">Estructura de los archivos</a>
+                            </li>                            
+                            <li class="nav-item">
+                                <a class="nav-link h6 mb-0" id="librarys-tab" data-toggle="pill" href="#librarys" role="tab" aria-controls="librarys" aria-selected="true">Librerias</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link h6 mb-0" id="stylesheet-tab" data-toggle="pill" href="#stylesheet" role="tab" aria-controls="stylesheet" aria-selected="false">Hoja de estilos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link h6 mb-0" id="team-tab" data-toggle="pill" href="#team" role="tab" aria-controls="stylesheet" aria-selected="false">Equipo</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div class="tab-content container-fluid pt-3">
+                        <div class="tab-pane fade show active container" id="structure" role="tabpanel" aria-labelledby="structure-tab">
+                            <h3 class="h1">Estructura de los archivos front-end para git</h3>
+                            <div>
+                                <h4 class="text-primary">CSS</h4>
+                                <hr class="border-green-lighter mt-2">
+                                <p>Todos las páginas enlazan una hoja de estilos común llamada <b>full_main_min_v2.css</b> <br> Este css contiene los estilos de IDC/Games detallados en 
+                                    <a href="#stylesheet">la hoja de estilos. </a>Este full_main_min_v2.css además incluye:</p>
+                                    <ul>
+                                        <li type="circle">Los estilos particulares de IDC/GAMES</li>
+                                        <li type="circle">El css de Bootstrap adaptado</li>
+                                        <li type="circle">El css de animate.sass.</li>
+                                        <li type="circle">El atlas de las banderas del menú en base 64 y sus posiciones </li>
+                                        <li type="circle">Las img de las texturas .bgDarkTexture y .bgLightTexture en base 64</li>
+                                        <li type="circle">Las instrucciones para el cambio de tipografía según lenguaje</li>
+                                    </ul>
+                                <div class="w-50 alert alert-danger" role="alert">
+                                    El full_main_min_v2.css no se debe tocar.
+                                </div>
+                                <div>Además del main.css, cada página tiene su css particular, cuyos estilos sobrescriben a main.css y que es llamada <b>css.css</b><br>
+                                    En este css.css escribiremos los estilos particulares de cada página. Este css.css es el que se sube al panel.</div>
+                            </div>
+                            <div>
+                                <h4 class="text-primary mt-5">HTML</h4>
+                                <hr class="border-green-lighter mt-2">
+                                <p>Cada página tiene las siguientes piezas de HTML que se suben como modelos separados al panel:</p>
+                                <ul>
+                                    <li type="circle">HTML --- Nav</li>
+                                    <li type="circle">HTML --- Main</li>
+                                    <li type="circle">HTML --- Footer</li>
+                                    <li type="circle">HTML --- Modal (Opcional)</li>
+                                </ul>
+                                <p>Hay 2 tipos de menú (nav) distintos: el general (nav) y el de la página de juego (nav-game).</p>
+                                <p>Para el menú de la página de juego, se cambia el color y la altura de este mediante las siguientes funciones:<br>
+                                    blackMenu();<br>
+                                    whiteMenu();<br>
+                                </p>
+                            </div>
+                            <div>
+                                <h4 class="text-primary mt-5">JS</h4>
+                                <hr class="border-green-lighter mt-2">
+                                <p>Cada página tiene las siguientes piezas de Javascript que se suben por separado al panel:</p>
+                                <ul>
+                                    <li type="circle">JS --- js-ready.js    ----> JS on ready</li>
+                                    <li type="circle">JS --- js-head.html   ----> JS situado en el head del HTML</li>
+                                    <li type="circle">JS --- js-footer.html ----> JS situado en el footer del HTML</li>
+                                </ul>
+                                <p>Hay una serie de scripts y librerías que ya están incluídas en un archivo global que comparten todos los modelos, como: jquery, popper.js, bootstrap.js, perfect-scrollbar y más. </p>
+                            </div>
+
+
+                        </div>
+                        <div class="tab-pane fade show container mb-5" id="librarys" role="tabpanel" aria-labelledby="librarys-tab">
+                            <h3 class="h1">Librerias, toolkits y plugins font-end utilizados en IDC/Games</h3>
+                            <div class="my-3">
+                                <span><a class="h3" href="https://getbootstrap.com/docs/5.0/getting-started/introduction/">Bootstrap</a></span>
+								<p>El diseño de IDC/Games está contruído sobre Bootstrap. Mediante <a href="https://getbootstrap.com/docs/5.0/customize/overview/">SCSS</a> se adaptaron 
+									las clases de Bootstrap para crear la hoja de estilos de IDC/Games. Consultando la documentación de Bootstrap 
+									y sus <a href="https://getbootstrap.com/docs/5.0/components/accordion/">componentes</a> se pueden sacar casi todos los elemento 
+									gráficos que componen IDC/Games. Utilizamos contenedores flex, las rejillas de Bootstrap y las <a href="https://getbootstrap.com/docs/5.0/utilities/spacing/">utilities de spacing</a><br>
+								</p>
+                            </div>
+                            <div class="my-3">
+                                <span><a class="h3" href="https://github.com/airbnb/lottie-web">Lottie</a></span>
+                                <p>Para iconos animados como el del menú</p>
+                            </div>
+                            <div class="my-3">
+                                <span><a class="h3" href="https://kenwheeler.github.io/slick/">Slick</a></span>
+                                <p>Para los "carousels"</p>
+                            </div>
+                            <div class="my-3">
+                                <span><a class="h3" href="https://animate.style/">Animate.css</a></span>
+                                <p>O <a href="https://www.npmjs.com/package/animate-sass">animate.sass.</a> Se utiliza para animaciones css cuando se carga la página. Las clases están incluidas en el main.css</p>
+                            </div>
+                            <div class="my-3">
+                                <span><a class="h3" href="https://michalsnik.github.io/aos/">Aos / Animated on scroll library</a></span>
+                                <p>Animaciones en scroll. Utilizadas en la página de juego (game home), en las de categoría antiguas y alguna más. No está incluido en el main ni en los achivos globales, ya que es pesada y no se usa en todas las páginas. Hay que añadirla en los modelos en los que se incluya.</p>
+                            </div>
+                            <div class="my-3">
+                                <span><a class="h3" href="https://plugins.jquery.com/perfect-scrollbar/">Perfect scrollbar</a></span>
+                                <p>Para la barra lateral de scroll y otras.</p>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="stylesheet" role="tabpanel" aria-labelledby="stylesheet-tab">
+                            <section>
+                                <div class="d-flex justify-content-center">
+                                    <h1 class="pt-5 display-1">Hoja de estilos IDC</h1>
+                                </div>
+                                <hr>
+                                <div class="row px-5 py-2">
+                                    <div class="col-6">
+                                        <h1 class="pt-5 text-primary text-primary">Regular headings</h1>
+                                        <hr>
+                                        <div>
+                                            <h1>h1. Bootstrap heading</h1>
+                                            <h2>h2. Bootstrap heading</h2>
+                                            <h3>h3. Bootstrap heading</h3>
+                                            <h4>h4. Bootstrap heading</h4>
+                                            <h5>h5. Bootstrap heading</h5>
+                                            <h6>h6. Bootstrap heading</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <h1 class="pt-5 text-primary">Sized headings: Display</h1>
+                                        <hr>
+                                        <div>
+                                            <h1 class="display-1">display-1</h1>
+                                            <h1 class="display-2">display-2</h1>
+                                            <h1 class="display-3">display-3</h1>
+                                            <h1 class="display-4">display-4</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row px-5 py-2">
+                                    <div class="col-12">
+                                        <h1 class="pt-5 text-primary">Typography</h1>
+                                    </div>
+                                    <div class="col-6">
+                                        <div>
+                                            <p>
+                                                A long paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis ornare nunc. Praesent pulvinar metus sed nibh placerat, sed congue magna sagittis. Praesent et tortor arcu. Cras id mi quis sapien hendrerit faucibus viverra vel felis. Phasellus ac enim vitae nibh lacinia interdum eget sit amet ligula. Suspendisse sed erat vehicula, viverra ipsum eget, viverra massa. Nulla iaculis turpis nibh, quis lacinia nisi ultricies ut. Nunc malesuada pharetra nibh.
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis ornare nunc. Praesent <a href="#">Link</a> pulvinar metus sed nibh placerat, sed congue magna sagittis. Praesent et tortor arcu. Cras id mi quis sapien hendrerit faucibus viverra vel felis. Phasellus ac enim vitae nibh lacinia interdum eget sit amet ligula. Suspendisse sed erat vehicula, viverra ipsum eget, viverra massa. Nulla iaculis turpis nibh, quis lacinia nisi ultricies ut. Nunc malesuada pharetra nibh.
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <p class="lead">
+                                                Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus.
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <p>You can use the mark tag to <mark>highlight</mark> text.</p>
+                                            <p><del>This line of text is meant to be treated as deleted text.</del></p>
+                                            <p><s>This line of text is meant to be treated as no longer accurate.</s></p>
+                                            <p><ins>This line of text is meant to be treated as an addition to the document.</ins></p>
+                                            <p><u>This line of text will render as underlined</u></p>
+                                            <p><small>This line of text is meant to be treated as fine print.</small></p>
+                                            <p><strong>This line rendered as bold text.</strong></p>
+                                            <p><em>This line rendered as italicized text.</em></p>
+                                        </div>
+                                        <div>
+                                            <blockquote class="blockquote">
+                                                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                                                <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+                                            </blockquote>
+                                        </div>
+                                        <div>
+                                            <p class="font-weight-bold">Bold text.</p>
+                                            <p class="font-weight-bolder">Bolder weight text (relative to the parent element).</p>
+                                            <p class="font-weight-normal">Normal weight text.</p>
+                                            <p class="font-weight-light">Light weight text.</p>
+                                            <p class="font-weight-lighter">Lighter weight text (relative to the parent element).</p>
+                                            <p class="font-italic">Italic text.</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div>
+                                            <p class="text-primary">.text-primary</p>
+                                            <p class="text-secondary">.text-secondary</p>
+                                            <p class="text-success">.text-success</p>
+                                            <p class="text-danger">.text-danger</p>
+                                            <p class="text-warning">.text-warning</p>
+                                            <p class="text-info">.text-info</p>
+                                            <p class="text-light bg-dark">.text-light</p>
+                                            <p class="text-dark">.text-dark</p>
+                                            <p class="text-body">.text-body</p>
+                                            <p class="text-muted">.text-muted</p>
+                                            <p class="text-white bg-dark">.text-white</p>
+                                            <p class="text-black-50">.text-black-50</p>
+                                            <p class="text-white-50 bg-dark">.text-white-50</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row px-5 py-2">
+                                    <div class="col-12">
+                                        <h1 class="pt-5 display-2">Languages and Typographys</h1>
+                                    </div>
+                                    <div class="col-6 px-5">
+                                        <ul>
+                                            <li lang="es" class="mt-3"><span class="h4">Español - Bebas Kai<br> ñ </span>
+                                                <span class="lead">Jura ñ</span>
+                                            </li>
+                                            <hr>
+                                            <li lang="en" class="mt-3"><span class="h4">English - Bebas Kai<br></span>
+                                                <span class="lead">Jura</span>
+                                            </li>
+                                            <hr>
+                                            <li lang="fr" class="mt-3"><span class="h4">Français - Bebas Kai <br>À	Â Æ  Ç É È Ê Ë Î Ï Ô Œ Ù Û Ü Ÿ + </span>
+                                                <span class="lead"><br>Jura à	â æ ç é è ê ë î ï ô œ ù û ü ÿ </span>
+                                            </li>
+                                            <hr>
+                                            <li lang="it" class="mt-3"><span class="h4">Italian - Bebas Kai + </span>
+                                                <span class="lead">Jura</span>
+                                            </li>
+                                            <hr>
+                                            <li lang="de" class="mt-3"><span class="h4">Deutch - Bebas Kai Ä, Ö, Ü ß + </span>
+                                                <span class="lead">Jura ä ö ü ß</span>
+                                            </li>
+                                            <hr>
+                                            <li lang="pt" class="mt-3"><span class="h4">Portugues - Bebas Kai + </span><span class="lead">Jura</span></li>
+                                            <hr>
+                                            <li lang="cs" class="mt-3"><span class="h4">Checo - Anton <br>abcčdďefghchijklmnňopqrřsštťuvwxyzžáéěíóúůý + </span>
+                                                <span class="lead"><br>Jura</span>
+                                            </li>
+                                            <hr>
+                                            <li lang="pl" class="mt-3"><span class="h4">Polish - Anton Ą	Ć	Ę	Ł	Ń	Ó	Ś	Ź <br> </span>
+                                                <span class="lead"><br>Jura ą	ć	ę	ł	ń	ó	ś	ź	ż</span>
+                                            </li>
+                                            <hr>
+                                            <li lang="tr" class="mt-3"><span class="h4">Turco - Anton <br>A	B	C	Ç	D	E	F	G	Ğ	H	I	İ	J	K	L	M	N	O	Ö	P	R	S	Ş	T	U	Ü	V	Y	Z+ </span>
+                                                <span class="lead"><br>Jura a	b	c	ç	d	e	f	g	ğ	h	ı	i	j	k	l	m	n	o	ö	p	r	s	ş	t	u	ü	v	y	z</span>
+                                            </li>
+                                            <hr>
+                                            <li lang="el" class="mt-3"><span class="h4">Greek - Open Sans Condensed <br>Καλοσωρίσατε ΑΝΑΚΑΛΥΨΕ IDC/Games ΤΙΣ ΠΡΟΣΦΟΡΕΣ Λορεμ ιπσθμ δολορ σιτ αμετ. Α α,	Β β,	Γ γ,	Δ δ,	Ε ε,	Ζ ζ, Η η,	Θ θ,	Ι ι,	Κ κ,	Λ λ,	Μ μ,Ν ν,	Ξ ξ,	Ο ο,	Π π,	Ρ ρ,	Σ σ[ς],Τ τ,	Υ υ,	Φ φ,	Χ χ,	Ψ ψ,	Ω ω+ </span>
+                                                <span class="lead"><br>Jura Καλοσωρίσατε , μει ιδ νοvθμ φαβελλασ πετεντιθμ vελ νε, ατ νισλ σονετ οπορτερε εθμ. Αλιι δοcτθσ μει ιδ, νο αθτεμ αθδιρε ιντερεσσετ μελ, δοcενδι cομμθνε οπορτεατ τε cθμ.<br>Α α,	Β β,	Γ γ,	Δ δ,	Ε ε,	Ζ ζ, Η η,	Θ θ,	Ι ι,	Κ κ,	Λ λ,	Μ μ,Ν ν,	Ξ ξ,	Ο ο,	Π π,	Ρ ρ,	Σ σ[ς],Τ τ,	Υ υ,	Φ φ,	Χ χ,	Ψ ψ,	Ω ω+</span>
+                                            </li>
+                                            <hr>
+                                            <li lang="ro" class="mt-3"><span class="h4">Romani - Anton <br>ș â, î ă  Descărcați IDC/Games +</span>
+                                                <span class="lead"><br>Jura  Descărcați IDC/Games</span>
+                                            </li>
+                                            <hr>
+                                        </ul>
+                                    </div>
+                                    <div class="col-6 px-5">
+                                        <ul>
+                                            <hr>
+                                            <li lang="vi" class="mt-3"><span class="h4">Vietnamita - Open Sans Condensed <br> A	Ă	Â	B	C	D	Đ	E	Ê	G	H	I	K	L	M	N	O	Ô	Ơ	P	Q	R	S	T	U	Ư	V	X	Y a	ă	â	b	c	d	đ	e	ê	g	h	i	k	l	m	n	o	ô	ơ	p	q	r	s	t	u	ư	v	x	y <br> 
+                                                đầy nhân vật zombi, người sói, ma cà rồng mà bạn có thể tiêu diệt trong trò chơi MMO miễn phí này. Tham gia chiến đấu những trận chiến PvP hấp dẫn chống lại những người. </span>
+                                                <span class="lead"><br>Jura A	Ă	Â	B	C	D	Đ	E	Ê	G	H	I	K	L	M	N	O	Ô	Ơ	P	Q	R	S	T	U	Ư	V	X	Ya	ă	â	b	c	d	đ	e	ê	g	h	i	k	l	m	n	o	ô	ơ	p	q	r	s	t	u	ư	v	x	y</span>
+                                            </li>
+                                            <hr>
+                                            <li lang="ja" class="mt-3"><span class="h4">Japanesse - Kosugi Maru <br>で、ゾンビや狼人間、ヴァンパイアを撃ちまくろう。PvPモードに参加して他のプレーヤーと競おう！キャラクターを選んで、IDC/Games 武器をカスタマイズし、敵を倒せ！+ </span>
+                                                <span class="lead"><br>M PLUS Rounded 1c --Fuente distinta de la Jura  で、ゾンビや狼人間、ヴァンパイアを狼人間、ヴァンパイアを撃ちまくろう。PvPモードに参加して他のプレーヤーと競おう！キャラクターを選んで、武器をカスタマイズし、敵を倒せ！</span>
+                                            </li>
+                                            <hr>
+                                            <li lang="th" class="mt-3"><span class="h4">Thai - Kanit <br>เต็มไปด้วยซอมบี้, มนุษย์หมาป่า, และแวมไพร์ ซึ่งคุณต้องจัดการในเกม MMO ฟรีนี้ มีส่วนร่วมในการต่อสู้ PvP ที่น่าตื่นตาตื่นใจกับผู้เล่นคนอื่นๆ เลือกตัวละครของคุณ IDC/Games ปรับแต่งอาวุธของคุณเพื่อกำจัดกับเหล่าคนเลว!+ </span>
+                                                <span class="lead"><br>Bai Jamjuree --Fuente distinta de la Jura เต็มไปด้วยซอมบี้, มนุษย์หมาป่า, และแวมไพร์ ซึ่งคุณต้องจัดการในเกม MMO ฟรีนี้ มีส่วนxkwhinร่วมในการต่อสู้ IDC Games ที่น่าตื่นตาตื่นใจกับผู้เล่นคนอื่นๆ เลือกตัวละครของคุณ ปรับแต่งอาวุธของคุณเพื่อกำจัดกับเหล่าคนเลว!</span>
+                                            </li>
+                                            <hr>
+                                            <li lang="ru" class="mt-3"><span class="h4">Russian - Open Sans Condensed <br>вампиров, которых вам придется убить в этой бесплатной MMO. ыберите своего персонажа, настройте ваше оружие и убейте плохих парней!+ </span>
+                                                <span class="lead"><br>Jura вампиров, которых вам придется убить в этой бесплатной MMO. Участвуйте в невероятных PvP-сражениях против других игроков настройте ваше оружие и убейте плохих парней!</span>
+                                            </li>
+                                            <hr>
+                                            <li lang="ko" class="mt-3"><span class="h4">Korean - Black Han Sans<br> 새로운 무료 MMO Affected Zone Tactics를 플레이하세요, 굉장한 전략적 턴제에 기반을 둔 전투를 경험할 IDC/Games 수 있습니다. 사령관이 되어 용병들과 함께 여러분의 전략 기술을 증명하세요. + </span>
+                                                <span class="lead"><br>Jura 새로운 무료 MMO Affected Zone Tactics를 플레이하세요, 굉장한 전략적 턴제에 기반을 둔 전투를 경험할 수 있습니다. 용병들과 함께 여러분의 전략 기술을 증명하세요.</span>
+                                            </li>
+                                            <hr>
+                                            <li lang="ar" class="mt-3"><span class="h4">Arabe - Lalezar<br> لوريم هو نم التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء IDC/Games كانت تصاميم مطبوعه ... بروشور او فلاير على سبيل المثا+ </span>
+                                                <span class="lead"><br>Jura عميل ليتصور طريقه وضع النصوص بالتصاميم سواء عميل ليتصور طريقه وضع النصوص بالتصاميم سواء IDC/Games كانتIDC/Gamesعميل ليتصور طريقه وضع النصوص بالتصاميم سواء IDC/Games كانت كانت</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row px-5 py-2">
+                                    <div class="col-12">
+                                        <h1 class="pt-5 display-2">Colors</h1>
+                                    </div>
+                                    <div class="col-4 pr-5">
+                                        <h1 class="pt-5 text-primary">Bootstrap colors</h1>
+                                        <hr>
+                                        <div>
+                                            <div class="p-3 mb-2 bg-primary text-white">.bg-primary</div>
+                                            <div class="p-3 mb-2 bg-secondary text-white">.bg-secondary</div>
+                                            <div class="p-3 mb-2 bg-success text-white">.bg-success</div>
+                                            <div class="p-3 mb-2 bg-danger text-white">.bg-danger</div>
+                                            <div class="p-3 mb-2 bg-warning text-dark">.bg-warning</div>
+                                            <div class="p-3 mb-2 bg-info text-white">.bg-info</div>
+                                            <div class="p-3 mb-2 bg-light text-dark">.bg-light</div>
+                                            <div class="p-3 mb-2 bg-dark text-white">.bg-dark</div>
+                                            <div class="p-3 mb-2 bg-white text-dark">.bg-white</div>
+                                            <div class="p-3 mb-2 bg-transparent text-dark">.bg-transparent</div>
+                                        </div>
+                                        <h1 class="pt-5 text-primary">Shadow classes</h1>
+                                        <hr>
+                                        <div>
+                                            <p class="text-shadow">We use subtle shadows to separate elements and to emphasized text and make it more readable</p>
+                                            <div class="p-3 mb-2 box-shadow">.box-shadow</div>
+                                            <div class="p-3 mb-2 h2 text-shadow">.text-shadow</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-8">
+                                        <h1 class="pt-5 text-primary">Theme colors</h1>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="d-flex p-4 col-3 bg-blue">blue</div>
+                                            <div class="d-flex p-4 col-3 bg-green">green</div>
+                                            <div class="d-flex p-4 col-3 bg-teal">teal</div>
+                                            <div class="d-flex p-4 col-3 bg-gray-900 box-shadow">.bg-gray-900</div>
+                                            <div class="d-flex p-4 col-3 bg-gradient text-dark">.bg-gradient</div>
+                                        </div>
+                                        <h1 class="pt-5 text-primary">Other colors used</h1>
+                                        <hr>
+                                        <p class="mb-3">Not included in main.css</p>
+                                        <div class="row">
+                                            <div class="d-flex p-4 mx-1 col-3 bg-dark-translucid">.bg-dark-translucid</div>
+                                            <div class="d-flex p-4 mx-1 col-3 bg-dark-custom">.bg-dark-custom</div>
+                                            <div class="d-flex p-4 mx-1 col-3 border border-green-lighter">.border-green-lighter</div>
+                                            <div class="d-flex p-4 mx-1 col-3 bg-blue-custom">.bg-blue-custom</div>
+                                            <p class="d-flex pt-3 mx-1" style="color: #6c757d;">#6c757d light gray for texts</p>
+                                        </div>
+                                        <h1 class="pt-5 text-primary">Gradients</h1>
+                                        <hr>
+                                        <div class="d-flex flex-row align-items-center mb-3">
+                                            <div class="card overflow-hidden" style="width: 250px; height: 360px;">               
+                                                <img src="https://cdn.idcgames.com/img/home/hero-versus-detacado.jpg" class="object-fit-cover" alt="...">
+                                                <a class="d-flex flex-column justify-content-between card-body card-img-overlay gradient-overlay-3" href="#">
+                                                    <h5 class="h3 card-title text-white text-center pt-3">Offer 2</h5>
+                                                    <div class="d-flex flex-column">
+                                                        <p class="h5 text-white text-center my-3">Up to <br><span class="h2 display-2">75%</span></p>                                               
+                                                        <p class="card-text text-white small text-center">Last updated 3 mins ago</p>
+                                                        <span class="btn btn-primary">View offers</span>										
+                                                    </div>
+                                                </a>
+                                            </div> 
+                                            <div class="ml-3">
+                                                <p class="mb-3">Not included in main.css. Included in: _gradient-overly.scss</p>
+                                                <p>Overlay gradients are usually used over a image to create color unity or hover effects. We often use ::before and ::after pseudoelements, too.</p>
+                                                <p class="mb-3">Background-gradient is used as an accent color (DON´T overuse it)</p>
+                                            </div>  
+                                        </div>
+                                        <div class="row px-3">
+                                            <div class="d-flex p-4 col-3 gradient-overlay">gradient-overlay</div>
+                                            <div class="d-flex p-4 col-3 gradient-overlay-2">gradient-overlay-2</div>
+                                            <div class="d-flex p-4 col-3 gradient-overlay-3">gradient-overlay-3</div>
+                                            <div class="d-flex p-4 col-3 gradient-overlay-4">gradient-overlay-4</div>
+                                            <div class="d-flex p-4 col-3 gradient-overlay-5">gradient-overlay-5</div>
+                                            <div class="d-flex p-4 col-3 gradient-overlay-5-inverse">gradient-overlay-5-inverse</div>
+                                            <div class="d-flex p-4 col-3 gradient-overlay-5b">gradient-overlay-5b</div>
+                                            <div class="d-flex p-4 col-3 gradient-overlay-5b-inverse">gradient-overlay-5b-inverse</div>
+                                            <div class="d-flex p-4 col-3 gradient-overlay-6">gradient-overlay-6</div>
+                                            <div class="d-flex p-4 col-3 gradient-overlay-forum">gradient-overlay-forum</div>
+                                            <div class="d-flex p-4 col-3 bg-gradient">bg-gradient</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row px-5 py-2">
+                                    <div class="col-12">
+                                        <h1 class="pt-5 text-primary">Tables</h1>
+                                    </div>
+                                    <table class="table">
+                                        <thead class="">
+                                            <tr>
+                                                <th></th>
+                                                <th>Interfaz</th>
+                                                <th>Voces</th>
+                                                <th>Subtítulos</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><a href="#">Español</a></td>
+                                                <td><i class="far fa-check-circle"></i></td>
+                                                <td></td>
+                                                <td><i class="far fa-check-circle"></i></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left"><a href="#">English</a></td>
+                                                <td><i class="far fa-check-circle"></i></td>
+                                                <td><i class="far fa-check-circle"></i></td>
+                                                <td><i class="far fa-check-circle"></i></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">Español</a></td>
+                                                <td><i class="far fa-check-circle"></i></td>
+                                                <td></td>
+                                                <td><i class="far fa-check-circle"></i></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left"><a href="#">English</a></td>
+                                                <td><i class="fa fa-dot-circle-o"></i></td>
+                                                <td><i class="fa fa-dot-circle-o"></i></td>
+                                                <td><i class="fa fa-dot-circle-o"></i></td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="#">Español</a></td>
+                                                <td><i class="far fa-check-circle"></i></td>
+                                                <td></td>
+                                                <td><i class="far fa-check-circle"></i></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left"><a href="#">English</a></td>
+                                                <td><i class="far fa-check-circle"></i></td>
+                                                <td><i class="far fa-check-circle"></i></td>
+                                                <td><i class="far fa-check-circle"></i></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <hr>
+                                <div class="row px-5 py-2">
+                                    <div class="col-12">
+                                        <h1 class="pt-5 display-2">Buttons</h1>
+                                    </div>
+                                    <div class="col-12">
+                                        <h2 class="pt-5">Buttons class "btn"</h2>
+                                        <hr>
+                                    </div>
+                                    <div class="col-12 px-3 py-2">
+                                        <button type="button" class="btn btn-primary">Primary</button>
+                                        <button type="button" class="btn btn-secondary">Secondary</button>
+                                        <button type="button" class="btn btn-success">Success</button>
+                                        <button type="button" class="btn btn-danger">Danger</button>
+                                        <button type="button" class="btn btn-warning">Warning</button>
+                                        <button type="button" class="btn btn-info">Info</button>
+                                        <button type="button" class="btn btn-light">Light</button>
+                                        <button type="button" class="btn btn-dark">Dark</button>
+                                        <button type="button" class="btn btn-link">Link</button>
+                                        <button type="button" class="btn btn-facebook">
+                                        <i class="fab fa-facebook-f fa-lg p-2"></i><span class="ml-4">Facebook</span>
+                                        </button>
+                                        <button type="button" class="btn btn-google">
+                                        <i class="fab fa-google fa-lg p-2"></i><span class="ml-4">Google</span>
+                                        </button>
+                                    </div>
+                                    <div class="col-12">
+                                        <h2 class="pt-5">Buttons class "btn btn-outline-x"</h2>
+                                        <hr>
+                                    </div>
+                                    <div class="col-12 px-3 py-2">
+                                        <button type="button" class="btn btn-outline-primary">Primary</button>
+                                        <button type="button" class="btn btn-outline-secondary">Secondary</button>
+                                        <button type="button" class="btn btn-outline-success">Success</button>
+                                        <button type="button" class="btn btn-outline-danger">Danger</button>
+                                        <button type="button" class="btn btn-outline-warning">Warning</button>
+                                        <button type="button" class="btn btn-outline-info">Info</button>
+                                        <button type="button" class="btn btn-outline-light">Light</button>
+                                        <button type="button" class="btn btn-outline-dark">Dark</button>
+                                    </div>
+                                    <div class="col-12">
+                                        <h2 class="pt-5">Buttons sizing</h2>
+                                        <hr>
+                                    </div>
+                                    <div class="col-12 px-3 py-2">              
+                                        <button type="button" class="btn btn-primary">Primary</button>
+                                        <button type="button" class="btn btn-primary btn-lg">Large</button>
+                                        <button type="button" class="btn btn-primary btn-sm">Small button</button>
+                                    </div>
+                                    <div class="col-12">
+                                        <h2 class="pt-5">Buttons class "btn-block"</h2>
+                                        <hr>
+                                    </div>
+                                    <div class="col-12 px-3 py-2">              
+                                        <button type="button" class="btn btn-primary btn-lg btn-block">Block level button</button>
+                                        <button type="button" class="btn btn-secondary btn-lg btn-block">Block level button</button>
+                                        <button type="button" class="btn btn-outline-primary btn-lg btn-block">Block level button</button>
+                                    </div>
+                                    <div class="col-12">
+                                        <h2 class="pt-5">Buttons custom</h2>
+                                        <hr>
+                                    </div>
+                                    <div class="col-12 px-3 py-2">              
+                                        <button type="button" class="btn btn-Square2">.btn .btnSquare2 <br> btnSquare2</button>
+                                        <button type="button" class="btn btn-primary btn-lg">Large</button>
+                                        <button type="button" class="btn btn-primary btn-sm">Small button</button>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row px-5 py-2">
+                                    <div class="col-12">
+                                        <h1 class="pt-5 display-2">Inputs</h1>
+                                    </div>
+                                    <div class="col-12">
+                                        <nav class="navbar navbar-light bg-dark-translucid justify-content-md-end justify-content-sm-start justify-content-center align-items-center box-shadow mb-3 animated fadeIn delay-1">
+                                            <div class="form-inline position-relative search-form flex-nowrap" action="#">
+                                                <span class="search-icon position-absolute ml-3"><i class="fas fa-search text-secondary"></i></span>
+                                                <input class="form-control mr-sm-2 pl-5 input-filter" type="search" placeholder="==(search)==" aria-label="Search">
+                                                <span class="d-sm-flex d-none btn btn-outline-success my-2 my-sm-0 btn-proceed-search" type="submit">==(search)==</span>
+                                            </div>
+                                        </nav>
+                                        <div class="d-flex flex row">
+                                            <div class="col-6">
+                                                <h1 class="pt-5">Form</h1>
+                                                <hr class="border-green-lighter">
+                                                <form action="#" method="post" class="getAuth registerFormBig">
+                                                    <div class="form-group animated fadeIn fast delay-2">
+                                                        <input type="text" class="form-control my-3 p-3 borderPrimaryColor bg-transparent colorLight" id="nicknameBig" placeholder="User" minlength="4" maxlength="14" autocomplete="on" required="">
+                                                        <div class="row mx-0">
+                                                            <div class="col-6 pr-2 pl-0"><input type="password" class="form-control p-md-3 p-2 borderPrimaryColor bg-transparent colorLight" id="passwordBig" placeholder="Password" autocomplete="on" required=""></div>
+                                                            <div class="col-6 pl-2 pr-0"><input type="password" class="form-control p-md-3 p-2 borderPrimaryColor bg-transparent colorLight" id="confirm_passwordBig" placeholder="Confirm password" autocomplete="on" required=""></div>
+                                                        </div>
+                                                        <div class="row my-3 mx-0 mb-3">
+                                                            <div class="form-check col-6"><input type="checkbox" class="form-check-input" id="registerInBig" checked="checked"><label class="form-check-label" for="registerInBig">Stay connected</label></div>
+                                                        </div>
+                                                        <div class="alert-transparent mx-0 my-0 d-block"></div>
+                                                        <div class="mx-0 mt-3"><button id="btnRegisterBig" type="submit" class="btn-cta mt-xl-4 animated pulse fast delay-1">CTA button</button></div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="col-6">
+                                                <h1 class="pt-5">sizes</h1>
+                                                <hr class="border-green-lighter">
+                                                <div class="input-group input-group-sm mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text bg-primary text-dark h6" id="inputGroup-sizing-sm">Small</span>
+                                                    </div>
+                                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                                </div>
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text bg-primary text-dark h6" id="inputGroup-sizing-default">Default</span>
+                                                    </div>
+                                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                                </div>
+                                                <div class="input-group input-group-lg">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text bg-primary text-dark h6" id="inputGroup-sizing-lg">Large</span>
+                                                    </div>
+                                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                                                </div> 
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row px-5 py-2">
+                                    <div class="col-12">
+                                        <h1 class="pt-5 text-primary">Cards</h1>
+                                    </div>
+                                    <div class="row">
+                                        <div class="card m-3" style="width: 18rem;">
+                                            <img src="./img/default/bg-1.jpg" class="card-img-top" alt="...">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Regular card</h5>
+                                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                            </div>
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">Cras justo odio</li>
+                                                <li class="list-group-item">Dapibus ac facilisis in</li>
+                                                <li class="list-group-item">Vestibulum at eros</li>
+                                            </ul>
+                                            <div class="card-body">
+                                                <a href="#" class="card-link">Card link</a>
+                                                <a href="#" class="card-link">Another link</a>
+                                            </div>
+                                        </div>
+                                        <div class="card m-3" style="width: 18rem;">
+                                            <div class="card-header">
+                                                Card-header
+                                            </div>
+                                            <div class="card-body">
+                                                <h2 class="card-title">Tealstyle card</h2>
+                                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                            </div>
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">Cras justo odio</li>
+                                                <li class="list-group-item">Dapibus ac facilisis in</li>
+                                                <li class="list-group-item">
+                                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                                                </li>
+                                            </ul>
+                                            <div class="card-body">
+                                                <a href="#" class="card-link">Card link</a>
+                                                <a href="#" class="card-link">Another link</a>
+                                            </div>
+                                            <div class="card-footer text-muted">
+                                                footer text muted
+                                            </div>
+                                        </div>
+                                        <div class="card m-3" style="width: 18rem;">
+                                            <div class="card-header">
+                                                Card-header
+                                            </div>
+                                            <div class="card-body">
+                                                <h2 class="card-title">Brownstyle card</h2>
+                                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                            </div>
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">Cras justo odio</li>
+                                                <li class="list-group-item">Dapibus ac facilisis in</li>
+                                                <li class="list-group-item">
+                                                    <a href="#" class="btn btn-secondary">Go somewhere</a>
+                                                </li>
+                                            </ul>
+                                            <div class="card-body">
+                                                <a href="#" class="card-link">Card link</a>
+                                                <a href="#" class="card-link">Another link</a>
+                                            </div>
+                                            <div class="card-footer text-muted">
+                                                footer text muted
+                                            </div>
+                                        </div>
+                                        <div class="flex-column">
+                                            <div class="card m-3" style="max-width: 540px;">
+                                                <div class="row no-gutters">
+                                                    <div class="col-md-4">
+                                                        <img src="./img/default/bg-1.jpg" class="card-img py-2" alt="...">
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">Card vertical</h5>
+                                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card m-3" style="max-width: 540px;">
+                                                <div class="row no-gutters">
+                                                    <div class="col-md-4">
+                                                        <img src="./img/default/bg-1.jpg" class="card-img img-thumbnail py-2" alt="...">
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="card-body">
+                                                            <div class="d-flex">
+                                                                <h5 class="card-title letterStyle-4" style="font-size:2rem;">Card</h5>
+                                                            </div>
+                                                            <hr>
+                                                            <p class="card-text lead">This is a lead text with supporting text below as a natural lead-in.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="card m-3">
+                                                <div class="row no-gutters">
+                                                    <div class="col-md-4">
+                                                        <div class="badge-img-container">
+                                                            <span class="badge badge-img badge-img-top-right" style="background-image: url(img/flags_1.png);background-repeat: no-repeat; background-position:-4px center;padding: .8rem 1.7rem;"> &nbsp</span>
+                                                            <img src="./img/default/bg-1.jpg" class="card-img img-thumbnail py-2" alt="...">
+                                                            <span class="badge badge-secondary badge-img badge-img-bottom-right funny-border">55</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="card-body">
+                                                            <div class="d-flex">
+                                                                <h5 class="card-title rounded funny-border p-2">H5 with funny-border</h5>
+                                                            </div>
+                                                            <hr>
+                                                            <p class="card-text lead">This is a lead text</p>
+                                                            <p class="card-text">Img-thumbnail with badges does the effect on the left. <br><small>Badge down-right has a funny-border.</small></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flex-column">
+                                            <div class="card m-3">
+                                                <div class="card-header">
+                                                    Card-header
+                                                </div>
+                                                <div class="row no-gutters">
+                                                    <div class="col-md-4">
+                                                        <div class="badge-img-container">
+                                                            <span class="badge badge-img badge-img-top-left bg-light-brown funny-border">
+                                                                <p class="m-0 font-weight-bold">Badge</p>
+                                                            </span>
+                                                            <img src="./img/default/bg-1.jpg" class="card-img img-thumbnail img-fluid py-2" alt="...">
+                                                            <span class="badge badge-img badge-img-bottom-left bg-light-brown funny-border">55</span>
+                                                        </div>
+                                                        <div class="d-flex justify-content-center pb-3
+                                                            ">
+                                                            <a href="#" class="btn btn-secondary">Go somewhere</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="card-body">
+                                                            <div class="d-flex">
+                                                                <h5 class="card-title rounded-right bg-orange funny-border ml-0 p-2">H5 funny-border bg-orange</h5>
+                                                            </div>
+                                                            <hr>
+                                                            <p class="card-text lead">Brownstyle</p>
+                                                            <p class="card-text">You can combine funny-border with 
+                                                                <a href="https://getbootstrap.com/docs/4.3/utilities/borders/" class="card-link" target="_blank">bootstrap borders classes </a>
+                                                                and backgrounds to different effects. <br><small>Badges have funny-borders and bg-light-brown.</small>
+                                                            </p>
+                                                            <div class="alert alert-success" role="alert">
+                                                                Did you know? Funny-borders actually are box-shadows! They add a margin to respect divs spaces.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer text-muted">
+                                                    footer text muted
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row px-5 py-2">
+                                    <div class="col-12">
+                                        <h1 class="pt-5 text-primary">Modals</h1>
+                                    </div>
+                                    <button type="button" class="btn btn-primary mr-3" data-toggle="modal" data-target=".bd-example-modal-lg">Modal xl</button>
+                                    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-xl modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form>
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Email address</label>
+                                                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                                                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="exampleInputPassword1">Password</label>
+                                                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                                        </div>
+                                                        <div class="form-group form-check">
+                                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-secondary mr-3" data-toggle="modal" data-target=".modal2">Modal img</button>
+                                    <div class="modal fade modal2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-xl modal-dialog-centered container-fluid">
+                                            <div class="modal-content modal-bg-img flex-lg-row flex-column">
+                                                <div class="col-xl-6 col-lg-7 col-12 p-0 img-modal-left-container">
+                                                    <div><i class="fas fa-external-link-alt text-primary p-2 position-absolute"></i></div>
+                                                    <img src="./img/default/bg-artwork.jpg" class="img-modal-left" alt="">
+                                                </div>
+                                                <div class="col-xl-6 col-lg-5 col-12 p-0 d-flex flex-column">
+                                                    <div class="modal-header">
+                                                        <div class="d-flex flex-row align-items-baseline">
+                                                            <div class="col-auto p-0">
+                                                                <img src="./img/default/bg-artwork.jpg" class="img-user" alt="">
+                                                            </div>
+                                                            <div class="col-11">
+                                                                <p class="fontSecondarySmall m-0">Whoever post this user name</p>
+                                                            </div>
+                                                        </div>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div>
+                                                            <div>
+                                                                <h2 class="h1 font-weight-bold">Title of the post!!</h2>
+                                                            </div>
+                                                            <div>
+                                                                <p class="text-primary"><i class="fas fa-thumbs-up pr-2"></i>87 persons like this</p>
+                                                            </div>
+                                                            <div class="d-flex flex-row mt-5">
+                                                                <div class="col-6 p-0">
+                                                                    <button type="button" class="btn btn-outline-secondary btn-sm"><i class="fas fa-thumbs-up"></i></button>
+                                                                    <button type="button" class="btn btn-outline-secondary btn-sm"><i class="fas fa-thumbs-down"></i></button>
+                                                                </div>
+                                                                <div class="col-6 d-flex flex-row justify-content-end p-0">
+                                                                    <button type="button" class="btn btn-outline-secondary btn-sm px-2" data-toggle="tooltip" data-placement="top" title="Compartir"><i class="fas fa-share-alt"></i></button>
+                                                                    <button type="button" class="btn btn-outline-secondary btn-sm px-2" data-toggle="tooltip" data-placement="bottom" title="Favoritos"><i class="fas fa-star"></i></button>
+                                                                    <button type="button" class="btn btn-outline-secondary btn-sm px-2" data-toggle="tooltip" data-placement="top" title="Seguir"><i class="fas fa-user-plus"></i></button>
+                                                                    <button type="button" class="btn btn-outline-secondary btn-sm px-2" data-toggle="tooltip" data-placement="bottom" title="Denunciar"><i class="fas fa-flag"></i></button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <hr class="border-green-lighter">
+                                                        <div class="d-flex flex-column pt-3">
+                                                            <div class="d-flex flex-row pb-3">
+                                                                <div class="col-auto p-0">
+                                                                    <img src="./img/default/bg-artwork.jpg" class="img-user" alt="">
+                                                                </div>
+                                                                <div class="col-11">
+                                                                    <div>
+                                                                        <a class="fontSecondarySmall">Author user name</a>
+                                                                        <span class="text-secondary pl-3">15 jul 2018 a las 22:30</span>
+                                                                    </div>
+                                                                    <p class="">I like this artwork very much.</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="d-flex flex-row pb-3">
+                                                                <div class="col-auto p-0">
+                                                                    <img src="./img/default/bg-artwork.jpg" class="img-user" alt="">
+                                                                </div>
+                                                                <div class="col-11">
+                                                                    <div>
+                                                                        <a class="fontSecondarySmall">Author user name</a>
+                                                                        <span class="text-secondary pl-3">15 jul 2018 a las 22:30</span>
+                                                                    </div>
+                                                                    <p class="">This is a longer comment. I like this artwork very much. This is a longer comment. I like this artwork very much.</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="d-flex flex-row pb-3">
+                                                                <div class="col-auto p-0">
+                                                                    <img src="./img/default/bg-artwork.jpg" class="img-user" alt="">
+                                                                </div>
+                                                                <div class="col-11">
+                                                                    <div>
+                                                                        <a class="fontSecondarySmall">Author user name</a>
+                                                                        <span class="text-secondary pl-3">15 jul 2018 a las 22:30</span>
+                                                                    </div>
+                                                                    <p class="">I like this artwork very much.</p>
+                                                                </div>
+                                                            </div>
+                                                            <a href="post.html"><button type="button" class="btn btn-outline-primary btn-sm btn-block">Ver detalles y comentarios</button></a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer flex-sm-row flex-column border-green-lighter py-sm-3 ">
+                                                        <div class="col-sm-3 col-12">
+                                                            <p class="h6 text-secondary">Etiquetas:</p>
+                                                        </div>
+                                                        <div class="col-sm-9 col-12 d-flex justify-content-sm-end justify-content-between">
+                                                            <span class="badge badge-secondary mx-2">Zula</span>
+                                                            <span class="badge badge-secondary mx-2">Shooter</span>
+                                                            <span class="badge badge-secondary ml-2">Captura de pantalla</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-secondary mr-3" data-toggle="modal" data-target=".modal3">Modal text</button>
+                                    <div class="modal fade modal3" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-xl modal-dialog-centered container-fluid">
+                                            <div class="modal-content modal-bg-img flex-lg-row flex-column">
+                                                <div class="col-12 p-0 d-flex flex-column">
+                                                    <div class="modal-header">
+                                                        <div class="d-flex flex-row align-items-baseline">
+                                                            <div class="col-auto p-0">
+                                                                <img src="./img/default/bg-artwork.jpg" class="img-user" alt="">
+                                                            </div>
+                                                            <div class="col-11">
+                                                                <p class="fontSecondarySmall m-0">Whoever post this user name</p>
+                                                            </div>
+                                                        </div>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body px-5 mx-3">
+                                                        <div>
+                                                            <div class="d-flex flex-row justify-content-between align-items-end mt-3 py-2">
+                                                                <h2 class="display-3 mb-0">IDC SUMMERTIME CONTEST</h2>
+                                                                <span class="text-secondary mb-3 pl-3">15 jul 2018 a las 22:30</span>
+                                                            </div>
+                                                            <div class="border-top border-green-lighter row no-gutters py-4">
+                                                                <p class="text-primary"><i class="fas fa-thumbs-up pr-2"></i>87 persons like this</p>
+                                                                <p class="text-secondary pl-5"><i class="fas fa-thumbs-down pr-2"></i>6 persons dislike this</p>
+                                                            </div>
+                                                            <div class="pt-2">
+                                                                <p class="lead">Ahora que llega el verano, nos gustaría que compartieseis todas vuestras aventuras veraniegas con nosotros. Ya sea una foto del ganado de tu vecino pastor, o ese pedazo de castillo de arena que has hecho con tus primos, nosotros queremos vivirlo con vosotros (y que nos deis mucha envidia).</p>
+                                                                <p>¡Y ahora viene lo mejor! <br>¡A cambio, tenemos fantásticos premios que repartir entre las fotos más originales!</p>
+                                                                <p>Pero, vayamos por partes.<br>
+                                                                    El concurso consiste en hacer una foto en vuestro lugar de vacaciones con el cartel de IDC/GAMES y subir la foto a Twitter con el hashtag <b>#IDCSummer.</b> ¡Prima la originalidad, así que dadle al coco! Recordad que también tenéis que seguir en Twitter la cuenta de @IDCGames.
+                                                                </p>
+                                                                <p>¡Y aquí viene todo lo que os podéis llevar!</p>
+                                                                <ul class="list-group">
+                                                                    <li class="list-group-item">Headset Gaming [Corsair CA-9011132-EU] + 7500 IDC/Coins + Póster de juego IDC a elegir</li>
+                                                                    <li class="list-group-item">Gafas VR + 6000 IDC/Coins + Póster de juego IDC a elegir</li>
+                                                                    <li class="list-group-item">Camiseta de juego de IDC a elegir + 5000 IDC/Coins + Póster de juego IDC a elegir</li>
+                                                                    <li class="list-group-item"> Póster de juego IDC a elegir + 4000 IDC/Coins</li>
+                                                                    <li class="list-group-item"> Póster de juego IDC a elegir + 4000 IDC/Coins</li>
+                                                                </ul>
+                                                                <p class="h1 text-primary pt-5">BASES DEL CONCURSO:</p>
+                                                                <ul class="list-group">
+                                                                    <li class="list-group-item">Para participar, tenéis que enviar una foto de vuestro lugar de vacaciones con un cartel de tamaño DIN A4 en el que se lea claramente el logo de IDC/GAMES y vuestra ubicación debajo. Aquí os dejamos un ejemplo de cartel. Podéis imprimirlo y utilizarlo, o si preferís, crearos el vuestro.</li>
+                                                                    <li class="list-group-item">Tenéis que seguir la cuenta de Twitter de @IDCGames</li>
+                                                                    <li class="list-group-item">El concurso tendrá dos fases: o Fase 1: Las fotos que obtengan más me gusta en Twitter, pasarán a la segunda fase. ¡Así que compartidlas todo lo que podáis y más! o Fase 2: Entre las fotos con más me gusta, el equipo de IDC/Games elegirá las 10 fotos más originales. - El concurso tendrá una duración de dos meses, desde el 15 de julio de 2016 a las 00:00 hora española (GMT +2), hasta el 15 de septiembre de 2016 a la misma hora.</li>
+                                                                    <li class="list-group-item">Al participar en este concurso, declaras que eres mayor de edad y que tienes los derechos de imagen sobre la foto y las personas que aparezcan en ella.</li>
+                                                                    <li class="list-group-item">En caso de ser menor de edad y enviar una foto en la que aparezcas, tendrás que adjuntar una autorización firmada por ambos padres o tutor legal.</li>
+                                                                    <li class="list-group-item">Sólo se aceptará una foto por participante.</li>
+                                                                    <li class="list-group-item">No se aceptarán fotos obscenas, ofensivas o de fines comerciales. Enviar este tipo de fotos supondrá una descalificación inmediata.</li>
+                                                                    <li class="list-group-item"><a href="#">Aquí</a> encontraréis las bases legales completas del concurso.</p></li>
+                                                                </ul>
+                                                                <br>           
+                                                                <p>¡Y esto es todo, señores! ¡Mucha suerte y felices vacaciones!<br></p>
+                                                                <p class="blockquote-footer">El equipo de IDC/Games</p>
+                                                            </div>
+                                                            <div class="d-flex flex-row mt-5">
+                                                                <div class="col-6 p-0">
+                                                                    <button type="button" class="btn btn-outline-secondary btn-sm"><i class="fas fa-thumbs-up"></i></button>
+                                                                    <button type="button" class="btn btn-outline-secondary btn-sm"><i class="fas fa-thumbs-down"></i></button>
+                                                                </div>
+                                                                <div class="col-6 d-flex flex-row justify-content-end p-0">
+                                                                    <button type="button" class="btn btn-outline-secondary btn-sm px-2" data-toggle="tooltip" data-placement="top" title="Compartir"><i class="fas fa-share-alt"></i></button>
+                                                                    <button type="button" class="btn btn-outline-secondary btn-sm px-2" data-toggle="tooltip" data-placement="bottom" title="Favoritos"><i class="fas fa-star"></i></button>
+                                                                    <button type="button" class="btn btn-outline-secondary btn-sm px-2" data-toggle="tooltip" data-placement="top" title="Seguir"><i class="fas fa-user-plus"></i></button>
+                                                                    <button type="button" class="btn btn-outline-secondary btn-sm px-2" data-toggle="tooltip" data-placement="bottom" title="Denunciar"><i class="fas fa-flag"></i></button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <hr class="border-green-lighter">
+                                                        <div class="d-flex flex-column pt-3">
+                                                            <div class="d-flex flex-row pb-3">
+                                                                <div class="col-auto p-0">
+                                                                    <img src="./img/default/bg-artwork.jpg" class="img-user" alt="">
+                                                                </div>
+                                                                <div class="col-11">
+                                                                    <div>
+                                                                        <a class="fontSecondarySmall">Author user name</a>
+                                                                        <span class="text-secondary pl-3">15 jul 2018 a las 22:30</span>
+                                                                    </div>
+                                                                    <p class="">I like this artwork very much.</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="d-flex flex-row pb-3">
+                                                                <div class="col-auto p-0">
+                                                                    <img src="./img/default/bg-artwork.jpg" class="img-user" alt="">
+                                                                </div>
+                                                                <div class="col-11">
+                                                                    <div>
+                                                                        <a class="fontSecondarySmall">Author user name</a>
+                                                                        <span class="text-secondary pl-3">15 jul 2018 a las 22:30</span>
+                                                                    </div>
+                                                                    <p class="">This is a longer comment. I like this artwork very much. This is a longer comment. I like this artwork very much.</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="d-flex flex-row pb-3">
+                                                                <div class="col-auto p-0">
+                                                                    <img src="./img/default/bg-artwork.jpg" class="img-user" alt="">
+                                                                </div>
+                                                                <div class="col-11">
+                                                                    <div>
+                                                                        <a class="fontSecondarySmall">Author user name</a>
+                                                                        <span class="text-secondary pl-3">15 jul 2018 a las 22:30</span>
+                                                                    </div>
+                                                                    <p class="">I like this artwork very much.</p>
+                                                                </div>
+                                                            </div>
+                                                            <a href="post-noticia.html" class="btn btn-outline-primary btn-sm btn-block">Ver detalles y comentarios</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer flex-sm-row flex-column border-green-lighter py-sm-3 ">
+                                                        <div class="col-sm-3 col-12">
+                                                            <p class="h6 text-secondary">Etiquetas:</p>
+                                                        </div>
+                                                        <div class="col-sm-9 col-12 d-flex justify-content-sm-end justify-content-between">
+                                                            <span class="badge badge-secondary mx-2">Zula</span>
+                                                            <span class="badge badge-secondary mx-2">Shooter</span>
+                                                            <span class="badge badge-secondary ml-2">Captura de pantalla</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row px-5 py-2">
+									<div class="col-6">
+										<div class="col-12">
+											<h1 class="pt-5 text-primary">Badges</h1>
+										</div>
+										<div>
+											<h1>Example heading <span class="badge badge-secondary">New</span></h1>
+											<h2>Example heading <span class="badge badge-secondary">New</span></h2>
+											<h3>Example heading <span class="badge badge-secondary">New</span></h3>
+											<h4>Example heading <span class="badge badge-secondary">New</span></h4>
+											<h5>Example heading <span class="badge badge-secondary">New</span></h5>
+											<h6>Example heading <span class="badge badge-secondary">New</span></h6>
+										</div>
+										<div>
+											<span class="badge badge-primary">Primary</span>
+											<span class="badge badge-secondary">Secondary</span>
+											<span class="badge badge-success">Success</span>
+											<span class="badge badge-danger">Danger</span>
+											<span class="badge badge-warning">Warning</span>
+											<span class="badge badge-info">Info</span>
+											<span class="badge badge-light">Light</span>
+											<span class="badge badge-dark">Dark</span>
+										</div>
+									</div>	
+									<div class="col-6">
+										<div class="col-12">
+											<h1 class="pt-5 text-primary">Alerts</h1>
+										</div>
+										<div>
+											<div class="alert alert-primary" role="alert">
+												A simple primary alert—check it out!
+											</div>
+											<div class="alert alert-secondary" role="alert">
+												A simple secondary alert—check it out!
+											</div>
+											<div class="alert alert-success" role="alert">
+												A simple success alert—check it out!
+											</div>
+											<div class="alert alert-danger" role="alert">
+												A simple danger alert—check it out!
+											</div>
+											<div class="alert alert-warning" role="alert">
+												A simple warning alert—check it out!
+											</div>
+											<div class="alert alert-info" role="alert">
+												A simple info alert—check it out!
+											</div>
+											<div class="alert alert-light" role="alert">
+												A simple light alert—check it out!
+											</div>
+											<div class="alert alert-dark" role="alert">
+												A simple dark alert—check it out!
+											</div>
+										</div>
+									</div>
+								</div>
+                            </section>
+						</div>
+						<div class="tab-pane fade" id="team" role="tabpanel" aria-labelledby="team-tab">
+							<div class="container">
+								<h3 class="h1">Equipo</h3>
+								<div class="d-flex flex row">
+									<div class="card box-shadow bg-gray-900 border border-green-lighter m-3 p-3">
+										<h4>Design: Inés</h4>
+										<p>Skype: igarcia@nvia.com</p>
+									</div>
+									<div class="card box-shadow bg-gray-900 border border-green-lighter m-3 p-3">
+										<h4>Back-end: Mingyi</h4>
+										<p>Skype: Milllion Miracle</p>
+									</div>
+									<div class="card box-shadow bg-gray-900 border border-green-lighter m-3 p-3">
+										<h4>Content: Miguel</h4>
+										<p>Skype: mgonzalezidc</p>
+									</div>	
+								</div>
+
+							</div>
+						</div>
+                    </div>
+                </div>
+            </section>
+        </main>

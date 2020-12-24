@@ -361,3 +361,5 @@ switch(getQueryVariable('tab')){
         $('#upcoming-tab').tab('show');
         break;
 }
+//Tooltip
+$('[data-toggle="tooltip"]').tooltip();

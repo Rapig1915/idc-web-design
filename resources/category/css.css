@@ -523,24 +523,30 @@
         font-weight: 700; }
       
       @media (max-width: 575.98px) {
-        h4.card-title.h6 {
+        h4.card-title.h6, .card-rectangular-tag {
           font-size: .825rem; } }
       
       @media (min-width: 576px) and (max-width: 767.98px) {
-        h4.card-title.h6 {
+        h4.card-title.h6, .card-rectangular-tag {
           font-size: .85rem; } }
       
       @media (min-width: 768px) and (max-width: 991.98px) {
-        h4.card-title.h6 {
+        h4.card-title.h6, .card-rectangular-tag {
           font-size: .9rem; } }
       
       @media (min-width: 992px) and (max-width: 1199.98px) {
         h4.card-title.h6 {
-          font-size: .95rem; } }
+          font-size: .95rem; } 
+        .card-rectangular-tag{
+          font-size: .9rem;
+        }}
       
       @media (min-width: 1200px) {
         h4.card-title.h6 {
-          font-size: .95rem; } }
+          font-size: .95rem; } 
+        .card-rectangular-tag{
+          font-size: .9rem;
+        }}
       
       span.btn.btn-primary.btn-sm.px-2, .btn-group-sm > span.btn.btn-primary.px-2 {
         padding: 0.05rem 1rem; }
@@ -564,7 +570,7 @@
         margin-top: -4px; }
       
       .small-card .overlay {
-        background-image: radial-gradient(circle, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
+        background-image: linear-gradient(135deg, rgba(0, 0, 0, 0) 30%, #000000 100%);
         -webkit-transition: all .3s ease-in-out;
         transition: all .3s ease-in-out; }
       
@@ -585,7 +591,7 @@
         transition: all ease-out .4s; }
       
       .small-card:hover .overlay {
-        background-image: radial-gradient(circle, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1));
+        background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.2) 30%, #000000 100%);
         -webkit-transition: all .3s ease-in-out;
         transition: all .3s ease-in-out; }
       
@@ -619,7 +625,7 @@
         margin-top: -4px; }
       
       .big-card .overlay {
-        background-image: radial-gradient(circle, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
+        background-image: linear-gradient(135deg, rgba(0, 0, 0, 0) 30%, #000000 100%);
         -webkit-transition: all .3s ease-in-out;
         transition: all .3s ease-in-out; }
       
@@ -641,7 +647,7 @@
         transition: all ease-out .4s; }
       
       .big-card:hover .overlay {
-        background-image: radial-gradient(circle, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1));
+        background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.2) 30%, #000000 100%);
         -webkit-transition: all .3s ease-in-out;
         transition: all .3s ease-in-out; }
       
@@ -687,9 +693,7 @@
           -webkit-transition: all .1s ease-in-out;
           transition: all .1s ease-in-out; }
           .game-card-rectangular:hover .cart-btn {
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex; }
+            display: block; }
           .game-card-rectangular:hover .card-img-overlay {
             padding: .25rem;
             -webkit-transition: all ease-out .4s;
@@ -1061,3 +1065,65 @@
           
           .search-form button {
             height: 50px; }
+
+.card-rectangular-tag {
+  color: #6c757d;
+  font-weight: 700;
+  text-shadow: 1px 3px 5px rgba(0,0,0,.3);
+}
+.game-card-rectangular:hover .card-rectangular-tag {
+  color: #fff;
+}
+
+/* tooltip */
+.game-card-rectangular, .small-card {
+  position: relative;
+}
+
+.custom-tooltip {
+  visibility: hidden;
+  z-index: 1000;
+  width: 330px;
+}
+
+.game-card-rectangular .custom-tooltip {
+  left: 103%;
+  top: -94%;
+}
+
+.small-card .custom-tooltip {
+  left: 103%;
+  top: -13%;
+}
+
+.game-card-rectangular:hover .custom-tooltip, .small-card:hover .custom-tooltip {
+  visibility: visible;
+}
+.custom-tooltip img {
+  height: 150px;
+  object-fit: cover;
+}
+
+.custom-tooltip::after {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  right: 100%; /* To the left of the tooltip */
+  margin-top: -10px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent  #314954 transparent transparent;
+}
+
+.card-tooltip-tag {
+  font-size: .9em;
+  text-transform: uppercase;
+  padding: 0rem .5rem .2em;
+  color: #00ff7f;
+}
+
+/* .hoverthing:nth-child(3):hover .custom-tooltip{
+  left: 0%;
+  top: -13%;
+}  */
+
