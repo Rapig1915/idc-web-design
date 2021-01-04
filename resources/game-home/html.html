@@ -18,9 +18,6 @@
                     <a href="#stnNoticias" class="nav-link box-shadow" data-toggle="tooltip" data-placement="left" title="==(news)=="><span class="fontSecondarySmall colorDark">==(news)==</span> </a>
                 </li>
                 <li class="nav-item mb-1" title="">
-                    <a href="#stnAnalisis" class="nav-link box-shadow" data-toggle="tooltip" data-placement="left" title="==(reviews)=="><span class="fontSecondarySmall colorDark">==(reviews)==</span></a>
-                </li>
-                <li class="nav-item mb-1" title="">
                     <a href="#stnGuias" class="nav-link box-shadow" data-toggle="tooltip" data-placement="left" title="==(guides)=="><span class="fontSecondarySmall colorDark">==(guides)==</span></a>
                 </li>
                 <li class="nav-item mb-1" title="">
@@ -35,10 +32,70 @@
                 <li class="nav-item mb-1" title="">
                     <a href="#stnShop" class="nav-link box-shadow" data-toggle="tooltip" data-placement="left" title="==(shop)=="><span class="fontSecondarySmall colorDark">==(shop)==</span></a>
                 </li>
+                <li class="nav-item mb-1" title="">
+                    <a href="#stnAnalisis" class="nav-link box-shadow" data-toggle="tooltip" data-placement="left" title="==(reviews)=="><span class="fontSecondarySmall colorDark">==(reviews)==</span></a>
+                </li>
             </ul>
         </nav>
     </div> 
     <!--Sección1: Intro+CTA-->
+    
+    <section id="stnHeader" data-id="stnHeader">
+        <div class="stnHeader row fullHeight videoBg videoMobile">
+            <video autoplay loop muted id="videoAction" poster="https://es.idcgames.com/storage/110/bg2.jpg">
+                <source src="https://es.idcgames.com/storage/919/landing_gameplay.mp4" type="video/mp4"		  media="all and (min-width:500px)">
+                <!-- <source src="__(video_ogv)__" type="video/ogg"		  media="all and (min-width:500px)"> -->
+                <!-- <source src="__(video_webm)__" type="video/webm"	  media="all and (min-width:500px)"> -->
+                <source src="__(video_mp4_mob)__" type="video/mp4"    media="all and (max-width:499px)">
+                <!-- <source src="__(video_ogv_mob)__" type="video/ogg"    media="all and (max-width:499px)">  -->
+                <!-- <source src="__(video_webm_mob)__" type="video/webm"  media="all and (max-width:499px)">  -->
+            </video>
+              <div class="lottie-container d-flex flex-row justify-content-center align-items-center">
+                <a data-easing="easeOutQuart" href="#stnIntroduction"><div id="lottie" data-bm-renderer='svg'></div></a>
+            </div>
+            <div class="stnHeader-container">
+                <div class="d-flex flex-md-row flex-column hero-row">
+                    <div class="col-md-7 col-12 d-flex hero-left game-block">
+                        <div class="hero-text d-flex flex-column">
+                            <h1 class="logo text-hide animatedX fadeInUp slow">%%(game_name)%%</h1> 
+                            <h2 class="animatedX fadeInUp slow slow pt-md-3 fontPrimaryMedium text-light">__(game_short_description)__</h2>
+                            <div class="mt-1 fontSecondarySmall text-light mb-2">__(meta_titles)__</div>
+                            <div class="d-flex flex-row flex-wrap align-items-start animated fadeInLeft fast mt-3">
+                               <div class="mt-2">
+                                    <span class="h6 btn btn-secondary btn-sm px-2 mb-0 text-discount-percent mr-2">-50%</span>
+                                </div>
+                                <div class="mt-2">
+                                  <a href="/free-to-play/" class="btn btn-dark btn-sm price btn-free-to-play mr-2" data-play="%%(id_idcgame)%%">==(free_to_play)==</a>  
+                                </div>
+                                <div class="btn btn-dark btn-sm price d-flex flex-row align-items-baseline mr-2 mt-2">
+                                    <span class="small text-white-50 mr-2"> <del class="text-original-price">€ 10,49</del></span>
+                                    <span class="text-shadow text-white mb-0 text-price"> € 10,49</span>
+                                </div>
+                                <div id="btn-demo" class="btn btn-danger btn-sm demo d-none flex-row align-items-baseline mr-2 mt-2">
+                                    <span class="text-shadow text-white mb-0 text-demo"> DEMO GAME</span>
+                                </div>
+                                <div class="mt-2">
+                                    <button class="btn btn-outline-secondary btn-sm wishlist-btn wishlist mr-2">
+                                        <i class="far fa-heart pr-2"></i>
+                                        <span>==(add_to_wishlist)==</span>
+                                    </button>  
+                                </div>
+                            </div>
+                            <button id="btn-commercial-game" class="btn btn-cta-secondary animatedX fadeInLeft fast mt-2 d-none" data-play="%%(id_idcgame)%%"><span>==(visit_full_game)==</span></button>
+                        </div>
+                        <button id="btn-cta" class="btn-cta animatedX fadeInLeft fast controlGame" data-play="%%(id_idcgame)%%"><i class="fas fa-spinner fa-pulse"></i></button>
+                        <button id="btn-cta-shopping" class="btn-cta cart-btn animatedX fadeInLeft fast buyGame" data-play="%%(id_idcgame)%%"><i class="fas fa-shopping-cart"></i><span class="ml-3">==(buy_now_txt)==</span></button>
+                    </div>
+                    <div class="videoControlsBtns col-md-5 col-12 p-0 d-flex align-self-end hero-right">
+                        <div id="stopVideoBtn" class="pauseBtn"><div class="lottie" id="lottieP" data-bm-renderer='svg'></div></div>
+					    <div id="stopAudioBtn" class="pauseAudioBtn"><div class="lottie" id="lottieAudio" data-bm-renderer='svg'></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--DEF-->
     <section id="stnHeader" data-id="stnHeader">
         <div class="stnHeader">
               <div class="lottie-container d-flex flex-row justify-content-center align-items-center">
@@ -70,7 +127,7 @@
                                     <span class="text-shadow text-white mb-0 text-price"> € 10,49</span>
                                 </div>
                                 <div id="btn-demo" class="btn btn-danger btn-sm demo d-none flex-row align-items-baseline mr-2 mt-2">
-                                    <span class="text-shadow text-white mb-0 text-demo"> ==(demo_tag)==</span>
+                                    <span class="text-shadow text-white mb-0 text-demo"> DEMO GAME</span>
                                 </div>
                                 <div class="mt-2">
                                     <button class="btn btn-outline-secondary btn-sm wishlist-btn wishlist mr-2">
@@ -535,31 +592,7 @@
             </div>
         </div>
     </section>
-    <!--Section 4: Análisis y reseñas-->
-    <section id="stnAnalisis" data-id="stnAnalisis" class="stnAnalisis bgDarkTexture">
-        <div class="stnAnalisis-Container d-flex flex-lg-row flex-column-reverse">
-            <div class="stnAnalisis-Slider d-flex flex-column p-lg-5 p-3">
-                <div class="btnPrev d-flex mx-lg-5 my-lg-3"><a href="#carouselAnalisis" role="button" data-slide="prev" class="fontSecondarySmall primaryColor"><i class="fas fa-chevron-left fa-sm"></i> ==(previous)==</a></div>
-                <!--Carousel-->
-                <div id="carouselAnalisis" class="stnAnalisis-SliderText carousel slide mx-lg-5"  data-ride="carousel" data-interval="false">
-                    <div class="carousel-inner d-flex flex-row border borderPrimaryColor">
-                        <div class="carousel-item active flex-column p-lg-5 p-4">
-                            <p class="analisisName fontSecondarySmall">ABCDEFG</p>
-                            <p class="analisisDate fontSecondarySmall">2018-03-09 12:14:40</p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit morbi sociis auctor, praesent vulputate potenti curabitur vitae tortor turpis erat felis etiam, augue tristique est habitasse ante lobortis commodo dui vestibulum.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="btnNext d-flex mx-lg-5 my-lg-3"><a href="#carouselAnalisis" role="button" data-slide="next" class="fontSecondarySmall primaryColor">==(next)== <i class="fas fa-chevron-right fa-sm"></i></a></div>
-            </div>
-            <div class="stnAnalisis-Title d-flex flex-column">
-                <div class="lineaVertical primaryColorBg active"></div>
-                <div><h3 class="py-lg-5 pr-md-5 p-3 fontSecondaryBig primaryColor">==(analysis)==<br>==(and_reviews)==</h3></div>
-            </div>
-            <div class="lineaHorizontalAncha primaryColorBg active" data-aos="slide-left" data-aos-duration="1500" data-aos-anchor-placement="bottom-bottom"></div>
-        </div>
-    </section>
-    <!--Section 5: Patchnotes +Guías +Tutoriales-->
+    <!--Section 4: Patchnotes +Guías +Tutoriales-->
     <section id="stnEvents" data-id="stnGuias" class="stnGuias">
         <div class="stnGuiasContainer mx-lg-5 p-lg-5 px-3 py-5">
             <div class="d-flex flex-column pt-3 pb-5 px-5 bg-gray-900 border bodyEvents">
@@ -739,6 +772,135 @@
         </div>
         <div class="mt-3 ml-3 fontSecondarySmall">__(meta_titles)__</div>
     </section>
+
+    <!--Section 10: Reviews-->
+    <section id="stnAnalisis" data-id="stnAnalisis" class="stnAnalisis bgDarkTexture pt-4">
+        <div class="px-lg-5 p-3">
+            <div class="py-4"><h3 class="fontSecondaryBig">==(analysis)==<br><span class="primaryColor">==(and_reviews)==</span></h3></div>
+            <div id="containerCreateComment" class="d-none">
+                <div id="alertPublishedCommentary" class="alert alert-primary d-none" role="alert">
+                    Commentary published
+                </div>
+                <div id="alertNoPublishedCommentary" class="alert alert-danger d-none" role="alert">
+                    An error has ocurred publishing your commentary, retry
+                </div>
+                <div id="containerFormComment">
+                    <h3 class="">COMMENT YOUR EXPERIENCE</h3>
+                    <hr class="border-green-lighter">
+                    <form action="#" id="formComment">
+                        <div class="form-group animated fadeIn fast delay-2">
+                            <textarea name="comment" class="form-control my-3 p-3 borderPrimaryColor bg-transparent colorLight" name="text" maxlength="1024"></textarea>
+                            <div class="d-flex flex-row align-items-center p-0 mb-md-0 mb-3">
+                                <button id="inputVotePositiveCommentary" onclick="toggleSelectedButton(0)" __selected__="0" type="button" class="btn btn-outline-primary btn-outline-secondary btn-sm socialVote" data-act="like" data-target="4062">
+                                    <i class="fas fa-thumbs-up"></i>
+                                </button>
+                                <button id="inputVoteNegativeCommentary" onclick="toggleSelectedButton(1)" __selected__="0" type="button" class="btn btn-outline-secondary btn-sm ml-2 socialVote" data-act="dislike" data-target="4062">
+                                    <i class="fas fa-thumbs-down"></i>
+                                </button>
+                                <p class="text-secondary mb-0"><i class="fas fa-arrow-left ml-3 mr-2"></i>Did you like it?</p>
+                            </div>
+                            <div class="mx-0 mt-3"><button type="submit" class="btn-cta mt-xl-4 animated pulse fast delay-1">COMMENT</button></div>
+                        </div>
+                    </form>
+                </div>
+            
+            </div>
+        </div>
+        <div class="">
+            <div class="p-lg-5 p-3">
+                <div class="mx-lg-3">
+                    <div class="bg-dropdown-info">
+                        <h2>GENERAL REVIEWS:</h2>
+                        <div id="totalReviewsDisplay">
+                        </div>
+                        <div id="containerGraphs">
+                            <div class="mt-2 row p-3">
+                                <div class="col-auto">
+                                    <input checked type="radio" __selector__="graphSelector" name="graphShow" onchange="showGraph(1)">
+                                    <label>Graph of Year</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="radio" __selector__="graphSelector" name="graphShow" onchange="showGraph(2)">
+                                    <label>Graph of Last 90 Days</label>
+                                </div>
+                            </div>
+                            <div class="graph" id="placeholderGraph">
+                            </div>
+                            <div class="graph" id="placeholderGraph90">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filters">
+                        <div class="dropdown">
+                            <button class="btn-dwn dropdown-toggle">Type of review</button>
+                            <div class="dropdown-menu dropdown-menu-review text-nobreak mt-0">
+                                <li><input onchange="addSelected(this), displayReviews(loadReviews(getValueFilters()))" checked value="0" name="reviewType" id="filterReviewType1" type="radio"><label for="filterReviewType1">All<span class="text-muted" id="numberFilterReviewType1"></span></label></li>
+                                <li><input onchange="addSelected(this), displayReviews(loadReviews(getValueFilters()))" value="1" name="reviewType" id="filterReviewType2" type="radio"><label for="filterReviewType2">Positives<span class="text-muted" id="numberFilterReviewType2"></span></label></li>
+                                <li><input onchange="addSelected(this), displayReviews(loadReviews(getValueFilters()))" value="2" name="reviewType" id="filterReviewType3" type="radio"><label for="filterReviewType3">Negatives<span class="text-muted" id="numberFilterReviewType3"></span></label></li>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn-dwn dropdown-toggle">Type of sale</button>
+                            <div class="dropdown-menu dropdown-menu-review text-nobreak mt-0">
+                                <li><input onchange="addSelected(this), displayReviews(loadReviews(getValueFilters()))" checked value="0" name="saleType" id="filterSaleType1" type="radio"><label for="filterSaleType1">All<span class="text-muted" id="numberFilterSale1"></span></label></li>
+                                <li><input onchange="addSelected(this), displayReviews(loadReviews(getValueFilters()))" value="1" name="saleType" id="filterSaleType2" type="radio"><label for="filterSaleType2">Buy<span class="text-muted" id="numberFilterSale2"></span></label></li>
+                                <li><input onchange="addSelected(this), displayReviews(loadReviews(getValueFilters()))" value="2" name="saleType" id="filterSaleType3" type="radio"><label for="filterSaleType3">Free<span class="text-muted" id="numberFilterSale3"></span></label></li>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn-dwn dropdown-toggle">Language</button>
+                            <div class="dropdown-menu dropdown-menu-review text-nobreak mt-0" id="dropdownLanguages">
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn-dwn dropdown-toggle">Order</button>
+                            <div class="dropdown-menu dropdown-menu-review text-nobreak mt-0">
+                                <li><input onchange="displayReviews(loadReviews(getValueFilters()))" checked value="0" name="filterOrder" id="filterOrder1" type="radio"><label for="filterOrder1">Most Positives</label></label></li>
+                                <li><input onchange="displayReviews(loadReviews(getValueFilters()))" value="1" name="filterOrder" id="filterOrder2" type="radio"><label for="filterOrder2">Most Negatives</label></li>
+                                <li><input onchange="displayReviews(loadReviews(getValueFilters()))" value="2" name="filterOrder" id="filterOrder3" type="radio"><label for="filterOrder3">Most Funny</label></li>
+                            </div>
+                        </div>
+                        <button id="btnGraphShow" class="btn-dwn" onclick="hideAndShowGraphContainer(1)">Show Graph</button>
+                        <button id="btnGraphHide" class="btn-dwn d-none" onclick="hideAndShowGraphContainer(0)">Hide Graph</button>
+                    </div>
+                    <div class="p-2">
+                        <div class="filtersSelected">
+                            <p>Filters</p>
+                            <div id="dynamicFilters">
+                            </div>
+                        </div>
+                        <p id="filtersSelectedResult">
+                            Showing <b><span id="globalCountReviews">0</span></b> reviews with the filters of top.
+                        </p>
+                        <div>
+                            <div class="reviewContainer">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-7 mb-5">
+                                        <h5 class="review-bottom">MOST USEFUL REVIEWS <span class="text-white-50">GLOBAL</span></h5>
+                                        <div id="containerReviews"></div>
+                                        <button id="buttonShowMoreReviews" onclick="displayMoreReviews()" type="button" class="btn btn-primary btn-lg d-none">Show More</button>
+                                    </div>
+                                    <div class="col-sm-12 col-md-5">
+                                        <h5 class="review-bottom">PUBLISHED RECENTLY</h5>
+                                        <div id="containerRecentReviews"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--
+            <div class="stnAnalisis-Title d-flex flex-column">
+                <div class="lineaVertical primaryColorBg active"></div>
+                <div><h3 class="py-lg-5 pr-md-5 p-3 fontSecondaryBig primaryColor">==(analysis)==<br>==(and_reviews)==</h3></div>
+            </div>
+            -->
+            <div class="lineaHorizontalAncha primaryColorBg active" data-aos="slide-left" data-aos-duration="1500" data-aos-anchor-placement="bottom-bottom"></div>
+        </div>
+    </section>
+
+
     <section id="modales">
         <div class="modal fade modal1" tabindex="-1" role="dialog" aria-labelledby="ModalImg" aria-hidden="true">
             <div class="modal-dialog modal-xl modal-dialog-centered container-fluid" id="ModalImg">

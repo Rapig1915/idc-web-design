@@ -1,4 +1,1212 @@
 <script src="/assets/config/gamedata.js?==(current_time)=="></script>
+
+
+<script>
+
+//Reviews
+var reviewsShowed;
+var displayedReviews;
+var stepLimitReviews = 5;
+var pointerReviews = 0;
+var langs, sales, typesOfReview;
+var data90 = [], dataAll = []; 
+
+function formatDate(dateRaw){
+    let splitDate= dateRaw.split(" ");
+
+    let date=splitDate[0].split("/");
+    let time=splitDate[1].split(":");
+    let dd=date[0];
+    let mm=date[1]-1;
+    let yyyy =date[2];
+    let hh=time[0];
+    let min=time[1];
+    let ss=time[2].split(",")[0];
+    return new Date(yyyy,mm,dd,hh,min,ss);
+}
+
+
+
+if (!String.format) {
+    String.format = function(format) {
+      var args = Array.prototype.slice.call(arguments, 1);
+      return format.replace(/{(\d+)}/g, function(match, number) { 
+        return typeof args[number] != 'undefined'
+          ? args[number] 
+          : match
+        ;
+      });
+    };
+  }
+
+
+
+//Functions commentaries
+function cleanAlertsCommentaries(state) {
+  let alert1 = $('#alertPublishedCommentary');
+  let alert2 = $('#alertNoPublishedCommentary');
+
+  alert1.addClass('d-none');
+  alert2.addClass('d-none');
+  //Error
+  if(state == 0) {
+    alert2.removeClass('d-none');
+  }
+  //Ok
+  else {
+    alert1.removeClass('d-none');
+  }
+}
+
+let btnComment1 = 'inputVotePositiveCommentary';
+let btnComment2 = 'inputVoteNegativeCommentary';
+let attrSel = '__selected__';
+
+
+function getAttributeOfId(id, attr) {
+  let element = document.getElementById(id); 
+  return [element, element.getAttribute(attr)];
+}
+
+function toggleSelectedButton(num) {
+  
+  let [btn1HTML, btn1State] = getAttributeOfId(btnComment1, attrSel);
+  let [btn2HTML, btn2State] = getAttributeOfId(btnComment2, attrSel);
+
+  if(num == 0) {
+    if(btn1State == 1) {
+      btn1HTML.setAttribute(attrSel, 0);
+    }
+    else if(btn2State == 1){
+      btn2HTML.setAttribute(attrSel, 0);
+      btn1HTML.setAttribute(attrSel, 1);
+    }
+    else {
+      btn1HTML.setAttribute(attrSel, 1);
+    }
+  }
+  else {
+    if(btn2State == 1) {
+      btn2HTML.setAttribute(attrSel, 0);
+    }
+    else if(btn1State == 1){
+      btn1HTML.setAttribute(attrSel, 0);
+      btn2HTML.setAttribute(attrSel, 1);
+    }
+    else {
+      btn2HTML.setAttribute(attrSel, 1);
+    }
+  } 
+}
+
+function checkGameCommented() {
+  let games = JSON.parse(localStorage.games);
+  //let gameFind = games.filter();
+
+}
+
+function reloadAndCheckGameCommented() {
+  
+}
+
+function createComment(vote, text) {
+  //==(language)==
+  let url = `/unilogin/action.php?action=COMMENT&token=${loadSession('token')}&lang===(language)==&gameid=%%(id_idcgame)%%&act=${vote}&extra=${text}`;
+  
+  
+  //destroyElement('containerFormComment');
+
+  //cleanAlertsCommentaries(1);
+  $.ajax({
+    type:"GET",
+    url,
+    dataType: 'text',
+    async: true,
+    success: function(e){
+      try {
+        var result = JSON.parse(e);
+      }
+      catch(err){
+        cleanAlertsCommentaries(0)
+        return;
+      }
+      if (result.rc == 200 ){
+        loadUserGames(() => {
+          let games = JSON.parse(localStorage.games);
+          let game = games.fiter(el => el.IDJUEGO == %%(id_idcgame)%%);
+          destroyElement('containerFormComment');
+          cleanAlertsCommentaries(1);
+        })
+        
+      } else{
+        cleanAlertsCommentaries(0)
+      }
+    },
+    error: function(e){
+      cleanAlertsCommentaries(0);
+    }
+  });
+}
+function updateHTMLCommentary(id) {
+  
+  $.ajax({
+    type:"GET",
+    //==(language)==
+    url:`/idcjson/comments/%%(id_idcgame)%%/CommentsCurrentYear.json`,
+    dataType: 'text',
+    async: true,
+    success: function(e){
+        try {
+          var result = JSON.parse(e);
+          let reviewHTML;
+
+          let langs = getLangs(result);
+          let arrayReviews = [];
+
+          langs.forEach(el => arrayReviews = [...arrayReviews, ...result[el]]);
+
+          review = arrayReviews.filter(el => el.IDComment = id)[0];
+
+          reviewHTML = formatReview(review);
+          document.querySelectorAll('div[__updater__]').forEach(el => el.outerHTML = reviewHTML);
+        }catch (err){
+          return false;
+        }
+    },
+    error: function(e){
+    }
+  });
+}
+function voteCommentary(IDComment, vote) {
+  let url = `/unilogin/action.php?action=VOTE&token=${loadSession('token')}&gameid=%%(id_idcgame)%%&commentid=${IDComment}&act=${vote}`;
+  $.ajax({
+    type:"GET",
+    url,
+    dataType: 'text',
+    async: true,
+    success: function(e){
+      try {
+        var result = JSON.parse(e);
+      }
+      catch(err){
+        return;
+      }
+      if (result.rc == 200 ){
+        updateHTMLCommentary(IDComment);
+      } else{
+      }
+    },
+    error: function(e){
+    }
+  });
+  
+}
+
+function destroyElement(id) {
+  document.getElementById(id).remove();
+}
+//Add event to form
+
+
+function getAndCheckData(form) {
+  let text = form.comment.value;
+  let vote;
+  let error = 0, result = true;
+  if(text.length < 1) error += 1;
+  let [btn1HTML, btn1State] = getAttributeOfId(btnComment1, attrSel);
+  let [btn2HTML, btn2State] = getAttributeOfId(btnComment2, attrSel);
+
+  if(btn1State != 0) vote = 1;
+  else if(btn2State != 0) vote = 2;
+  else error += 2;
+
+  if(error != 0) result = false;
+
+  return [result, {
+    text, vote, error
+  }]
+}
+document.getElementById('formComment').onsubmit = function(e) {
+  e.preventDefault();
+  let form = e.target;
+  let [result, {text, vote, error}] = getAndCheckData(form);
+  if(result) {
+    createComment(vote, text);
+  }
+  else {
+    if(error == 1 || error == 3){
+      $(form.comment).removeClass('colorLight').addClass("alert-danger").delay(1500).queue(function(){
+        $(this).addClass("colorLight");
+        $(this).removeClass("alert-danger").dequeue();
+      });
+    }
+    if(error >= 2){
+      $(`#${btnComment1}`).addClass("alert alert-danger").delay(1500).queue(function(){
+        $(this).removeClass("alert alert-danger").dequeue();
+      });
+      $(`#${btnComment2}`).addClass("alert alert-danger").delay(1500).queue(function(){
+        $(this).removeClass("alert alert-danger").dequeue();
+      });
+    }
+
+  }
+  return;
+}
+
+
+//Templates HTML
+let templateLanguageFilterHTML =  `
+    <li><input value="{0}" name="langType" id="filterLangType{0}" type="radio"><label for="filterLangType{0}" class="text-capitalize">{1}<span class="text-muted"> ({2})</span></label></li>
+    `;
+let templateTotalReviewsHTML = `
+  <h3 class="{0}">
+    {1}&nbsp;
+    <span class="text-light">{2} reviews</span>
+    &nbsp;{3}%
+  </h3>
+  `;
+
+let templateFilterSelected = `
+  <span __text__="{1}" class="badge badge-success text-uppercase">
+    {0}
+    <button onclick="deleteFilterSelected('{1}', reset = true)" type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+    </button>
+  </span>
+  `;
+
+
+let templateReviewHTML = `
+    <div class="row p-3 review-bottom" __updater__="comment_html_{7}">
+        <div class="col-xl-4 px-0">
+            <div class="containerInfoReviewer row px-3">
+                <div class="col-auto p-0 pr-1">
+                    <img width="50px" height="50px" alt="" src="https://icons.iconarchive.com/icons/custom-icon-design/flatastic-11/64/User-green-icon.png">
+                </div>
+                <div class="col-auto px-0" style="line-height:.93rem;">
+                    <p class="mb-0">{0}</p>
+                    <p class="mb-0 text-white-50"><small>{1} games bought</small></p>
+                    <p class="mb-0 text-white-50"><small>{2} reviews</small></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-8 px-0">
+            <div class="infoRecommendedReview mt-2 mt-lg-0">
+                <i class="{3} fas fa-2x"></i>
+                <h4 class="d-inline">
+                    {4}
+                </h4>
+            </div>
+        </div>
+        <div class="col-xl-8 offset-xl-4 mt-2 px-0">
+            <p class="text-white-50 text-uppercase">PUBLISHED AT {5}</p>
+            <p>{6}</p>
+            <p class="text-white-50 mb-0">Was this review helpful to you?</p>
+            <div class="mb-3">
+                <a href="javascript:voteCommentary({7}, 1)" class="actionButton primaryColor"><i class="fas fa-thumbs-up"></i> Yes</a>
+                <a href="javascript:voteCommentary({7}, 2)" class="actionButton primaryColor"><i class="fas fa-thumbs-down"></i> No</a>
+                <a href="javascript:voteCommentary({7}, 3)" class="actionButton primaryColor"><i class="far fa-laugh-beam"></i> Funny</a>
+            </div>
+            <div class="mb-3">
+                <p class="{8} mb-0 text-white-50">{9} people found this review helpful</p>
+                <p class="{10} mb-0 text-white-50">{11} people found this review no useful</p>
+                <p class="{12} mb-0 text-white-50">{13} people found this review funny</p>
+            </div>
+        </div>
+    </div>`;
+var recommendation = {
+    2: {
+        text: 'No Recommended',
+        class: 'noRecommendedReview fa-thumbs-down'
+    },
+    1: {
+        text: 'Recommended',
+        class: 'yesRecommendedReview fa-thumbs-up'
+    }
+
+};
+
+var reviewInfo = {
+    hide: 'd-none',
+    show: ''
+}
+
+//Review filters
+//Initialize filters
+
+
+function getLangs(reviews) {
+    return Object.keys(reviews);
+}
+
+
+function deleteFilterSelected(text, reset = false) {
+  let parent = document.getElementById('dynamicFilters');
+  let elements = parent.childNodes;
+  let i = 0, find = false;
+  while(i < elements.length && !find) {
+    try {
+      if(elements[i].getAttribute('__text__') === text) {
+        find = true;
+        elements[i].remove();
+      }
+    }
+    catch(e){}
+    i++;
+  }
+  if(reset) {
+    document.querySelector(`input[name="${text}"]:checked`).checked = false;
+    let element = document.querySelectorAll(`input[name="${text}"]`)[0];
+    element.checked = true;
+    let event = new Event('change');
+    element.dispatchEvent(event);
+  }
+}
+function addSelected(e) {
+  deleteFilterSelected(e.name, reset = false);
+  if(e.value == 0) return;
+  let text = e.parentElement.childNodes[1].innerText.split(" (")[0];
+  let badgeHTML = String.format(templateFilterSelected, text, e.name);
+  document.getElementById('dynamicFilters').innerHTML += badgeHTML;
+}
+
+function getValueFilters(firstLoad = false) {
+    let ordersKey = ['OtherVoteYes', 'OtherVoteNo', 'OtherVoteFunny'];
+    let filters = {
+        type: {
+          key: 0,
+          text: ''
+        },
+        sale : {
+            key: 0,
+            text: ''
+        },
+        lang : {
+            key: 0,
+            text: ''
+        },
+        time : {
+            min: 0,
+            max: 91
+        },
+        order: ordersKey[0]
+    };
+    if(firstLoad) return filters;
+
+    let selectedLang = document.querySelector('input[name="langType"]:checked').value;
+
+    let selectedSale = document.querySelector('input[name="saleType"]:checked').value;
+    let selectedReviewType = document.querySelector('input[name="reviewType"]:checked').value;
+    let selectedOrderValue = parseInt(document.querySelector('input[name="filterOrder"]:checked').value);
+    filters = {
+        type: {
+          key: parseInt(selectedReviewType),
+          text: typesOfReview[selectedReviewType]
+        },
+        sale : {
+            key: parseInt(selectedSale),
+            text: sales[selectedSale]
+        },
+        lang : {
+            key: parseInt(selectedLang),
+            text: langs[selectedLang]
+        },
+        time : {
+            min: 0,
+            max: 91
+        },
+        order: ordersKey[selectedOrderValue]
+    };
+    return filters;
+}
+
+
+
+var jsonReviews = {
+    "es":[
+        {"DateTime":"23/12/2020 23:10:46,558+01:00","IDComment":"3","NickName":"vlamas","AdqusitionType":"FREE","NumberofComments":"1","GamesBought":"0","Vote":"1","OtherVoteYes":"1","OtherVoteNo":"30","OtherVoteFunny":"10","PlayedTime":"","ActualPlayedTime":"0","Text":"Hola esto es una prueba"},
+        {"DateTime":"10/12/2020 10:53:15,153+01:00","IDComment":"4","NickName":"USER","AdqusitionType":"FREE","NumberofComments":"1","GamesBought":"1","Vote":"2","OtherVoteYes":"11","OtherVoteNo":"1","OtherVoteFunny":"5","PlayedTime":"0","ActualPlayedTime":"0","Text":"Hola esto es una prueba"},
+        {
+            "DateTime":"22/12/2020 23:11:46,558+01:00",
+            "IDComment":"4",
+            "NickName":"vlamas",
+            "AdqusitionType":"FREE",
+            "NumberofComments":"1",
+            "GamesBought":"0",
+            "Vote":"2",
+            "OtherVoteYes":"12",
+            "OtherVoteNo":"3",
+            "OtherVoteFunny":"30",
+            "PlayedTime":"",
+            "ActualPlayedTime":"0",
+            "Text":"Hola esto es una prueba"
+        },
+        {
+            "DateTime":"30/12/2020 23:10:46,558+01:00",
+            "IDComment":"3",
+            "NickName":"sdam21s",
+            "AdqusitionType":"BUY",
+            "NumberofComments":"11",
+            "GamesBought":"0",
+            "Vote":"2",
+            "OtherVoteYes":"3",
+            "OtherVoteNo":"3",
+            "OtherVoteFunny":"8",
+            "PlayedTime":"100",
+            "ActualPlayedTime":"0",
+            "Text":"Hola esto es una prueba"
+        },
+        {"DateTime":"11/12/2020 10:52:55,153+01:00","IDComment":"4","NickName":"USER","AdqusitionType":"FREE","NumberofComments":"1","GamesBought":"1","Vote":"1","OtherVoteYes":"3","OtherVoteNo":"32","OtherVoteFunny":"9","PlayedTime":"0","ActualPlayedTime":"0","Text":"Hola esto es una prueba"}
+    ],
+    "en":[
+        {
+            "DateTime":"25/12/2020 23:10:46,558+01:00",
+            "IDComment":"4",
+            "NickName":"vlamas",
+            "AdqusitionType":"FREE",
+            "NumberofComments":"1",
+            "GamesBought":"0",
+            "Vote":"2",
+            "OtherVoteYes":"9",
+            "OtherVoteNo":"2",
+            "OtherVoteFunny":"4",
+            "PlayedTime":"",
+            "ActualPlayedTime":"0",
+            "Text":"Good and fun"
+        },
+        {
+            "DateTime":"12/12/2020 23:10:46,558+01:00",
+            "IDComment":"3",
+            "NickName":"sdam21s",
+            "AdqusitionType":"BUY",
+            "NumberofComments":"11",
+            "GamesBought":"0",
+            "Vote":"2",
+            "OtherVoteYes":"303",
+            "OtherVoteNo":"3",
+            "OtherVoteFunny":"8",
+            "PlayedTime":"100",
+            "ActualPlayedTime":"0",
+            "Text":"Best game, best graphics"
+        },
+        {"DateTime":"15/12/2020 10:53:55,153+01:00","IDComment":"4","NickName":"USER","AdqusitionType":"FREE","NumberofComments":"1","GamesBought":"1","Vote":"1","OtherVoteYes":"1000","OtherVoteNo":"200","OtherVoteFunny":"99999","PlayedTime":"0","ActualPlayedTime":"0","Text":"Great game!"}
+    ]
+};
+
+
+function filterByKey(reviews, key, condition) {
+  return reviews.filter(review => review[key].toString().toLowerCase() === condition.toString().toLowerCase())
+}
+function createArrayOfReviews(content) {
+  let reviews = [];
+  for(let lang of Object.keys(content)){
+      reviews.push(...content[lang]);
+  }
+  return reviews;
+}
+
+function loadReviews(filters) {
+    let content = { ...jsonReviews };
+    let langFilter = filters.lang;
+    let saleFilter = filters.sale;
+    let orderSelected = filters.order;
+    let reviewTypeFilter = filters.type;
+    if(langFilter.key !== 0) {
+        let contentLang = content[langFilter.text];
+        content = { };
+        content[langFilter.text] = contentLang;
+    }
+    
+    content = createArrayOfReviews(content);
+
+    if(saleFilter.key !== 0) {
+        content = filterByKey(content, 'AdqusitionType', saleFilter.text);
+    }
+    if(reviewTypeFilter.key !== 0) {
+      content = filterByKey(content, 'Vote', reviewTypeFilter.text);
+    }
+    content = content.slice().sort((a, b) => b[orderSelected].localeCompare(a[orderSelected], undefined, {'numeric': true}));
+
+    displayedReviews = content;
+    document.getElementById('globalCountReviews').innerHTML = content.length;
+    return content;
+}
+
+function formatReview(review) {
+
+  //Display or not info like, funny
+  let classLike, classFunny, classDislike;
+  if(review.OtherVoteYes > 0) {
+      classLike = reviewInfo.show;
+  }
+  else {
+      classLike = reviewInfo.hide;
+  }
+  if(review.OtherVoteFunny > 0) {
+      classFunny = reviewInfo.show;
+  }
+  else {
+      classFunny = reviewInfo.hide;
+  }
+  if(review.OtherVoteNo > 0) {
+    classDislike = reviewInfo.show;
+  }
+  else {
+    classDislike = reviewInfo.hide;
+  }
+
+
+  let dateTime = formatDate(review.DateTime);
+  let stringDateTime = `${dateTime.toLocaleString('default', { month: 'long'})} ${dateTime.getDate()} ${dateTime.getFullYear()}`;
+
+  let textHTML = 
+  String.format(
+      templateReviewHTML, 
+      review.NickName, 
+      review.GamesBought,
+      review.NumberofComments,
+      recommendation[review.Vote].class, 
+      recommendation[review.Vote].text, 
+      stringDateTime,
+      review.Text,
+      review.IDComment,
+      classLike,
+      review.OtherVoteYes,
+      classDislike,
+      review.OtherVoteNo,
+      classFunny,
+      review.OtherVoteFunny
+  );
+  
+  return textHTML;
+}
+
+function createHTMLReviews(idContainer, reviews, recent = false) {
+    let containerHTMLRev = document.getElementById(idContainer);
+    let base = pointerReviews * stepLimitReviews;
+    if(recent) base = 0;
+    for(let i = base; i < reviews.length && i - base < stepLimitReviews; i++){
+        let review = reviews[i];
+
+        containerHTMLRev.innerHTML += formatReview(review);
+
+    };
+
+    if(!recent) setButtonMoreReviews(pointerReviews + 1);
+}
+
+function displayReviews(content) {
+    displayedReviews = content;
+    setButtonMoreReviews(0);
+    let containerHTMLRev = document.getElementById('containerReviews');
+    containerHTMLRev.innerHTML = '';
+    createHTMLReviews('containerReviews', displayedReviews);
+
+
+    let recentlyReviews = displayedReviews.slice().sort((a, b) => formatDate(b.DateTime).getTime().toString().localeCompare(formatDate(a.DateTime).getTime().toString()));
+
+    let containerHTMLRecRev = document.getElementById('containerRecentReviews');
+    containerHTMLRecRev.innerHTML = '';
+    createHTMLReviews('containerRecentReviews', recentlyReviews, recent = true);
+}
+
+function setButtonMoreReviews(pointerSet) {
+  pointerReviews = pointerSet;
+  let btn = $('#buttonShowMoreReviews');
+  if((pointerReviews * stepLimitReviews) < displayedReviews.length) {
+    btn.removeClass('d-none');
+  }
+  else {
+    btn.addClass('d-none');
+  }
+}
+
+function displayMoreReviews() {
+  createHTMLReviews('containerReviews', displayedReviews);
+}
+
+
+
+function createFilterLang(idContainer, reviews) {
+    let dropdown_menu = document.getElementById(idContainer);
+    let langs = getLangs(reviews);
+    let countGlobal = 0;
+    let filterHTML = '';
+    langs.forEach((key, i) => {
+        let countLang = reviews[key].length;
+        countGlobal += countLang;
+        filterHTML += String.format(templateLanguageFilterHTML, i + 1, key, countLang);
+
+    });
+    filterHTML = String.format(templateLanguageFilterHTML, 0, 'All', countGlobal) + filterHTML;
+    dropdown_menu.innerHTML = filterHTML;
+    
+
+    document.getElementById("filterLangType0").checked = true;
+    for(let i = 0; i < langs.length + 1; i++){
+        document.getElementById(`filterLangType${i}`).onchange = function() {
+          addSelected(this);
+          displayReviews(loadReviews(getValueFilters()));
+        }
+    }
+}
+
+
+function assignFilterCount(arrayFilter, search, count) {
+  let pos = arrayFilter.indexOf(search);
+  if(pos !== -1) {
+    count[pos]++;
+  }
+  return count;
+}
+function createFiltersTypes(reviews, filtersType) {
+  //Sales
+  //Type review
+  let { typesOfReview, sales} = filtersType;
+  let globalTypes = new Array(typesOfReview.length).fill(0), globalSales = new Array(sales.length).fill(0);
+
+  globalTypes[0] = reviews.length;
+  globalSales[0] = reviews.length;
+
+  reviews.forEach(review => {
+    globalTypes = assignFilterCount(typesOfReview, parseInt(review.Vote), globalTypes);
+    globalSales = assignFilterCount(sales, review.AdqusitionType.toLowerCase(), globalSales);
+  });
+  //numberFilterSale2
+  //numberFilterReviewType1
+
+  globalTypes.forEach((element, i) => {
+    document.getElementById(`numberFilterReviewType${i + 1}`).innerHTML = ` (${element})`;
+  });
+
+  globalSales.forEach((element, i) => {
+    document.getElementById(`numberFilterSale${i + 1}`).innerHTML = ` (${element})`;
+  });
+}
+
+function initializeFilters(reviews) {
+    sales = [
+      'All',
+      'buy',
+      'free'
+    ];
+    typesOfReview = [
+      'All',
+      1, //Positive
+      2//Negative
+    ];
+    langs = ['All', ...getLangs(reviews)];
+    createFilterLang('dropdownLanguages', reviews);
+    createFiltersTypes(createArrayOfReviews(reviews), {
+      sales,
+      typesOfReview
+    });
+}
+let classAndText = [
+  {
+    class: 'text-danger',
+    text: 'Extremely Negative',
+    range: [0, 9]
+  },
+  {
+    class: 'text-danger-',
+    text: 'Very Negative',
+    range: [10, 19]
+  },
+  {
+    class: 'text-danger--',
+    text: 'Negative',
+    range: [20, 39]
+  },
+  {
+    class: 'text-warning',
+    text: 'Varied',
+    range: [40, 69]
+  },
+  {
+    class: 'text-primary--',
+    text: 'Positive',
+    range: [70, 84]
+  },
+  {
+    class: 'text-primary-',
+    text: 'Very Positive',
+    range: [85, 94]
+  },
+  {
+    class: 'text-primary',
+    text: 'Extremely Positive',
+    range: [95, 100]
+  }
+];
+
+function findRangePercent(percent) {
+  let finded = false, i = 0;
+  while(!finded && i < classAndText.length) {
+    if(percent >= classAndText[i].range[0] && percent <= classAndText[i].range[1]) finded = true;
+    i++;
+  }
+  return classAndText[i - 1];
+}
+function displayTotalReviews(reviews) {
+  
+  let [positives, totalReviews] = getLangs(reviews).reduce((acc, el) => { acc[0] += reviews[el].filter(rev => rev.Vote == 1).length; acc[1] += reviews[el].length; return acc;}, [0, 0]);
+  if(totalReviews == 0) return;
+  let percent = parseInt(positives/totalReviews*100);
+  let classText = findRangePercent(percent)
+  let totalReviewsHTML = String.format(
+    templateTotalReviewsHTML,
+    classText.class,
+    classText.text,
+    positives,
+    percent
+  );
+  document.getElementById('totalReviewsDisplay').innerHTML = totalReviewsHTML;
+}
+//Reviews loading
+
+
+
+
+var data90_ = [
+  {"Year":"2020","Month":"12","Likes":"2","Dislikes":"0"}
+];
+//Graphs
+var data_ = [
+    {"Date":"16/09/20","Likes":"2","Dislikes":"0"},
+    {"Date":"17/09/20","Likes":"0","Dislikes":"0"},
+    {"Date":"18/09/20","Likes":"0","Dislikes":"2"},
+    {"Date":"19/09/20","Likes":"0","Dislikes":"0"},
+    {"Date":"20/09/20","Likes":"2","Dislikes":"2"},
+    {"Date":"21/09/20","Likes":"0","Dislikes":"0"},
+    {"Date":"22/09/20","Likes":"0","Dislikes":"0"},
+    {"Date":"23/09/20","Likes":"0","Dislikes":"0"},
+    {"Date":"24/09/20","Likes":"0","Dislikes":"0"},
+    {"Date":"25/09/20","Likes":"2","Dislikes":"0"},
+    {"Date":"26/09/20","Likes":"0","Dislikes":"0"},
+    {"Date":"27/09/20","Likes":"0","Dislikes":"0"},
+    {"Date":"28/09/20","Likes":"0","Dislikes":"0"},
+    {"Date":"29/09/20","Likes":"0","Dislikes":"0"},
+    {"Date":"30/09/20","Likes":"0","Dislikes":"0"},
+    {"Date":"01/10/20","Likes":"0","Dislikes":"0"},
+    {"Date":"02/10/20","Likes":"0","Dislikes":"0"},
+    {"Date":"03/10/20","Likes":"0","Dislikes":"0"},
+    {"Date":"04/10/20","Likes":"0","Dislikes":"0"},
+    {"Date":"05/10/20","Likes":"0","Dislikes":"0"},
+    {"Date":"06/10/20","Likes":"0","Dislikes":"0"},
+    {"Date":"07/10/20","Likes":"0","Dislikes":"0"},
+    {"Date":"08/10/20","Likes":"0","Dislikes":"0"},
+    {"Date":"09/10/20","Likes":"1","Dislikes":"0"},
+    {"Date":"10/10/20","Likes":"1","Dislikes":"0"},
+    {"Date":"11/10/20","Likes":"0","Dislikes":"0"},
+    {"Date":"12/10/20","Likes":"1","Dislikes":"0"},
+    {"Date":"13/10/20","Likes":"1","Dislikes":"0"},
+    {"Date":"14/10/20","Likes":"1","Dislikes":"0"},
+    {"Date":"15/10/20","Likes":"1","Dislikes":"2"},
+    {"Date":"16/10/20","Likes":"1","Dislikes":"0"},
+    {"Date":"17/10/20","Likes":"1","Dislikes":"0"},
+    {"Date":"18/10/20","Likes":"1","Dislikes":"0"},
+    {"Date":"19/10/20","Likes":"1","Dislikes":"1"},
+    {"Date":"20/10/20","Likes":"1","Dislikes":"0"},
+    {"Date":"21/10/20","Likes":"1","Dislikes":"0"},
+    {"Date":"22/10/20","Likes":"1","Dislikes":"0"},
+    {"Date":"23/10/20","Likes":"1","Dislikes":"0"},
+    {"Date":"24/10/20","Likes":"0","Dislikes":"0"},
+    {"Date":"25/10/20","Likes":"0","Dislikes":"0"},
+    {"Date":"26/10/20","Likes":"0","Dislikes":"2"},
+    {"Date":"27/10/20","Likes":"0","Dislikes":"2"},
+    {"Date":"28/10/20","Likes":"0","Dislikes":"2"},
+    {"Date":"29/10/20","Likes":"0","Dislikes":"2"},
+    {"Date":"30/10/20","Likes":"2","Dislikes":"2"},
+    {"Date":"31/10/20","Likes":"0","Dislikes":"2"},
+    {"Date":"01/11/20","Likes":"10","Dislikes":"2"},
+    {"Date":"02/11/20","Likes":"1","Dislikes":"0"},
+    {"Date":"03/11/20","Likes":"1","Dislikes":"0"},
+    {"Date":"04/11/20","Likes":"1","Dislikes":"0"},
+    {"Date":"05/11/20","Likes":"1","Dislikes":"0"},
+    {"Date":"06/11/20","Likes":"1","Dislikes":"0"},
+    {"Date":"07/11/20","Likes":"1","Dislikes":"0"},
+    {"Date":"08/11/20","Likes":"1","Dislikes":"0"},
+    {"Date":"09/11/20","Likes":"1","Dislikes":"0"},
+    {"Date":"10/11/20","Likes":"0","Dislikes":"0"},
+    {"Date":"11/11/20","Likes":"0","Dislikes":"0"},
+    {"Date":"12/11/20","Likes":"0","Dislikes":"0"},
+    {"Date":"13/11/20","Likes":"0","Dislikes":"1"},
+    {"Date":"14/11/20","Likes":"0","Dislikes":"1"},
+    {"Date":"15/11/20","Likes":"0","Dislikes":"1"},
+    {"Date":"16/11/20","Likes":"0","Dislikes":"1"},
+    {"Date":"17/11/20","Likes":"0","Dislikes":"1"},
+    {"Date":"18/11/20","Likes":"0","Dislikes":"1"},
+    {"Date":"19/11/20","Likes":"0","Dislikes":"1"},
+    {"Date":"20/11/20","Likes":"0","Dislikes":"1"},
+    {"Date":"21/11/20","Likes":"0","Dislikes":"0"},
+    {"Date":"22/11/20","Likes":"0","Dislikes":"2"},
+    {"Date":"23/11/20","Likes":"0","Dislikes":"2"},
+    {"Date":"24/11/20","Likes":"0","Dislikes":"2"},
+    {"Date":"25/11/20","Likes":"0","Dislikes":"2"},
+    {"Date":"26/11/20","Likes":"0","Dislikes":"0"},
+    {"Date":"27/11/20","Likes":"0","Dislikes":"0"},
+    {"Date":"28/11/20","Likes":"0","Dislikes":"0"},
+    {"Date":"29/11/20","Likes":"0","Dislikes":"0"},
+    {"Date":"01/12/20","Likes":"0","Dislikes":"0"},
+    {"Date":"30/11/20","Likes":"2","Dislikes":"0"},
+    {"Date":"02/12/20","Likes":"2","Dislikes":"0"},
+    {"Date":"03/12/20","Likes":"2","Dislikes":"0"},
+    {"Date":"04/12/20","Likes":"2","Dislikes":"0"},
+    {"Date":"05/12/20","Likes":"2","Dislikes":"30"},
+    {"Date":"06/12/20","Likes":"0","Dislikes":"0"},
+    {"Date":"07/12/20","Likes":"0","Dislikes":"0"},
+    {"Date":"08/12/20","Likes":"0","Dislikes":"0"},
+    {"Date":"09/12/20","Likes":"0","Dislikes":"0"},
+    {"Date":"10/12/20","Likes":"0","Dislikes":"0"},
+    {"Date":"11/12/20","Likes":"0","Dislikes":"0"},
+    {"Date":"12/12/20","Likes":"0","Dislikes":"2"},
+    {"Date":"13/12/20","Likes":"0","Dislikes":"0"},
+    {"Date":"14/12/20","Likes":"1","Dislikes":"0"},
+    {"Date":"15/12/20","Likes":"1","Dislikes":"2"}
+];
+ 
+let ticks = [];
+
+var barOptions = {
+    series: {
+        bars: {
+            show: true,
+            barWidth: 0.05,
+            fill: true,
+            fillColor: {
+                colors: [{
+                    opacity: 0.8
+                }, {
+                    opacity: 0.8
+                }]
+            },
+            align: 'center'
+        }
+    },
+    xaxis: {
+        mode: "time",
+        timeformat: "%m/%d"
+    },
+    yaxis: {
+        min: -2,
+        max: 2,
+        tickSize: 1,
+    },
+    colors: ["#1ab394"],
+    grid: {
+        hoverable: true,
+        clickable: true,
+        borderWidth: 0
+    },
+    legend: {
+        show: false
+    },
+    tooltip: true,
+    tooltipOpts: {
+        content: "Cost: %y %"
+    }
+};
+
+function createData(Data) {
+  let dataActions = [];
+  let maxLikes = 0;
+  let maxDislikes = 0;
+  Data.forEach((element, i) => {
+    let date, prefixYear = '20';
+    if(!Object.keys(element).includes('Date')) {
+      date = [1, element.Month, element.Year];
+      prefixYear = '';
+    }
+    else {
+      date = element.Date.split("/");
+    }
+    dataActions.push([new Date(`${date[1]}/${date[0]}/${prefixYear}${date[2]}`).getTime(), element.Likes]);
+    dataActions.push([new Date(`${date[1]}/${date[0]}/${prefixYear}${date[2]}`).getTime(), -element.Dislikes]);
+    let likes = parseInt(element.Likes), dislikes = parseInt(element.Dislikes);
+    if(likes > maxLikes) maxLikes = likes;
+    if(dislikes > maxDislikes) maxDislikes = dislikes;
+  });
+  return {
+    dataActions,
+    maxLikes,
+    maxDislikes
+  };
+}
+
+
+function hideAndShowGraphContainer(state) {
+  let btnShow = $('#btnGraphShow');
+  let btnHide = $('#btnGraphHide');
+  let containerGraphs = $('#containerGraphs');
+  if(state == 0) {
+    btnShow.removeClass('d-none');
+    btnHide.addClass('d-none');
+    containerGraphs.addClass('d-none');
+  }
+  else {
+    btnHide.removeClass('d-none');
+    btnShow.addClass('d-none');
+    containerGraphs.removeClass('d-none');
+  }
+
+}
+function showGraph(num) {
+  let graph1 = $('#placeholderGraph');
+  let graph2 = $('#placeholderGraph90');
+  if(num == 1) {
+    graph1.removeClass('d-none');
+    graph2.addClass('d-none');
+    //createGraph("placeholderGraph", data);
+  }
+  else {
+    graph2.removeClass('d-none');
+    graph1.addClass('d-none');
+    //createGraph("placeholderGraph90", data90);
+  }
+}
+
+function cleanContainerGraph(IDgraphContainer) {
+  let element = document.getElementById(IDgraphContainer);
+  element.style.height = 'auto';
+  element.innerHTML = '<div class="px-3"><h3>No data</h3></div>'
+}
+
+function createGraph(IDgraphContainer, Data, defaultClass) {
+  if(Data.length <=  0) {
+    cleanContainerGraph(IDgraphContainer);
+    return;
+  }
+  document.getElementById(IDgraphContainer).style.height = '400px';
+
+  let { dataActions, maxLikes, maxDislikes } = createData(Data);
+  let temporalBarOptions = JSON.parse(JSON.stringify(barOptions));
+  temporalBarOptions.yaxis.min = - maxDislikes;
+  temporalBarOptions.yaxis.max = maxLikes;
+  temporalBarOptions.yaxis.tickSize = Math.ceil((maxLikes + maxDislikes)/5);
+  let barData = {
+    label: "bar",
+    data: dataActions,
+    threshold: {
+        below: 0,
+        color: "rgb(200, 20, 30)"
+    },
+  };
+  let graphContainer = $(`#${IDgraphContainer}`);
+  $.plot(graphContainer,[barData], temporalBarOptions);
+  $(window).resize(function() {
+    graphContainer.text('');
+    try {
+      $.plot(graphContainer,[barData], temporalBarOptions);
+    }
+    catch(e) {}
+  });
+  let elementForShow = document.querySelectorAll('input[__selector__="graphSelector"]');
+  elementForShow.forEach(input => {
+    input.addEventListener('change', function() {
+      try {
+        $.plot(graphContainer,[barData], temporalBarOptions);
+      }
+      catch(e){}
+    });
+  });
+  document.getElementById('btnGraphShow').addEventListener('click', function() {
+    try {
+      $.plot(graphContainer,[barData], temporalBarOptions);
+    }
+    catch(e){}
+  });
+  graphContainer.addClass(defaultClass);
+}
+
+
+/*
+window.onload = setTimeout(function () {
+  createGraph("placeholderGraph", data, '');
+  createGraph("placeholderGraph90", data90, 'd-none');
+  $('#containerGraphs').addClass('d-none');
+}, 1000);
+*/
+
+
+
+function loadSecondGraph() {
+  $.ajax({
+      type:"GET",
+      url:`/idcjson/comments/%%(id_idcgame)%%/Graph90days.json`,
+      dataType: 'text',
+      async: true,
+      success: function(e){
+          try {
+            var result = JSON.parse(e);
+            data90 = result.comments;
+            setTimeout(function () {
+              try {
+                createGraph("placeholderGraph90", data90, 'd-none');
+              }
+              catch(err) {
+                cleanContainerGraph('placeholderGraph90');
+                $('#placeholderGraph90').addClass('d-none');
+              }
+              $('#containerGraphs').addClass('d-none');
+            }, 1000);
+          }catch (er){
+            cleanContainerGraph('placeholderGraph90');
+            $('#placeholderGraph90').addClass('d-none');
+            $('#containerGraphs').addClass('d-none');
+            return false;
+          }
+      },
+      error: function(e){
+        cleanContainerGraph('placeholderGraph90');
+        $('#placeholderGraph90').addClass('d-none');
+        $('#containerGraphs').addClass('d-none');
+      }
+  });
+}
+
+function checkBoughtGame() {
+  let idContainerCommentary = 'containerCreateComment';
+  if(getCookie('id') == '') {}
+  else if(getGameStatus(gamedata[%%(id_idcgame)%%]).bought){
+    $(`#${idContainerCommentary}`).removeClass('d-none');
+    return;
+  }
+  destroyElement(idContainerCommentary);
+}
+
+function loadAndRenderData() {
+  $.ajax({
+    type:"GET",
+    //==(language)==
+    url:`/idcjson/comments/%%(id_idcgame)%%/CommentsCurrentYear.json`,
+    dataType: 'text',
+    async: true,
+    success: function(e){
+        try {
+          var result = JSON.parse(e);
+          jsonReviews = result;
+          displayTotalReviews(jsonReviews);
+          initializeFilters(jsonReviews);
+          displayReviews(loadReviews(getValueFilters(firstLoad = true)));
+        }catch (e){
+          $('#containerGraphs').addClass('d-none');
+          return false;
+        }
+    },
+    error: function(e){
+      $('#containerGraphs').addClass('d-none');
+    }
+  });
+
+
+  $.ajax({
+      type:"GET",
+      url:`/idcjson/comments/%%(id_idcgame)%%/GraphAll.json`,
+      dataType: 'text',
+      async: true,
+      success: function(e){
+          try {
+            var result = JSON.parse(e);
+            dataAll = result.comments;
+            setTimeout(function () {
+              try {
+                createGraph("placeholderGraph", dataAll, '');
+                loadSecondGraph();
+              }
+              catch(err) {
+                cleanContainerGraph('placeholderGraph');
+                loadSecondGraph();
+              }
+            }, 1000);
+            
+          }catch (er){
+            cleanContainerGraph('placeholderGraph');
+            loadSecondGraph();
+            return false;
+          }
+      },
+      error: function(e){
+        cleanContainerGraph('placeholderGraph');
+        loadSecondGraph();
+      }
+  });
+}
+
+/*
+displayTotalReviews(jsonReviews);
+initializeFilters(jsonReviews);
+displayReviews(loadReviews(getValueFilters(firstLoad = true)));
+*/
+loadAndRenderData();
+function manageCheck() {
+  try {
+    checkBoughtGame();
+  }
+  catch(e) {
+    setTimeout(manageCheck, 1500);
+  }
+}
+manageCheck();
+
+
+
+
+</script>
+
+
+<script>
+var video = document.getElementById("videoAction");
+pausePlayBtn = document.getElementById('lottieP');
+var paramsPlay = {
+  container: pausePlayBtn,
+  renderer: 'svg',
+  loop: false,
+  autoplay:false,
+  prerender: true,
+  autoloadSegments: false,
+  animationData: {"v":"4.9.0","fr":29.9700012207031,"ip":0,"op":60.0000024438501,"w":157,"h":157,"nm":"Pause to Play","ddd":0,"assets":[],"layers":[{"ddd":0,"ind":3,"ty":4,"nm":"background pause 2","sr":1,"ks":{"o":{"a":1,"k":[{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":0,"s":[100],"e":[75]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":20,"s":[75],"e":[0]},{"t":30.0000012219251}]},"r":{"a":0,"k":0},"p":{"a":0,"k":[118.5,78.5,0]},"a":{"a":0,"k":[0,0,0]},"s":{"a":0,"k":[100,100,100]}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":0,"k":{"i":[[0,0],[0,0]],"o":[[0,0],[0,0]],"v":[[0,-29.405],[0,29.405]],"c":false}},"nm":"Path 1","mn":"ADBE Vector Shape - Group"},{"ty":"st","c":{"a":0,"k":[0.1058824,0.1058824,0.1058824,1]},"o":{"a":0,"k":100},"w":{"a":0,"k":12},"lc":2,"lj":1,"ml":4,"nm":"Stroke 1","mn":"ADBE Vector Graphic - Stroke"},{"ty":"tr","p":{"a":0,"k":[-20,0],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Shape 1","np":3,"cix":2,"ix":1,"mn":"ADBE Vector Group"},{"ty":"tm","s":{"a":0,"k":0,"ix":1},"e":{"a":1,"k":[{"i":{"x":[0],"y":[1]},"o":{"x":[0.167],"y":[0.167]},"n":["0_1_0p167_0p167"],"t":-90,"s":[0],"e":[100]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":-75,"s":[100],"e":[100]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.167],"y":[0.167]},"n":["0p667_1_0p167_0p167"],"t":15,"s":[100],"e":[0]},{"t":20.0000008146167}],"ix":2},"o":{"a":0,"k":0,"ix":3},"m":1,"ix":2,"nm":"Trim Paths 1","mn":"ADBE Vector Filter - Trim"}],"ip":0,"op":60.0000024438501,"st":-165.000006720588,"bm":0},{"ddd":0,"ind":4,"ty":4,"nm":"background pause 1","sr":1,"ks":{"o":{"a":1,"k":[{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":0,"s":[100],"e":[75]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":20,"s":[75],"e":[0]},{"t":30.0000012219251}]},"r":{"a":0,"k":0},"p":{"a":0,"k":[78.5,78.5,0]},"a":{"a":0,"k":[0,0,0]},"s":{"a":0,"k":[100,100,100]}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":0,"k":{"i":[[0,0],[0,0]],"o":[[0,0],[0,0]],"v":[[0,-29.405],[0,29.405]],"c":false}},"nm":"Path 1","mn":"ADBE Vector Shape - Group"},{"ty":"st","c":{"a":0,"k":[0.1058824,0.1058824,0.1058824,1]},"o":{"a":0,"k":100},"w":{"a":0,"k":12},"lc":2,"lj":1,"ml":4,"nm":"Stroke 1","mn":"ADBE Vector Graphic - Stroke"},{"ty":"tr","p":{"a":0,"k":[-20,0],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Shape 1","np":3,"cix":2,"ix":1,"mn":"ADBE Vector Group"},{"ty":"tm","s":{"a":0,"k":0,"ix":1},"e":{"a":1,"k":[{"i":{"x":[0],"y":[1]},"o":{"x":[0.167],"y":[0.167]},"n":["0_1_0p167_0p167"],"t":-90,"s":[0],"e":[100]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":-75,"s":[100],"e":[100]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.167],"y":[0.167]},"n":["0p667_1_0p167_0p167"],"t":15,"s":[100],"e":[0]},{"t":20.0000008146167}],"ix":2},"o":{"a":0,"k":0,"ix":3},"m":1,"ix":2,"nm":"Trim Paths 1","mn":"ADBE Vector Filter - Trim"}],"ip":0,"op":60.0000024438501,"st":-165.000006720588,"bm":0},{"ddd":0,"ind":5,"ty":4,"nm":"play to ring","sr":1,"ks":{"o":{"a":0,"k":100},"r":{"a":0,"k":0},"p":{"a":0,"k":[78.5,78.5,0]},"a":{"a":0,"k":[0,0,0]},"s":{"a":0,"k":[100,100,100]}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":0,"k":{"i":[[0,0],[0,38.863],[-40.041,0],[0,-40.041],[40.041,0],[0,14.55],[0,0],[0,0],[0,0]],"o":[[-38.41,-1.832],[0,-40.041],[40.041,0],[0,40.041],[0,0],[0,0],[0,0],[0,0],[0,0]],"v":[[-3.512,72.292],[-72.5,-0.125],[0,-72.625],[72.5,-0.125],[0,72.375],[-14.988,58.075],[-14.988,-29.462],[30.14,-0.125],[-14.116,28.468]],"c":false}},"nm":"Path 1","mn":"ADBE Vector Shape - Group"},{"ty":"st","c":{"a":0,"k":[0.1058824,0.1058824,0.1058824,1]},"o":{"a":0,"k":100},"w":{"a":0,"k":12},"lc":2,"lj":2,"nm":"Stroke 1","mn":"ADBE Vector Graphic - Stroke"},{"ty":"tr","p":{"a":0,"k":[0,0],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Shape 1","np":3,"cix":2,"ix":1,"mn":"ADBE Vector Group"},{"ty":"tm","s":{"a":1,"k":[{"i":{"x":[0],"y":[1]},"o":{"x":[0.167],"y":[0.167]},"n":["0_1_0p167_0p167"],"t":-105,"s":[75.5],"e":[32.9]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":-75,"s":[32.9],"e":[32.9]},{"i":{"x":[0],"y":[1]},"o":{"x":[0.167],"y":[0.167]},"n":["0_1_0p167_0p167"],"t":15,"s":[32.9],"e":[75.5]},{"t":45.0000018328876}],"ix":1},"e":{"a":0,"k":100,"ix":2},"o":{"a":1,"k":[{"i":{"x":[0],"y":[1]},"o":{"x":[0.167],"y":[0.167]},"n":["0_1_0p167_0p167"],"t":-105,"s":[0],"e":[-118]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":-75,"s":[-118],"e":[-118]},{"i":{"x":[0],"y":[1]},"o":{"x":[0.167],"y":[0.167]},"n":["0_1_0p167_0p167"],"t":15,"s":[-118],"e":[0]},{"t":45.0000018328876}],"ix":3},"m":1,"ix":2,"nm":"Trim Paths 1","mn":"ADBE Vector Filter - Trim"}],"ip":0,"op":60.0000024438501,"st":-165.000006720588,"bm":0},{"ddd":0,"ind":6,"ty":4,"nm":"background circle","sr":1,"ks":{"o":{"a":1,"k":[{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":-80,"s":[25],"e":[100]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":-75,"s":[100],"e":[100]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":15,"s":[100],"e":[25]},{"t":16.0000006516934}]},"r":{"a":0,"k":0},"p":{"a":0,"k":[78.5,78.5,0]},"a":{"a":0,"k":[3.879,-2.121,0]},"s":{"a":0,"k":[100,100,100]}},"ao":0,"shapes":[{"ty":"gr","it":[{"d":1,"ty":"el","s":{"a":0,"k":[145,145]},"p":{"a":0,"k":[0,0]},"nm":"Ellipse Path 1","mn":"ADBE Vector Shape - Ellipse"},{"ty":"st","c":{"a":0,"k":[0.1058824,0.1058824,0.1058824,1]},"o":{"a":0,"k":100},"w":{"a":0,"k":12},"lc":1,"lj":1,"ml":4,"nm":"Stroke 1","mn":"ADBE Vector Graphic - Stroke"},{"ty":"tr","p":{"a":0,"k":[3.879,-2.121],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Ellipse 1","np":3,"cix":2,"ix":1,"mn":"ADBE Vector Group"}],"ip":0,"op":60.0000024438501,"st":-165.000006720588,"bm":0}]}
+};
+var animPlay = bodymovin.loadAnimation(paramsPlay);
+function scriptPlay(){
+  animPlay.setSpeed(2);
+  animPlay.setDirection(1);
+  animPlay.play();
+  video.pause();
+}
+function scriptPause(){
+  animPlay.setSpeed(2);
+  animPlay.setDirection(-1);
+  animPlay.play();
+  video.play();
+};
+
+pausePlayAudioBtn = document.getElementById('lottieAudio');
+var params = {
+  container: pausePlayAudioBtn,
+  renderer: 'svg',
+  loop: false,
+  autoplay:false,
+  prerender: true,
+  autoloadSegments: false,
+  animationData: {"v":"5.4.1","fr":29.9700012207031,"ip":0,"op":30.0000012219251,"w":20,"h":20,"nm":"Mute","ddd":0,"assets":[],"layers":[{"ddd":0,"ind":1,"ty":4,"nm":"mask_wave_2","td":1,"sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[10,10,0],"ix":2},"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ty":"rc","d":1,"s":{"a":0,"k":[9.938,18.313],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"r":{"a":0,"k":0,"ix":4},"nm":"Rectangle Path 1","mn":"ADBE Vector Shape - Rect","hd":false},{"ty":"st","c":{"a":0,"k":[1,1,1,1],"ix":3},"o":{"a":0,"k":100,"ix":4},"w":{"a":0,"k":20,"ix":5},"lc":1,"lj":1,"ml":4,"ml2":{"a":0,"k":4,"ix":8},"nm":"Stroke 1","mn":"ADBE Vector Graphic - Stroke","hd":true},{"ty":"fl","c":{"a":0,"k":[0,0,0,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[-5.281,0.031],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transformar"}],"nm":"Rectangle 1","np":3,"cix":2,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":91.000003706506,"st":0,"bm":0},{"ddd":0,"ind":2,"ty":4,"nm":"wave_2 Outlines","tt":2,"sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":1,"k":[{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"n":"0p833_0p833_0p167_0p167","t":2,"s":[18.306,9.963,0],"e":[18.118,9.963,0],"to":[-0.03125,0,0],"ti":[1.67708337306976,0,0]},{"i":{"x":0.833,"y":0.931},"o":{"x":0.167,"y":0.167},"n":"0p833_0p931_0p167_0p167","t":6,"s":[18.118,9.963,0],"e":[8.243,9.963,0],"to":[-1.67708337306976,0,0],"ti":[1.64583337306976,0,0]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"n":"0p833_0p833_0p167_0p167","t":11,"s":[8.243,9.963,0],"e":[8.243,9.963,0],"to":[0,0,0],"ti":[0,0,0]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.069},"n":"0p833_0p833_0p167_0p069","t":75,"s":[8.243,9.963,0],"e":[18.118,9.963,0],"to":[1.64583337306976,0,0],"ti":[-1.67708337306976,0,0]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"n":"0p833_0p833_0p167_0p167","t":80,"s":[18.118,9.963,0],"e":[18.306,9.963,0],"to":[1.67708337306976,0,0],"ti":[-0.03125,0,0]},{"t":84.0000034213901}],"ix":2},"a":{"a":0,"k":[2.827,7.401,0],"ix":1},"s":{"a":1,"k":[{"i":{"x":[0.833,0.833,0.833],"y":[0.931,0.931,1.151]},"o":{"x":[0.167,0.167,0.167],"y":[0.069,0.069,-0.151]},"n":["0p833_0p931_0p167_0p069","0p833_0p931_0p167_0p069","0p833_1p151_0p167_-0p151"],"t":6,"s":[100,100,100],"e":[44.871,44.871,100]},{"i":{"x":[0.833,0.833,0.833],"y":[1,1,1]},"o":{"x":[0.167,0.167,0.167],"y":[-49.003,-49.003,-1.938]},"n":["0p833_1_0p167_-49p003","0p833_1_0p167_-49p003","0p833_1_0p167_-1p938"],"t":11,"s":[44.871,44.871,100],"e":[44.871,44.871,100]},{"i":{"x":[0.833,0.833,0.833],"y":[1,1,1]},"o":{"x":[0.167,0.167,0.167],"y":[0,0,0]},"n":["0p833_1_0p167_0","0p833_1_0p167_0","0p833_1_0p167_0"],"t":75,"s":[44.871,44.871,100],"e":[100,100,100]},{"t":80.0000032584668}],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":0,"k":{"i":[[0.192,0],[0.146,0.147],[-0.293,0.293],[3.217,3.217],[-0.293,0.293],[-0.293,-0.293],[3.801,-3.801]],"o":[[-0.192,0],[-0.293,-0.293],[3.217,-3.217],[-0.293,-0.293],[0.293,-0.293],[3.801,3.802],[-0.146,0.147]],"v":[[-1.406,7.151],[-1.936,6.931],[-1.936,5.871],[-1.936,-5.797],[-1.936,-6.858],[-0.876,-6.858],[-0.876,6.931]],"c":true},"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"mm","mm":4,"nm":"Merge Paths 1","mn":"ADBE Vector Filter - Merge","hd":false},{"ty":"fl","c":{"a":0,"k":[0.6,0.6,0.647000002394,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[2.479,7.401],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transformar"}],"nm":"Group 1","np":3,"cix":2,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":91.000003706506,"st":0,"bm":0},{"ddd":0,"ind":3,"ty":4,"nm":"mask_wave","td":1,"sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[10,10,0],"ix":2},"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ty":"rc","d":1,"s":{"a":0,"k":[9.938,18.313],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"r":{"a":0,"k":0,"ix":4},"nm":"Rectangle Path 1","mn":"ADBE Vector Shape - Rect","hd":false},{"ty":"st","c":{"a":0,"k":[1,1,1,1],"ix":3},"o":{"a":0,"k":100,"ix":4},"w":{"a":0,"k":20,"ix":5},"lc":1,"lj":1,"ml":4,"ml2":{"a":0,"k":4,"ix":8},"nm":"Stroke 1","mn":"ADBE Vector Graphic - Stroke","hd":true},{"ty":"fl","c":{"a":0,"k":[0,0,0,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[-5.281,0.031],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transformar"}],"nm":"Rectangle 1","np":3,"cix":2,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":91.000003706506,"st":0,"bm":0},{"ddd":0,"ind":4,"ty":4,"nm":"wave_1 Outlines","tt":2,"sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":1,"k":[{"i":{"x":0.833,"y":0.975},"o":{"x":0.333,"y":0.052},"n":"0p833_0p975_0p333_0p052","t":0,"s":[14.063,9.959,0],"e":[14.813,9.959,0],"to":[0.125,0,0],"ti":[1.52083337306976,0,0]},{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"n":"0p667_1_0p333_0","t":4,"s":[14.813,9.959,0],"e":[4.938,9.959,0],"to":[-1.52083337306976,0,0],"ti":[1.64583337306976,0,0]},{"i":{"x":0.667,"y":0.667},"o":{"x":0.167,"y":0.167},"n":"0p667_0p667_0p167_0p167","t":11,"s":[4.938,9.959,0],"e":[4.938,9.959,0],"to":[0,0,0],"ti":[0,0,0]},{"i":{"x":0.833,"y":0.992},"o":{"x":0.167,"y":0.008},"n":"0p833_0p992_0p167_0p008","t":75,"s":[4.938,9.959,0],"e":[14.813,9.959,0],"to":[1.64583337306976,0,0],"ti":[-1.52083337306976,0,0]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.333,"y":0},"n":"0p833_0p833_0p333_0","t":82,"s":[14.813,9.959,0],"e":[14.063,9.959,0],"to":[1.52083337306976,0,0],"ti":[0.125,0,0]},{"t":86.0000035028518}],"ix":2},"a":{"a":0,"k":[1.95,4.218,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":0,"k":{"i":[[0.192,0],[0.146,0.147],[-0.293,0.293],[1.462,1.462],[-0.293,0.293],[-0.293,-0.292],[2.046,-2.048]],"o":[[-0.191,0],[-0.293,-0.292],[1.462,-1.462],[-0.293,-0.293],[0.293,-0.292],[2.046,2.047],[-0.146,0.147]],"v":[[-0.876,3.969],[-1.406,3.749],[-1.406,2.689],[-1.406,-2.615],[-1.406,-3.676],[-0.346,-3.676],[-0.346,3.749]],"c":true},"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"fl","c":{"a":0,"k":[0.6,0.6,0.647000002394,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[1.95,4.218],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transformar"}],"nm":"Group 1","np":2,"cix":2,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":91.000003706506,"st":0,"bm":0},{"ddd":0,"ind":5,"ty":4,"nm":"bar Outlines","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[10.5,9.463,0],"ix":2},"a":{"a":0,"k":[6.475,6.439,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":1,"k":[{"i":{"x":0.667,"y":1},"o":{"x":0.167,"y":0.167},"n":"0p667_1_0p167_0p167","t":19,"s":[{"i":[[0.192,0],[0.146,0.147],[0,0],[-0.293,0.293],[-0.293,-0.293],[0,0],[0.293,-0.293]],"o":[[-0.192,0],[0,0],[-0.293,-0.293],[0.293,-0.293],[0,0],[0.293,0.293],[-0.146,0.147]],"v":[[-5.569,-4.777],[-6.099,-4.996],[-5.932,-4.836],[-5.932,-5.896],[-4.872,-5.896],[-5.039,-6.056],[-5.039,-4.996]],"c":true}],"e":[{"i":[[0.192,0],[0.146,0.147],[0,0],[-0.293,0.293],[-0.293,-0.293],[0,0],[0.293,-0.293]],"o":[[-0.192,0],[0,0],[-0.293,-0.293],[0.293,-0.293],[0,0],[0.293,0.293],[-0.146,0.147]],"v":[[5.402,6.189],[4.872,5.97],[-5.932,-4.836],[-5.932,-5.896],[-4.872,-5.896],[5.932,4.91],[5.932,5.97]],"c":true}]},{"i":{"x":0.667,"y":1},"o":{"x":0.167,"y":0.167},"n":"0p667_1_0p167_0p167","t":25,"s":[{"i":[[0.192,0],[0.146,0.147],[0,0],[-0.293,0.293],[-0.293,-0.293],[0,0],[0.293,-0.293]],"o":[[-0.192,0],[0,0],[-0.293,-0.293],[0.293,-0.293],[0,0],[0.293,0.293],[-0.146,0.147]],"v":[[5.402,6.189],[4.872,5.97],[-5.932,-4.836],[-5.932,-5.896],[-4.872,-5.896],[5.932,4.91],[5.932,5.97]],"c":true}],"e":[{"i":[[0.192,0],[0.146,0.147],[0,0],[-0.293,0.293],[-0.293,-0.293],[0,0],[0.293,-0.293]],"o":[[-0.192,0],[0,0],[-0.293,-0.293],[0.293,-0.293],[0,0],[0.293,0.293],[-0.146,0.147]],"v":[[5.402,6.189],[4.872,5.97],[-5.932,-4.836],[-5.932,-5.896],[-4.872,-5.896],[5.932,4.91],[5.932,5.97]],"c":true}]},{"i":{"x":0.667,"y":1},"o":{"x":0.167,"y":0.167},"n":"0p667_1_0p167_0p167","t":60,"s":[{"i":[[0.192,0],[0.146,0.147],[0,0],[-0.293,0.293],[-0.293,-0.293],[0,0],[0.293,-0.293]],"o":[[-0.192,0],[0,0],[-0.293,-0.293],[0.293,-0.293],[0,0],[0.293,0.293],[-0.146,0.147]],"v":[[5.402,6.189],[4.872,5.97],[-5.932,-4.836],[-5.932,-5.896],[-4.872,-5.896],[5.932,4.91],[5.932,5.97]],"c":true}],"e":[{"i":[[0.192,0],[0.146,0.147],[0,0],[-0.293,0.293],[-0.293,-0.293],[0,0],[0.293,-0.293]],"o":[[-0.192,0],[0,0],[-0.293,-0.293],[0.293,-0.293],[0,0],[0.293,0.293],[-0.146,0.147]],"v":[[-5.569,-4.777],[-6.099,-4.996],[-5.932,-4.836],[-5.932,-5.896],[-4.872,-5.896],[-5.039,-6.056],[-5.039,-4.996]],"c":true}]},{"t":66.0000026882351}],"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"fl","c":{"a":0,"k":[0.6,0.6,0.647000002394,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[6.475,6.439],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transformar"}],"nm":"Group 1","np":2,"cix":2,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":19.0000007738859,"op":66.0000026882351,"st":0,"bm":0},{"ddd":0,"ind":6,"ty":4,"nm":"mask_bar Outlines","td":1,"sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[10.585,9.499,0],"ix":2},"a":{"a":0,"k":[7.488,7.402,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":1,"k":[{"i":{"x":0.667,"y":1},"o":{"x":0.167,"y":0.167},"n":"0p667_1_0p167_0p167","t":18,"s":[{"i":[[0.683,0.683],[0,0],[0.467,0],[0.33,-0.331],[0,-0.467],[-0.331,-0.33],[0,0],[-0.468,0],[-0.33,0.33]],"o":[[0,0],[-0.33,-0.331],[-0.467,0],[-0.331,0.33],[0,0.467],[0,0],[0.33,0.33],[0.467,0],[0.683,-0.683]],"v":[[-5.614,-8.041],[-4.251,-6.639],[-5.488,-7.152],[-6.725,-6.639],[-7.238,-5.402],[-6.725,-4.165],[-8.089,-5.565],[-6.851,-5.054],[-5.614,-5.565]],"c":true}],"e":[{"i":[[0.683,0.683],[0,0],[0.467,0],[0.33,-0.331],[0,-0.467],[-0.331,-0.33],[0,0],[-0.468,0],[-0.33,0.33]],"o":[[0,0],[-0.33,-0.331],[-0.467,0],[-0.331,0.33],[0,0.467],[0,0],[0.33,0.33],[0.467,0],[0.683,-0.683]],"v":[[6.555,4.165],[-4.251,-6.639],[-5.488,-7.152],[-6.725,-6.639],[-7.238,-5.402],[-6.725,-4.165],[4.079,6.641],[5.318,7.152],[6.555,6.641]],"c":true}]},{"i":{"x":0.667,"y":1},"o":{"x":0.167,"y":0.167},"n":"0p667_1_0p167_0p167","t":24,"s":[{"i":[[0.683,0.683],[0,0],[0.467,0],[0.33,-0.331],[0,-0.467],[-0.331,-0.33],[0,0],[-0.468,0],[-0.33,0.33]],"o":[[0,0],[-0.33,-0.331],[-0.467,0],[-0.331,0.33],[0,0.467],[0,0],[0.33,0.33],[0.467,0],[0.683,-0.683]],"v":[[6.555,4.165],[-4.251,-6.639],[-5.488,-7.152],[-6.725,-6.639],[-7.238,-5.402],[-6.725,-4.165],[4.079,6.641],[5.318,7.152],[6.555,6.641]],"c":true}],"e":[{"i":[[0.683,0.683],[0,0],[0.467,0],[0.33,-0.331],[0,-0.467],[-0.331,-0.33],[0,0],[-0.468,0],[-0.33,0.33]],"o":[[0,0],[-0.33,-0.331],[-0.467,0],[-0.331,0.33],[0,0.467],[0,0],[0.33,0.33],[0.467,0],[0.683,-0.683]],"v":[[6.555,4.165],[-4.251,-6.639],[-5.488,-7.152],[-6.725,-6.639],[-7.238,-5.402],[-6.725,-4.165],[4.079,6.641],[5.318,7.152],[6.555,6.641]],"c":true}]},{"i":{"x":0.667,"y":1},"o":{"x":0.167,"y":0.167},"n":"0p667_1_0p167_0p167","t":60,"s":[{"i":[[0.683,0.683],[0,0],[0.467,0],[0.33,-0.331],[0,-0.467],[-0.331,-0.33],[0,0],[-0.468,0],[-0.33,0.33]],"o":[[0,0],[-0.33,-0.331],[-0.467,0],[-0.331,0.33],[0,0.467],[0,0],[0.33,0.33],[0.467,0],[0.683,-0.683]],"v":[[6.555,4.165],[-4.251,-6.639],[-5.488,-7.152],[-6.725,-6.639],[-7.238,-5.402],[-6.725,-4.165],[4.079,6.641],[5.318,7.152],[6.555,6.641]],"c":true}],"e":[{"i":[[0.683,0.683],[0,0],[0.467,0],[0.33,-0.331],[0,-0.467],[-0.331,-0.33],[0,0],[-0.468,0],[-0.33,0.33]],"o":[[0,0],[-0.33,-0.331],[-0.467,0],[-0.331,0.33],[0,0.467],[0,0],[0.33,0.33],[0.467,0],[0.683,-0.683]],"v":[[-5.614,-8.041],[-4.251,-6.639],[-5.488,-7.152],[-6.725,-6.639],[-7.238,-5.402],[-6.725,-4.165],[-8.089,-5.565],[-6.851,-5.054],[-5.614,-5.565]],"c":true}]},{"t":66.0000026882351}],"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"fl","c":{"a":0,"k":[0,0,0,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[7.488,7.403],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transformar"}],"nm":"Group 1","np":2,"cix":2,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":-7.00000028511585,"op":91.000003706506,"st":0,"bm":0},{"ddd":0,"ind":7,"ty":4,"nm":"speaker Outlines","tt":2,"sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":1,"k":[{"i":{"x":0.936,"y":1},"o":{"x":0.237,"y":0.075},"n":"0p936_1_0p237_0p075","t":8,"s":[5.049,9.975,0],"e":[9.924,9.975,0],"to":[0.8125,0,0],"ti":[-0.8125,0,0]},{"i":{"x":0.936,"y":0.936},"o":{"x":0.167,"y":0.167},"n":"0p936_0p936_0p167_0p167","t":18,"s":[9.924,9.975,0],"e":[9.924,9.975,0],"to":[0,0,0],"ti":[0,0,0]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0},"n":"0p833_0p833_0p167_0","t":66,"s":[9.924,9.975,0],"e":[5.049,9.975,0],"to":[-0.8125,0,0],"ti":[0.8125,0,0]},{"t":76.0000030955435}],"ix":2},"a":{"a":0,"k":[5.051,7.326,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":0,"k":{"i":[[0,0],[0,0],[-0.132,-0.106],[0,0],[0,0],[0,0],[0.17,0],[0,0]],"o":[[0,0],[0.17,0],[0,0],[0,0],[0,0],[-0.132,0.106],[0,0],[0,0]],"v":[[-3.301,1.976],[-0.45,1.976],[0.018,2.14],[3.301,4.765],[3.301,-4.716],[0.018,-2.09],[-0.45,-1.926],[-3.301,-1.926]],"c":true},"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ind":1,"ty":"sh","ix":2,"ks":{"a":0,"k":{"i":[[0.11,0],[0.136,0.109],[0,0],[0,0],[0,0.414],[0,0],[-0.414,0],[0,0],[0,0],[-0.26,-0.124],[0,-0.289],[0,0],[0.26,-0.124]],"o":[[-0.167,0],[0,0],[0,0],[-0.414,0],[0,0],[0,-0.414],[0,0],[0,0],[0.225,-0.181],[0.26,0.124],[0,0],[0,0.289],[-0.104,0.051]],"v":[[4.051,7.076],[3.582,6.912],[-0.713,3.476],[-4.051,3.476],[-4.801,2.726],[-4.801,-2.676],[-4.051,-3.426],[-0.713,-3.426],[3.582,-6.862],[4.376,-6.952],[4.801,-6.276],[4.801,6.326],[4.376,7.001]],"c":true},"ix":2},"nm":"Path 2","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"mm","mm":1,"nm":"Merge Paths 1","mn":"ADBE Vector Filter - Merge","hd":false},{"ty":"fl","c":{"a":0,"k":[0.6,0.6,0.647000002394,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[5.051,7.326],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transformar"}],"nm":"Group 1","np":4,"cix":2,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":91.000003706506,"st":0,"bm":0}],"markers":[]}
+};
+var animAudio = bodymovin.loadAnimation(params);
+function scriptPlayAudio(){
+  bodymovin.setSpeed(1);
+  bodymovin.setDirection(1);
+  animAudio.play();
+  video.muted = false;
+}
+function scriptPauseAudio(){
+  bodymovin.setSpeed(1);
+  bodymovin.setDirection(-1);
+  animAudio.play();
+  video.muted = true;
+};
+</script>
+
+
 <script>
   blackMenu();
   $("body").addClass("bgDarkTexture");
