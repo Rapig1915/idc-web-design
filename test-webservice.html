@@ -1,0 +1,32 @@
+<body>
+  <pre>
+    Hello!
+  </pre>
+</body>
+<script src="https://cdn.rawgit.com/jquery/jquery/2.1.4/dist/jquery.min.js"></script>
+<script>
+function loadUserGames(cb){
+	$.ajax({
+		type:"POST",
+		url:"/unilogin/listarUserJuegos.php",
+		data: 'token=Z0ZNWENQYVlDTFBNT2NxN1RqYm1Fb0hOZ2FQYnNZRFR1VTVkempnbkx2Y3lMc09QRGtaQzQ3MW9jTFBKMGtVQ0pOc21qRjA2T1hRNkI3SHpkNDZIWVlpa3RBNitXemw4WmZldHc2cjQ1aTNTNnVLVnhiNzAwV0Y0b2xjendRLzFJTWJQc1ZTSkowMUtEMzBiZFBhajZSYllqU2dxV04wb1c3YVVwWmxKaHh6ZUo4Q0x5dmJJcVVzNm9WbFM3dEZ0SmIzM0dKTWR1c0xoNEtjUjNwdFZ4b0tZdDV1Z29adW1mVUxPeldKN3YwRFRENi9NdlRSSXlMMWtVSVdnRWoyR1BkUmgyR3NpY1Z1QjlzelMyMyszS1hwZy9qRy9mRVRoOUJWbUp2dHRmaGpkbXBUMDVBR0ZjaDN4RUJ1M3VEc2o4TjE5WDZxaEFDSStkRnVoY0FVVkQzMDdzYUhjL2t6RitDSzJXTGd1STVHNW81TTcvZE9xMEhXVjdnci9FbHNuZ3k3YmJEYlVjVkRGUE5LdmFIN29vY3gweG1qSXpRRWRDelFySGltalZRa2FQMEdFbGZMalArVDJ5dThYelVBdlBrd0lGWnlzemlybjIycFdBK2haTXNSbzdYNVpDQkpaeUtsb2VmYVdhMERQY01sQm4wS0crRUFkbU5vK29WMUNHOWdTakUxczZ4ZFFKeHZlOUFiZ2l2UHEzNktqbUE1UUo2S013bFBWbkxNPQ==',
+		dataType: 'text',
+		async:false,
+		success: function(e){
+			console.log("Respose Success: ", e);
+			if(cb) cb();
+		},
+		error: function(e){
+      console.log("Respose Fail: ", e);
+			if(cb) cb();
+		}
+	});
+}
+
+$(function(){
+  $("pre").text("Started making request...");
+  loadUserGames(() => {
+    $("pre").text("Ajax call finished");
+  })
+})
+</script>
