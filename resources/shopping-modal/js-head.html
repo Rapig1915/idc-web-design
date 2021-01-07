@@ -6,6 +6,10 @@
     var basketInfo = JSON.parse(loadSession(cookieBasketInfo) || "{}");
     if(!basketInfo.games)
       basketInfo.games = [];
+    if(!basketInfo.coupons)
+      basketInfo.coupons = [];
+    if(!basketInfo.coupon_data)
+      basketInfo.coupon_data = {};
 
     return basketInfo;
   }
@@ -57,6 +61,46 @@
     // speical for checkout orders
     if(typeof(initOrderItems) == "function")
       initOrderItems();
+  }
+
+  function applyCouponInBasket(data){
+    if(!data || !data.coupon_id){
+      console.log(`Error: adding invalid coupon: `, data)
+      return false;
+    }
+
+    var basketInfo = readBasketInfo();
+
+    if(!basketInfo.coupons.includes(data.coupon_id)){
+      basketInfo.coupons.push(data.coupon_id);
+      basketInfo.coupon_data[data.coupon_id] = data;
+    }else{
+      return false;
+    }
+
+    saveBasketInfo(basketInfo);
+    
+    return true;
+  }
+
+  function removeCouponInBasket(coupon_id){
+    if(!coupon_id){
+      console.log(`Error: adding invalid coupon id: `, coupon_id)
+      return false;
+    }
+
+    var basketInfo = readBasketInfo();
+
+    const index = basketInfo.coupons.indexOf(coupon_id);
+    if (index > -1) {
+      basketInfo.coupons.splice(index, 1);
+      if(basketInfo.coupon_data.hasOwnProperty(coupon_id))
+        delete basketInfo.coupon_data[coupon_id];
+    }
+
+    saveBasketInfo(basketInfo);
+    
+    return true;
   }
 
   function refreshCartCount(count = null){

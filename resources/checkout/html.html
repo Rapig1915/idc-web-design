@@ -76,6 +76,46 @@
                 </div>
                 <div class="col-lg-5 col-12 my-3">
                     <div>
+                        <h2 class="h4 uppercase">==(applied_coupons)==</h2>
+                    </div>
+                    <div>
+                        <div class="bg-gray-900 border border-green-lighter border-bottom-0 box-shadow mb-3">
+                            <div class="custom-control border-bottom border-green-lighter py-3 coupon-block clone hidden">
+                                <label class="mx-3" for="yourWallet">
+                                    <i class="far fa-check-circle"></i>
+                                    <span class="px-1 coupon-name">Charge to wallet fund</span>
+                                </label>
+                                <i class="far fa fa-trash btn-remove-coupon"></i>
+                            </div>
+                            <div class="d-flex flex-row align-items-center justify-content-between bg-gray-900 box-shadow border border-green-lighter border-top-0 p-3">
+                                <div class="d-flex justify-content-start mr-1">
+                                </div>     
+                                <div class="d-flex justify-content-end ml-2">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary px-2" data-toggle="modal" data-target=".modal-input-coupon">==(input_code)==</button>
+                                    <div class="modal fade modal-input-coupon" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered modal-sm w-50">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalCenterTitle">==(use_coupon)==</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" id="inputCouponCode" placeholder="==(enter_code)==:">
+                                                        <small id="messageCouponCheck" class="form-text text-warning">Your coupon is not valid</small>
+                                                    </div>
+                                                    <button class="btn btn-secondary submit-coupon">==(submit)==</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                              
+                            </div>                            
+                        </div>
+                    </div>
+                    <div>
                         <h2 class="h4 uppercase">==(payment_gift_details)==</h2>
                         <h6 class="text-white-50 loading-paymethods">Loading payment methods...</h6>
                         <h6 class="text-white-50 no-paymethods d-none mt-1 mb-1">No available payment methods found.</h6>
@@ -275,11 +315,17 @@
                                     </div>
                                     <hr/>
                                     <div class="d-flex flex-row justify-content-between align-items-baseline p-0 m-0">
+                                        <span class="h5 text-white mb-0" style="width:120px;color:grey !important;overflow-wrap: break-word;">==(coupon)==:</span>
+                                        <span class="h5 text-white mb-0 order-total-price text-danger">€ -0</span>
+                                    </div>
+                                    <div class="d-flex flex-row justify-content-between align-items-baseline p-0 m-0">
                                         <span class="h5 text-white mb-0" style="width:120px;color:grey !important;overflow-wrap: break-word;">==(total)==:</span>
                                         <span class="h5 text-white mb-0 order-total-price">€ 0</span>
                                     </div>
                                 </div>
-                                <button class="btn btn-primary btn-proceed-payment">==(pay_now)==</button>
+                                <div class="d-flex flex-column justify-content-between align-items-baseline p-0 m-0 mb-2">
+                                    <button class="btn btn-primary btn-proceed-payment w-100">==(pay_now)==</button>
+                                </div>
                             </div>
                             <div class="flex-row justify-content-center align-items-baseline p-3 checkout-feedback d-none">
                                 <span class="h6 text-warning mb-0 text-message"></span>
