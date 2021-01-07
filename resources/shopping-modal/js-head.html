@@ -140,12 +140,17 @@
       total: 0,
 
       discount: 0, 
+      offer_discount: 0,
+      coupon_discount: 0,
+
       currency: user_currency || "EUR", 
       simbol: user_currency_symbol || "€",
       games: [] 
     };
 
     var basketInfo = readBasketInfo();
+
+    var coupons = basketInfo.coupons;
 
     for(var i = 0; i < basketInfo.games.length; i ++ ){
       var gData = gamedata && gamedata[basketInfo.games[i]];
@@ -154,22 +159,62 @@
       var gPrice = (gData && gData.common_params && gData.common_params && gData.common_params.game_price && gData.common_params.game_price[result.currency]) || 0;
       if(gPrice <= 0) continue;
 
-      var discount_percent = gData.common_params.game_offer_discount_percent || 0, discount_price = (gPrice * discount_percent / 100).toFixed(2);
-
-      result.count = result.count + 1;
       result.original_price = (result.original_price - (0-gPrice)).toFixed(2);
-      result.discount = (result.discount -(0 - discount_price)).toFixed(2);
+      result.count = result.count + 1;
 
+      // offer discount
+      var offer_discount_percent = gData.common_params.game_offer_discount_percent || 0
+        , offer_discount = (gPrice * offer_discount_percent / 100).toFixed(2);
+
+      result.offer_discount = (result.offer_discount -(0 - offer_discount)).toFixed(2);
+      // coupon discount
+      var coupon_discount = 0;
+      var coupon_code_id = 0;
+      for(var k = 0; k < coupons.length; k ++ ){
+
+        var coupon_data = basketInfo.coupon_data[coupons[k]];
+        if(!coupon_data) continue;
+
+        // check coupon target condition, calculate discount price and pop
+        if((coupon_data.target_game*1 == gData.common_params.id_idcgame*1 && !!coupon_data.target_game) 
+          || (!coupon_data.target_game && coupon_data.target_company == gData.common_params.game_company) 
+          || (!coupon_data.target_game && !coupon_data.target_company)){
+
+            // check price condition
+            if(coupon_data.price_condition && gPrice >= coupon_data.price_condition*1*getConversionRate(coupon_data.currency, result.currency)){
+
+              coupon_discount = (gPrice * (coupon_data.discount*1) / 100);
+              coupon_discount += getConversionRate(coupon_data.currency, result.currency) * (coupon_data.discount_fixed*1);
+              coupon_discount = coupon_discount.toFixed(2);
+              coupon_code_id = coupon_data.code_id;
+              coupons.splice(k, 1);
+
+              break;
+
+            }
+
+          }
+
+      }
+
+      result.coupon_discount = (result.coupon_discount -(0 - coupon_discount)).toFixed(2);
+
+      // add product
       const g = { 
         gameID: basketInfo.games[i],
         currency: result.currency, 
         original_price: gPrice, 
-        discount: discount_price,
-        discount_percent: discount_percent,
+
+        offer_discount_percent: offer_discount_percent,
+        offer_discount: offer_discount,
+        coupon_discount: coupon_discount,
+        discount: offer_discount*1 + coupon_discount*1,
+        coupon_code_id: coupon_code_id,
+
         data: gData,
 
-        price: (gPrice - discount_price).toFixed(2),
-        price_net: ((gPrice - discount_price)*100/(100+vat_rate)).toFixed(2)
+        price: (gPrice - offer_discount*1 - coupon_discount*1).toFixed(2),
+        price_net: ((gPrice - offer_discount*1 - coupon_discount*1)*100/(100+vat_rate)).toFixed(2)
       };
 
       result.vat = (parseFloat(result.vat) + parseFloat(g.price)-parseFloat(g.price_net)).toFixed(2);
@@ -178,6 +223,8 @@
 
       result.games.push(g);
     }
+
+    result.discount = result.offer_discount + result.coupon_discount;
 
     if(pmp && pmp.fee_idcpayment && pmp.fee_idcpayment.currency){
       const fixedFee = getConversionRate(pmp.fee_idcpayment.currency, result.currency) * (parseFloat(pmp.fee_idcpayment.fixed) || 0);

@@ -1,6 +1,3 @@
-initOrderItems();
-loadPaymentMethods();
-
 $("body").on("click", ".btn-proceed-payment", loadUserAndProceed);
 
 $("body").on("click", ".custom-control-input", onSelectPaymethod);
@@ -38,6 +35,8 @@ $("body").on("click", ".submit-coupon", function(){
             $(newCouponBlock).attr("coupon_id", result.coupon_id).insertAfter(cloneCouponBlock);
 
             ////////////////////////////////////
+
+            initOrderItems();
           }
 
           console.log("Coupon check success: ", code, result);
@@ -65,6 +64,8 @@ $("body").on("click", ".btn-remove-coupon", function(){
   if(confirm("Do you really want to unapply this coupon?")){
     $(couponBlock).remove();
     removeCouponInBasket(coupon_id);
+
+    initOrderItems();
   }
 })
 
@@ -83,3 +84,5 @@ basketInfo.coupons.map(coupon_id => {
   newCouponBlock = setObjectValues(newCouponBlock, dataset, true);
   $(newCouponBlock).attr("coupon_id", result.coupon_id).insertAfter(cloneCouponBlock);
 })
+
+loadPaymentMethods(() => initOrderItems());
