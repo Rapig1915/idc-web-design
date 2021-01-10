@@ -1,5 +1,3 @@
-
-
 const getShuffledArr = arr => {
 	const newArr = arr.slice()
 	for (let i = newArr.length - 1; i > 0; i--) {
@@ -628,5 +626,6 @@ $("body").on("click",".wishlist-btn",function(){
 	);
 })
 
-//Tooltip
-$('[data-toggle="tooltip"]').tooltip();
+$(function () {
+	$('[data-toggle="tooltip"]').tooltip()
+});

@@ -21,6 +21,14 @@
             $(".order-fee-price").text(  `${cartInfo.simbol} ${parseFloat(cartInfo.feeIdcpayment)+parseFloat(cartInfo.feePaymethod)}`);
             $(".order-total-price").text(`${cartInfo.simbol} ${cartInfo.total}`);
 
+            console.log(cartInfo)
+            if(cartInfo.coupon_discount > 0){
+                $(".coupon-discount-price").text(  `${cartInfo.simbol} -${cartInfo.coupon_discount}`);
+                $(".coupon-discount-price-block").removeClass("hidden");
+            }else{
+                $(".coupon-discount-price-block").addClass("hidden");
+            }
+
             for(var i = 0; i < cartInfo.games.length; i ++){
                 var gameID = cartInfo.games[i].gameID;
                 var newGameBlock = $(".game-block.order.clone").clone().removeClass("hidden").removeClass("clone");
@@ -37,10 +45,10 @@
     function onSelectPaymethod() {
         const pm_id = $(this).attr("data-pmp-id");
         selected_pmp = (all_pmp.filter(x=> parseInt(x.pmp_id) === parseInt(pm_id) ))[0] || {};
-        initOrderItems()
+        initOrderItems();
     }
 
-    function loadPaymentMethods() {
+    function loadPaymentMethods(cb) {
         console.log("Getting available payment methods from idcpayment...");
         selected_paymethod_id = 0;
 
@@ -87,6 +95,8 @@
 
                 $(".loading-paymethods").addClass("d-none");
                 $(".payment-methods-container").removeClass("hidden");
+
+                if(cb) cb();
             },
             error: function(){  
                 console.log("Error getting game pmp data");
@@ -176,7 +186,18 @@
 
         for(var i = 0; i < cartInfo.games.length; i ++){
             var item = cartInfo.games[i];
-            b_data.push({"type":"GAME","id_idcgame":item.gameID,"price":item.price,"price_net":item.price_net,currency:item.currency,"has_offer":item.discount>0?1:0,"discount":(item.price*item.discount_percent/100).toFixed(2)});
+            b_data.push({
+                "type":"GAME",
+                "id_idcgame":item.gameID,
+                "price":item.price,
+                "price_net":item.price_net,
+                currency:item.currency,
+                "has_offer":item.offer_discount>0?1:0,
+                "offer_discount":item.offer_discount,
+                "has_coupon":item.coupon_discount>0?1:0,
+                "coupon_discount":item.coupon_discount,
+                "discount":item.discount
+            });
         }
         bought_data = JSON.stringify(b_data);
 
