@@ -1,0 +1,94 @@
+<script src="/assets/config/catlang.js?===(current_time)=="></script>
+<script src="/assets/content/featured.js?===(current_time)=="></script>
+<script>
+var language = "==(language)==";
+var msgBadLogin = "==(danger_badlogin)==";
+var msgError = "==(danger_error)==";
+var msgUserExist = "==(danger_exist)==";
+var msgUserBad = "==(danger_badformat)==";
+var msgPassMatch = "==(danger_match)==";
+var msgNoUser = "==(danger_nouser)==";
+var msgNoPass = "==(danger_nopass)==";
+var thankyou = "==(url_thankyou)==";
+var steam = '__(url_game_in_steam)__';
+
+var catlang = {
+    "Action": { "url": "/==(url_action_games)==","txt": "==(action)=="},
+    "Adventure": { "url": "/==(url_adventure_games)==","txt": "==(adventure)=="},
+    "Featured": { "url": "/==(url_featured_games)==","txt": "==(featured_text)=="},
+    "Free-to-Play": { "url": "/free-to-play", "txt": "free-to-play"},
+    "New Releases": { "url": "/==(url_new_releases_games)==","txt": "==(new_releases_txt)=="},
+    "MMO": { "url": "/==(url_mmo_games)==","txt": "==(mmo)=="},
+    "RPG": { "url": "/==(url_rpg_games)==","txt": "==(rpg)=="},
+    "Shooter": { "url": "/==(url_shooter_games)==","txt": "==(shooter)=="},
+    "Sports": { "url": "/==(url_sports_games)==","txt": "==(sports)=="},
+    "Strategy": { "url": "/==(url_strategy_games)==","txt": "==(strategy)=="}
+}
+var cat = [
+	"x-%%(game_cat1)%%",
+	"x-%%(game_cat2)%%",
+	"x-%%(game_cat3)%%"
+];
+function gameCat(){
+	$.each( cat, function( index, value ){
+		if( value != "x-" ){
+			var thiscat = value.replace("x-", "");
+			var url = catlang[thiscat]["url"];
+			var txt = catlang[thiscat]["txt"];
+			$(".game_cat").append('<li class="nav-item"><a href="'+url+'/" class="nav-link" title="'+txt+'"><span class="fontSecondarySmall colorLight">'+txt+'</span></a></li>');		
+		}
+	});
+}
+function sliderGames(){
+	$.each( featured, function( index, value ){
+		$(".otherGames").append('<a href="/'+value.common_params.game_seo+'/"><div class="ml-1 px-0 filterThumbnail hvr-grow"><img class="img-fluid box-shadow" src="'+value.store_params.thumb_slider+'" alt="'+value.common_params.game_name+'"></div></a>');
+	});
+	$.each( featured, function( index, value ){
+		$(".otherGames").append('<a href="/'+value.common_params.game_seo+'/"><div class="ml-1 px-0 filterThumbnail hvr-grow"><img class="img-fluid box-shadow" src="'+value.store_params.thumb_slider+'" alt="'+value.common_params.game_name+'"></div></a>');
+	});
+	$('.otherGames').slick({
+		infinite: true,
+		slidesToShow: 5,
+		slidesToScroll: 3,
+		autoplay: true,
+		autoplaySpeed: 3000,
+		arrows: true,
+		prevArrow: $('.prev'),
+		nextArrow: $('.next'),
+		focusOnSelect: true,
+		responsive: [
+		{
+		  breakpoint: 1200,
+		  settings: {
+			slidesToShow: 4,
+			slidesToScroll: 1,
+		  }
+		},
+		{
+		  breakpoint: 768,
+		  settings: {
+			slidesToShow: 3,
+			slidesToScroll: 1,
+		  }
+		},
+		{
+		  breakpoint: 576,
+		  settings: {
+			slidesToShow: 2,
+			slidesToScroll: 1,
+			autoplaySpeed: 2000,
+		  }
+		},
+		{
+		  breakpoint: 480,
+		  settings: {
+			slidesToShow: 1,
+			slidesToScroll: 1,
+			autoplaySpeed: 2000,
+		  }
+		}
+	  ]
+	});
+	$(".otherGamesSection").removeClass("d-none");
+}
+</script>

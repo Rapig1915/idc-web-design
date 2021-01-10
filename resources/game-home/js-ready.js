@@ -15,7 +15,8 @@ $(window).scroll(function() {
 	if ($("#menu").offset().top > 600) {
 	   whiteMenu();
 	} else {
-	   blackMenu();
+	   //blackMenu();
+        whiteMenu();
 	}
 });
 
@@ -189,3 +190,30 @@ if(!ingame_shop_enabled){
     $(".nav-item.nav-shop").addClass("d-none");
     $(".btnSquare2.square-shop").addClass("d-none");
 }
+
+
+
+//Video Section 1
+$("body").on( "click", ".pauseBtn", function() {
+	$(this).removeClass("pauseBtn");
+    $(this).addClass("playBtn"); 
+    dataPlayers.main.playing = true;
+    scriptPauseVideo();
+});
+$("body").on( "click", ".playBtn", function() {
+    $(this).removeClass("playBtn");
+    $(this).addClass("pauseBtn");
+    dataPlayers.main.playing = false;
+    scriptPlayVideo();
+});
+$("body").on( "click", ".pauseAudioBtn", function() {
+    $(this).removeClass("pauseAudioBtn");
+    $(this).addClass("playAudioBtn");  
+    scriptPlayAudio();
+
+});
+$("body").on( "click", ".playAudioBtn", function() {
+    $(this).removeClass("playAudioBtn");
+    $(this).addClass("pauseAudioBtn");
+    scriptPauseAudio();    
+});

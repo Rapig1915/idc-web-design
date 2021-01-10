@@ -1,3 +1,9 @@
+<script>
+	var tag = document.createElement('script');
+  	tag.src = "http://www.youtube.com/player_api";
+  	var firstScriptTag = document.getElementsByTagName('script')[0];
+  	firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+</script>
 <script src="/assets/content/%%(id_idcgame)%%-news.js?===(current_time)=="></script>
 <script src="/assets/content/%%(id_idcgame)%%-media.js?===(current_time)=="></script>
 <script src="/assets/content/%%(id_idcgame)%%-guides.js?===(current_time)=="></script>
@@ -274,7 +280,9 @@ function runFunctions(){
 	doLast();
 	doCarrousel();
 	if( yt != '' ) {
-	  $(".video-container").html('<div class="position-absolute fontSecondarySmall trailerTitle">==(trailer)==</div><iframe class="embed-responsive embed-responsive-16by9 mx-lg-5 box-shadow" width="1120" height="630" src="'+ yt +'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
+	  yt += '?rel=0&autoplay=1&mute=1&enablejsapi=1&origin='+location.origin;
+	  $(".video-container").html('<div class="position-absolute fontSecondarySmall trailerTitle" __name__="textVideoPlayer">==(trailer)==</div><div class="embed-responsive embed-responsive-16by9 box-shadow"><iframe __name__="videoPlayerTrailerIframe" id="playerTrailerIframe" class="embed-responsive-item" src="'+ yt +'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><iframe __name__="videoPlayerTagIframe" id="playerTagIframe" class="embed-responsive-item d-none" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><video id="playerTagVideo" __name__="videoPlayerTagVideo" class="embed-responsive-item d-none" controls poster=""><source src="" type="video/mp4" media="all and (min-width:500px)"></video></div>');
+	  
 	}
 	var ev = 0;
 	if(typeof(news.events) != "undefined" && news.events.recent.length > 0 ){

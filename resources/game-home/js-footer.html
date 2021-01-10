@@ -9,7 +9,22 @@ var displayedReviews;
 var stepLimitReviews = 5;
 var pointerReviews = 0;
 var langs, sales, typesOfReview;
-var data90 = [], dataAll = []; 
+var data90 = [], dataAll = [];
+var dataPlayers = {
+  main: {
+    type: 'video',
+    playing: true
+  },
+  video1: {
+    type: 'video',
+    playing: true
+  },
+  video2: {
+    type: yt != '' ? 'iframe' : 'video',
+    playing: true
+  },
+  actual: 1
+};
 
 function formatDate(dateRaw){
     let splitDate= dateRaw.split(" ");
@@ -101,22 +116,23 @@ function toggleSelectedButton(num) {
 
 function checkGameCommented() {
   let games = JSON.parse(localStorage.games);
-  //let gameFind = games.filter();
-
-}
-
-function reloadAndCheckGameCommented() {
-  
+  let gameFind = games.filter(game => game.IDJUEGO == %%(id_idcgame)%%);
+  if(gameFind.length > 0) {
+    if(gameFind[0].COMENTARIO_REALIZADO == 0) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+  else {
+    return false;
+  }
 }
 
 function createComment(vote, text) {
-  //==(language)==
   let url = `/unilogin/action.php?action=COMMENT&token=${loadSession('token')}&lang===(language)==&gameid=%%(id_idcgame)%%&act=${vote}&extra=${text}`;
-  
-  
-  //destroyElement('containerFormComment');
 
-  //cleanAlertsCommentaries(1);
   $.ajax({
     type:"GET",
     url,
@@ -132,10 +148,13 @@ function createComment(vote, text) {
       }
       if (result.rc == 200 ){
         loadUserGames(() => {
-          let games = JSON.parse(localStorage.games);
-          let game = games.fiter(el => el.IDJUEGO == %%(id_idcgame)%%);
-          destroyElement('containerFormComment');
-          cleanAlertsCommentaries(1);
+          if(!checkGameCommented()) {
+            destroyElement('containerFormComment');
+            cleanAlertsCommentaries(1);
+          }
+          else {
+            cleanAlertsCommentaries(0)
+          }
         })
         
       } else{
@@ -165,10 +184,10 @@ function updateHTMLCommentary(id) {
 
           langs.forEach(el => arrayReviews = [...arrayReviews, ...result[el]]);
 
-          review = arrayReviews.filter(el => el.IDComment = id)[0];
+          review = arrayReviews.filter(el => el.IDComment == id)[0];
 
           reviewHTML = formatReview(review);
-          document.querySelectorAll('div[__updater__]').forEach(el => el.outerHTML = reviewHTML);
+          document.querySelectorAll(`div[__updater__="comment_html_${id}"]`).forEach(el => el.outerHTML = reviewHTML);
         }catch (err){
           return false;
         }
@@ -259,11 +278,11 @@ let templateLanguageFilterHTML =  `
     <li><input value="{0}" name="langType" id="filterLangType{0}" type="radio"><label for="filterLangType{0}" class="text-capitalize">{1}<span class="text-muted"> ({2})</span></label></li>
     `;
 let templateTotalReviewsHTML = `
-  <h3 class="{0}">
+  <{5} class="{0}">
     {1}&nbsp;
-    <span class="text-light">{2} reviews</span>
-    &nbsp;{3}%
-  </h3>
+    <span class="text-light">{2}/{3} reviews</span>
+    &nbsp;{4}%
+  </{5}>
   `;
 
 let templateFilterSelected = `
@@ -422,77 +441,7 @@ function getValueFilters(firstLoad = false) {
 
 
 
-var jsonReviews = {
-    "es":[
-        {"DateTime":"23/12/2020 23:10:46,558+01:00","IDComment":"3","NickName":"vlamas","AdqusitionType":"FREE","NumberofComments":"1","GamesBought":"0","Vote":"1","OtherVoteYes":"1","OtherVoteNo":"30","OtherVoteFunny":"10","PlayedTime":"","ActualPlayedTime":"0","Text":"Hola esto es una prueba"},
-        {"DateTime":"10/12/2020 10:53:15,153+01:00","IDComment":"4","NickName":"USER","AdqusitionType":"FREE","NumberofComments":"1","GamesBought":"1","Vote":"2","OtherVoteYes":"11","OtherVoteNo":"1","OtherVoteFunny":"5","PlayedTime":"0","ActualPlayedTime":"0","Text":"Hola esto es una prueba"},
-        {
-            "DateTime":"22/12/2020 23:11:46,558+01:00",
-            "IDComment":"4",
-            "NickName":"vlamas",
-            "AdqusitionType":"FREE",
-            "NumberofComments":"1",
-            "GamesBought":"0",
-            "Vote":"2",
-            "OtherVoteYes":"12",
-            "OtherVoteNo":"3",
-            "OtherVoteFunny":"30",
-            "PlayedTime":"",
-            "ActualPlayedTime":"0",
-            "Text":"Hola esto es una prueba"
-        },
-        {
-            "DateTime":"30/12/2020 23:10:46,558+01:00",
-            "IDComment":"3",
-            "NickName":"sdam21s",
-            "AdqusitionType":"BUY",
-            "NumberofComments":"11",
-            "GamesBought":"0",
-            "Vote":"2",
-            "OtherVoteYes":"3",
-            "OtherVoteNo":"3",
-            "OtherVoteFunny":"8",
-            "PlayedTime":"100",
-            "ActualPlayedTime":"0",
-            "Text":"Hola esto es una prueba"
-        },
-        {"DateTime":"11/12/2020 10:52:55,153+01:00","IDComment":"4","NickName":"USER","AdqusitionType":"FREE","NumberofComments":"1","GamesBought":"1","Vote":"1","OtherVoteYes":"3","OtherVoteNo":"32","OtherVoteFunny":"9","PlayedTime":"0","ActualPlayedTime":"0","Text":"Hola esto es una prueba"}
-    ],
-    "en":[
-        {
-            "DateTime":"25/12/2020 23:10:46,558+01:00",
-            "IDComment":"4",
-            "NickName":"vlamas",
-            "AdqusitionType":"FREE",
-            "NumberofComments":"1",
-            "GamesBought":"0",
-            "Vote":"2",
-            "OtherVoteYes":"9",
-            "OtherVoteNo":"2",
-            "OtherVoteFunny":"4",
-            "PlayedTime":"",
-            "ActualPlayedTime":"0",
-            "Text":"Good and fun"
-        },
-        {
-            "DateTime":"12/12/2020 23:10:46,558+01:00",
-            "IDComment":"3",
-            "NickName":"sdam21s",
-            "AdqusitionType":"BUY",
-            "NumberofComments":"11",
-            "GamesBought":"0",
-            "Vote":"2",
-            "OtherVoteYes":"303",
-            "OtherVoteNo":"3",
-            "OtherVoteFunny":"8",
-            "PlayedTime":"100",
-            "ActualPlayedTime":"0",
-            "Text":"Best game, best graphics"
-        },
-        {"DateTime":"15/12/2020 10:53:55,153+01:00","IDComment":"4","NickName":"USER","AdqusitionType":"FREE","NumberofComments":"1","GamesBought":"1","Vote":"1","OtherVoteYes":"1000","OtherVoteNo":"200","OtherVoteFunny":"99999","PlayedTime":"0","ActualPlayedTime":"0","Text":"Great game!"}
-    ]
-};
-
+var jsonReviews = {};
 
 function filterByKey(reviews, key, condition) {
   return reviews.filter(review => review[key].toString().toLowerCase() === condition.toString().toLowerCase())
@@ -751,7 +700,12 @@ function findRangePercent(percent) {
 function displayTotalReviews(reviews) {
   
   let [positives, totalReviews] = getLangs(reviews).reduce((acc, el) => { acc[0] += reviews[el].filter(rev => rev.Vote == 1).length; acc[1] += reviews[el].length; return acc;}, [0, 0]);
-  if(totalReviews == 0) return;
+  
+  if(totalReviews == 0) {
+    return;
+  }
+
+    
   let percent = parseInt(positives/totalReviews*100);
   let classText = findRangePercent(percent)
   let totalReviewsHTML = String.format(
@@ -759,112 +713,33 @@ function displayTotalReviews(reviews) {
     classText.class,
     classText.text,
     positives,
-    percent
+    totalReviews,
+    percent,
+    'h3'
   );
   document.getElementById('totalReviewsDisplay').innerHTML = totalReviewsHTML;
+  let totalReviewsInfoHTML = String.format(
+    templateTotalReviewsHTML,
+    classText.class,
+    classText.text,
+    positives,
+    totalReviews,
+    percent,
+    'span'
+  );
+  let idGameInfo = "infoReviewsGame";
+  let qSelector = `span[__name__="content"]`;
+  let containerInfo = document.getElementById(idGameInfo);
+  let spanHTML = containerInfo.querySelector(qSelector);
+  spanHTML.outerHTML = totalReviewsInfoHTML;
+  containerInfo.classList.remove("d-none");
 }
+
+
 //Reviews loading
-
-
-
-
-var data90_ = [
-  {"Year":"2020","Month":"12","Likes":"2","Dislikes":"0"}
-];
+var data90_ = [];
 //Graphs
-var data_ = [
-    {"Date":"16/09/20","Likes":"2","Dislikes":"0"},
-    {"Date":"17/09/20","Likes":"0","Dislikes":"0"},
-    {"Date":"18/09/20","Likes":"0","Dislikes":"2"},
-    {"Date":"19/09/20","Likes":"0","Dislikes":"0"},
-    {"Date":"20/09/20","Likes":"2","Dislikes":"2"},
-    {"Date":"21/09/20","Likes":"0","Dislikes":"0"},
-    {"Date":"22/09/20","Likes":"0","Dislikes":"0"},
-    {"Date":"23/09/20","Likes":"0","Dislikes":"0"},
-    {"Date":"24/09/20","Likes":"0","Dislikes":"0"},
-    {"Date":"25/09/20","Likes":"2","Dislikes":"0"},
-    {"Date":"26/09/20","Likes":"0","Dislikes":"0"},
-    {"Date":"27/09/20","Likes":"0","Dislikes":"0"},
-    {"Date":"28/09/20","Likes":"0","Dislikes":"0"},
-    {"Date":"29/09/20","Likes":"0","Dislikes":"0"},
-    {"Date":"30/09/20","Likes":"0","Dislikes":"0"},
-    {"Date":"01/10/20","Likes":"0","Dislikes":"0"},
-    {"Date":"02/10/20","Likes":"0","Dislikes":"0"},
-    {"Date":"03/10/20","Likes":"0","Dislikes":"0"},
-    {"Date":"04/10/20","Likes":"0","Dislikes":"0"},
-    {"Date":"05/10/20","Likes":"0","Dislikes":"0"},
-    {"Date":"06/10/20","Likes":"0","Dislikes":"0"},
-    {"Date":"07/10/20","Likes":"0","Dislikes":"0"},
-    {"Date":"08/10/20","Likes":"0","Dislikes":"0"},
-    {"Date":"09/10/20","Likes":"1","Dislikes":"0"},
-    {"Date":"10/10/20","Likes":"1","Dislikes":"0"},
-    {"Date":"11/10/20","Likes":"0","Dislikes":"0"},
-    {"Date":"12/10/20","Likes":"1","Dislikes":"0"},
-    {"Date":"13/10/20","Likes":"1","Dislikes":"0"},
-    {"Date":"14/10/20","Likes":"1","Dislikes":"0"},
-    {"Date":"15/10/20","Likes":"1","Dislikes":"2"},
-    {"Date":"16/10/20","Likes":"1","Dislikes":"0"},
-    {"Date":"17/10/20","Likes":"1","Dislikes":"0"},
-    {"Date":"18/10/20","Likes":"1","Dislikes":"0"},
-    {"Date":"19/10/20","Likes":"1","Dislikes":"1"},
-    {"Date":"20/10/20","Likes":"1","Dislikes":"0"},
-    {"Date":"21/10/20","Likes":"1","Dislikes":"0"},
-    {"Date":"22/10/20","Likes":"1","Dislikes":"0"},
-    {"Date":"23/10/20","Likes":"1","Dislikes":"0"},
-    {"Date":"24/10/20","Likes":"0","Dislikes":"0"},
-    {"Date":"25/10/20","Likes":"0","Dislikes":"0"},
-    {"Date":"26/10/20","Likes":"0","Dislikes":"2"},
-    {"Date":"27/10/20","Likes":"0","Dislikes":"2"},
-    {"Date":"28/10/20","Likes":"0","Dislikes":"2"},
-    {"Date":"29/10/20","Likes":"0","Dislikes":"2"},
-    {"Date":"30/10/20","Likes":"2","Dislikes":"2"},
-    {"Date":"31/10/20","Likes":"0","Dislikes":"2"},
-    {"Date":"01/11/20","Likes":"10","Dislikes":"2"},
-    {"Date":"02/11/20","Likes":"1","Dislikes":"0"},
-    {"Date":"03/11/20","Likes":"1","Dislikes":"0"},
-    {"Date":"04/11/20","Likes":"1","Dislikes":"0"},
-    {"Date":"05/11/20","Likes":"1","Dislikes":"0"},
-    {"Date":"06/11/20","Likes":"1","Dislikes":"0"},
-    {"Date":"07/11/20","Likes":"1","Dislikes":"0"},
-    {"Date":"08/11/20","Likes":"1","Dislikes":"0"},
-    {"Date":"09/11/20","Likes":"1","Dislikes":"0"},
-    {"Date":"10/11/20","Likes":"0","Dislikes":"0"},
-    {"Date":"11/11/20","Likes":"0","Dislikes":"0"},
-    {"Date":"12/11/20","Likes":"0","Dislikes":"0"},
-    {"Date":"13/11/20","Likes":"0","Dislikes":"1"},
-    {"Date":"14/11/20","Likes":"0","Dislikes":"1"},
-    {"Date":"15/11/20","Likes":"0","Dislikes":"1"},
-    {"Date":"16/11/20","Likes":"0","Dislikes":"1"},
-    {"Date":"17/11/20","Likes":"0","Dislikes":"1"},
-    {"Date":"18/11/20","Likes":"0","Dislikes":"1"},
-    {"Date":"19/11/20","Likes":"0","Dislikes":"1"},
-    {"Date":"20/11/20","Likes":"0","Dislikes":"1"},
-    {"Date":"21/11/20","Likes":"0","Dislikes":"0"},
-    {"Date":"22/11/20","Likes":"0","Dislikes":"2"},
-    {"Date":"23/11/20","Likes":"0","Dislikes":"2"},
-    {"Date":"24/11/20","Likes":"0","Dislikes":"2"},
-    {"Date":"25/11/20","Likes":"0","Dislikes":"2"},
-    {"Date":"26/11/20","Likes":"0","Dislikes":"0"},
-    {"Date":"27/11/20","Likes":"0","Dislikes":"0"},
-    {"Date":"28/11/20","Likes":"0","Dislikes":"0"},
-    {"Date":"29/11/20","Likes":"0","Dislikes":"0"},
-    {"Date":"01/12/20","Likes":"0","Dislikes":"0"},
-    {"Date":"30/11/20","Likes":"2","Dislikes":"0"},
-    {"Date":"02/12/20","Likes":"2","Dislikes":"0"},
-    {"Date":"03/12/20","Likes":"2","Dislikes":"0"},
-    {"Date":"04/12/20","Likes":"2","Dislikes":"0"},
-    {"Date":"05/12/20","Likes":"2","Dislikes":"30"},
-    {"Date":"06/12/20","Likes":"0","Dislikes":"0"},
-    {"Date":"07/12/20","Likes":"0","Dislikes":"0"},
-    {"Date":"08/12/20","Likes":"0","Dislikes":"0"},
-    {"Date":"09/12/20","Likes":"0","Dislikes":"0"},
-    {"Date":"10/12/20","Likes":"0","Dislikes":"0"},
-    {"Date":"11/12/20","Likes":"0","Dislikes":"0"},
-    {"Date":"12/12/20","Likes":"0","Dislikes":"2"},
-    {"Date":"13/12/20","Likes":"0","Dislikes":"0"},
-    {"Date":"14/12/20","Likes":"1","Dislikes":"0"},
-    {"Date":"15/12/20","Likes":"1","Dislikes":"2"}
-];
+var data_ = [];
  
 let ticks = [];
 
@@ -1068,7 +943,7 @@ function loadSecondGraph() {
 function checkBoughtGame() {
   let idContainerCommentary = 'containerCreateComment';
   if(getCookie('id') == '') {}
-  else if(getGameStatus(gamedata[%%(id_idcgame)%%]).bought){
+  else if(getGameStatus(gamedata[%%(id_idcgame)%%]).bought && checkGameCommented()){
     $(`#${idContainerCommentary}`).removeClass('d-none');
     return;
   }
@@ -1156,8 +1031,238 @@ manageCheck();
 
 
 <script>
-var video = document.getElementById("videoAction");
-pausePlayBtn = document.getElementById('lottieP');
+
+  //VIDEO PLAYER (SECTION 2)
+  let selectorIframe = '[__name__="videoPlayerTagIframe"]';
+  let selectorVideo = '[__name__="videoPlayerTagVideo"]';
+
+
+  var IsInViewport = function(el, sum = true) {
+      if (typeof jQuery === "function" && el instanceof jQuery) el = el[0];
+      var rect = el.getBoundingClientRect();
+      
+      if(sum){
+        var height = el.clientHeight;
+        return (
+            rect.top >= -height*.25 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)+(height*.25) 
+        );
+      }
+      else {
+        return (
+          rect.top >= 0 &&
+          rect.left >= 0 &&
+          rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+          rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+      }
+  };
+
+var player1, player2;
+function onYouTubeIframeAPIReady() {
+  player1 = new YT.Player('playerTagIframe', {
+          events: {
+            'onStateChange': onPlayerStateChange
+          }
+        });
+} 
+
+
+var canChange1 = false;
+
+function onPlayerStateChange(event) {
+  if(event.data == YT.PlayerState.PLAYING) {
+    dataPlayers.video2.playing = true;
+    dataPlayers.video1.playing = true;
+  }
+  if(event.data == YT.PlayerState.PAUSED) {
+    if(canChange1) {
+      dataPlayers.video2.playing = false;
+      dataPlayers.video1.playing = false;
+    }
+  }
+}
+var outView = true;
+let backgroundVideo = $('#videoActionPrimary')[0];
+let videoTrailer = $(document.querySelector('[__name__="videoPlayerTagVideoDel"]'));
+let gameplaysVideo =  $(document.querySelector(selectorVideo));
+
+
+
+//Check if main video source is idcgames or youtube (video or iframe) 
+function getPlayerTrailer() {
+  if(yt != '') {
+    dataPlayers.video1.type = 'iframe';
+  
+  }
+  else {
+    dataPlayers.video1.type = 'video';
+    let video = document.querySelector(selectorVideo);
+    video.muted = true;
+    video.onpause = function(event) {
+        dataPlayers.video1.playing = !dataPlayers.video1.playing;
+      }
+      video.onplay = function() {
+        dataPlayers.video1.playing = true;
+      }
+      video.parentElement.classList.remove('d-none');
+      $('.videohide').fadeOut();
+    try {
+      video.play();
+    }
+    catch(e) {}
+    
+  }
+} 
+
+getPlayerTrailer();
+
+document.addEventListener('scroll', function (event) { 
+  let gameplaysIframe = $(document.querySelector(selectorIframe));
+  let gameplaysVideo = $(document.querySelector(selectorVideo));
+    if(IsInViewport(backgroundVideo)) {
+      if(backgroundVideo.paused && dataPlayers.main.playing) {
+        try {
+          scriptPauseVideo();
+        }
+        catch(e) {}
+      }
+    } 
+    else {
+      if(!backgroundVideo.paused) {
+        try {
+        scriptPlayVideo();
+        }
+        catch(e) {}
+        
+      }
+    }
+    let repro = dataPlayers.actual == 1 ? dataPlayers.video1 : dataPlayers.video2;
+    if(repro.type == 'iframe' && dataPlayers.actual == 2) {
+      if(IsInViewport(gameplaysIframe, sum = false)) {
+        if(!gameplaysIframe.hasClass('d-none') && repro.playing) {
+          try {
+          player1.playVideo();  
+          }
+          catch(e) {}
+        }
+        outView = false;
+        canChange1 = true;
+      }
+      else {
+        canChange1 = false;
+        if(!outView){
+          try {
+          player1.pauseVideo();  
+          }
+          catch(e) {}
+        }
+        outView = true;
+        setTimeout(()=>canChange1 = true, 200);
+      }
+    }
+    if(repro.type == 'video') {
+      if(IsInViewport(gameplaysVideo, sum = false)) {
+        if(gameplaysVideo[0].paused && repro.playing) {
+          gameplaysVideo[0].play();
+        }
+      }
+      else {
+        if(!gameplaysVideo[0].paused) {
+          dataPlayers.video2.playing = false;
+          dataPlayers.video1.playing = false;
+          gameplaysVideo[0].pause();
+        }
+      }
+    }
+      
+  }, false);
+
+
+
+  function loadVideoPlayer(event, index) {
+    dataPlayers.actual = 2;
+    let recentVideos = [...content.media.video.recent].reverse();
+    let data = recentVideos[parseInt(index)];
+    let video_type = '';
+    if(typeof(data) == "string"){
+      data = JSON.parse( data );
+    }
+    //data.url_type = 2;
+    //data.body = 'https://idcgames.com/storage/919/landing_gameplay.mp4';
+    let selectorHide, selectorShow;
+    //Video
+    if ( data["url_type"] == 2 || data["url_type"] == 4  ){
+      selectorHide = selectorIframe;
+      selectorShow = selectorVideo;
+      video_type = 'video';
+    }
+    //Iframe
+    else {
+      selectorHide = selectorVideo;
+      selectorShow = selectorIframe;
+      video_type = 'iframe';
+    }
+    let element = document.querySelector(selectorShow);
+    element.classList.remove('d-none');
+    document.querySelector(selectorHide).classList.add('d-none');
+    let iframeHide = document.getElementById('playerTrailerIframe');
+    if(iframeHide) iframeHide.classList.add('d-none');
+    let currentVideo = element.getAttribute('__current-video__');
+    if(currentVideo) {
+      if(currentVideo == index) return;
+    }
+    let selectorATag = '__current-selected-video-player__';
+    let lastSelected = document.querySelector(`[${selectorATag}]`);
+    if(lastSelected) {
+      let itags = lastSelected.querySelectorAll('i');
+      itags.forEach(icon => {
+        icon.classList.add('primaryColor');
+        icon.classList.remove('text-white-50');
+      });
+      lastSelected.removeAttribute(selectorATag);
+    }
+    event.setAttribute(selectorATag, true);
+    let itags = event.querySelectorAll('i');
+    itags.forEach(icon => {
+      icon.classList.remove('primaryColor');
+      icon.classList.add('text-white-50');
+    });
+    document.querySelector('[__name__="textVideoPlayer"]').innerText = "==(gameplay)==";
+    $(".videoshow").removeClass("d-none");
+    $(".videohide").fadeOut();
+    element.classList.remove('d-none');
+    element.setAttribute('__current-video__', index);
+
+    let video_url = data.body;
+    if(video_type == 'iframe') {
+        video_url += '?autoplay=1&enablejsapi=1&origin='+location.origin;
+    }
+    element.src = video_url;
+    dataPlayers.video2.type = video_type;
+    dataPlayers.video2.playing = true;
+    if(video_type=='video') {
+      element.onpause = function(event) {
+        dataPlayers.video2.playing = !dataPlayers.video2.playing;
+      }
+      element.onplay = function() {
+        dataPlayers.video2.playing = true;
+      }
+
+      element.play();
+    }
+    else {
+      onYouTubeIframeAPIReady();
+    }
+  }
+
+</script>
+
+
+<script>
+
+var video = document.getElementById("videoActionPrimary");
+var pausePlayBtn = document.getElementById('lottieP');
 var paramsPlay = {
   container: pausePlayBtn,
   renderer: 'svg',
@@ -1167,21 +1272,21 @@ var paramsPlay = {
   autoloadSegments: false,
   animationData: {"v":"4.9.0","fr":29.9700012207031,"ip":0,"op":60.0000024438501,"w":157,"h":157,"nm":"Pause to Play","ddd":0,"assets":[],"layers":[{"ddd":0,"ind":3,"ty":4,"nm":"background pause 2","sr":1,"ks":{"o":{"a":1,"k":[{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":0,"s":[100],"e":[75]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":20,"s":[75],"e":[0]},{"t":30.0000012219251}]},"r":{"a":0,"k":0},"p":{"a":0,"k":[118.5,78.5,0]},"a":{"a":0,"k":[0,0,0]},"s":{"a":0,"k":[100,100,100]}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":0,"k":{"i":[[0,0],[0,0]],"o":[[0,0],[0,0]],"v":[[0,-29.405],[0,29.405]],"c":false}},"nm":"Path 1","mn":"ADBE Vector Shape - Group"},{"ty":"st","c":{"a":0,"k":[0.1058824,0.1058824,0.1058824,1]},"o":{"a":0,"k":100},"w":{"a":0,"k":12},"lc":2,"lj":1,"ml":4,"nm":"Stroke 1","mn":"ADBE Vector Graphic - Stroke"},{"ty":"tr","p":{"a":0,"k":[-20,0],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Shape 1","np":3,"cix":2,"ix":1,"mn":"ADBE Vector Group"},{"ty":"tm","s":{"a":0,"k":0,"ix":1},"e":{"a":1,"k":[{"i":{"x":[0],"y":[1]},"o":{"x":[0.167],"y":[0.167]},"n":["0_1_0p167_0p167"],"t":-90,"s":[0],"e":[100]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":-75,"s":[100],"e":[100]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.167],"y":[0.167]},"n":["0p667_1_0p167_0p167"],"t":15,"s":[100],"e":[0]},{"t":20.0000008146167}],"ix":2},"o":{"a":0,"k":0,"ix":3},"m":1,"ix":2,"nm":"Trim Paths 1","mn":"ADBE Vector Filter - Trim"}],"ip":0,"op":60.0000024438501,"st":-165.000006720588,"bm":0},{"ddd":0,"ind":4,"ty":4,"nm":"background pause 1","sr":1,"ks":{"o":{"a":1,"k":[{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":0,"s":[100],"e":[75]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":20,"s":[75],"e":[0]},{"t":30.0000012219251}]},"r":{"a":0,"k":0},"p":{"a":0,"k":[78.5,78.5,0]},"a":{"a":0,"k":[0,0,0]},"s":{"a":0,"k":[100,100,100]}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":0,"k":{"i":[[0,0],[0,0]],"o":[[0,0],[0,0]],"v":[[0,-29.405],[0,29.405]],"c":false}},"nm":"Path 1","mn":"ADBE Vector Shape - Group"},{"ty":"st","c":{"a":0,"k":[0.1058824,0.1058824,0.1058824,1]},"o":{"a":0,"k":100},"w":{"a":0,"k":12},"lc":2,"lj":1,"ml":4,"nm":"Stroke 1","mn":"ADBE Vector Graphic - Stroke"},{"ty":"tr","p":{"a":0,"k":[-20,0],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Shape 1","np":3,"cix":2,"ix":1,"mn":"ADBE Vector Group"},{"ty":"tm","s":{"a":0,"k":0,"ix":1},"e":{"a":1,"k":[{"i":{"x":[0],"y":[1]},"o":{"x":[0.167],"y":[0.167]},"n":["0_1_0p167_0p167"],"t":-90,"s":[0],"e":[100]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":-75,"s":[100],"e":[100]},{"i":{"x":[0.667],"y":[1]},"o":{"x":[0.167],"y":[0.167]},"n":["0p667_1_0p167_0p167"],"t":15,"s":[100],"e":[0]},{"t":20.0000008146167}],"ix":2},"o":{"a":0,"k":0,"ix":3},"m":1,"ix":2,"nm":"Trim Paths 1","mn":"ADBE Vector Filter - Trim"}],"ip":0,"op":60.0000024438501,"st":-165.000006720588,"bm":0},{"ddd":0,"ind":5,"ty":4,"nm":"play to ring","sr":1,"ks":{"o":{"a":0,"k":100},"r":{"a":0,"k":0},"p":{"a":0,"k":[78.5,78.5,0]},"a":{"a":0,"k":[0,0,0]},"s":{"a":0,"k":[100,100,100]}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":0,"k":{"i":[[0,0],[0,38.863],[-40.041,0],[0,-40.041],[40.041,0],[0,14.55],[0,0],[0,0],[0,0]],"o":[[-38.41,-1.832],[0,-40.041],[40.041,0],[0,40.041],[0,0],[0,0],[0,0],[0,0],[0,0]],"v":[[-3.512,72.292],[-72.5,-0.125],[0,-72.625],[72.5,-0.125],[0,72.375],[-14.988,58.075],[-14.988,-29.462],[30.14,-0.125],[-14.116,28.468]],"c":false}},"nm":"Path 1","mn":"ADBE Vector Shape - Group"},{"ty":"st","c":{"a":0,"k":[0.1058824,0.1058824,0.1058824,1]},"o":{"a":0,"k":100},"w":{"a":0,"k":12},"lc":2,"lj":2,"nm":"Stroke 1","mn":"ADBE Vector Graphic - Stroke"},{"ty":"tr","p":{"a":0,"k":[0,0],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Shape 1","np":3,"cix":2,"ix":1,"mn":"ADBE Vector Group"},{"ty":"tm","s":{"a":1,"k":[{"i":{"x":[0],"y":[1]},"o":{"x":[0.167],"y":[0.167]},"n":["0_1_0p167_0p167"],"t":-105,"s":[75.5],"e":[32.9]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":-75,"s":[32.9],"e":[32.9]},{"i":{"x":[0],"y":[1]},"o":{"x":[0.167],"y":[0.167]},"n":["0_1_0p167_0p167"],"t":15,"s":[32.9],"e":[75.5]},{"t":45.0000018328876}],"ix":1},"e":{"a":0,"k":100,"ix":2},"o":{"a":1,"k":[{"i":{"x":[0],"y":[1]},"o":{"x":[0.167],"y":[0.167]},"n":["0_1_0p167_0p167"],"t":-105,"s":[0],"e":[-118]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":-75,"s":[-118],"e":[-118]},{"i":{"x":[0],"y":[1]},"o":{"x":[0.167],"y":[0.167]},"n":["0_1_0p167_0p167"],"t":15,"s":[-118],"e":[0]},{"t":45.0000018328876}],"ix":3},"m":1,"ix":2,"nm":"Trim Paths 1","mn":"ADBE Vector Filter - Trim"}],"ip":0,"op":60.0000024438501,"st":-165.000006720588,"bm":0},{"ddd":0,"ind":6,"ty":4,"nm":"background circle","sr":1,"ks":{"o":{"a":1,"k":[{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":-80,"s":[25],"e":[100]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":-75,"s":[100],"e":[100]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":15,"s":[100],"e":[25]},{"t":16.0000006516934}]},"r":{"a":0,"k":0},"p":{"a":0,"k":[78.5,78.5,0]},"a":{"a":0,"k":[3.879,-2.121,0]},"s":{"a":0,"k":[100,100,100]}},"ao":0,"shapes":[{"ty":"gr","it":[{"d":1,"ty":"el","s":{"a":0,"k":[145,145]},"p":{"a":0,"k":[0,0]},"nm":"Ellipse Path 1","mn":"ADBE Vector Shape - Ellipse"},{"ty":"st","c":{"a":0,"k":[0.1058824,0.1058824,0.1058824,1]},"o":{"a":0,"k":100},"w":{"a":0,"k":12},"lc":1,"lj":1,"ml":4,"nm":"Stroke 1","mn":"ADBE Vector Graphic - Stroke"},{"ty":"tr","p":{"a":0,"k":[3.879,-2.121],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Ellipse 1","np":3,"cix":2,"ix":1,"mn":"ADBE Vector Group"}],"ip":0,"op":60.0000024438501,"st":-165.000006720588,"bm":0}]}
 };
-var animPlay = bodymovin.loadAnimation(paramsPlay);
-function scriptPlay(){
+var animPlay = lottie.loadAnimation(paramsPlay);
+function scriptPlayVideo(){
   animPlay.setSpeed(2);
   animPlay.setDirection(1);
   animPlay.play();
   video.pause();
 }
-function scriptPause(){
+function scriptPauseVideo(){
   animPlay.setSpeed(2);
   animPlay.setDirection(-1);
   animPlay.play();
   video.play();
 };
 
-pausePlayAudioBtn = document.getElementById('lottieAudio');
+var pausePlayAudioBtn = document.getElementById('lottieAudio');
 var params = {
   container: pausePlayAudioBtn,
   renderer: 'svg',
@@ -1191,23 +1296,26 @@ var params = {
   autoloadSegments: false,
   animationData: {"v":"5.4.1","fr":29.9700012207031,"ip":0,"op":30.0000012219251,"w":20,"h":20,"nm":"Mute","ddd":0,"assets":[],"layers":[{"ddd":0,"ind":1,"ty":4,"nm":"mask_wave_2","td":1,"sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[10,10,0],"ix":2},"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ty":"rc","d":1,"s":{"a":0,"k":[9.938,18.313],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"r":{"a":0,"k":0,"ix":4},"nm":"Rectangle Path 1","mn":"ADBE Vector Shape - Rect","hd":false},{"ty":"st","c":{"a":0,"k":[1,1,1,1],"ix":3},"o":{"a":0,"k":100,"ix":4},"w":{"a":0,"k":20,"ix":5},"lc":1,"lj":1,"ml":4,"ml2":{"a":0,"k":4,"ix":8},"nm":"Stroke 1","mn":"ADBE Vector Graphic - Stroke","hd":true},{"ty":"fl","c":{"a":0,"k":[0,0,0,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[-5.281,0.031],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transformar"}],"nm":"Rectangle 1","np":3,"cix":2,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":91.000003706506,"st":0,"bm":0},{"ddd":0,"ind":2,"ty":4,"nm":"wave_2 Outlines","tt":2,"sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":1,"k":[{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"n":"0p833_0p833_0p167_0p167","t":2,"s":[18.306,9.963,0],"e":[18.118,9.963,0],"to":[-0.03125,0,0],"ti":[1.67708337306976,0,0]},{"i":{"x":0.833,"y":0.931},"o":{"x":0.167,"y":0.167},"n":"0p833_0p931_0p167_0p167","t":6,"s":[18.118,9.963,0],"e":[8.243,9.963,0],"to":[-1.67708337306976,0,0],"ti":[1.64583337306976,0,0]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"n":"0p833_0p833_0p167_0p167","t":11,"s":[8.243,9.963,0],"e":[8.243,9.963,0],"to":[0,0,0],"ti":[0,0,0]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.069},"n":"0p833_0p833_0p167_0p069","t":75,"s":[8.243,9.963,0],"e":[18.118,9.963,0],"to":[1.64583337306976,0,0],"ti":[-1.67708337306976,0,0]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"n":"0p833_0p833_0p167_0p167","t":80,"s":[18.118,9.963,0],"e":[18.306,9.963,0],"to":[1.67708337306976,0,0],"ti":[-0.03125,0,0]},{"t":84.0000034213901}],"ix":2},"a":{"a":0,"k":[2.827,7.401,0],"ix":1},"s":{"a":1,"k":[{"i":{"x":[0.833,0.833,0.833],"y":[0.931,0.931,1.151]},"o":{"x":[0.167,0.167,0.167],"y":[0.069,0.069,-0.151]},"n":["0p833_0p931_0p167_0p069","0p833_0p931_0p167_0p069","0p833_1p151_0p167_-0p151"],"t":6,"s":[100,100,100],"e":[44.871,44.871,100]},{"i":{"x":[0.833,0.833,0.833],"y":[1,1,1]},"o":{"x":[0.167,0.167,0.167],"y":[-49.003,-49.003,-1.938]},"n":["0p833_1_0p167_-49p003","0p833_1_0p167_-49p003","0p833_1_0p167_-1p938"],"t":11,"s":[44.871,44.871,100],"e":[44.871,44.871,100]},{"i":{"x":[0.833,0.833,0.833],"y":[1,1,1]},"o":{"x":[0.167,0.167,0.167],"y":[0,0,0]},"n":["0p833_1_0p167_0","0p833_1_0p167_0","0p833_1_0p167_0"],"t":75,"s":[44.871,44.871,100],"e":[100,100,100]},{"t":80.0000032584668}],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":0,"k":{"i":[[0.192,0],[0.146,0.147],[-0.293,0.293],[3.217,3.217],[-0.293,0.293],[-0.293,-0.293],[3.801,-3.801]],"o":[[-0.192,0],[-0.293,-0.293],[3.217,-3.217],[-0.293,-0.293],[0.293,-0.293],[3.801,3.802],[-0.146,0.147]],"v":[[-1.406,7.151],[-1.936,6.931],[-1.936,5.871],[-1.936,-5.797],[-1.936,-6.858],[-0.876,-6.858],[-0.876,6.931]],"c":true},"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"mm","mm":4,"nm":"Merge Paths 1","mn":"ADBE Vector Filter - Merge","hd":false},{"ty":"fl","c":{"a":0,"k":[0.6,0.6,0.647000002394,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[2.479,7.401],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transformar"}],"nm":"Group 1","np":3,"cix":2,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":91.000003706506,"st":0,"bm":0},{"ddd":0,"ind":3,"ty":4,"nm":"mask_wave","td":1,"sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[10,10,0],"ix":2},"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ty":"rc","d":1,"s":{"a":0,"k":[9.938,18.313],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"r":{"a":0,"k":0,"ix":4},"nm":"Rectangle Path 1","mn":"ADBE Vector Shape - Rect","hd":false},{"ty":"st","c":{"a":0,"k":[1,1,1,1],"ix":3},"o":{"a":0,"k":100,"ix":4},"w":{"a":0,"k":20,"ix":5},"lc":1,"lj":1,"ml":4,"ml2":{"a":0,"k":4,"ix":8},"nm":"Stroke 1","mn":"ADBE Vector Graphic - Stroke","hd":true},{"ty":"fl","c":{"a":0,"k":[0,0,0,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[-5.281,0.031],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transformar"}],"nm":"Rectangle 1","np":3,"cix":2,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":91.000003706506,"st":0,"bm":0},{"ddd":0,"ind":4,"ty":4,"nm":"wave_1 Outlines","tt":2,"sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":1,"k":[{"i":{"x":0.833,"y":0.975},"o":{"x":0.333,"y":0.052},"n":"0p833_0p975_0p333_0p052","t":0,"s":[14.063,9.959,0],"e":[14.813,9.959,0],"to":[0.125,0,0],"ti":[1.52083337306976,0,0]},{"i":{"x":0.667,"y":1},"o":{"x":0.333,"y":0},"n":"0p667_1_0p333_0","t":4,"s":[14.813,9.959,0],"e":[4.938,9.959,0],"to":[-1.52083337306976,0,0],"ti":[1.64583337306976,0,0]},{"i":{"x":0.667,"y":0.667},"o":{"x":0.167,"y":0.167},"n":"0p667_0p667_0p167_0p167","t":11,"s":[4.938,9.959,0],"e":[4.938,9.959,0],"to":[0,0,0],"ti":[0,0,0]},{"i":{"x":0.833,"y":0.992},"o":{"x":0.167,"y":0.008},"n":"0p833_0p992_0p167_0p008","t":75,"s":[4.938,9.959,0],"e":[14.813,9.959,0],"to":[1.64583337306976,0,0],"ti":[-1.52083337306976,0,0]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.333,"y":0},"n":"0p833_0p833_0p333_0","t":82,"s":[14.813,9.959,0],"e":[14.063,9.959,0],"to":[1.52083337306976,0,0],"ti":[0.125,0,0]},{"t":86.0000035028518}],"ix":2},"a":{"a":0,"k":[1.95,4.218,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":0,"k":{"i":[[0.192,0],[0.146,0.147],[-0.293,0.293],[1.462,1.462],[-0.293,0.293],[-0.293,-0.292],[2.046,-2.048]],"o":[[-0.191,0],[-0.293,-0.292],[1.462,-1.462],[-0.293,-0.293],[0.293,-0.292],[2.046,2.047],[-0.146,0.147]],"v":[[-0.876,3.969],[-1.406,3.749],[-1.406,2.689],[-1.406,-2.615],[-1.406,-3.676],[-0.346,-3.676],[-0.346,3.749]],"c":true},"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"fl","c":{"a":0,"k":[0.6,0.6,0.647000002394,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[1.95,4.218],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transformar"}],"nm":"Group 1","np":2,"cix":2,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":91.000003706506,"st":0,"bm":0},{"ddd":0,"ind":5,"ty":4,"nm":"bar Outlines","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[10.5,9.463,0],"ix":2},"a":{"a":0,"k":[6.475,6.439,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":1,"k":[{"i":{"x":0.667,"y":1},"o":{"x":0.167,"y":0.167},"n":"0p667_1_0p167_0p167","t":19,"s":[{"i":[[0.192,0],[0.146,0.147],[0,0],[-0.293,0.293],[-0.293,-0.293],[0,0],[0.293,-0.293]],"o":[[-0.192,0],[0,0],[-0.293,-0.293],[0.293,-0.293],[0,0],[0.293,0.293],[-0.146,0.147]],"v":[[-5.569,-4.777],[-6.099,-4.996],[-5.932,-4.836],[-5.932,-5.896],[-4.872,-5.896],[-5.039,-6.056],[-5.039,-4.996]],"c":true}],"e":[{"i":[[0.192,0],[0.146,0.147],[0,0],[-0.293,0.293],[-0.293,-0.293],[0,0],[0.293,-0.293]],"o":[[-0.192,0],[0,0],[-0.293,-0.293],[0.293,-0.293],[0,0],[0.293,0.293],[-0.146,0.147]],"v":[[5.402,6.189],[4.872,5.97],[-5.932,-4.836],[-5.932,-5.896],[-4.872,-5.896],[5.932,4.91],[5.932,5.97]],"c":true}]},{"i":{"x":0.667,"y":1},"o":{"x":0.167,"y":0.167},"n":"0p667_1_0p167_0p167","t":25,"s":[{"i":[[0.192,0],[0.146,0.147],[0,0],[-0.293,0.293],[-0.293,-0.293],[0,0],[0.293,-0.293]],"o":[[-0.192,0],[0,0],[-0.293,-0.293],[0.293,-0.293],[0,0],[0.293,0.293],[-0.146,0.147]],"v":[[5.402,6.189],[4.872,5.97],[-5.932,-4.836],[-5.932,-5.896],[-4.872,-5.896],[5.932,4.91],[5.932,5.97]],"c":true}],"e":[{"i":[[0.192,0],[0.146,0.147],[0,0],[-0.293,0.293],[-0.293,-0.293],[0,0],[0.293,-0.293]],"o":[[-0.192,0],[0,0],[-0.293,-0.293],[0.293,-0.293],[0,0],[0.293,0.293],[-0.146,0.147]],"v":[[5.402,6.189],[4.872,5.97],[-5.932,-4.836],[-5.932,-5.896],[-4.872,-5.896],[5.932,4.91],[5.932,5.97]],"c":true}]},{"i":{"x":0.667,"y":1},"o":{"x":0.167,"y":0.167},"n":"0p667_1_0p167_0p167","t":60,"s":[{"i":[[0.192,0],[0.146,0.147],[0,0],[-0.293,0.293],[-0.293,-0.293],[0,0],[0.293,-0.293]],"o":[[-0.192,0],[0,0],[-0.293,-0.293],[0.293,-0.293],[0,0],[0.293,0.293],[-0.146,0.147]],"v":[[5.402,6.189],[4.872,5.97],[-5.932,-4.836],[-5.932,-5.896],[-4.872,-5.896],[5.932,4.91],[5.932,5.97]],"c":true}],"e":[{"i":[[0.192,0],[0.146,0.147],[0,0],[-0.293,0.293],[-0.293,-0.293],[0,0],[0.293,-0.293]],"o":[[-0.192,0],[0,0],[-0.293,-0.293],[0.293,-0.293],[0,0],[0.293,0.293],[-0.146,0.147]],"v":[[-5.569,-4.777],[-6.099,-4.996],[-5.932,-4.836],[-5.932,-5.896],[-4.872,-5.896],[-5.039,-6.056],[-5.039,-4.996]],"c":true}]},{"t":66.0000026882351}],"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"fl","c":{"a":0,"k":[0.6,0.6,0.647000002394,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[6.475,6.439],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transformar"}],"nm":"Group 1","np":2,"cix":2,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":19.0000007738859,"op":66.0000026882351,"st":0,"bm":0},{"ddd":0,"ind":6,"ty":4,"nm":"mask_bar Outlines","td":1,"sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[10.585,9.499,0],"ix":2},"a":{"a":0,"k":[7.488,7.402,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":1,"k":[{"i":{"x":0.667,"y":1},"o":{"x":0.167,"y":0.167},"n":"0p667_1_0p167_0p167","t":18,"s":[{"i":[[0.683,0.683],[0,0],[0.467,0],[0.33,-0.331],[0,-0.467],[-0.331,-0.33],[0,0],[-0.468,0],[-0.33,0.33]],"o":[[0,0],[-0.33,-0.331],[-0.467,0],[-0.331,0.33],[0,0.467],[0,0],[0.33,0.33],[0.467,0],[0.683,-0.683]],"v":[[-5.614,-8.041],[-4.251,-6.639],[-5.488,-7.152],[-6.725,-6.639],[-7.238,-5.402],[-6.725,-4.165],[-8.089,-5.565],[-6.851,-5.054],[-5.614,-5.565]],"c":true}],"e":[{"i":[[0.683,0.683],[0,0],[0.467,0],[0.33,-0.331],[0,-0.467],[-0.331,-0.33],[0,0],[-0.468,0],[-0.33,0.33]],"o":[[0,0],[-0.33,-0.331],[-0.467,0],[-0.331,0.33],[0,0.467],[0,0],[0.33,0.33],[0.467,0],[0.683,-0.683]],"v":[[6.555,4.165],[-4.251,-6.639],[-5.488,-7.152],[-6.725,-6.639],[-7.238,-5.402],[-6.725,-4.165],[4.079,6.641],[5.318,7.152],[6.555,6.641]],"c":true}]},{"i":{"x":0.667,"y":1},"o":{"x":0.167,"y":0.167},"n":"0p667_1_0p167_0p167","t":24,"s":[{"i":[[0.683,0.683],[0,0],[0.467,0],[0.33,-0.331],[0,-0.467],[-0.331,-0.33],[0,0],[-0.468,0],[-0.33,0.33]],"o":[[0,0],[-0.33,-0.331],[-0.467,0],[-0.331,0.33],[0,0.467],[0,0],[0.33,0.33],[0.467,0],[0.683,-0.683]],"v":[[6.555,4.165],[-4.251,-6.639],[-5.488,-7.152],[-6.725,-6.639],[-7.238,-5.402],[-6.725,-4.165],[4.079,6.641],[5.318,7.152],[6.555,6.641]],"c":true}],"e":[{"i":[[0.683,0.683],[0,0],[0.467,0],[0.33,-0.331],[0,-0.467],[-0.331,-0.33],[0,0],[-0.468,0],[-0.33,0.33]],"o":[[0,0],[-0.33,-0.331],[-0.467,0],[-0.331,0.33],[0,0.467],[0,0],[0.33,0.33],[0.467,0],[0.683,-0.683]],"v":[[6.555,4.165],[-4.251,-6.639],[-5.488,-7.152],[-6.725,-6.639],[-7.238,-5.402],[-6.725,-4.165],[4.079,6.641],[5.318,7.152],[6.555,6.641]],"c":true}]},{"i":{"x":0.667,"y":1},"o":{"x":0.167,"y":0.167},"n":"0p667_1_0p167_0p167","t":60,"s":[{"i":[[0.683,0.683],[0,0],[0.467,0],[0.33,-0.331],[0,-0.467],[-0.331,-0.33],[0,0],[-0.468,0],[-0.33,0.33]],"o":[[0,0],[-0.33,-0.331],[-0.467,0],[-0.331,0.33],[0,0.467],[0,0],[0.33,0.33],[0.467,0],[0.683,-0.683]],"v":[[6.555,4.165],[-4.251,-6.639],[-5.488,-7.152],[-6.725,-6.639],[-7.238,-5.402],[-6.725,-4.165],[4.079,6.641],[5.318,7.152],[6.555,6.641]],"c":true}],"e":[{"i":[[0.683,0.683],[0,0],[0.467,0],[0.33,-0.331],[0,-0.467],[-0.331,-0.33],[0,0],[-0.468,0],[-0.33,0.33]],"o":[[0,0],[-0.33,-0.331],[-0.467,0],[-0.331,0.33],[0,0.467],[0,0],[0.33,0.33],[0.467,0],[0.683,-0.683]],"v":[[-5.614,-8.041],[-4.251,-6.639],[-5.488,-7.152],[-6.725,-6.639],[-7.238,-5.402],[-6.725,-4.165],[-8.089,-5.565],[-6.851,-5.054],[-5.614,-5.565]],"c":true}]},{"t":66.0000026882351}],"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"fl","c":{"a":0,"k":[0,0,0,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[7.488,7.403],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transformar"}],"nm":"Group 1","np":2,"cix":2,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":-7.00000028511585,"op":91.000003706506,"st":0,"bm":0},{"ddd":0,"ind":7,"ty":4,"nm":"speaker Outlines","tt":2,"sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":1,"k":[{"i":{"x":0.936,"y":1},"o":{"x":0.237,"y":0.075},"n":"0p936_1_0p237_0p075","t":8,"s":[5.049,9.975,0],"e":[9.924,9.975,0],"to":[0.8125,0,0],"ti":[-0.8125,0,0]},{"i":{"x":0.936,"y":0.936},"o":{"x":0.167,"y":0.167},"n":"0p936_0p936_0p167_0p167","t":18,"s":[9.924,9.975,0],"e":[9.924,9.975,0],"to":[0,0,0],"ti":[0,0,0]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0},"n":"0p833_0p833_0p167_0","t":66,"s":[9.924,9.975,0],"e":[5.049,9.975,0],"to":[-0.8125,0,0],"ti":[0.8125,0,0]},{"t":76.0000030955435}],"ix":2},"a":{"a":0,"k":[5.051,7.326,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":0,"k":{"i":[[0,0],[0,0],[-0.132,-0.106],[0,0],[0,0],[0,0],[0.17,0],[0,0]],"o":[[0,0],[0.17,0],[0,0],[0,0],[0,0],[-0.132,0.106],[0,0],[0,0]],"v":[[-3.301,1.976],[-0.45,1.976],[0.018,2.14],[3.301,4.765],[3.301,-4.716],[0.018,-2.09],[-0.45,-1.926],[-3.301,-1.926]],"c":true},"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ind":1,"ty":"sh","ix":2,"ks":{"a":0,"k":{"i":[[0.11,0],[0.136,0.109],[0,0],[0,0],[0,0.414],[0,0],[-0.414,0],[0,0],[0,0],[-0.26,-0.124],[0,-0.289],[0,0],[0.26,-0.124]],"o":[[-0.167,0],[0,0],[0,0],[-0.414,0],[0,0],[0,-0.414],[0,0],[0,0],[0.225,-0.181],[0.26,0.124],[0,0],[0,0.289],[-0.104,0.051]],"v":[[4.051,7.076],[3.582,6.912],[-0.713,3.476],[-4.051,3.476],[-4.801,2.726],[-4.801,-2.676],[-4.051,-3.426],[-0.713,-3.426],[3.582,-6.862],[4.376,-6.952],[4.801,-6.276],[4.801,6.326],[4.376,7.001]],"c":true},"ix":2},"nm":"Path 2","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"mm","mm":1,"nm":"Merge Paths 1","mn":"ADBE Vector Filter - Merge","hd":false},{"ty":"fl","c":{"a":0,"k":[0.6,0.6,0.647000002394,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[5.051,7.326],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transformar"}],"nm":"Group 1","np":4,"cix":2,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":91.000003706506,"st":0,"bm":0}],"markers":[]}
 };
-var animAudio = bodymovin.loadAnimation(params);
+var animAudio = lottie.loadAnimation(params);
 function scriptPlayAudio(){
-  bodymovin.setSpeed(1);
-  bodymovin.setDirection(1);
+  animAudio.setSpeed(1);
+  animAudio.setDirection(-1);
   animAudio.play();
   video.muted = false;
 }
 function scriptPauseAudio(){
-  bodymovin.setSpeed(1);
-  bodymovin.setDirection(-1);
+  animAudio.setSpeed(1);
+  animAudio.setDirection(1);
   animAudio.play();
   video.muted = true;
 };
+scriptPauseVideo();
+scriptPauseAudio();
 </script>
 
 
 <script>
+  
   blackMenu();
   $("body").addClass("bgDarkTexture");
   $("#menu").removeClass("bgDarkTexture");

@@ -6,5 +6,6 @@
 	"game-home": ["nav-game","game-home","footer","shopping-modal"],
 	"category": ["nav","category","footer","shopping-modal"],
 	"my-account": ["nav","global-account","footer"],
+	"game-landing": ["game-landing"],
 	"design-documentation": ["nav","design-documentation","footer"]
 }

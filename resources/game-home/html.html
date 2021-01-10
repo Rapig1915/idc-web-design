@@ -12,7 +12,7 @@
                     <a href="#stnHeader" class="nav-link active box-shadow red-tooltip" data-toggle="tooltip" data-placement="left" title="==(the_game)=="><span class="fontSecondarySmall colorDark">==(the_game)==</span></a>
                 </li>
                 <li class="nav-item mb-1" title="">
-                    <a href="#stnIntroduction" class="nav-link box-shadow" data-toggle="tooltip" data-placement="left" title="==(introduction)=="><span class="fontSecondarySmall colorDark">==(introduction)==</span></a>
+                    <a href="#stnIntroductionTextData" class="nav-link box-shadow" data-toggle="tooltip" data-placement="left" title="==(introduction)=="><span class="fontSecondarySmall colorDark">==(introduction)==</span></a>
                 </li>
                 <li class="nav-item mb-1" title="">
                     <a href="#stnNoticias" class="nav-link box-shadow" data-toggle="tooltip" data-placement="left" title="==(news)=="><span class="fontSecondarySmall colorDark">==(news)==</span> </a>
@@ -42,8 +42,8 @@
     
     <section id="stnHeader" data-id="stnHeader">
         <div class="stnHeader row fullHeight videoBg videoMobile">
-            <video autoplay loop muted id="videoAction" poster="https://es.idcgames.com/storage/110/bg2.jpg">
-                <source src="https://es.idcgames.com/storage/919/landing_gameplay.mp4" type="video/mp4"		  media="all and (min-width:500px)">
+            <video class="h-100" autoplay muted loop id="videoActionPrimary" poster="__(game_home_bg_section_2)__">
+                <source src="__(video_mp4)__" type="video/mp4"		  media="all and (min-width:500px)">
                 <!-- <source src="__(video_ogv)__" type="video/ogg"		  media="all and (min-width:500px)"> -->
                 <!-- <source src="__(video_webm)__" type="video/webm"	  media="all and (min-width:500px)"> -->
                 <source src="__(video_mp4_mob)__" type="video/mp4"    media="all and (max-width:499px)">
@@ -53,9 +53,14 @@
               <div class="lottie-container d-flex flex-row justify-content-center align-items-center">
                 <a data-easing="easeOutQuart" href="#stnIntroduction"><div id="lottie" data-bm-renderer='svg'></div></a>
             </div>
+            
+            <div class="videoControlsBtns d-flex align-self-end">
+                <div id="stopVideoBtn" class="pauseBtn"><div class="lottie" id="lottieP" data-bm-renderer='svg'></div></div>
+                <div id="stopAudioBtn" class="pauseAudioBtn"><div class="lottie" id="lottieAudio" data-bm-renderer='svg'></div></div>
+            </div>
             <div class="stnHeader-container">
                 <div class="d-flex flex-md-row flex-column hero-row">
-                    <div class="col-md-7 col-12 d-flex hero-left game-block">
+                    <div class="col-md-8 col-12 d-flex hero-left game-block">
                         <div class="hero-text d-flex flex-column">
                             <h1 class="logo text-hide animatedX fadeInUp slow">%%(game_name)%%</h1> 
                             <h2 class="animatedX fadeInUp slow slow pt-md-3 fontPrimaryMedium text-light">__(game_short_description)__</h2>
@@ -75,83 +80,169 @@
                                     <span class="text-shadow text-white mb-0 text-demo"> DEMO GAME</span>
                                 </div>
                                 <div class="mt-2">
-                                    <button class="btn btn-outline-secondary btn-sm wishlist-btn wishlist mr-2">
+                                    <button class="btn btn-outline-secondary btn-sm wishlist-btn wishlist mr-2 text-light">
                                         <i class="far fa-heart pr-2"></i>
                                         <span>==(add_to_wishlist)==</span>
                                     </button>  
+                                </div>
+                                <div class="mt-2 d-none" id="infoReviewsGame">
+                                    <button class="btn btn-dark btn-sm mr-2">
+                                        <i class="fas fa-comment pr-2"></i>
+                                        <span>General Reviews:</span><br>
+                                        <span class="text-warning" __name__="content">
+                                        </span>
+                                    </button>
                                 </div>
                             </div>
                             <button id="btn-commercial-game" class="btn btn-cta-secondary animatedX fadeInLeft fast mt-2 d-none" data-play="%%(id_idcgame)%%"><span>==(visit_full_game)==</span></button>
                         </div>
                         <button id="btn-cta" class="btn-cta animatedX fadeInLeft fast controlGame" data-play="%%(id_idcgame)%%"><i class="fas fa-spinner fa-pulse"></i></button>
                         <button id="btn-cta-shopping" class="btn-cta cart-btn animatedX fadeInLeft fast buyGame" data-play="%%(id_idcgame)%%"><i class="fas fa-shopping-cart"></i><span class="ml-3">==(buy_now_txt)==</span></button>
-                    </div>
-                    <div class="videoControlsBtns col-md-5 col-12 p-0 d-flex align-self-end hero-right">
-                        <div id="stopVideoBtn" class="pauseBtn"><div class="lottie" id="lottieP" data-bm-renderer='svg'></div></div>
-					    <div id="stopAudioBtn" class="pauseAudioBtn"><div class="lottie" id="lottieAudio" data-bm-renderer='svg'></div></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!--DEF-->
-    <section id="stnHeader" data-id="stnHeader">
-        <div class="stnHeader">
-              <div class="lottie-container d-flex flex-row justify-content-center align-items-center">
-                <a data-easing="easeOutQuart" href="#stnIntroduction"><div id="lottie" data-bm-renderer='svg'></div></a>
-            </div>
-              <div class="stnHeader-container">
-                <div class="d-flex flex-md-row flex-column hero-row">
-                    <div class="bg1"></div>
-                    <div class="sliders">
-                        <div class="top colorLightBg animatedX slideInUp fast bgLightTexture"></div>
-                        <div class="pj2 active animatedX slideInUp slow"></div>
-                        <div class="bottom colorLightBg animatedX slideInDown fast bgLightTexture"></div>
-                    </div>
-                    <div class="texture2"></div>
-                    <div class="col-md-7 col-12 d-flex hero-left game-block">
-                        <div class="hero-text d-flex flex-column">
-                            <h1 class="logo text-hide animatedX fadeInUp slow">%%(game_name)%%</h1> 
-                            <h2 class="animatedX fadeInUp slow slow pt-md-3 fontPrimaryMedium colorDark">__(game_short_description)__</h2>
-                            <div class="mt-1 fontSecondarySmall colorDark mb-2">__(meta_titles)__</div>
-                            <div class="d-flex flex-row flex-wrap align-items-start animated fadeInLeft fast mt-3">
-                               <div class="mt-2">
-                                    <span class="h6 btn btn-secondary btn-sm px-2 mb-0 text-discount-percent mr-2">-50%</span>
-                                </div>
-                                <div class="mt-2">
-                                  <a href="/free-to-play/" class="btn btn-dark btn-sm price btn-free-to-play mr-2" data-play="%%(id_idcgame)%%">==(free_to_play)==</a>  
-                                </div>
-                                <div class="btn btn-dark btn-sm price d-flex flex-row align-items-baseline mr-2 mt-2">
-                                    <span class="small text-white-50 mr-2"> <del class="text-original-price">€ 10,49</del></span>
-                                    <span class="text-shadow text-white mb-0 text-price"> € 10,49</span>
-                                </div>
-                                <div id="btn-demo" class="btn btn-danger btn-sm demo d-none flex-row align-items-baseline mr-2 mt-2">
-                                    <span class="text-shadow text-white mb-0 text-demo"> DEMO GAME</span>
-                                </div>
-                                <div class="mt-2">
-                                    <button class="btn btn-outline-secondary btn-sm wishlist-btn wishlist mr-2">
-                                        <i class="far fa-heart pr-2"></i>
-                                        <span>==(add_to_wishlist)==</span>
-                                    </button>  
-                                </div>
-                            </div>
-                            <button id="btn-commercial-game" class="btn btn-cta-secondary animatedX fadeInLeft fast mt-2 d-none" data-play="%%(id_idcgame)%%"><span>==(visit_full_game)==</span></button>
-                        </div>
-                        <button id="btn-cta" class="btn-cta animatedX fadeInLeft fast controlGame" data-play="%%(id_idcgame)%%"><i class="fas fa-spinner fa-pulse"></i></button>
-                        <button id="btn-cta-shopping" class="btn-cta cart-btn animatedX fadeInLeft fast buyGame" data-play="%%(id_idcgame)%%"><i class="fas fa-shopping-cart"></i><span class="ml-3">==(buy_now_txt)==</span></button>
-                    </div>
-                    <div class="col-md-5 col-12 p-0 d-flex hero-right">
-                        <img class="hero-img animatedX slideInRight" src="__(characters_front_right)__" alt="%%(game_name)%%">
                     </div>
                 </div>
             </div>
         </div>
     </section>
     <!--Sección2: Introducción: Ficha juego + Texto + Video-->
-    <section id="stnIntroduction" data-id="stnIntroduction" class="stnIntroduction">
+    <section id="stnIntroduction" data-id="stnIntroduction" class="stnIntroduction pt-5">
         <div class="container-fluid stnIntroduction-container p-0">
-            <div class="parallax-bg-container">
+            <div class="stnIntroductionContainerBottom d-flex mr-5">
+                <div class="modal fade modalGame-large-description" tabindex="-1" role="dialog" aria-labelledby="large-description" aria-hidden="true">
+                    <div class="modal-dialog modal-xl modal-dialog-centered container-fluid" id="large-description">
+                        <div class="modal-content modal-bg-img flex-lg-row flex-column">                    
+                            <div class="col-12 p-0 d-flex flex-column">
+                                <div class="modal-header">                   
+                                    <div class="d-flex flex-row align-items-baseline">
+                                        <div class="col-auto p-0">
+                                            <img src="https://cdn.idcgames.net/img/default/bg-artwork-small.jpg" class="img-user" alt="User Avatar">
+                                        </div>
+                                        <div class="col-11">
+                                            <p class="fontSecondarySmall m-0">IDC/Games</p>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body px-5 mx-3">
+                                    <div>
+                                        <div class="d-flex flex-row justify-content-between align-items-end mt-3 py-2">
+                                                <h2 class="display-3 mb-0">==(wellcome_to)== %%(game_name)%%</h2>
+                                        </div>
+                                        <hr class="border-green-lighter">
+                                        <div class="pt-2">
+                                            <p>__(game_large_description)__</p>
+                                            <p class="blockquote-footer">IDC/Games</p>
+                                        </div>                              
+                                    </div>
+                                </div>
+                                <div class="modal-footer flex-sm-row flex-column border-green-lighter py-sm-3 ">
+                                    <div class="col-sm-3 col-12">
+                                        <p class="h6 text-secondary">==(tags)==:</p>
+                                    </div>
+                                    <div class="col-sm-9 col-12 d-flex justify-content-sm-end justify-content-between">
+                                        <span class="badge badge-secondary mx-2">%%(game_name)%%</span>
+                                        <!--span class="badge badge-secondary mx-2"></span-->
+                                        <!--span class="badge badge-secondary ml-2"></span-->
+                                    </div>
+                                </div>
+                            </div>
+    
+                        </div>
+                    </div>
+                </div>
+                <div id="stnIntroductionVideo" class="justify-content-center" data-aos="slide-left" data-aos-duration="600" data-aos-delay="0" data-aos-once="true" data-aos-easing="ease-in" data-aos-anchor-placement="top-bottom">
+                    <!-- <div class="position-relative d-flex justify-content-lg-end"> -->
+                    <div class="position-relative d-flex align-items-center justify-content-center video-container">
+                        <div class="position-absolute fontSecondarySmall trailerTitle"  __name__="textVideoPlayer">==(trailer)==</div>
+                        <span class="fa-stack position-absolute fa-2x videohide">
+                            <i class="far fa-square fa-stack-2x primaryColor"></i>
+                            <i class="fas fa-play fa-stack-1x fa-xs primaryColor"></i>
+                        </span>
+                        <img src="__(game_home_video_bg_embebed)__" class="position-absolute coverVideo box-shadow videohide w-100" alt="Trailer">
+                        <div class="embed-responsive embed-responsive-16by9 box-shadow">
+                            <div class="embed-responsive-item d-none videoshow">
+                                <video __name__="videoPlayerTagVideo" muted autoplay controls id="videoAction" poster="__(game_home_video_bg_embebed)__">                  
+                                    <source src="__(video_mp4)__" type="video/mp4"        media="all and (min-width:500px)">
+                                    <!-- <source src="__(video_ogv)__" type="video/ogg"       media="all and (min-width:500px)"> -->
+                                    <!-- <source src="__(video_webm)__" type="video/webm"     media="all and (min-width:500px)"> -->
+                                    <source src="__(video_mp4_mob)__" type="video/mp4"    media="all and (max-width:499px)"> 
+                                    <!-- <source src="__(video_ogv_mob)__" type="video/ogg"    media="all and (max-width:499px)">  -->
+                                    <!-- <source src="__(video_webm_mob)__" type="video/webm"  media="all and (max-width:499px)">  -->
+                                </video>
+                                <iframe id="playerTagIframe" __name__="videoPlayerTagIframe" class="d-none embed-responsive-item" src="" frameborder="0" allow="allowccelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                                </iframe>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="position-relative gameplaysBox">
+                        <div class="lineaHorizontalAncha primaryColorBg active aos-init aos-animate" data-aos="slide-right" data-aos-duration="600"></div>
+                        <div class="d-flex mt-3 gameplays" style="overflow-x:scroll;">
+                            <a onclick="loadVideoPlayer(this, 0);return false;" class=" mr-3 p-3 d-flex justify-content-center align-items-center box-shadow dolastAt" data-target="X" data-type="media" data-kind="gameplay" data-section="video" data-index="0" data-cont="modal" data-attr="data-target" data-style="1">
+                                <span class="fa-stack fa-2x">
+                                  <i class="far fa-square fa-stack-2x primaryColor"></i>
+                                  <i class="fas fa-play fa-stack-1x fa-xs primaryColor"></i>
+                                </span>
+                            </a>
+                            <a onclick="loadVideoPlayer(this, 1);return false;" class="mr-3 p-3 d-flex justify-content-center align-items-center box-shadow dolastAt" data-target="X" data-type="media" data-kind="gameplay" data-section="video" data-index="1" data-cont="modal" data-attr="data-target" data-style="1">
+                                <span class="fa-stack fa-2x">
+                                  <i class="far fa-square fa-stack-2x primaryColor"></i>
+                                  <i class="fas fa-play fa-stack-1x fa-xs primaryColor"></i>
+                                </span>
+                            </a>
+                            <a onclick="loadVideoPlayer(this, 2);return false;" class="p-3 d-flex justify-content-center align-items-center mr-3 box-shadow dolastAt" data-target="X" data-type="media" data-kind="gameplay" data-section="video" data-index="2" data-cont="modal" data-attr="data-target" data-style="1">
+                                <span class="fa-stack fa-2x">
+                                  <i class="far fa-square fa-stack-2x primaryColor"></i>
+                                  <i class="fas fa-play fa-stack-1x fa-xs primaryColor"></i>
+                                </span>
+                            </a>
+                            <a onclick="loadVideoPlayer(this, 3);return false;" class="p-3 d-flex justify-content-center align-items-center box-shadow dolastAt" data-target="X" data-type="media" data-kind="gameplay" data-section="video" data-index="3" data-cont="modal" data-attr="data-target" data-style="1">
+                                <span class="fa-stack fa-2x">
+                                  <i class="far fa-square fa-stack-2x primaryColor"></i>
+                                  <i class="fas fa-play fa-stack-1x fa-xs primaryColor"></i>
+                                </span>
+                            </a>
+                            <!--
+
+                            <a href="javascript:loadVideoPlayer(0)" class=" mr-3 p-3 d-flex justify-content-center align-items-center box-shadow dolastAt settModal" data-toggle="modal" data-target="X" data-type="media" data-kind="gameplay" data-section="video" data-index="0" data-cont="modal" data-attr="data-target" data-style="1">
+                                <span class="fa-stack fa-2x">
+                                  <i class="far fa-square fa-stack-2x primaryColor"></i>
+                                  <i class="fas fa-play fa-stack-1x fa-xs primaryColor"></i>
+                                </span>
+                            </a>
+                            <a href="javascript:loadVideoPlayer(1)" class="mr-3 p-3 d-flex justify-content-center align-items-center box-shadow dolastAt settModal" data-toggle="modal" data-target="X" data-type="media" data-kind="gameplay" data-section="video" data-index="1" data-cont="modal" data-attr="data-target" data-style="1">
+                                <span class="fa-stack fa-2x">
+                                  <i class="far fa-square fa-stack-2x primaryColor"></i>
+                                  <i class="fas fa-play fa-stack-1x fa-xs primaryColor"></i>
+                                </span>
+                            </a>
+                            <a href="javascript:loadVideoPlayer(2)" class="p-3 d-flex justify-content-center align-items-center mr-3 box-shadow dolastAt settModal" data-toggle="modal" data-target="X" data-type="media" data-kind="gameplay" data-section="video" data-index="2" data-cont="modal" data-attr="data-target" data-style="1">
+                                <span class="fa-stack fa-2x">
+                                  <i class="far fa-square fa-stack-2x primaryColor"></i>
+                                  <i class="fas fa-play fa-stack-1x fa-xs primaryColor"></i>
+                                </span>
+                            </a>
+                            <a href="javascript:loadVideoPlayer(3)" class="p-3 d-flex justify-content-center align-items-center box-shadow dolastAt settModal" data-toggle="modal" data-target="X" data-type="media" data-kind="gameplay" data-section="video" data-index="3" data-cont="modal" data-attr="data-target" data-style="1">
+                                <span class="fa-stack fa-2x">
+                                  <i class="far fa-square fa-stack-2x primaryColor"></i>
+                                  <i class="fas fa-play fa-stack-1x fa-xs primaryColor"></i>
+                                </span>
+                            </a>
+                            -->
+                        </div>
+                    </div>
+                </div>
+                <div id="stnIntroductionText" class="d-flex justify-content-lg-start justify-content-center">
+                    <div class="flexChild px-3 py-4 secondaryColorBg box-shadow">
+                        <div class="px-lg-5 py-lg-3 d-flex flex-column">
+                            <h4 class="fontSecondaryBig">==(wellcome_to)== %%(game_name)%%</h4>
+                            <div class="truncate-overflow">__(game_large_description)__</div> 
+                            <button class="align-self-end btn btn-link fontSecondarySmall text-primary" type="button" data-toggle="modal" data-target=".modalGame-large-description">==(read_more)==</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="parallax-bg-container mt-2">
                 <div class="bg2"></div>
                 <div class="slidersstnIntroduction">
                     <div class="top black bgDarkTexture"></div>
@@ -159,7 +250,7 @@
                     <div class="bottom black bgDarkTexture"></div>
                 </div>
             </div>
-              <div data-id="infoJuego" class="row my-5 py-5">
+              <div data-id="infoJuego" class="row my-5 py-5" id="stnIntroductionTextData">
                   <div class="col-xl-6 col-md-4 col-12"></div>
                   <div class="col-xl-6 col-md-8 col-12" data-aos="slide-left" data-aos-duration="800" data-aos-once="false" data-aos-easing="ease-in">
                   <!-- Nav pills -iconos svg -->
@@ -364,115 +455,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="stnIntroductionContainerBottom">
-                <div id="stnIntroductionText" class="d-flex justify-content-lg-start justify-content-center pt-5">
-                    <div class="flexChild mt-3 p-lg-5 px-3 py-4 secondaryColorBg box-shadow">
-                        <div class="px-lg-5 py-lg-3 d-flex flex-column">
-                            <h4 class="fontSecondaryBig">==(wellcome_to)== %%(game_name)%%</h4>
-                            <div class="truncate-overflow">__(game_large_description)__</div> 
-                            <button class="align-self-end btn btn-link fontSecondarySmall text-primary" type="button" data-toggle="modal" data-target=".modalGame-large-description">==(read_more)==</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal fade modalGame-large-description" tabindex="-1" role="dialog" aria-labelledby="large-description" aria-hidden="true">
-                    <div class="modal-dialog modal-xl modal-dialog-centered container-fluid" id="large-description">
-                        <div class="modal-content modal-bg-img flex-lg-row flex-column">					
-                            <div class="col-12 p-0 d-flex flex-column">
-                                <div class="modal-header">                   
-                                    <div class="d-flex flex-row align-items-baseline">
-                                        <div class="col-auto p-0">
-                                            <img src="https://cdn.idcgames.net/img/default/bg-artwork-small.jpg" class="img-user" alt="User Avatar">
-                                        </div>
-                                        <div class="col-11">
-                                            <p class="fontSecondarySmall m-0">IDC/Games</p>
-                                        </div>
-                                    </div>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body px-5 mx-3">
-                                    <div>
-                                        <div class="d-flex flex-row justify-content-between align-items-end mt-3 py-2">
-                                                <h2 class="display-3 mb-0">==(wellcome_to)== %%(game_name)%%</h2>
-                                        </div>
-                                        <hr class="border-green-lighter">
-                                        <div class="pt-2">
-                                            <p>__(game_large_description)__</p>
-                                            <p class="blockquote-footer">IDC/Games</p>
-                                        </div>								
-                                    </div>
-                                </div>
-                                <div class="modal-footer flex-sm-row flex-column border-green-lighter py-sm-3 ">
-                                    <div class="col-sm-3 col-12">
-                                        <p class="h6 text-secondary">==(tags)==:</p>
-                                    </div>
-                                    <div class="col-sm-9 col-12 d-flex justify-content-sm-end justify-content-between">
-                                        <span class="badge badge-secondary mx-2">%%(game_name)%%</span>
-                                        <!--span class="badge badge-secondary mx-2"></span-->
-                                        <!--span class="badge badge-secondary ml-2"></span-->
-                                    </div>
-                                </div>
-                            </div>
-    
-                        </div>
-                    </div>
-                </div>
-                <div id="stnIntroductionVideo" class="d-flex justify-content-lg-end justify-content-center px-5 py-lg-0 py-5" data-aos="slide-left" data-aos-duration="600" data-aos-delay="0" data-aos-once="true" data-aos-easing="ease-in" data-aos-anchor-placement="top-bottom">
-                    <!-- <div class="position-relative d-flex justify-content-lg-end"> -->
-                    <div class="position-relative gameplaysBox">
-                        <div class="position-relative d-flex justify-content-lg-end justify-content-center fontSecondarySmall">==(gameplay)==</div>
-                        <div class="lineaHorizontalAncha primaryColorBg active aos-init aos-animate" data-aos="slide-right" data-aos-duration="600"></div>
-                        <div class="position-relative d-flex justify-content-lg-end gameplays mt-3">
-                            <a class="col-2 mr-3 box-shadow dolastAt setModal" data-toggle="modal" data-target="X" data-type="media" data-kind="gameplay" data-section="video" data-index="0" data-cont="modal" data-attr="data-target" data-style="1">
-                                <span class="fa-stack mt-4 fa-2x">
-                                  <i class="far fa-square fa-stack-2x primaryColor"></i>
-                                  <i class="fas fa-play fa-stack-1x fa-xs primaryColor"></i>
-                                </span>
-                            </a>
-                            <a class="col-2 mr-3 box-shadow dolastAt setModal" data-toggle="modal" data-target="X" data-type="media" data-kind="gameplay" data-section="video" data-index="1" data-cont="modal" data-attr="data-target" data-style="1">
-                                <span class="fa-stack mt-4 fa-2x">
-                                  <i class="far fa-square fa-stack-2x primaryColor"></i>
-                                  <i class="fas fa-play fa-stack-1x fa-xs primaryColor"></i>
-                                </span>
-                            </a>
-                            <a class="col-2 mr-3 box-shadow dolastAt setModal" data-toggle="modal" data-target="X" data-type="media" data-kind="gameplay" data-section="video" data-index="2" data-cont="modal" data-attr="data-target" data-style="1">
-                                <span class="fa-stack mt-4 fa-2x">
-                                  <i class="far fa-square fa-stack-2x primaryColor"></i>
-                                  <i class="fas fa-play fa-stack-1x fa-xs primaryColor"></i>
-                                </span>
-                            </a>
-                            <a class="col-2 box-shadow dolastAt setModal" data-toggle="modal" data-target="X" data-type="media" data-kind="gameplay" data-section="video" data-index="3" data-cont="modal" data-attr="data-target" data-style="1">
-                                <span class="fa-stack mt-4 fa-2x">
-                                  <i class="far fa-square fa-stack-2x primaryColor"></i>
-                                  <i class="fas fa-play fa-stack-1x fa-xs primaryColor"></i>
-                                </span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="position-relative d-flex align-items-center justify-content-center video-container">
-                        <div class="position-absolute fontSecondarySmall trailerTitle">==(trailer)==</div>
-                        <span class="fa-stack position-absolute fa-2x videohide">
-                            <i class="far fa-square fa-stack-2x primaryColor"></i>
-                            <i class="fas fa-play fa-stack-1x fa-xs primaryColor"></i>
-                        </span>
-                        <img src="__(game_home_video_bg_embebed)__" class="position-absolute coverVideo mx-lg-5 box-shadow videohide" alt="Trailer">
-                        <div class="embed-responsive embed-responsive-16by9 mx-lg-5 box-shadow">
-                            <div class="embed-responsive-item d-none videoshow">
-                                <video controls id="videoAction" poster="__(game_home_video_bg_embebed)__">                     
-                                    <source src="__(video_mp4)__" type="video/mp4"		  media="all and (min-width:500px)">
-                                    <!-- <source src="__(video_ogv)__" type="video/ogg"		  media="all and (min-width:500px)"> -->
-                                    <!-- <source src="__(video_webm)__" type="video/webm"	  media="all and (min-width:500px)"> -->
-                                    <source src="__(video_mp4_mob)__" type="video/mp4"    media="all and (max-width:499px)"> 
-                                    <!-- <source src="__(video_ogv_mob)__" type="video/ogg"    media="all and (max-width:499px)">  -->
-                                    <!-- <source src="__(video_webm_mob)__" type="video/webm"  media="all and (max-width:499px)">  -->
-                                </video>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="t" class="lineaVertical primaryColorBg active" data-aos="slide-down" data-aos-duration="1500" data-aos-delay="0" data-aos-once="true" data-aos-easing="linear" data-aos-anchor-placement="bottom-bottom"></div>
             </div>
         </div>
     </section>
