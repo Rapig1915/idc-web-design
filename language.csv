@@ -5,13 +5,16 @@
 ==(url_faq)==;https://support.idcgames.com/section/9-idc-games
 ==(url_forgot_password)==;forgotten-password
 ==(url_forums)==;forums
-==(url_guides)==;guides
 ==(url_landing)==;landing
 ==(url_login)==;login
 ==(url_legal_conditions)==;legal-conditions
-==(url_media)==;media
 ==(url_my_account)==;my-account
-==(url_news)==;news
+==(url_news)==;extra/news
+==(url_media)==;extra/media
+==(url_guides)==;extra/guides
+==(url_game_media)==;media
+==(url_game_news)==;news
+==(url_game_guides)==;guides
 ==(url_privacy_policy)==;privacy-policy
 ==(url_promotions)==;promotions
 ==(url_register)==;registry
@@ -324,7 +327,10 @@
 ==(event_not_started)==;Starts in
 ==(event_ended)==;Event ended
 ==(event_remaining)==;Time left
-==(url_events)==;events
+==(url_events)==;extra/events
+==(url_game_events)==;events
+==(url_gameplays)==;extra/gameplays
+==(url_game_gameplays)==;gameplays
 ==(events_description)==;The best challenges and prizes of your favorite MMO and online games from IDC/Games all gathered here! Recurring and non-recurring events from your most played FPS, sports and action-based games to unite the community and fight for unique in-game rewards and items. Stay tuned to the in-game events section to play a part and submit your skills to earn in-game currency on the live events run by IDC/Games.
 ==(active_events)==;Active events
 ==(next_events)==;Future events
