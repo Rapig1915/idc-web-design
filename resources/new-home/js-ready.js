@@ -39,17 +39,26 @@ $("body").on('init',"#sliderhome",function(){
     $(".slick-current").find(".animatable-up").addClass("fadeInUp");
 });
 
+var speedSlick = 6000;
+
+
 //<!-- slick carousel -->
 $('.carousel-top').slick({
 	centerMode: true,
-	centerPadding: '10%',
 	slidesToShow: 1,
-	autoplay: true,
-	arrows: true,
+	//autoplay: true,
+	//centerPadding: "0%",
+	arrows: false,
+	draggable: false,
 	speed: 950,
 	pauseOnHover: true,
-	autoplaySpeed: 6000,
+	autoplaySpeed: speedSlick,
   });
+
+changeSlide(0);
+
+
+	
 
 
 $("body").on("afterChange","#sliderhome",function(){

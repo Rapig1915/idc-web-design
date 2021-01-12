@@ -1276,12 +1276,57 @@ Slider
 body {
   position: relative!important;
 }
+
+.container-search {
+  margin-top: 80px;
+  margin-bottom: 10px;
+}
+
+[data-slider-index] {
+  cursor: pointer;
+  -webkit-transition: background-color 500ms linear;
+  -ms-transition: background-color 500ms linear;
+  transition: background-color 500ms linear;
+}
+.carousel-btns div {
+  line-height: 0;
+}
+[data-slider-index]:not(.current-slider):hover {
+  background-color: rgba(255,255,255,0.1);
+}
+.carousel-btns p {
+  line-height: .8;
+}
+.carousel-btns .current-slider {
+  background-color: rgba(0, 255, 127, 0.4);
+} 
+.progressbarCarousel {
+  height: 4px;
+}
+
+.carousel-container {
+  display: relative;
+  width: 100%;
+}
 .carousel-top {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 800px;
+  flex: 0 0 800px;
+  max-width: 800px;
   opacity: 0;
   visibility: hidden;
   transition: opacity 1s ease;
   -webkit-transition: opacity 1s ease;
 }
+
+.carousel-btns {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 20%;
+  flex: 0 0 20%;
+  max-width: 20%;
+  /*margin-top: 47px;*/
+}
+
 .carousel-top.slick-initialized { 
   visibility: visible;
   opacity: 1;    
@@ -1297,7 +1342,10 @@ body {
   opacity: 100%;
 }
 .carousel-top .slick-list {
+  /*
   padding: 0 calc((100vw - 1140px) / 2)!important;
+  */
+  padding: 0!important;
 }
 .carousel-top .img-logo {
   /* max-width: 30vw; */
@@ -1312,7 +1360,7 @@ body {
 @media (max-width: 575.98px) {
   .carousel-top {
     height: 283px;
-    margin-top: 46px;
+    /*margin-top: 46px;*/
   }
   .carousel-top .slider-layer-2, .carousel-top .slider-layer-3 {
     height: 283px;
@@ -1329,7 +1377,7 @@ body {
 @media (min-width: 576px) and (max-width: 767.98px) {
   .carousel-top {
     height: 283px;
-    margin-top: 46px;
+    /*margin-top: 46px;*/
   }
   .carousel-top .slider-layer-2, .carousel-top .slider-layer-3 {
     height: 283px;
@@ -1346,7 +1394,7 @@ body {
 @media (min-width: 768px) and (max-width: 991.98px) {
   .carousel-top {
     height: 396px;
-    margin-top: 46px;
+    /*margin-top: 46px;*/
   }
   .carousel-top .slider-layer-2, .carousel-top .slider-layer-3 {
     height: 396px;
@@ -1363,7 +1411,7 @@ body {
 @media (min-width: 992px) and (max-width: 1199.98px) {
   .carousel-top {
     height: 490px;
-    margin-top: 46px;
+    /*margin-top: 46px;*/
   }
   .carousel-top .slider-layer-2, .carousel-top .slider-layer-3 {
     height: 490px;
@@ -1380,7 +1428,7 @@ body {
 @media (min-width: 1200px) {
   .carousel-top {
     height: 490px;
-    margin-top: 46px;
+    /*margin-top: 46px;*/
   }
   .carousel-top .slider-layer-2, .carousel-top .slider-layer-3 {
     height: 490px;
