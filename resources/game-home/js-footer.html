@@ -280,7 +280,7 @@ let templateLanguageFilterHTML =  `
 let templateTotalReviewsHTML = `
   <{5} class="{0}">
     {1}&nbsp;
-    <span class="text-light">{2}/{3} reviews</span>
+    <span class="text-light">{2}/{3} ==(reviews_2)==</span>
     &nbsp;{4}%
   </{5}>
   `;
@@ -304,8 +304,8 @@ let templateReviewHTML = `
                 </div>
                 <div class="col-auto px-0" style="line-height:.93rem;">
                     <p class="mb-0">{0}</p>
-                    <p class="mb-0 text-white-50"><small>{1} games bought</small></p>
-                    <p class="mb-0 text-white-50"><small>{2} reviews</small></p>
+                    <p class="mb-0 text-white-50"><small>{1} ==(games_bought)==</small></p>
+                    <p class="mb-0 text-white-50"><small>{2} ==(reviews_2)==</small></p>
                 </div>
             </div>
         </div>
@@ -320,26 +320,26 @@ let templateReviewHTML = `
         <div class="col-xl-8 offset-xl-4 mt-2 px-0">
             <p class="text-white-50 text-uppercase">PUBLISHED AT {5}</p>
             <p>{6}</p>
-            <p class="text-white-50 mb-0">Was this review helpful to you?</p>
+            <p class="text-white-50 mb-0">==()==Was this review helpful to you?</p>
             <div class="mb-3">
-                <a href="javascript:voteCommentary({7}, 1)" class="actionButton primaryColor"><i class="fas fa-thumbs-up"></i> Yes</a>
-                <a href="javascript:voteCommentary({7}, 2)" class="actionButton primaryColor"><i class="fas fa-thumbs-down"></i> No</a>
-                <a href="javascript:voteCommentary({7}, 3)" class="actionButton primaryColor"><i class="far fa-laugh-beam"></i> Funny</a>
+                <a href="javascript:voteCommentary({7}, 1)" class="actionButton primaryColor"><i class="fas fa-thumbs-up"></i> ==(yes)==</a>
+                <a href="javascript:voteCommentary({7}, 2)" class="actionButton primaryColor"><i class="fas fa-thumbs-down"></i> ==(no)==</a>
+                <a href="javascript:voteCommentary({7}, 3)" class="actionButton primaryColor"><i class="far fa-laugh-beam"></i> ==(funny_review)==</a>
             </div>
             <div class="mb-3">
-                <p class="{8} mb-0 text-white-50">{9} people found this review helpful</p>
-                <p class="{10} mb-0 text-white-50">{11} people found this review no useful</p>
-                <p class="{12} mb-0 text-white-50">{13} people found this review funny</p>
+                <p class="{8} mb-0 text-white-50">{9} ==(helpful_review)==</p>
+                <p class="{10} mb-0 text-white-50">{11} ==()==people found this review no useful</p>
+                <p class="{12} mb-0 text-white-50">{13} ==(funny_review_2)==</p>
             </div>
         </div>
     </div>`;
 var recommendation = {
     2: {
-        text: 'No Recommended',
+        text: '==(not_recommended_reviews)==',
         class: 'noRecommendedReview fa-thumbs-down'
     },
     1: {
-        text: 'Recommended',
+        text: '==(recommended_reviews)==',
         class: 'yesRecommendedReview fa-thumbs-up'
     }
 
@@ -654,37 +654,37 @@ function initializeFilters(reviews) {
 let classAndText = [
   {
     class: 'text-danger',
-    text: 'Extremely Negative',
+    text: '==()==Extremely Negative',
     range: [0, 9]
   },
   {
     class: 'text-danger-',
-    text: 'Very Negative',
+    text: '==()==Very Negative',
     range: [10, 19]
   },
   {
     class: 'text-danger--',
-    text: 'Negative',
+    text: '==()==Negative',
     range: [20, 39]
   },
   {
     class: 'text-warning',
-    text: 'Varied',
+    text: '==()==Varied',
     range: [40, 69]
   },
   {
     class: 'text-primary--',
-    text: 'Positive',
+    text: '==()==Positive',
     range: [70, 84]
   },
   {
     class: 'text-primary-',
-    text: 'Very Positive',
+    text: '==()==Very Positive',
     range: [85, 94]
   },
   {
     class: 'text-primary',
-    text: 'Extremely Positive',
+    text: '==()==Extremely Positive',
     range: [95, 100]
   }
 ];

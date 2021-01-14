@@ -45,14 +45,23 @@ var speedSlick = 6000;
 //<!-- slick carousel -->
 $('.carousel-top').slick({
 	centerMode: true,
+	dots: false,
 	slidesToShow: 1,
 	//autoplay: true,
 	//centerPadding: "0%",
 	arrows: false,
 	draggable: false,
-	speed: 950,
+	speed: 0,
 	pauseOnHover: true,
 	autoplaySpeed: speedSlick,
+	responsive: [
+		{
+	      breakpoint: 769,
+	      settings: {
+	      	dots: true
+	      }
+	  	}
+	]
   });
 
 changeSlide(0);

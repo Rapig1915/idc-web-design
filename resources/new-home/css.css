@@ -1291,6 +1291,10 @@ body {
 .carousel-btns div {
   line-height: 0;
 }
+.carousel-btns img {
+  width: 35px;
+  height: 45px;
+}
 [data-slider-index]:not(.current-slider):hover {
   background-color: rgba(255,255,255,0.1);
 }
@@ -1308,15 +1312,40 @@ body {
   display: relative;
   width: 100%;
 }
+
+
 .carousel-top {
   -webkit-box-flex: 0;
-  -ms-flex: 0 0 800px;
-  flex: 0 0 800px;
-  max-width: 800px;
+  -ms-flex: 0 0 70%;
+  flex: 0 0 70%;
+  max-width: 70%;
   opacity: 0;
   visibility: hidden;
   transition: opacity 1s ease;
   -webkit-transition: opacity 1s ease;
+}
+
+
+
+@media (max-width: 769px) {
+  .carousel-btns {
+    display: none!important;
+  }
+  .carousel-top {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 90%;
+    flex: 0 0 90%;
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .carousel-top {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 99.5%;
+    flex: 0 0 99.5%;
+    max-width: 99.5%;
+  }
 }
 
 .carousel-btns {
@@ -1325,6 +1354,27 @@ body {
   flex: 0 0 20%;
   max-width: 20%;
   /*margin-top: 47px;*/
+}
+
+.carousel-top {
+  padding-bottom: 75%;
+}
+
+.carousel-top .slider-layer-2, .carousel-top .slider-layer-3 {
+    height:100%;
+    -o-object-fit: cover;
+      object-fit: cover;
+  }
+
+.carousel-top .carousel-item {
+   padding: 10px;
+  background: white;
+  box-sizing: border-box;
+  resize: horizontal;
+  border: 1px dashed;
+  overflow: auto;
+  max-width: 100%;
+  height: calc(100vh - 5px);
 }
 
 .carousel-top.slick-initialized { 
@@ -1358,93 +1408,93 @@ body {
 }
 
 @media (max-width: 575.98px) {
-  .carousel-top {
+  .carousel-top- {
     height: 283px;
     /*margin-top: 46px;*/
   }
-  .carousel-top .slider-layer-2, .carousel-top .slider-layer-3 {
+  .carousel-top- .slider-layer-2, .carousel-top- .slider-layer-3 {
     height: 283px;
     -o-object-fit: cover;
         object-fit: cover;
   }
-  .carousel-top .slick-next {
+  .carousel-top- .slick-next {
     right: 10px;
   }
-  .carousel-top .slick-prev {
+  .carousel-top- .slick-prev {
     left: 10px;
   }}
 
 @media (min-width: 576px) and (max-width: 767.98px) {
-  .carousel-top {
+  .carousel-top- {
     height: 283px;
     /*margin-top: 46px;*/
   }
-  .carousel-top .slider-layer-2, .carousel-top .slider-layer-3 {
+  .carousel-top- .slider-layer-2, .carousel-top- .slider-layer-3 {
     height: 283px;
     -o-object-fit: cover;
         object-fit: cover;
   }
-  .carousel-top .slick-next {
+  .carousel-top- .slick-next {
     right: 30px;
   }
-  .carousel-top .slick-prev {
+  .carousel-top- .slick-prev {
     left: 30px;
   }}
         
 @media (min-width: 768px) and (max-width: 991.98px) {
-  .carousel-top {
+  .carousel-top- {
     height: 396px;
     /*margin-top: 46px;*/
   }
-  .carousel-top .slider-layer-2, .carousel-top .slider-layer-3 {
+  .carousel-top- .slider-layer-2, .carousel-top- .slider-layer-3 {
     height: 396px;
     -o-object-fit: cover;
       object-fit: cover;
   } 
-  .carousel-top .slick-next {
+  .carousel-top- .slick-next {
     right: 30px;
   }
-  .carousel-top .slick-prev {
+  .carousel-top- .slick-prev {
     left: 30px;
   }}
 
 @media (min-width: 992px) and (max-width: 1199.98px) {
-  .carousel-top {
+  .carousel-top- {
     height: 490px;
     /*margin-top: 46px;*/
   }
-  .carousel-top .slider-layer-2, .carousel-top .slider-layer-3 {
+  .carousel-top- .slider-layer-2, .carousel-top- .slider-layer-3 {
     height: 490px;
     -o-object-fit: cover;
       object-fit: cover;
   }
-  .carousel-top .slick-next {
+  .carousel-top- .slick-next {
     right: 30px;
   }
-  .carousel-top .slick-prev {
+  .carousel-top- .slick-prev {
     left: 30px;
   }}
 
 @media (min-width: 1200px) {
-  .carousel-top {
+  .carousel-top- {
     height: 490px;
     /*margin-top: 46px;*/
   }
-  .carousel-top .slider-layer-2, .carousel-top .slider-layer-3 {
+  .carousel-top- .slider-layer-2, .carousel-top- .slider-layer-3 {
     height: 490px;
     -o-object-fit: cover;
       object-fit: cover;
   }
-  .carousel-top .slick-next {
+  .carousel-top- .slick-next {
     right: calc((100vw - 1160px) / 2);
   }
-  .carousel-top .slick-prev {
+  .carousel-top- .slick-prev {
     left: calc((100vw - 1160px) / 2);
   }
 }
 
-.carousel-top .slick-next,
-.carousel-top .slick-prev {
+.carousel-top- .slick-next,
+.carousel-top- .slick-prev {
   z-index: 100;
 }
 .carousel-top .slick-slide .bg-1{

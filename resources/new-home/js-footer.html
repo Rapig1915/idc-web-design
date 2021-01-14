@@ -32,7 +32,7 @@
 	function initProgressbar(index, show = false) {
 		let container = document.querySelector(`[data-slider-index="${index}"]`);
 		
-		let progressbar = document.getElementById(`progressbar${index + 1}`);
+		let progressbar = [...container.childNodes].filter(el => el.nodeName == 'PROGRESS')[0];
 
 		if(show) {
 			container.classList.add('current-slider');
@@ -57,27 +57,23 @@
 	function assignProgressbar(index) {
 		let progressbar = initProgressbar(index, show = true);
 		if(intervalController) clearInterval(intervalController);
-		console.log(partialTimer);
 		intervalController = setInterval(() => setProgressBarSlider(progressbar), partialTimer);
 	}
 
 
 	function changeSlide(index) {
+		console.log(index, actualSlide);
 		if(index == actualSlide) return;
-		goToSlider(index);
-		initProgressbar(actualSlide);
-		assignProgressbar(index);
+		actualSlideTemp = actualSlide;
 		actualSlide = index;
+		goToSlider(index);
+		initProgressbar(actualSlideTemp);
+		assignProgressbar(index);
 	}
 
-	/*
-	$('.carousel-top').on("afterChange", (event, slick, currentSlide) => {
-	  console.log('changed',currentSlide);
-	  assignProgressbar();
+	$('.carousel-top').on("beforeChange", (event, slick, currentSlide, nextSlide) => {
+	  if(currentSlide != nextSlide) changeSlide(nextSlide);
 	});
-
-
-	*/
 
 
 	
@@ -87,7 +83,6 @@
 		}
 		else {
 			if(!mouseHoverCarousel) loadNextSlider();
-
 		}
 	}
 
