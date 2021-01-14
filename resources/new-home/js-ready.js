@@ -41,7 +41,6 @@ $("body").on('init',"#sliderhome",function(){
 
 var speedSlick = 6000;
 
-
 //<!-- slick carousel -->
 $('.carousel-top').slick({
 	centerMode: true,
@@ -63,10 +62,14 @@ $('.carousel-top').slick({
 	  	}
 	]
   });
-
 changeSlide(0);
 
 
+document.getElementById("formSearch").onsubmit = function(event) {
+	event.preventDefault();
+	let form = event.target;
+	location.href = `/extra/buscar?query=${form.search.value}`;
+}
 	
 
 

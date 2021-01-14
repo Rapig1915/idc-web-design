@@ -8,7 +8,7 @@
 <script>
 	var intervalController;
 	var actualSlide = 1;
-	var maxSlides = 5;
+	var maxSlides = 10;
 	var partialTimer = 6000/100;
 
 	var mouseHoverCarousel = false;
@@ -62,7 +62,6 @@
 
 
 	function changeSlide(index) {
-		console.log(index, actualSlide);
 		if(index == actualSlide) return;
 		actualSlideTemp = actualSlide;
 		actualSlide = index;

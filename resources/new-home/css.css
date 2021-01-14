@@ -1315,16 +1315,71 @@ body {
 
 
 .carousel-top {
+  padding: 0;
   -webkit-box-flex: 0;
-  -ms-flex: 0 0 70%;
-  flex: 0 0 70%;
-  max-width: 70%;
+  -ms-flex: 0 0 75%;
+  flex: 0 0 75%;
+  max-width: 75%;
   opacity: 0;
   visibility: hidden;
   transition: opacity 1s ease;
   -webkit-transition: opacity 1s ease;
 }
 
+.carousel-btns {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 10%;
+  flex: 0 0 10%;
+  max-width: 10%;
+  /*margin-top: 47px;*/
+}
+
+
+
+@media (max-width: 1150px) {
+  .carousel-btns {
+    -ms-flex: 0 0 15%;
+    flex: 0 0 15%;
+    max-width: 15%;
+  }
+  .carousel-btns img {
+    width: 31.11px;
+    height: 40px;
+  }
+}
+@media (max-width: 1050px) {
+  .carousel-btns img {
+    width: 29.55px;
+    height: 38px;
+  }
+}
+@media (max-width: 1000px) {
+  .carousel-top {
+    -ms-flex: 0 0 83%;
+      flex: 0 0 83%;
+      max-width: 83%;
+  }
+}
+
+@media (max-width: 920px) {
+  .carousel-btns img {
+    width: 27.22px;
+    height: 35px;
+  }
+}
+@media (max-width: 865px) {
+  .carousel-btns img {
+    width: 25.66px;
+    height: 33px;
+  }
+}
+
+@media (max-width: 810px) {
+  .carousel-btns img {
+    width: 23.33px;
+    height: 30px;
+  }
+}
 
 
 @media (max-width: 769px) {
@@ -1348,33 +1403,28 @@ body {
   }
 }
 
-.carousel-btns {
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 20%;
-  flex: 0 0 20%;
-  max-width: 20%;
-  /*margin-top: 47px;*/
-}
 
 .carousel-top {
-  padding-bottom: 75%;
+  /*padding-bottom: 62.5%;*/
+}
+
+.carousel-top .carousel-item > div  {
+  width: 100%;
+  position: absolute!important;
+  top: 0;
+  height: 100%;
+}
+
+.carousel-top .carousel-item:before {
+  content: '';
+  width: 100%;
+  padding-bottom: 62.5%;
+  display: block;
+  padding-left: 0;
 }
 
 .carousel-top .slider-layer-2, .carousel-top .slider-layer-3 {
-    height:100%;
-    -o-object-fit: cover;
-      object-fit: cover;
-  }
-
-.carousel-top .carousel-item {
-   padding: 10px;
-  background: white;
-  box-sizing: border-box;
-  resize: horizontal;
-  border: 1px dashed;
-  overflow: auto;
-  max-width: 100%;
-  height: calc(100vh - 5px);
+    height: 100%;
 }
 
 .carousel-top.slick-initialized { 
