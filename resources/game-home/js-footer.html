@@ -318,9 +318,9 @@ let templateReviewHTML = `
             </div>
         </div>
         <div class="col-xl-8 offset-xl-4 mt-2 px-0">
-            <p class="text-white-50 text-uppercase">PUBLISHED AT {5}</p>
+            <p class="text-white-50 text-uppercase">==(published_at_reviews)== {5}</p>
             <p>{6}</p>
-            <p class="text-white-50 mb-0">==()==Was this review helpful to you?</p>
+            <p class="text-white-50 mb-0">==(was_helpful_question)==</p>
             <div class="mb-3">
                 <a href="javascript:voteCommentary({7}, 1)" class="actionButton primaryColor"><i class="fas fa-thumbs-up"></i> ==(yes)==</a>
                 <a href="javascript:voteCommentary({7}, 2)" class="actionButton primaryColor"><i class="fas fa-thumbs-down"></i> ==(no)==</a>
@@ -328,7 +328,7 @@ let templateReviewHTML = `
             </div>
             <div class="mb-3">
                 <p class="{8} mb-0 text-white-50">{9} ==(helpful_review)==</p>
-                <p class="{10} mb-0 text-white-50">{11} ==()==people found this review no useful</p>
+                <p class="{10} mb-0 text-white-50">{11} ==(no_helpful_review)==</p>
                 <p class="{12} mb-0 text-white-50">{13} ==(funny_review_2)==</p>
             </div>
         </div>
@@ -654,37 +654,37 @@ function initializeFilters(reviews) {
 let classAndText = [
   {
     class: 'text-danger',
-    text: '==()==Extremely Negative',
+    text: '==(extremely_negative_reviews)==',
     range: [0, 9]
   },
   {
     class: 'text-danger-',
-    text: '==()==Very Negative',
+    text: '==(very_negative_reviews)==',
     range: [10, 19]
   },
   {
     class: 'text-danger--',
-    text: '==()==Negative',
+    text: '==(negative_reviews)==',
     range: [20, 39]
   },
   {
     class: 'text-warning',
-    text: '==()==Varied',
+    text: '==(mixed_reviews)==',
     range: [40, 69]
   },
   {
     class: 'text-primary--',
-    text: '==()==Positive',
+    text: '==(positive_reviews)==',
     range: [70, 84]
   },
   {
     class: 'text-primary-',
-    text: '==()==Very Positive',
+    text: '==(very_positive_reviews)==',
     range: [85, 94]
   },
   {
     class: 'text-primary',
-    text: '==()==Extremely Positive',
+    text: '==(extremely_positivetive_reviews)==',
     range: [95, 100]
   }
 ];

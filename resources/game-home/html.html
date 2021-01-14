@@ -781,7 +781,7 @@
                                 </button>
                                 <p class="text-secondary mb-0"><i class="fas fa-arrow-left ml-3 mr-2"></i>==(your_vote)==</p>
                             </div>
-                            <div class="mx-0 mt-3"><button type="submit" class="btn-cta mt-xl-4 animated pulse fast delay-1">==()==COMMENT</button></div>
+                            <div class="mx-0 mt-3"><button type="submit" class="btn-cta mt-xl-4 animated pulse fast delay-1">==(comment_reviews)==</button></div>
                         </div>
                     </form>
                 </div>
@@ -816,7 +816,7 @@
                         <div class="dropdown">
                             <button class="btn-dwn dropdown-toggle">==(review_type)==</button>
                             <div class="dropdown-menu dropdown-menu-review text-nobreak mt-0">
-                                <li><input onchange="addSelected(this), displayReviews(loadReviews(getValueFilters()))" checked value="0" name="reviewType" id="filterReviewType1" type="radio"><label for="filterReviewType1">==()==All<span class="text-muted" id="numberFilterReviewType1"></span></label></li>
+                                <li><input onchange="addSelected(this), displayReviews(loadReviews(getValueFilters()))" checked value="0" name="reviewType" id="filterReviewType1" type="radio"><label for="filterReviewType1">==(all_reviews)==<span class="text-muted" id="numberFilterReviewType1"></span></label></li>
                                 <li><input onchange="addSelected(this), displayReviews(loadReviews(getValueFilters()))" value="1" name="reviewType" id="filterReviewType2" type="radio"><label for="filterReviewType2">==(positives)==<span class="text-muted" id="numberFilterReviewType2"></span></label></li>
                                 <li><input onchange="addSelected(this), displayReviews(loadReviews(getValueFilters()))" value="2" name="reviewType" id="filterReviewType3" type="radio"><label for="filterReviewType3">==(negatives)==<span class="text-muted" id="numberFilterReviewType3"></span></label></li>
                             </div>
@@ -824,22 +824,22 @@
                         <div class="dropdown">
                             <button class="btn-dwn dropdown-toggle">==(sale_type)==</button>
                             <div class="dropdown-menu dropdown-menu-review text-nobreak mt-0">
-                                <li><input onchange="addSelected(this), displayReviews(loadReviews(getValueFilters()))" checked value="0" name="saleType" id="filterSaleType1" type="radio"><label for="filterSaleType1">==()==All<span class="text-muted" id="numberFilterSale1"></span></label></li>
+                                <li><input onchange="addSelected(this), displayReviews(loadReviews(getValueFilters()))" checked value="0" name="saleType" id="filterSaleType1" type="radio"><label for="filterSaleType1">==(all_reviews)==<span class="text-muted" id="numberFilterSale1"></span></label></li>
                                 <li><input onchange="addSelected(this), displayReviews(loadReviews(getValueFilters()))" value="1" name="saleType" id="filterSaleType2" type="radio"><label for="filterSaleType2">==(buy_reviews)==<span class="text-muted" id="numberFilterSale2"></span></label></li>
                                 <li><input onchange="addSelected(this), displayReviews(loadReviews(getValueFilters()))" value="2" name="saleType" id="filterSaleType3" type="radio"><label for="filterSaleType3">==(free_reviews)==<span class="text-muted" id="numberFilterSale3"></span></label></li>
                             </div>
                         </div>
                         <div class="dropdown">
-                            <button class="btn-dwn dropdown-toggle">==(language)==</button>
+                            <button class="btn-dwn dropdown-toggle">==(language_reviews)==</button>
                             <div class="dropdown-menu dropdown-menu-review text-nobreak mt-0" id="dropdownLanguages">
                             </div>
                         </div>
                         <div class="dropdown">
-                            <button class="btn-dwn dropdown-toggle">==()==Order</button>
+                            <button class="btn-dwn dropdown-toggle">==(order_reviews)==</button>
                             <div class="dropdown-menu dropdown-menu-review text-nobreak mt-0">
-                                <li><input onchange="displayReviews(loadReviews(getValueFilters()))" checked value="0" name="filterOrder" id="filterOrder1" type="radio"><label for="filterOrder1">==()==Most Positives</label></label></li>
-                                <li><input onchange="displayReviews(loadReviews(getValueFilters()))" value="1" name="filterOrder" id="filterOrder2" type="radio"><label for="filterOrder2">==()==Most Negatives</label></li>
-                                <li><input onchange="displayReviews(loadReviews(getValueFilters()))" value="2" name="filterOrder" id="filterOrder3" type="radio"><label for="filterOrder3">==()==Most Funny</label></li>
+                                <li><input onchange="displayReviews(loadReviews(getValueFilters()))" checked value="0" name="filterOrder" id="filterOrder1" type="radio"><label for="filterOrder1">==(most_positives)==</label></label></li>
+                                <li><input onchange="displayReviews(loadReviews(getValueFilters()))" value="1" name="filterOrder" id="filterOrder2" type="radio"><label for="filterOrder2">==(most_negatives)==</label></li>
+                                <li><input onchange="displayReviews(loadReviews(getValueFilters()))" value="2" name="filterOrder" id="filterOrder3" type="radio"><label for="filterOrder3">==(most_entertaining)==</label></li>
                             </div>
                         </div>
                         <button id="btnGraphShow" class="btn-dwn" onclick="hideAndShowGraphContainer(1)">==(show_graph)==</button>
