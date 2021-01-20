@@ -83,13 +83,13 @@
   */
   .logo {
     background-image: url(%%(game_logo)%%);
-    background-position: left bottom;
+    background-position: center;
     background-repeat: no-repeat;
     background-size: contain; }
   
   @media (min-width: 576px) {
     .logo {
-      height: 20vh; } }
+      height: 22vh; } }
   
   @media (min-width: 480px) and (max-width: 575px) {
     .logo {
@@ -116,6 +116,12 @@
       height: calc(100vh - 40px); } }
   */
 
+
+
+  .bordered-text {
+    font-weight: 1000;
+    -webkit-text-stroke: .5px black;
+  }
   .hero-row {
     position: relative; }
   
@@ -454,7 +460,7 @@
   */
   .stnIntroduction {
     position: relative;
-    min-height: 220vh;
+    /*min-height: 220vh;*/
     overflow: hidden; }
   
   .svgResponsive {
@@ -569,7 +575,22 @@
       display: -webkit-box;
       -webkit-line-clamp: 6;
       -webkit-box-orient: vertical;  
-      margin-bottom: 1.25em;
+      margin-bottom: .5em;
+    }
+    
+    @media (min-width: 1100px) {
+      .truncate-overflow {
+        --max-lines: 8;
+        max-height: calc(var(--lh) * var(--max-lines));
+        -webkit-line-clamp: 8;
+      }
+    }
+    @media (min-width: 1300px) {
+      .truncate-overflow {
+        --max-lines: 11;
+        max-height: calc(var(--lh) * var(--max-lines));
+        -webkit-line-clamp: 11;
+      }
     }
   
   .truncate-overflow p {
@@ -638,7 +659,7 @@
   
   .parallax-bg-container .pj3 {
     position: absolute;
-    top: -30%;
+    top: -15%;
     left: 1%;
     max-width: 967px;
     width: 100%;
@@ -649,12 +670,17 @@
     -webkit-transform: rotate(-10deg);
             transform: rotate(-10deg); }
   
-  @media (min-width: 992px) and (max-width: 1199.98px) {
+  @media (min-width: 1025px) and (max-width: 1250px) {
     .parallax-bg-container .pj3 {
       position: absolute;
       top: -30%;
-      left: 1%;
-      max-width: 60vw; } }
+      max-width: 60vw; 
+      } }
+
+  @media (max-width: 1025px) {
+    .parallax-bg-container .pj3 {
+      top: -35%;
+    } }
   
   @media (max-width: 767px) {
     .parallax-bg-container .pj3 {
@@ -689,7 +715,7 @@
     width: 100%;
     height: 100%;
     background-size: cover !important;
-    background: url(__(game_home_bg_section_2)__) center no-repeat;
+    background: url(__(game_home_bg_section_1)__) center no-repeat;
     background-attachment: fixed;
     opacity: .8;
     z-index: -2; }
