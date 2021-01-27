@@ -405,7 +405,18 @@
 ==(simulation_title)==;Simulation games
 ==(puzzle_title)==;Puzzle games
 ==(fighting_title)==;Fighting games
-==(url_search)==;search
+==(url_search)==;extra/search
 ==(st_demo)==;Demo
 ==(under_price)==;Meno di {price} {symbol}
 ==(above_price)==;Por encima de {price} {symbol}
+==(free)==;free
+==(url_api_check_transaction)==;http://idcpayment.localhost/api/v1/idcgames/get_transaction/{transaction_id}
+==(nodejs_domain)==;https://idcpayment.com
+==(nodejs_port)==;5678
+==(wait_payment_notification)==;Waiting to receive payment confirmation. Please wait...
+==(complete_purchase_newpage)==;You need to complete the purchase in the new page
+==(continue_payment_with)==;Continue your payment with
+==(close_page)==;Payment action finished. You can close this page now.
+==(purchase_problem)==;An error occurred during purchase. Please try again later.
+==(purchase_error)==;Purchase Error
+==(warning_cart_empty)==;Sorry, your cart is empty!
