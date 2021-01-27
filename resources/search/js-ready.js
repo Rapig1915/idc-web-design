@@ -345,6 +345,8 @@ $("body").on("click",".wishlist-btn",function(){
 })
 
 clearGames();
+
+$("input[type=search]").val(getQueryVariable('query') || "");
 $(".btn-proceed-search").trigger("click");
 
 switch(getQueryVariable('tab')){
