@@ -165,7 +165,7 @@
 
     function proceedPayment(user) {
         var selected_paymethod_id = $(".payment-methods-container input[name='paymentMethod']:checked").attr("data-pmp-id");
-        if(!selected_paymethod_id)
+        if(!selected_paymethod_id || !selected_pmp)
         {
             showMessage("warning", "==(no_payment_method)==.");
             enableProceedPayment(true);
@@ -175,7 +175,7 @@
         var cartInfo = calcCartPrice(selected_pmp, all_currencies);
         if(cartInfo.total <= 0)
         {
-            showMessage("warning", "Sorry, your cart is empty!");
+            showMessage("warning", "==(warning_cart_empty)==");
             enableProceedPayment(true);
             return;
         }
@@ -213,8 +213,8 @@
             bought_data: bought_data,
             currency: cartInfo.currency.toUpperCase(),
             pmp_id: selected_paymethod_id, 
-            redirect_on_success: `https://${domain}/clear-cart.html`,
-            redirect_on_fail: `https://${domain}`,
+            redirect_on_success: `https://${domain}/clear-cart.html?clear=1`,
+            redirect_on_fail: `https://${domain}/clear-cart.html`,
 
             utm_source: getCookie('utm_source'),
             utm_medium: getCookie('utm_medium'),
@@ -238,7 +238,24 @@
             success: function(json){
                 var result = JSON.parse(json);
                 if(result && result.success && result.transaction_id && result.pmpc_id){
-                    window.open(idcpayment_transaction_url.replace("{transaction_id}", result.transaction_id).replace("{lang}", "==(language)==".toUpperCase()).replace("{pmpc_id}", result.pmpc_id));
+                    if(result.transaction_id)
+                        setTransactionId(result.transaction_id);
+
+                    if(!selected_pmp.is_iframe){
+                        $(".paymentModal .text-paymethod-name").text(selected_pmp.name);
+                        $(".paymentModal iframe").attr("src", idcpayment_transaction_url.replace("{transaction_id}", result.transaction_id).replace("{lang}", "==(language)==".toUpperCase()).replace("{pmpc_id}", result.pmpc_id));
+                        $(".paymentModal").modal({
+                            backdrop: 'static',
+                            keyboard: false
+                        });
+                    }else{
+                        window.open(idcpayment_transaction_url.replace("{transaction_id}", result.transaction_id).replace("{lang}", "==(language)==".toUpperCase()).replace("{pmpc_id}", result.pmpc_id));
+                        $(".paymentWaitModal").modal({
+                            backdrop: 'static',
+                            keyboard: false
+                        });
+                    }
+                    
                 }else{
                     console.log("Something wrong in creating payment transaction - response error");
                     showMessage("warning", "==(error_paying)==...");

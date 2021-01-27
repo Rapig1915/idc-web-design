@@ -1,0 +1,70 @@
+<script src="https://cdn.socket.io/socket.io-1.1.0.min.js"></script>
+<script>
+  const url_api_check_transaction = "==(url_api_check_transaction)==";
+  const socket = io('==(nodejs_domain)==:==(nodejs_port)==');
+  var currentTransactionId = '';
+  
+  socket.on('connect', function () {
+    console.log('Connected :) ');
+    if(currentTransactionId)
+      socket.emit('response_set_transaction', currentTransactionId);
+  });
+
+  socket.on('send_transaction_updated', function (data) {
+    console.log('socket io', data);
+    if (data.redirect) {
+      window.location = data.redirect;
+      return;
+    }else if(data.transactionId){
+      checkTransactionStatus(data.transactionId);
+    }
+  });
+
+  function setTransactionId(tId)
+  {
+    currentTransactionId = tId;
+    if(socket && socket.connected){
+      socket.emit('response_set_transaction', currentTransactionId);
+    }
+  }
+
+  function checkTransactionStatus(tId)
+  {
+    $.ajax({
+        type:"GET",
+        url: url_api_check_transaction.replace("{transaction_id}", tId),
+        data: '',
+        dataType: 'json',
+        async:false,
+        success: function(res){
+          if(res && res.success && res.transaction && res.transaction.state_category_id){
+            if(res.transaction.state_category_id == 200)
+              handleSuccess()
+          }
+          else{
+            handleError()
+          }
+        },
+        error: function(e){
+          handleError()
+        }
+    });
+  }
+
+  function handleError(msg = '')
+  {
+    var default_error = '==(purchase_problem)==';
+
+    $(".paymentModal").modal("hide")
+    $(".paymentWaitModal").modal("hide")
+
+    $(".paymentErrorModal .text-message").text(msg || default_error)
+    $(".paymentErrorModal").modal("show")
+  }
+
+  function handleSuccess()
+  {
+    saveBasketInfo({});
+    window.location.href = "/==(url_thankyou)==";
+  }
+</script>

@@ -337,3 +337,80 @@
         </div>
     </section>
 </main>
+
+<!-- Modal Payment-->
+<div class="modal fade paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg h-75" id="paymentModal">
+        <div class="modal-content modal-bg-img flex-lg-row flex-column h-100">
+            <div class="col-12 p-0 d-flex flex-column">
+                <div class="modal-header d-flex flex-lg-row flex-column-reverse py-2">
+                    <div class="d-flex flex-md-row flex-column justify-content-between w-100">
+                        <div class="d-flex flex-column">
+                            <span class="h5 text-white pt-2">==(continue_payment_with)== <span class="text-paymethod-name text-green">Paypal</span></span>
+                        </div>                   
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>                        
+                </div>
+                <iframe class="p-0 m-0 w-100 h-100" src="">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade paymentWaitModal" tabindex="-1" role="dialog" aria-labelledby="paymentWaitModal" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content modal-bg-img flex-lg-row flex-column">
+            <div class="col-12 p-0 d-flex flex-column">
+                <div class="modal-header d-flex flex-lg-row flex-column-reverse py-2">
+                    <div class="d-flex flex-md-row flex-column justify-content-between w-100">
+                        <div class="d-flex flex-column">
+                            <span class="h5 text-white pt-2">==(wait_payment_notification)==</span>
+                        </div>                   
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>                        
+                </div>
+                <div class="game-card-rectangular d-flex flex-row border-bottom border-green-lighter py-3 cart-item-game">
+                    <div class="d-flex flex-md-row flex-column w-100 justify-content-center">
+                        <div class="d-flex flex-column">
+                            <div><h4 class="card-title h6 text-shadow p-3 text-center">==(complete_purchase_newpage)==</h4></div>
+                            <div><img src="http://localhost/idcgames/assets/WMDx.gif" style="object-fit: contain;"/></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade paymentErrorModal" tabindex="-1" role="dialog" aria-labelledby="paymentErrorModal" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content modal-bg-img flex-lg-row flex-column">
+            <div class="col-12 p-0 d-flex flex-column">
+                <div class="modal-header d-flex flex-lg-row flex-column-reverse py-2">
+                    <div class="d-flex flex-md-row flex-column justify-content-between w-100">
+                        <div class="d-flex flex-column">
+                            <span class="h5 text-white pt-2">==(purchase_error)==</span>
+                        </div>                   
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>                        
+                </div>
+                <div class="game-card-rectangular d-flex flex-row border-bottom border-green-lighter py-3 cart-item-game">
+                    <div class="d-flex flex-md-row flex-column w-100 justify-content-center">
+                        <div class="d-flex flex-column">
+                            <div><p class="h4 display-4"><i class="far fa-times-circle mr-3"></i>Oopssss!</p></div>
+                            <div><h4 class="card-title h6 text-shadow p-3 text-center text-warning">==(purchase_problem)==</h4></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

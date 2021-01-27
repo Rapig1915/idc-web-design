@@ -379,3 +379,27 @@ Check out page
   margin-right: 20px;
   color: red;
 }
+
+@media (max-width: 2600px){
+  .paymentWaitModal .modal-dialog {
+    width: 50% !important;
+  }
+}
+
+@media (max-width: 1350px){
+  .paymentWaitModal .modal-dialog {
+    width: 75% !important;
+  }
+}
+
+@media (max-width: 2600px){
+  .paymentErrorModal .modal-dialog {
+    width: 50% !important;
+  }
+}
+
+@media (max-width: 1350px){
+  .paymentErrorModal .modal-dialog {
+    width: 75% !important;
+  }
+}
