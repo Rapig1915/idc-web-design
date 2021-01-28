@@ -241,7 +241,7 @@
                     if(result.transaction_id)
                         setTransactionId(result.transaction_id);
 
-                    if(!selected_pmp.is_iframe){
+                    if(selected_pmp.is_iframe){
                         $(".paymentModal .text-paymethod-name").text(selected_pmp.name);
                         $(".paymentModal iframe").attr("src", idcpayment_transaction_url.replace("{transaction_id}", result.transaction_id).replace("{lang}", "==(language)==".toUpperCase()).replace("{pmpc_id}", result.pmpc_id));
                         $(".paymentModal").modal({
