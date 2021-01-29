@@ -187,12 +187,15 @@ function initOfferGames(games, categories, all = true, max_games = 20)
 		var objNewTabContent = $(".offer-tab-content.clone").clone().removeClass("hidden").removeClass("clone");
 
 		var catKey = categories.name.replace(/\s+/g, '').toLowerCase();
+		var nameKey = categories.name.replace(/\s+/g, '_').toLowerCase();
+
+		console.log(categories)
 
 		setObjectValues(objNewTab, [
 			{ cls: ".anchor-tab", attr: "id", value: `${catKey}-tab` },
 			{ cls: ".anchor-tab", attr: "href", value: `#${catKey}` },
 			{ cls: ".anchor-tab", attr: "aria-controls", value: `${catKey}` },
-			{ cls: ".anchor-tab", text: `${categories.name}` },
+			{ cls: ".anchor-tab", text: `${OFFER_NAMES[nameKey] || categories.name}` },
 		]);
 
 		setObjectValues(objNewTabContent, [
@@ -220,6 +223,8 @@ function initOfferGames(games, categories, all = true, max_games = 20)
 
 		// add offer block
 		for(var offer_name in offer_list){
+			nameKey = offer_name.replace(/\s+/g, '_').toLowerCase();
+
 			// check Caresol block
 			if(gameCountInCurrentPage >= gameCountPerPage || pageNumber <= 0){
 				pageNumber ++;
@@ -240,7 +245,7 @@ function initOfferGames(games, categories, all = true, max_games = 20)
 
 			newOfferBlock = setObjectValues(newOfferBlock, [
 				{ cls: ".anchor-offer", attr: "href", value: "#" },
-				{ cls: ".text-offer-name", text: offer_name },
+				{ cls: ".text-offer-name", text: OFFER_NAMES[nameKey] || offer_name },
 				{ cls: ".text-discount-percent", text: `==(discount_param)==`.replace("{discount}", oData.max_percent) },
 				{ cls: ".text-discount-prefix", text: `==(up_to_discount)==`.replace("{discount}", oData.max_percent) },
 				{ cls: ".text-updated-at", text: getEllipseTimeFromTimestamp(oData.updated_at) },
