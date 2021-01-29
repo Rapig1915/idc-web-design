@@ -242,7 +242,7 @@
                         setTransactionId(result.transaction_id);
 
                     if(selected_pmp.is_iframe){
-                        $(".paymentModal .text-paymethod-name").text(selected_pmp.name);
+                        $(".paymentModal .text-payment-modal-title").text($(".paymentModal .text-payment-modal-title").attr("data-title-template").replace("{payment_method}", selected_pmp.name));
                         $(".paymentModal iframe").attr("src", idcpayment_transaction_url.replace("{transaction_id}", result.transaction_id).replace("{lang}", "==(language)==".toUpperCase()).replace("{pmpc_id}", result.pmpc_id));
                         $(".paymentModal").modal({
                             backdrop: 'static',
