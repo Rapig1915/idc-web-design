@@ -25,3 +25,7 @@
         font-size: calc(1.275rem + .3vw);
         }
 }
+
+.emailRequiredModal .modal-dialog {
+    max-width: 750px !important;
+}

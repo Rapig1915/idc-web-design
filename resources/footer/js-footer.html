@@ -7,7 +7,7 @@ $("body").on("click",".closeCookies",function(){
 
 <script>
 	var user_currency = getCookie('currency') || 'EUR';
-  var user_currency_symbol = getCookie('simbol') || '€';
+	var user_currency_symbol = getCookie('simbol') && getCookie('simbol') != 'null' || '€';
 
 	// Calc discount sum and window/apple/linux flag
 	if(typeof(gamedata) != "undefined"){
@@ -137,27 +137,29 @@ $("body").on("click",".closeCookies",function(){
 		return elem;
 	}
 
-	function makeDatasetForGame(gData, clip_big = false)
+	function makeDatasetForGame(gData, customImgSpecBanner = null, customImgSpecLogo = null)
 	{
 		if(!gData)	return [];
 
 		var gPrice = getGamePrice(gData);
 		var gStatus = getGameStatus(gData);
 		var discount_percent = gData.common_params.game_offer_discount_percent || 0, discount_price = (gPrice * discount_percent / 100).toFixed(2);
+		var isF2P = gData.common_params.free_2_play && (gData.common_params.free_2_play === true || gData.common_params.free_2_play === "true");
 		var newPrice = (gPrice - discount_price).toFixed(2);
 
 		var dataset = [
 			{ cls: ".text-game-name", text: gData.name },
 			{ cls: ".anchor-game-home", attr: "href", value: `/${(gData.common_params.demo_game&&"demo/")||""}${gData.common_params.game_seo}` },
-			{ cls: ".gameCard-img", attr: "src", value: getGameHomeImage(gData, clip_big) },
-			{ cls: ".card-img-overlay", attr: "src", value: gData.common_params.game_logo },
+			{ cls: ".gameCard-img", attr: "src", 
+				value: retrieveImage(gData.store_params.game_banner_json, (customImgSpecBanner && customImgSpecBanner.ratio) || '2x1', (customImgSpecBanner && customImgSpecBanner.size) || '1-4', (customImgSpecBanner && customImgSpecBanner.quality) || 0, (customImgSpecBanner && customImgSpecBanner.format) || 'webp', gData.store_params.game_banner_webp || gData.store_params.game_banner) },
+			{ cls: ".card-img-overlay", attr: "src", value: retrieveImage(gData.common_params.game_logo_json, (customImgSpecLogo && customImgSpecLogo.ratio) || '2x1', (customImgSpecLogo && customImgSpecLogo.size) || '1-4', (customImgSpecLogo && customImgSpecLogo.quality) || 0, (customImgSpecLogo && customImgSpecLogo.format) || 'webp', gData.common_params.game_logo_webp || gData.common_params.game_logo) },
 			{ cls: ".show-os-windows", hide: !gData.common_params.flagWindows },
 			{ cls: ".show-os-apple", hide: !gData.common_params.flagApple },
 			{ cls: ".show-os-linux", hide: !gData.common_params.flagLinux },
 
-			{ cls: ".img-topslider-gamechar", attr: "src", value: gData.store_params.slider_game_character },
-			{ cls: ".img-topslider-gameback", attr: "src", value: gData.store_params.slider_game_background },
-			{ cls: ".img-topslider-gamelogo", attr: "src", value: gData.common_params.game_logo },
+			{ cls: ".img-topslider-gamechar", attr: "src", value: gData.store_params.slider_game_character_webp },
+			{ cls: ".img-topslider-gameback", attr: "src", value: retrieveImage(gData.store_params.game_banner_json, '2x1', '1-1', 0, 'webp', gData.store_params.game_banner_webp || gData.store_params.game_banner) },
+			{ cls: ".img-topslider-gamelogo", attr: "src", value: retrieveImage(gData.common_params.game_logo_json, '2x1', '1-4', 0, 'webp', gData.common_params.game_logo_webp || gData.common_params.game_logo) },
 			{ cls: ".txt-topslider-gameintro", text: gData.store_params.game_short_description },
 			{ cls: ".anchor-topslider-gamelink", attr: "href", value: `/${gData.common_params.game_seo}` },
 			
@@ -170,11 +172,11 @@ $("body").on("click",".closeCookies",function(){
 			{ cls: ".wishlist-btn", attr: "data-play", value: gData.common_params.id_idcgame },
 		];
 
-		if(discount_percent > 0 && gPrice > 0 && newPrice > 0){
+		if(!isF2P && discount_percent > 0 && gPrice > 0 && newPrice > 0){
 			dataset.push({ cls: ".text-discount-percent", text: `-${discount_percent}%` });
 			dataset.push({ cls: ".text-original-price", text: `${user_currency_symbol} ${gPrice}` });
 			dataset.push({ cls: ".text-price", text: `${user_currency_symbol} ${newPrice}` });
-		}else if(newPrice > 0){
+		}else if(!isF2P && newPrice > 0){
 			dataset.push({ cls: ".text-discount-percent", hide: true });
 			dataset.push({ cls: ".text-original-price", hide: true });
 			dataset.push({ cls: ".text-price", text: `${user_currency_symbol} ${newPrice}` });
@@ -205,6 +207,14 @@ $("body").on("click",".closeCookies",function(){
 		return (gData && gData.store_params && (big ? gData.store_params.background_clip_big : gData.store_params.background_clip_small)) ||
 					 (gData && gData.store_params && gData.store_params.background_clip_small) ||
 					 (gData && gData.store_params && gData.store_params.background_foros) || `https://idcgames.com/global_releases/splash/${gameID}.png`;
+	}
+	
+	function retrieveImage(json, ratio, size, quality, format, default_url)
+	{
+		var key = `${ratio}_${size}_${quality}_${format}`;
+		if(json && json[key])
+			return json[key] || default_url;
+		return default_url;
 	}
 
 	function getFeaturedSquareImage(gData)
@@ -239,6 +249,15 @@ $("body").on("click",".closeCookies",function(){
         }
     }
     console.log('Query variable %s not found', variable);
+	}
+
+	function showEmailRequiredModal(message)
+	{
+		if(message){
+			$(".emailRequiredModal .text-message").text(message)
+		}
+
+		$(".emailRequiredModal").modal("show")
 	}
 
 </script>

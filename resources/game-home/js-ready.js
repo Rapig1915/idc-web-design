@@ -154,6 +154,9 @@ $("body").on("click",".wishlist",function(){
         },
         res => {
             console.log("Wishing game fail: ", res);
+            if(res && res.description && res.description == 'USER+HAS+NO+EMAIL'){
+                showEmailRequiredModal("==(email_required_wish)==")
+            }
         }
     );
 })
@@ -166,6 +169,9 @@ $("body").on("click",".wishlisted",function(){
         },
         res => {
             console.log("Unwishing game fail: ", res);
+            if(res && res.description && res.description == 'USER+HAS+NO+EMAIL'){
+                showEmailRequiredModal("==(email_required_wish)==")
+            }
         }
     );
 })

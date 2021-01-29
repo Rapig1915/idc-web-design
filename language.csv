@@ -8,7 +8,7 @@
 ==(url_landing)==;landing
 ==(url_login)==;login
 ==(url_legal_conditions)==;legal-conditions
-==(url_my_account)==;my-account
+==(url_my_account)==;info/my-account
 ==(url_news)==;extra/news
 ==(url_media)==;extra/media
 ==(url_guides)==;extra/guides
@@ -415,8 +415,16 @@
 ==(nodejs_port)==;5678
 ==(wait_payment_notification)==;Waiting to receive payment confirmation. Please wait...
 ==(complete_purchase_newpage)==;You need to complete the purchase in the new page
-==(continue_payment_with)==;Continue your payment with
+==(continue_payment_with)==;Continue your payment with {payment_method}
 ==(close_page)==;Payment action finished. You can close this page now.
 ==(purchase_problem)==;An error occurred during purchase. Please try again later.
 ==(purchase_error)==;Purchase Error
 ==(warning_cart_empty)==;Sorry, your cart is empty!
+==(payment_pending)==;Your payment is pending now. Please wait.
+==(purchase_thankyou)==;Thank you for your purchase.
+==(purchase_in_progress)==;Purchase In Progress...
+==(purchase_success)==;Purchase Success!
+==(email_required)==;Email Required!
+==(email_required_purchase)==;You need to verify your email in your account page to purchase products.
+==(email_required_wish)==;You need to verify your email in your account page to wish games.
+==(visit_account_page)==;Go to my account.

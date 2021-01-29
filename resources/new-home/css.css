@@ -1178,7 +1178,7 @@ Resto de juegos
   transition: all ease-out .4s; }
 
 .gameCard:hover .overlay {
-  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5));
+  background-image: radial-gradient(circle, rgba(43, 12, 12, 0.6), rgba(0, 0, 0, 0.5));
   -webkit-transition: all .3s ease-in-out;
   transition: all .3s ease-in-out; }
 
@@ -1288,22 +1288,10 @@ body {
   -ms-transition: background-color 500ms linear;
   transition: background-color 500ms linear;
 }
-.carousel-btns div {
-  line-height: 0;
-}
-.carousel-btns img {
-  width: 35px;
-  height: 45px;
-}
+ 
 [data-slider-index]:not(.current-slider):hover {
   background-color: rgba(255,255,255,0.1);
 }
-.carousel-btns p {
-  line-height: .8;
-}
-.carousel-btns .current-slider {
-  background-color: rgba(0, 255, 127, 0.4);
-} 
 .progressbarCarousel {
   height: 4px;
 }
@@ -1313,44 +1301,107 @@ body {
   width: 100%;
 }
 
-
 .carousel-top {
   padding: 0;
   -webkit-box-flex: 0;
-  -ms-flex: 0 0 75%;
-  flex: 0 0 75%;
-  max-width: 75%;
+  -ms-flex: 0 0 60%;
+  flex: 0 0 60%;
+  max-width: 60%;
   opacity: 0;
   visibility: hidden;
   transition: opacity 1s ease;
   -webkit-transition: opacity 1s ease;
 }
 
+.carousel-btns div {
+  line-height: 0;
+  padding-left: 1em;
+  padding-right: 1em;
+  /* padding: 0.3em; */
+  overflow: hidden;
+}
+.carousel-btns img {
+  width: 64px;
+  height: 85px;
+  object-fit: contain;
+}
+.carousel-btns .btn-text {
+  font-weight: 800;
+  line-height: 1.2em;
+}
+.carousel-btn progress {
+  /* margin-bottom: -0.3em; */
+  margin-left: -1em;
+  width: 120% !important;
+  overflow: hidden;
+}
+.carousel-btns {
+  background-color: rgba(0, 70, 77, 0.2);
+} 
+.carousel-btns .current-slider {
+  background-color: rgba(0, 255, 127, 0.4);
+} 
+
 .carousel-btns {
   -webkit-box-flex: 0;
-  -ms-flex: 0 0 10%;
-  flex: 0 0 10%;
-  max-width: 10%;
+  -ms-flex: 0 0 15%;
+  flex: 0 0 15%;
+  max-width: 15%;
   /*margin-top: 47px;*/
 }
 
+@media (max-width: 1920px) {
+  .carousel-btns img {
+    width: 53.2px;
+    height: 70px;
+  }
 
+  .carousel-btns p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 1350px) {
+  .carousel-btns img {
+    width: 47px;
+    height: 60px;
+  }
+
+  .carousel-btns p {
+    font-size: 0.9rem;
+  }
+
+  .carousel-btns div {
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+  }
+}
 
 @media (max-width: 1150px) {
-  .carousel-btns {
-    -ms-flex: 0 0 15%;
-    flex: 0 0 15%;
-    max-width: 15%;
-  }
   .carousel-btns img {
     width: 31.11px;
     height: 40px;
+  }
+
+  .carousel-btns p {
+    font-size: 0.8rem;
   }
 }
 @media (max-width: 1050px) {
   .carousel-btns img {
     width: 29.55px;
     height: 38px;
+  }
+  
+  .carousel-btns div {
+    line-height: 0;
+    padding-left: 0.1em;
+    padding-right: 0.1em;
+    /* padding: 0.3em; */
+  }
+
+  .carousel-btns p {
+    font-size: 0.8rem;
   }
 }
 @media (max-width: 1000px) {
@@ -1359,6 +1410,10 @@ body {
       flex: 0 0 83%;
       max-width: 83%;
   }
+
+  .carousel-btns p {
+    font-size: 0.8rem;
+  }
 }
 
 @media (max-width: 920px) {
@@ -1366,21 +1421,21 @@ body {
     width: 27.22px;
     height: 35px;
   }
+
+  .carousel-btns p {
+    font-size: 0.8rem;
+  }
 }
 @media (max-width: 865px) {
   .carousel-btns img {
     width: 25.66px;
     height: 33px;
   }
-}
 
-@media (max-width: 810px) {
-  .carousel-btns img {
-    width: 23.33px;
-    height: 30px;
+  .carousel-btns p {
+    font-size: 0.7rem;
   }
 }
-
 
 @media (max-width: 769px) {
   .carousel-btns {
@@ -1403,6 +1458,10 @@ body {
   }
 }
 
+.carousel-top .img-topslider-gameback{
+  height: 100%;
+  object-fit: cover;
+}
 
 .carousel-top {
   /*padding-bottom: 62.5%;*/
@@ -1449,7 +1508,7 @@ body {
 }
 .carousel-top .img-logo {
   /* max-width: 30vw; */
-  height: 100px;
+  height: 150px;
   object-fit: contain;
   object-position: left;
 }
@@ -1842,7 +1901,8 @@ span.btn.btn-primary.btn-sm.px-2, .btn-group-sm > span.btn.btn-primary.px-2 {
   transition: all .3s ease-in-out; }
 
 .small-card .card-img-overlay {
-  padding: 3.5rem; }
+  padding: 1.5rem; 
+}
 
 .small-card:hover .system-btns {
   display: none; }
@@ -1853,7 +1913,7 @@ span.btn.btn-primary.btn-sm.px-2, .btn-group-sm > span.btn.btn-primary.px-2 {
   display: flex; }
 
 .small-card:hover .logo-overlay {
-  padding: 3rem;
+  padding: 1rem;
   -webkit-transition: all ease-out .4s;
   transition: all ease-out .4s; }
 
@@ -1896,8 +1956,9 @@ span.btn.btn-primary.btn-sm.px-2, .btn-group-sm > span.btn.btn-primary.px-2 {
   transition: all .3s ease-in-out; }
 
 .big-card .card-img-overlay {
-  padding: 3.5rem;
-  max-width: 400px; }
+  padding: 1.5rem;
+  max-width: 400px; 
+}
 
 .big-card:hover .system-btns {
   display: none; }
@@ -1908,7 +1969,7 @@ span.btn.btn-primary.btn-sm.px-2, .btn-group-sm > span.btn.btn-primary.px-2 {
   display: flex; }
 
 .big-card:hover .logo-overlay {
-  padding: 3rem;
+  padding: 1rem;
   -webkit-transition: all ease-out .4s;
   transition: all ease-out .4s; }
 
@@ -2278,4 +2339,8 @@ button.btn.btn-sm.wishlist-btn.px-2.py-0.mr-3.wishlisted.btn-primary {
 }
 .game-card-rectangular:hover .card-rectangular-tag {
   color: #fff;
+}
+
+.img-topslider-gamechar {
+  display: none !important;
 }

@@ -147,7 +147,11 @@
             success: function(e){
                 var res = JSON.parse(e);
                 if (res.rc == 200) {
-                    proceedPayment({ nick: getCookie('nick'), email: (res.data && res.data.email)||"" });
+                    if(!res.data || !res.data.email){
+	                    showEmailRequiredModal("==(email_required_purchase)==")
+                    }else{
+                        proceedPayment({ nick: getCookie('nick'), email: (res.data && res.data.email)||"" });
+                    }
                 }else{
                     deleteSession();
                     $("[data-target='.loginModal']").click();

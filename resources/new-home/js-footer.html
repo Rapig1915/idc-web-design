@@ -1,4 +1,5 @@
-<script src="/assets/config/gamedata.js?==(current_time)=="></script>
+<!-- <script src="/assets/config/gamedata.js?==(current_time)=="></script> -->
+<script src="/assets/config/gamedata.js"></script>
 <script>
   var topgames = null;
   var topgames_panel = null;
@@ -7,8 +8,8 @@
 
 <script>
 	var intervalController;
-	var actualSlide = 1;
-	var maxSlides = 10;
+	var actualSlide = -1;
+	var maxSlides = 6;
 	var partialTimer = 6000/100;
 
 	var mouseHoverCarousel = false;
@@ -21,6 +22,23 @@
         mouseHoverCarousel = false;
     });
 
+	// slick carousel resizing with carousel buttons
+	sliderResizeInterval = setInterval(() => {
+		var shome = $('#sliderhome .slick-list');
+		if(!shome) return;
+
+		var boxHeight = shome.innerHeight();
+		var imgHeight = $(".carousel-btns .btn-image:first").outerHeight();
+
+		var offset = boxHeight > 442 ? -0.15 : 0.1;
+		var padding = (boxHeight-(imgHeight+4+3+offset)*maxSlides)/12;
+		if(!padding) return;
+
+		$(".carousel-btn").css("padding-top", `${padding.toFixed(2)}px`);
+		$(".carousel-btn").css("padding-bottom", `${padding.toFixed(2)}px`);
+		$(".carousel-btn progress").css("margin-bottom", `-${padding.toFixed(2)}px`);
+	}, 500)
+	// if(sliderResizeInterval) clearInterval(intervalController);
 
 
 	function goToSlider(index) {
@@ -31,6 +49,7 @@
 
 	function initProgressbar(index, show = false) {
 		let container = document.querySelector(`[data-slider-index="${index}"]`);
+		if(!container) return null;
 		
 		let progressbar = [...container.childNodes].filter(el => el.nodeName == 'PROGRESS')[0];
 
@@ -56,6 +75,7 @@
 
 	function assignProgressbar(index) {
 		let progressbar = initProgressbar(index, show = true);
+		if(!progressbar) return;
 		if(intervalController) clearInterval(intervalController);
 		intervalController = setInterval(() => setProgressBarSlider(progressbar), partialTimer);
 	}

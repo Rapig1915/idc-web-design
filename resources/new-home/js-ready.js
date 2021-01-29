@@ -46,7 +46,7 @@ $('.carousel-top').slick({
 	centerMode: true,
 	dots: false,
 	slidesToShow: 1,
-	//autoplay: true,
+	// autoplay: false,
 	//centerPadding: "0%",
 	arrows: false,
 	draggable: false,
@@ -65,11 +65,11 @@ $('.carousel-top').slick({
 changeSlide(0);
 
 
-document.getElementById("formSearch").onsubmit = function(event) {
-	event.preventDefault();
-	let form = event.target;
-	location.href = `/extra/buscar?query=${form.search.value}`;
-}
+// document.getElementById("formSearch").onsubmit = function(event) {
+// 	event.preventDefault();
+// 	let form = event.target;
+// 	location.href = `/extra/buscar?query=${form.search.value}`;
+// }
 	
 
 
@@ -118,7 +118,7 @@ function initWishGames(){
 	});
 }
 
-function initTopSlider(max_games=10){
+function initTopSlider(max_games=6){
 	if(!topgames || !topgames_panel) return;
 		
 	var gameList = [];
@@ -135,23 +135,39 @@ function initTopSlider(max_games=10){
 		for(var i = 0; i < datasources.length; i ++){
 			var picks = getShuffledArr(gameList.length<max_games/2 ? datasources[i].slice(0,2) : datasources[i].slice(2,5));
 			var id = picks.length>0 ? picks[0] : 0;
-			(id && !gameList.includes(id)) && gameList.push(id);
+			(id && !gameList.includes(id) && gamedata[id] && gamedata[id].common_params.game_status !== "inactive") && gameList.push(id);
 		}
 	}
 
 	console.log("top slider games: ", gameList);
 
-	for(var i = 0; i < gameList.length; i ++){
+	for(var i = 0; i < gameList.length && i < max_games; i ++){
 		var gameID = gameList[i];
 
-		var newGameBlock = $(`#sliderhome .carousel-item.item-${i+1}`);
-
 		// make dataset and display		
+		var newGameBlock = $(`#sliderhome .carousel-item.item-${i+1}`);
 		newGameBlock = setObjectValues(newGameBlock, makeDatasetForGame(gamedata[gameID]));
+
+		var newGameSliderButton = $(`.carousel-container .carousel-btn.clone.d-none`).clone().removeClass("d-none").removeClass("clone");
+		
+		var urlImgSliderButton = retrieveImage(gamedata[gameID].store_params.game_banner_json, '3x4', '1-8', 0, 'webp', gamedata[gameID].store_params.game_banner_webp || gamedata[gameID].store_params.game_banner)
+		// var urlImgSliderButton = retrieveImage(gamedata[gameID].common_params.game_logo_json, '1x1', '1-8', 0, 'webp', gamedata[gameID].common_params.game_logo_webp || gamedata[gameID].common_params.game_logo)
+
+		newGameSliderButton = setObjectValues(newGameSliderButton, [
+			{ cls: "", attr: "onclick", value: `changeSlide(${i})` },
+			{ cls: "", attr: "data-slider-index", value: `${i}` },
+			{ cls: ".btn-image", attr: "src", value: urlImgSliderButton },
+			{ cls: ".btn-text", text: gamedata[gameID].name },
+		]);
+		$(`.carousel-container .carousel-btns`).append(newGameSliderButton);
 	}
+
 	for(; i <max_games; i ++){
 		$(`#sliderhome .carousel-item.item-${i+1}`).remove();
 	}
+
+	goToSlider(0);
+	assignProgressbar(0);
 }
 
 function initOfferGames(games, categories, all = true, max_games = 20)
@@ -356,7 +372,7 @@ function initGoodGames(max_games = 20)
 					: $(".game-block.whatsgood.small-card.clone").clone().removeClass("hidden").removeClass("clone");
 
 			// make dataset and display
-			newGameBlock = setObjectValues(newGameBlock, makeDatasetForGame(gamedata[gameID], gameCountInCurrentPage == 0));
+			newGameBlock = setObjectValues(newGameBlock, makeDatasetForGame( gamedata[gameID], { ratio: '1x1', size: '1-4', quality: 0, format: 'webp' } ));
 
 			// add it
 			if(gameCountInCurrentPage == 0)
@@ -386,16 +402,9 @@ function initFeaturedGames(max_games = 20)
 				break;
 
 			var gameID = data[i];
-
 			var gData = gamedata[gameID];
 
-			var dataset = [
-				{ cls: "", attr: "href", value: `/${gData.common_params.game_seo}` },
-				{ cls: ".gameCard-img", attr: "src", value: getFeaturedSquareImage(gData) },
-				{ cls: ".card-img-overlay", attr: "src", value: gData.common_params.game_logo },
-			];
-
-			setObjectValues($(`#featured .gameCard.featured-${i+1}`), dataset);
+			setObjectValues($(`#featured .gameCard.featured-${i+1}`), makeDatasetForGame(gData, { ratio: '1x1', size: '1-8', quality: 0, format: 'webp' }, { ratio: '1x1', size: '1-8', quality: 0, format: 'webp' }));
 		}
 	}
 }
@@ -507,7 +516,7 @@ function getNewsLogo(data)
     }
 	}
 	
-	return "https://image.freepik.com/free-photo/graphical-modern-digital-world-news-background_1412-442.jpg";
+	return "https://cdn.idcgames.com/resources/idcgames/news_default.jpg";
 }
 
 function activateSlick(elem)
@@ -643,6 +652,9 @@ $("body").on("click",".wishlist-btn",function(){
 			},
 			res => {
 					console.log(`Wishing game ${gameID} fail: `, res);
+					if(res && res.description && res.description == 'USER+HAS+NO+EMAIL'){
+						showEmailRequiredModal("==(email_required_wish)==")
+					}
 			}
 	);
 })

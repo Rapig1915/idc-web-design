@@ -334,12 +334,15 @@ $("body").on("click",".wishlist-btn",function(){
 	var bWannaWish = $(this).hasClass("wishlist");
 	makeWishRequest(gameID, '', bWannaWish,
 			res => {
-					console.log(`Wishing game ${gameID} success: `, res);
-					$(`.wishlist-btn[data-play="${gameID}"]`).each((k,btn) => setWishlistedState(btn, bWannaWish));
-					loadUserWishGames(null);
+                console.log(`Wishing game ${gameID} success: `, res);
+                $(`.wishlist-btn[data-play="${gameID}"]`).each((k,btn) => setWishlistedState(btn, bWannaWish));
+                loadUserWishGames(null);
 			},
 			res => {
-					console.log(`Wishing game ${gameID} fail: `, res);
+                console.log(`Wishing game ${gameID} fail: `, res);
+                if(res && res.description && res.description == 'USER+HAS+NO+EMAIL'){
+                    showEmailRequiredModal("==(email_required_wish)==")
+                }
 			}
 	);
 })

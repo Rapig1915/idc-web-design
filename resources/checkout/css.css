@@ -252,7 +252,7 @@ span.btn.btn-primary.btn-sm.px-2, .btn-group-sm > span.btn.btn-primary.px-2 {
   transition: all .3s ease-in-out; }
 
 .small-card .card-img-overlay {
-  padding: 3.5rem; }
+  padding: 1.5rem; }
 
 .small-card:hover .system-btns {
   display: none; }
@@ -263,7 +263,7 @@ span.btn.btn-primary.btn-sm.px-2, .btn-group-sm > span.btn.btn-primary.px-2 {
   display: flex; }
 
 .small-card:hover .logo-overlay {
-  padding: 3rem;
+  padding: 1rem;
   -webkit-transition: all ease-out .4s;
   transition: all ease-out .4s; }
 
