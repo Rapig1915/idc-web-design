@@ -7,7 +7,7 @@ $("body").on("click",".closeCookies",function(){
 
 <script>
 	var user_currency = getCookie('currency') || 'EUR';
-	var user_currency_symbol = getCookie('simbol') && getCookie('simbol') != 'null' || '€';
+	var user_currency_symbol = getCookie('simbol') != 'null' && getCookie('simbol') || '€';
 
 	// Calc discount sum and window/apple/linux flag
 	if(typeof(gamedata) != "undefined"){
