@@ -18,7 +18,7 @@
         if(cartInfo && !!cartInfo.games){
             $(".order-net-price").text(  `${cartInfo.simbol} ${cartInfo.net}`);
             $(".order-vat-price").text(  `${cartInfo.simbol} ${cartInfo.vat}`);
-            $(".order-fee-price").text(  `${cartInfo.simbol} ${parseFloat(cartInfo.feeIdcpayment)+parseFloat(cartInfo.feePaymethod)}`);
+            $(".order-fee-price").text(  `${cartInfo.simbol} ${(parseFloat(cartInfo.feeIdcpayment)+parseFloat(cartInfo.feePaymethod)).toFixed(2)}`);
             $(".order-total-price").text(`${cartInfo.simbol} ${cartInfo.total}`);
 
             console.log(cartInfo)
