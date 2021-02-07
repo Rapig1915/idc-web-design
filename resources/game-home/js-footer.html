@@ -1368,4 +1368,31 @@ scriptPauseAudio();
   var anim;
   anim = lottie.loadAnimation(params2);
   anim.setSpeed(0.9);
+
+  // hide recommended parts if information is empty
+  if(!"%%(req_os_max)%%" && !"%%(req_proc_max)%%" && !"%%(req_ram_max)%%" && !"%%(req_graph_max)%%" && !"%%(req_hdd_max)%%")
+    $("#requisitosSistema .flex-column:nth-child(2)").addClass("hidden")
+
+  if(!"%%(req_os_min)%%")
+    $("#requisitosSistema .cls-req_os_min").addClass("hidden")
+  if(!"%%(req_proc_min)%%")
+    $("#requisitosSistema .cls-req_proc_min").addClass("hidden")
+  if(!"%%(req_ram_min)%%")
+    $("#requisitosSistema .cls-req_ram_min").addClass("hidden")
+  if(!"%%(req_graph_min)%%")
+    $("#requisitosSistema .cls-req_graph_min").addClass("hidden")
+  if(!"%%(req_hdd_min)%%")
+    $("#requisitosSistema .cls-req_hdd_min").addClass("hidden")
+
+  if(!"%%(req_os_max)%%")
+    $("#requisitosSistema .cls-req_os_max").addClass("hidden")
+  if(!"%%(req_proc_max)%%")
+    $("#requisitosSistema .cls-req_proc_max").addClass("hidden")
+  if(!"%%(req_ram_max)%%")
+    $("#requisitosSistema .cls-req_ram_max").addClass("hidden")
+  if(!"%%(req_graph_max)%%")
+    $("#requisitosSistema .cls-req_graph_max").addClass("hidden")
+  if(!"%%(req_hdd_max)%%")
+    $("#requisitosSistema .cls-req_hdd_max").addClass("hidden")
+
   </script>
