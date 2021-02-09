@@ -101,10 +101,17 @@ if(sGame){ // playable check : production && (f2p playable || p2p bought)
                 }
             },
             error: function(e){
-                $(".controlGame").text(text + "(Not Available)");
+                $(".controlGame").text(text + "(==(not_available)==)");
                 $(".controlGame").removeClass("playGame");
             }
         });
+    }else if(thisStatus == "s13" || thisStatus == "not_in_idc"){
+        $(".controlGame").text("==(play_here)==")
+        $(".btn.price").addClass("hidden")
+        $("body").on( "click", ".controlGame", function() {
+            if(gData && gData.store_params && gData.store_params.redirect_url)
+                window.location.href = gData.store_params.redirect_url
+        })
     }
 }else{
     $(".controlGame").text("Null");
