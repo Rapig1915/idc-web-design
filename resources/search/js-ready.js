@@ -210,7 +210,7 @@ function initAll(searchId)
 {
     if(searchId > 0 && searchId != currentSearchId) return;
 
-    initGames(gamesSearchResult.all, "all", "square")
+    initGames(gamesSearchResult.all.reverse(), "all", "square")
     initGames(gamesSearchResult.all, "all", "rectangle")
     initGames(gamesSearchResult.featured, "featured", "square")
     initGames(gamesSearchResult.featured, "featured", "rectangle")
