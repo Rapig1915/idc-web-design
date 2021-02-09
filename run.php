@@ -21,7 +21,7 @@
 	$lang = array();
 	if ($file_handle !== FALSE) {
 		while ( ($data = fgetcsv($file_handle)) !== FALSE) {
-			$row = explode(';',$data[0],2);
+			$row = explode(';', implode(",", $data),2);
 			$index = $row[0];
 			$value = $row[1];
 			$lang[$index] = $value;

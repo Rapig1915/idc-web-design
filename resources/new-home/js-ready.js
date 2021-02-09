@@ -1,3 +1,5 @@
+console.log(`Time until OnReady: ${(new Date()).getTime()-startTime} ms`);
+
 const getShuffledArr = arr => {
 	const newArr = arr.slice()
 	for (let i = newArr.length - 1; i > 0; i--) {
@@ -168,6 +170,8 @@ function initTopSlider(max_games=6){
 
 	goToSlider(0);
 	assignProgressbar(0);
+
+	$("section").removeClass("hidden")
 }
 
 function initOfferGames(games, categories, all = true, max_games = 20)
@@ -568,52 +572,41 @@ function activateSlick2(elem)
 	});
 }
 
+initTopSlider();
+
 loadUserGames(() => {
 	
-	// Load topgames json and init page
-	$.get('./idcjson/topgames.json', function(json){
-		topgames = json;
-
-		initTopSlider();
-		initRecommendedGames();
-		initGoodGames();
-
-		initWishGames();
-	})
-
-	$.get('./idcjson/topgames-panel.json', function(json){
-		topgames_panel = json;
-
-		initTopSlider();
-		initFeaturedGames();
-		initDiscoveredGames("bestselling");
-		initDiscoveredGames("new");
-		initDiscoveredGames("upcoming");
-		initDiscoveredGames("demo");
-
-		if(topgames_panel && topgames_panel.offer && topgames_panel.offer_categories){
-			initOfferGames(topgames_panel.offer, topgames_panel.offer_categories, true);
-			for(var offer_name in topgames_panel.offer_categories)
-			{
-				initOfferGames(
-					topgames_panel.offer_categories[offer_name].games,
-					{ name: offer_name, max_percent: topgames_panel.offer_categories[offer_name].max_percent, updated_at: topgames_panel.offer_categories[offer_name].updated_at },
-					false
-				);
-			}
+	if(topgames_panel && topgames_panel.offer && topgames_panel.offer_categories){
+		initOfferGames(topgames_panel.offer, topgames_panel.offer_categories, true);
+		for(var offer_name in topgames_panel.offer_categories)
+		{
+			initOfferGames(
+				topgames_panel.offer_categories[offer_name].games,
+				{ name: offer_name, max_percent: topgames_panel.offer_categories[offer_name].max_percent, updated_at: topgames_panel.offer_categories[offer_name].updated_at },
+				false
+			);
 		}
+	}
 
-		initWishGames();
-	})
+	initRecommendedGames();
+	initGoodGames();
+	initFeaturedGames();
 
-	// Load news
-	$.get('./assets/content/all-news.json', function(json){
-		all_news = json;
+	initDiscoveredGames("bestselling");
+	initDiscoveredGames("new");
+	initDiscoveredGames("upcoming");
+	initDiscoveredGames("demo");
 
-		initNews();
-	})
 
-});
+	initWishGames();
+})
+
+// Load news
+$.get('./assets/content/all-news.json', function(json){
+	all_news = json;
+
+	initNews();
+})
 
 function setWishlistedState(btn, wishlisted = false){
 	// var btn = $(`.wishlist-btn[data-play="${id_idcgame}"]`);
