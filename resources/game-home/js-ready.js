@@ -112,7 +112,7 @@ if(sGame){ // playable check : production && (f2p playable || p2p bought)
         $(".btn.price").addClass("hidden")
         $("body").on( "click", ".controlGame", function() {
             if(gData && gData.store_params && gData.store_params.redirect_url)
-                window.location.href = gData.store_params.redirect_url
+                window.open(gData.store_params.redirect_url)
         })
     }
 }else{

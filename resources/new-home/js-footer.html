@@ -33,12 +33,15 @@
 		var imgHeight = $(".carousel-btns .btn-image:first").outerHeight();
 
 		var offset = boxHeight > 442 ? -0.15 : 0.1;
-		var padding = (boxHeight-(imgHeight+4+3+offset)*maxSlides)/12;
+		// var padding = (boxHeight-(imgHeight+4+3+offset)*maxSlides)/12;
+		var padding = (boxHeight-(imgHeight+4+3)*maxSlides)/12;
 		if(!padding) return;
 
 		$(".carousel-btn").css("padding-top", `${padding.toFixed(2)}px`);
 		$(".carousel-btn").css("padding-bottom", `${padding.toFixed(2)}px`);
 		$(".carousel-btn progress").css("margin-bottom", `-${padding.toFixed(2)}px`);
+
+		console.log(boxHeight, imgHeight)
 	}, 500)
 	// if(sliderResizeInterval) clearInterval(intervalController);
 

@@ -94,7 +94,20 @@
             <div class="carousel-btns d-flex flex-column">
                 <div class="carousel-btn clone d-none" onclick="changeSlide(0)" data-slider-index=-1>
                     <div class="d-flex align-items-center">
-                        <img src="==(cdn_background_transparent)==" class="btn-image">
+                        <!-- <img src="==(cdn_background_transparent)==" class="btn-image"> -->
+                        <div class="d-flex align-items-center justify-content-center position-relative btn-image">
+                            <a class="anchor-game-home w-100 h-100" href="#">
+                                <div class="position-relative w-100 h-100">
+                                    <div class="logo-img-container position-absolute w-100 h-100">
+                                        <img class="img-back" src="==(cdn_background_transparent)==" alt="...">
+                                    </div>
+                                    <div class="bg-img-container overflow-hidden box-shadow w-100 h-100">
+                                        <img class="img-overlay" src="==(cdn_background_transparent)==" alt="...">
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
                         <p class="ml-2 mb-0 text-center btn-text w-100">Zula gran</p>
                     </div>
                     <progress class="w-100 progressbarCarousel invisible" value="0" max="100"></progress>

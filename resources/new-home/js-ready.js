@@ -152,14 +152,16 @@ function initTopSlider(max_games=6){
 
 		var newGameSliderButton = $(`.carousel-container .carousel-btn.clone.d-none`).clone().removeClass("d-none").removeClass("clone");
 		
-		var urlImgSliderButton = retrieveImage(gamedata[gameID].store_params.game_banner_json, '3x4', '1-8', 0, 'webp', gamedata[gameID].store_params.game_banner_webp || gamedata[gameID].store_params.game_banner)
+		var urlBackSliderButton = retrieveImage(gamedata[gameID].store_params.game_banner_json, '1x1', '1-8', 0, 'webp', gamedata[gameID].store_params.game_banner_webp || gamedata[gameID].store_params.game_banner)
+		var urlLogoSliderButton = retrieveImage(gamedata[gameID].common_params.game_logo_json, '1x1', '1-8', 0, 'webp', gamedata[gameID].common_params.game_logo_webp || gamedata[gameID].common_params.game_logo)
 		// var urlImgSliderButton = retrieveImage(gamedata[gameID].common_params.game_logo_json, '1x1', '1-8', 0, 'webp', gamedata[gameID].common_params.game_logo_webp || gamedata[gameID].common_params.game_logo)
 
 		newGameSliderButton = setObjectValues(newGameSliderButton, [
 			{ cls: "", attr: "onclick", value: `changeSlide(${i})` },
 			{ cls: "", attr: "data-slider-index", value: `${i}` },
-			{ cls: ".btn-image", attr: "src", value: urlImgSliderButton },
 			{ cls: ".btn-text", text: gamedata[gameID].name },
+			{ cls: ".img-overlay", attr: "src", value: urlLogoSliderButton },
+			{ cls: ".img-back", attr: "src", value: urlBackSliderButton },
 		]);
 		$(`.carousel-container .carousel-btns`).append(newGameSliderButton);
 	}
