@@ -54,7 +54,79 @@ $("body").on('init',"#sliderhome",function(){
     $(".slick-current").find(".animatable-right").addClass("fadeInRight");
 });
 
-//<!-- slick carousel -->
+$("body").on("afterChange","#sliderhome",function(){
+    $(".slick-current").find(".animatable").addClass("fadeInLeft");
+    $(".slick-current").find(".animatable-custom-left").addClass("slideInLeftCustom");
+    $(".slick-current").find(".animatable-custom-right").addClass("slideInRightCustom");
+    $(".slick-current").find(".animatable-right").addClass("fadeInRight");
+});
+$("body").on("beforeChange","#sliderhome",function(){
+    $(".slick-current").find(".animatable").removeClass("fadeInLeft");
+    $(".slick-current").find(".animatable-custom-left").removeClass("slideInLeftCustom");
+    $(".slick-current").find(".animatable-custom-right").removeClass("slideInRightCustom");
+    $(".slick-current").find(".animatable-right").removeClass("fadeInRight");
+});
+
+
+
+activateSlick($('.carouselRecommended'));
+activateSlick($('.carouselNews'));
+
+function isCat(gData, catName){
+	if(!gData || !gData.common_params) return;
+	return gData.common_params.game_cat1 == catName || gData.common_params.game_cat2 == catName || gData.common_params.game_cat3 == catName || gData.common_params.game_cat4 == catName || gData.common_params.game_cat5 == catName;
+}
+
+function isTag(gData, tagName){
+
+}
+// Init functions
+var topSliderInited = false;
+
+function initTopSlider(max_games=10){
+	if(topSliderInited)
+		return;
+	
+	if(!topgames || !topgames_panel) return;
+
+	topSliderInited = true;
+		
+	var gameList = [];
+	var datasources = [
+		topgames && topgames.topLogin.filter(x => isCat(gamedata[x], "##(name)##")),
+		topgames && topgames.topCcu.filter(x => isCat(gamedata[x], "##(name)##")), 
+		topgames_panel && topgames_panel["bestselling"].filter(x => isCat(gamedata[x], "##(name)##")), 
+		topgames_panel && topgames_panel["new"].filter(x => isCat(gamedata[x], "##(name)##")), 
+		topgames_panel && topgames_panel["upcoming"].filter(x => isCat(gamedata[x], "##(name)##")), 
+	];
+
+	console.log(datasources)
+
+	var max_try = 5;
+	while(gameList.length < max_games && max_try-->0){
+		for(var i = 0; i < datasources.length; i ++){
+			var picks = getShuffledArr(gameList.length<max_games/2 ? datasources[i].slice(0,2) : datasources[i].slice(2,5));
+			var id = picks.length>0 ? picks[0] : 0;
+			// if(!isCat(gamedata[id], "##(name)##")) continue;
+			(id && !gameList.includes(id)) && gameList.push(id);
+		}
+	}
+
+	console.log("top slider games: ", gameList);
+
+	for(var i = 0; i < gameList.length; i ++){
+		var gameID = gameList[i];
+
+		var newGameBlock = $(`#sliderhome .carousel-item.item-${i+1}`);
+
+		// make dataset and display		
+		newGameBlock = setObjectValues(newGameBlock, makeDatasetForGame(gamedata[gameID]));
+	}
+	for(; i <max_games; i ++){
+		$(`#sliderhome .carousel-item.item-${i+1}`).remove();
+	}
+
+	//<!-- slick carousel -->
 $('.carousel-top-category').slick({
 	centerMode: false,
 	centerPadding: '10%',
@@ -74,67 +146,6 @@ $('.carousel-top-category').slick({
 	]
   });
 
-$("body").on("afterChange","#sliderhome",function(){
-    $(".slick-current").find(".animatable").addClass("fadeInLeft");
-    $(".slick-current").find(".animatable-custom-left").addClass("slideInLeftCustom");
-    $(".slick-current").find(".animatable-custom-right").addClass("slideInRightCustom");
-    $(".slick-current").find(".animatable-right").addClass("fadeInRight");
-});
-$("body").on("beforeChange","#sliderhome",function(){
-    $(".slick-current").find(".animatable").removeClass("fadeInLeft");
-    $(".slick-current").find(".animatable-custom-left").removeClass("slideInLeftCustom");
-    $(".slick-current").find(".animatable-custom-right").removeClass("slideInRightCustom");
-    $(".slick-current").find(".animatable-right").removeClass("fadeInRight");
-});
-
-
-
-activateSlick($('.carouselRecommended'));
-activateSlick($('.carouselNews'));
-
-
-// Init functions
-var topSliderInited = false;
-function initTopSlider(max_games=10){
-	if(topSliderInited)
-		return;
-	
-	if(!topgames || !topgames_panel) return;
-
-	topSliderInited = true;
-		
-	var gameList = [];
-	var datasources = [
-		topgames && topgames.topLogin, 
-		topgames && topgames.topCcu, 
-		topgames_panel && topgames_panel["bestselling"], 
-		topgames_panel && topgames_panel["new"], 
-		topgames_panel && topgames_panel["upcoming"], 
-	];
-
-	var max_try = 5;
-	while(gameList.length < max_games && max_try-->0){
-		for(var i = 0; i < datasources.length; i ++){
-			var picks = getShuffledArr(gameList.length<max_games/2 ? datasources[i].slice(0,2) : datasources[i].slice(2,5));
-			var id = picks.length>0 ? picks[0] : 0;
-			(id && !gameList.includes(id)) && gameList.push(id);
-		}
-	}
-
-	console.log("top slider games: ", gameList);
-
-	for(var i = 0; i < gameList.length; i ++){
-		var gameID = gameList[i];
-
-		var newGameBlock = $(`#sliderhome .carousel-item.item-${i+1}`);
-
-		// make dataset and display		
-		newGameBlock = setObjectValues(newGameBlock, makeDatasetForGame(gamedata[gameID]));
-	}
-	for(; i <max_games; i ++){
-		$(`#sliderhome .carousel-item.item-${i+1}`).remove();
-	}
-
 	$("section").removeClass("hidden")
 }
 
@@ -146,14 +157,16 @@ function initFeaturedGames(max_games = 20)
 
 		const data = getShuffledArr(topgames_panel.featured);
 
-		for(var i = 0; i < data.length && i < max_games; i ++){
-			if(i >= nMaxFeatured)
-				break;
-
+		for(var i = 0; i < data.length; i ++){
 			var gameID = data[i];
 			var gData = gamedata[gameID];
 
+			if(!isCat(gData, "##(name)##")) continue;
+
 			setObjectValues($(`#featured .small-card.featured-${i+1}`), makeDatasetForGame(gData, { ratio: '1x1', size: '1-8', quality: 0, format: 'webp' }, { ratio: '1x1', size: '1-8', quality: 0, format: 'webp' }));
+
+			if(--nMaxFeatured <= 0)
+				break;
 		}
 	}
 }
@@ -172,10 +185,12 @@ function initDiscoveredGames(type /* bestselling/new/upcoming/demo */, max_games
 	var nDisplayStep = 10;
 
 	if(topgames_panel[type] && !!topgames_panel[type] && nDisplayedGames < topgames_panel[type].length){
-		for(var i = nDisplayedGames; i < topgames_panel[type].length && i < nDisplayedGames + nDisplayStep && i < max_games; i ++){
+		for(var i = nDisplayedGames; i < topgames_panel[type].length && i < nDisplayedGames + nDisplayStep; i ++){
 			var gameID = topgames_panel[type][i];
 
 			if(!gamedata[gameID]) continue;
+
+			if(!isCat(gamedata[gameID], "##(name)##")) continue;
 
 			var newGameBlock = $(".game-block.discovered.clone").clone().removeClass("hidden").removeClass("clone");
 
@@ -184,6 +199,9 @@ function initDiscoveredGames(type /* bestselling/new/upcoming/demo */, max_games
 
 			// add it
 			$(newGameBlock).insertBefore(buttonShowMore);
+
+			if(--max_games <= 0)
+				break;
 		}
 
 		nDisplayedGames += nDisplayStep;
@@ -209,11 +227,13 @@ function initRecommendedGames(max_games = 20)
 		
 		var objCurrentPage = null;
 		
-		for(var i = 0; i < topgames.topCcu.length && i < max_games; i ++){
+		for(var i = 0; i < topgames.topCcu.length; i ++){
 			var gameID = topgames.topCcu[i];
 			var gameStatus = gamedata && gamedata[gameID] && gamedata[gameID].common_params && gamedata[gameID].common_params.game_status;
 			if(!gameStatus || gameStatus === "developing" || gameStatus === "inactive")
 				continue;
+
+			if(!isCat(gamedata[gameID], "##(name)##")) continue;
 
 			// check Caresol block
 			if(gameCountInCurrentPage >= gameCountPerPage || pageNumber <= 0){
@@ -231,6 +251,9 @@ function initRecommendedGames(max_games = 20)
 			// add it
 			$(newGameBlock).appendTo(objCurrentPage);
 			gameCountInCurrentPage ++;
+
+			if(max_games-- <= 0)
+			 break;
 		}
 
 		activateSlick(objGameContainer);

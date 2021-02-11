@@ -604,7 +604,7 @@ loadUserGames(() => {
 })
 
 // Load news
-$.get('./assets/content/all-news.json', function(json){
+$.get('/assets/content/all-news.json', function(json){
 	all_news = json;
 
 	initNews();
