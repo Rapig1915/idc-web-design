@@ -659,6 +659,19 @@ $("body").on("click",".wishlist-btn",function(){
 	);
 })
 
+// carousel for tooltip
+$('.carousel-tooltip').slick({
+	centerMode: false,
+	slidesToShow: 1,
+	autoplay: true,
+	arrows: false,
+	speed: 950,
+	pauseOnHover: true,
+	autoplaySpeed: 2000,
+	fade: true,
+	cssEase: 'linear'
+});
+
 $(function () {
 	$('[data-toggle="tooltip"]').tooltip()
 });

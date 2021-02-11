@@ -462,20 +462,3 @@ $('.carousel-tooltip').slick({
 // 		visibility: "hidden"
 // 	  });
 // 	});
-
-
-function queueReviewLoad(){
-	const tooltips = $(".custom-tooltip")
-	tooltips.map((index, tt) => {
-		if(tt && $(tt).is(':visible') && $(tt).css("visibility") == "visible" && $(tt).attr("id_idcgame"))
-		{
-			if(typeof(loadGameReview) == "function")
-				loadGameReview($(tt).attr("id_idcgame"))
-		}else{
-		}
-	})
-
-	setTimeout(queueReviewLoad, 1000)
-}
-
-queueReviewLoad()

@@ -565,3 +565,55 @@ button.btn.btn-sm.wishlist-btn.px-2.py-0.mr-3.wishlisted.btn-primary {
 .game-card-rectangular:hover .card-rectangular-tag {
   color: #fff;
 }
+
+/* tooltip */
+.game-card-rectangular, .big-card, .small-card {
+  position: relative;
+}
+
+.custom-tooltip {
+  visibility: hidden;
+  z-index: 1000;
+  width: 270px;
+}
+
+.game-card-rectangular .custom-tooltip {
+  left: 103%;
+  top: -94%;
+}
+
+.small-card .custom-tooltip {
+  left: 103%;
+  top: -13%;
+}
+
+.big-card .custom-tooltip {
+  left: 103%;
+  top: 0%;
+}
+
+.game-card-rectangular:hover .custom-tooltip, .small-card:hover .custom-tooltip, .big-card:hover .custom-tooltip {
+  visibility: visible;
+}
+.custom-tooltip img {
+  max-height: 150px;
+  object-fit: cover;
+}
+
+.custom-tooltip::after {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  right: 100%; /* To the left of the tooltip */
+  margin-top: -10px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent  #314954 transparent transparent;
+}
+
+.card-tooltip-tag {
+  font-size: .9em;
+  text-transform: uppercase;
+  padding: 0rem .5rem .2em;
+  color: #00ff7f;
+}
