@@ -134,6 +134,66 @@ function initTopSlider(max_games=10){
 	for(; i <max_games; i ++){
 		$(`#sliderhome .carousel-item.item-${i+1}`).remove();
 	}
+
+	$("section").removeClass("hidden")
+}
+
+function initFeaturedGames(max_games = 20)
+{
+	var nMaxFeatured = 4;
+
+	if(topgames_panel && !!topgames_panel.featured){
+
+		const data = getShuffledArr(topgames_panel.featured);
+
+		for(var i = 0; i < data.length && i < max_games; i ++){
+			if(i >= nMaxFeatured)
+				break;
+
+			var gameID = data[i];
+			var gData = gamedata[gameID];
+
+			setObjectValues($(`#featured .small-card.featured-${i+1}`), makeDatasetForGame(gData, { ratio: '1x1', size: '1-8', quality: 0, format: 'webp' }, { ratio: '1x1', size: '1-8', quality: 0, format: 'webp' }));
+		}
+	}
+}
+
+function initDiscoveredGames(type /* bestselling/new/upcoming/demo */, max_games = 8)
+{
+	if(type !== "bestselling" && type !== "new" && type !== "upcoming" && type !== "demo")
+		return;
+
+	var objGameContainer = $(`.discovered-${type}-container`);
+	//objGameContainer.find(".game-block.discovered").remove();
+
+	var buttonShowMore = $(objGameContainer).find(`.discovered-${type}-show-more`);
+
+	var nDisplayedGames = parseInt($(buttonShowMore).attr("n_displayed") || "0");
+	var nDisplayStep = 10;
+
+	if(topgames_panel[type] && !!topgames_panel[type] && nDisplayedGames < topgames_panel[type].length){
+		for(var i = nDisplayedGames; i < topgames_panel[type].length && i < nDisplayedGames + nDisplayStep && i < max_games; i ++){
+			var gameID = topgames_panel[type][i];
+
+			if(!gamedata[gameID]) continue;
+
+			var newGameBlock = $(".game-block.discovered.clone").clone().removeClass("hidden").removeClass("clone");
+
+			// make dataset and display		
+			newGameBlock = setObjectValues(newGameBlock, makeDatasetForGame(gamedata[gameID]));
+
+			// add it
+			$(newGameBlock).insertBefore(buttonShowMore);
+		}
+
+		nDisplayedGames += nDisplayStep;
+		if(nDisplayedGames > topgames_panel[type].length)
+			nDisplayedGames = topgames_panel[type].length;
+
+		$(buttonShowMore).attr("n_displayed", nDisplayedGames);
+		// if(nDisplayedGames >= topgames_panel[type].length)
+		// 	$(buttonShowMore).addClass("hidden");
+	}
 }
 
 function initRecommendedGames(max_games = 20)
@@ -294,56 +354,73 @@ function activateSlick2(elem)
 	});
 }
 
-loadUserGames(() => {
-	
-	// Load topgames json and init page
-	$.get('./idcjson/topgames.json', function(json){
-		topgames = json;
+initTopSlider();
 
-		initTopSlider();
+loadUserGames(() => {	
 		initRecommendedGames();
-	})
+		initFeaturedGames();
 
-	$.get('./idcjson/topgames-panel.json', function(json){
-		topgames_panel = json;
-
-		initTopSlider();
-	})
-
-	// Load news
-	$.get('./assets/content/all-news.json', function(json){
-		all_news = json;
-
-		initNews();
-	})
-
+		initDiscoveredGames("bestselling");
+		initDiscoveredGames("new");
+		initDiscoveredGames("upcoming");
+		initDiscoveredGames("demo");
 });
 
-//Wishlist button
-$("body").on("click",".wishlist",function(){
-	$(this).addClass("wishlisted");
-	$(this).removeClass("wishlist");
-	$(this).addClass("btn-primary");
-	$(this).removeClass("btn-outline-primary");
-	$(this).find("i").addClass("fas");
-	$(this).find("i").removeClass("far");
-	$(this).attr({
-		"title" : "==(on_wishlist)==",
-		"data-original-title" : "==(on_wishlist)=="
-	});
-});
-$("body").on("click",".wishlisted",function(){
-	$(this).addClass("wishlist");
-	$(this).removeClass("wishlisted");
-	$(this).addClass("btn-outline-primary");
-	$(this).removeClass("btn-primary");
-	$(this).find("i").addClass("far");
-	$(this).find("i").removeClass("fas");
-	$(this).attr({
-		"title" : "==(add_to_wishlist)==",
-		"data-original-title" : "==(add_to_wishlist)=="
-	});
-});
+// Load news
+$.get('/assets/content/all-news.json', function(json){
+	all_news = json;
+
+	initNews();
+})
+
+function setWishlistedState(btn, wishlisted = false){
+	// var btn = $(`.wishlist-btn[data-play="${id_idcgame}"]`);
+	if(!btn) return;
+
+	if(!wishlisted){
+		$(btn).addClass("wishlist");
+		$(btn).removeClass("wishlisted");
+		$(btn).addClass("btn-outline-primary");
+		$(btn).removeClass("btn-primary");
+		$(btn).find("i").addClass("far");
+		$(btn).find("i").removeClass("fas");
+		$(btn).attr({
+			"title" : "==(add_to_wishlist)==",
+			"data-original-title" : "==(add_to_wishlist)=="
+		});
+	}else{
+		$(btn).addClass("wishlisted");
+		$(btn).removeClass("wishlist");
+		$(btn).addClass("btn-primary");
+		$(btn).removeClass("btn-outline-primary");
+		$(btn).find("i").addClass("fas");
+		$(btn).find("i").removeClass("far");
+		$(btn).attr({
+			"title" : "==(on_wishlist)==",
+			"data-original-title" : "==(on_wishlist)=="
+		}); 
+	}
+}
+
+$("body").on("click",".wishlist-btn",function(){
+	var gameID = $(this).attr("data-play");
+	if(!gameID) return;
+
+	var bWannaWish = $(this).hasClass("wishlist");
+	makeWishRequest(gameID, '', bWannaWish,
+			res => {
+					console.log(`Wishing game ${gameID} success: `, res);
+					$(`.wishlist-btn[data-play="${gameID}"]`).each((k,btn) => setWishlistedState(btn, bWannaWish));
+					loadUserWishGames(null);
+			},
+			res => {
+					console.log(`Wishing game ${gameID} fail: `, res);
+					if(res && res.description && res.description == 'USER+HAS+NO+EMAIL'){
+						showEmailRequiredModal("==(email_required_wish)==")
+					}
+			}
+	);
+})
 
 //Menu collapsable in mobile-tabs
 $("body").on("click",".textForMenu",function(){
@@ -385,3 +462,20 @@ $('.carousel-tooltip').slick({
 // 		visibility: "hidden"
 // 	  });
 // 	});
+
+
+function queueReviewLoad(){
+	const tooltips = $(".custom-tooltip")
+	tooltips.map((index, tt) => {
+		if(tt && $(tt).is(':visible') && $(tt).css("visibility") == "visible" && $(tt).attr("id_idcgame"))
+		{
+			if(typeof(loadGameReview) == "function")
+				loadGameReview($(tt).attr("id_idcgame"))
+		}else{
+		}
+	})
+
+	setTimeout(queueReviewLoad, 1000)
+}
+
+queueReviewLoad()

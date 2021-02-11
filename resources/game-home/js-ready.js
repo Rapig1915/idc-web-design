@@ -77,7 +77,7 @@ if(gData.common_params && gData.common_params.demo_game){
 if(sGame){ // playable check : production && (f2p playable || p2p bought)
     var text = gameStatus[thisStatus].name;
     $(".controlGame").text(text);
-    if((gameStatus[thisStatus].playable) && (sGame.bought || sGame.f2p)){
+    if((gameStatus[thisStatus].playable===1) && (sGame.bought || sGame.f2p)){
         $(".controlGame").addClass("playGame");
         $(".controlGame").text("==(play_now_txt)==");
     }

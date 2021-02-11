@@ -149,6 +149,7 @@ $("body").on("click",".closeCookies",function(){
 
 		var dataset = [
 			{ cls: ".text-game-name", text: gData.name },
+			{ cls: ".text-meta-title", text: gData.store_params.meta_titles },
 			{ cls: ".anchor-game-home", attr: "href", value: `/${(gData.common_params.demo_game&&"demo/")||""}${gData.common_params.game_seo}` },
 			{ cls: ".gameCard-img", attr: "src", 
 				value: retrieveImage(gData.store_params.game_banner_json, (customImgSpecBanner && customImgSpecBanner.ratio) || '2x1', (customImgSpecBanner && customImgSpecBanner.size) || '1-4', (customImgSpecBanner && customImgSpecBanner.quality) || 0, (customImgSpecBanner && customImgSpecBanner.format) || 'webp', gData.store_params.game_banner_webp || gData.store_params.game_banner) },
@@ -170,9 +171,17 @@ $("body").on("click",".closeCookies",function(){
 
 			{ cls: ".demoBadge", addClass: (gData.common_params.demo_game&&"d-block") || "" },
 			{ cls: ".wishlist-btn", attr: "data-play", value: gData.common_params.id_idcgame },
+
+			{ cls: ".custom-tooltip", attr: "id_idcgame", value: gData.common_params.id_idcgame },
 		];
 
-		if(!isF2P && discount_percent > 0 && gPrice > 0 && newPrice > 0){
+		if(gData.common_params.game_status_id == 13){ // not_in_idc
+			dataset.push({ cls: ".text-discount-percent", hide: true });
+			dataset.push({ cls: ".text-original-price", hide: true });
+			dataset.push({ cls: ".text-price", hide: true });
+			dataset.push({ cls: ".cart-btn", remove: true });
+		}
+		else if(!isF2P && discount_percent > 0 && gPrice > 0 && newPrice > 0){
 			dataset.push({ cls: ".text-discount-percent", text: `-${discount_percent}%` });
 			dataset.push({ cls: ".text-original-price", text: `${user_currency_symbol} ${gPrice}` });
 			dataset.push({ cls: ".text-price", text: `${user_currency_symbol} ${newPrice}` });
