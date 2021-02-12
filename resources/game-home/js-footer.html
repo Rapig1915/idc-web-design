@@ -651,52 +651,6 @@ function initializeFilters(reviews) {
       typesOfReview
     });
 }
-let classAndText = [
-  {
-    class: 'text-danger',
-    text: '==(extremely_negative_reviews)==',
-    range: [0, 9]
-  },
-  {
-    class: 'text-danger-',
-    text: '==(very_negative_reviews)==',
-    range: [10, 19]
-  },
-  {
-    class: 'text-danger--',
-    text: '==(negative_reviews)==',
-    range: [20, 39]
-  },
-  {
-    class: 'text-warning',
-    text: '==(mixed_reviews)==',
-    range: [40, 69]
-  },
-  {
-    class: 'text-primary--',
-    text: '==(positive_reviews)==',
-    range: [70, 84]
-  },
-  {
-    class: 'text-primary-',
-    text: '==(very_positive_reviews)==',
-    range: [85, 94]
-  },
-  {
-    class: 'text-primary',
-    text: '==(extremely_positivetive_reviews)==',
-    range: [95, 100]
-  }
-];
-
-function findRangePercent(percent) {
-  let finded = false, i = 0;
-  while(!finded && i < classAndText.length) {
-    if(percent >= classAndText[i].range[0] && percent <= classAndText[i].range[1]) finded = true;
-    i++;
-  }
-  return classAndText[i - 1];
-}
 function displayTotalReviews(reviews) {
   
   let [positives, totalReviews] = getLangs(reviews).reduce((acc, el) => { acc[0] += reviews[el].filter(rev => rev.Vote == 1).length; acc[1] += reviews[el].length; return acc;}, [0, 0]);

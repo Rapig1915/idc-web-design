@@ -54,7 +54,7 @@ function getLangs(reviews) {
     return Object.keys(reviews);
 }
 
-function displayTotalReviews(id_idcgame, reviews) {
+function displayTotalReviewsTooltip(id_idcgame, reviews) {
   
   let [positives, totalReviews] = getLangs(reviews).reduce((acc, el) => { acc[0] += reviews[el].filter(rev => rev.Vote == 1).length; acc[1] += reviews[el].length; return acc;}, [0, 0]);
   const tooltipObj = $(`.custom-tooltip[id_idcgame=${id_idcgame}]`)
@@ -120,17 +120,17 @@ function displayTotalReviews(id_idcgame, reviews) {
           try {
             var result = JSON.parse(e);
             jsonReviews = result;
-            displayTotalReviews(id_idcgame, jsonReviews);
+            displayTotalReviewsTooltip(id_idcgame, jsonReviews);
           }catch (e){
             console.log("Loading review error: ", id_idcgame, e)
-            displayTotalReviews(id_idcgame, {});
+            displayTotalReviewsTooltip(id_idcgame, {});
             return false;
           }
       },
       error: function(e){
         // $('#containerGraphs').addClass('d-none');
         console.log("Loading review error: ", id_idcgame, e)
-        displayTotalReviews(id_idcgame, {});
+        displayTotalReviewsTooltip(id_idcgame, {});
       }
     });
   }
