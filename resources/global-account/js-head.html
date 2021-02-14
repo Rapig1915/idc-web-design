@@ -117,6 +117,7 @@ function loadUserData(){
 						var html = "";
 
 						var myGames = JSON.parse(loadSession("games") || "[]");
+						if(!Array.isArray(myGames)) myGames = [myGames];
 						for (i=0;i<myGames.length;i++) {
 							try {
 								var idGame = myGames[i].IDJUEGO;

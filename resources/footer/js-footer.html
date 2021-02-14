@@ -237,7 +237,9 @@ $("body").on("click",".closeCookies",function(){
 			return null;
 		const price = getGamePrice(gData);
 		const status = gData.common_params.game_status;
-		const bought = JSON.parse(loadSession("games") || "[]").filter(x => x.IDJUEGO === parseInt(gData.common_params.id_idcgame)).length > 0;
+		var myGames = JSON.parse(loadSession("games") || "[]");
+		if(!Array.isArray(myGames)) myGames = [myGames]
+		const bought = myGames.filter(x => x.IDJUEGO === parseInt(gData.common_params.id_idcgame)).length > 0;
 		return { 
 			id_idcgame: gData.common_params.id_idcgame, 
 			f2p: price <= 0, 
