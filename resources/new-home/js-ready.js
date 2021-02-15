@@ -29,7 +29,7 @@ $("body").on("click",".btn-show-more",function(){
 	// }
 	// go to search page with type
 	var tab = $(this).attr("type") || "";
-	window.open(`/search?tab=${tab}`, "_blank");
+	window.open(`/==(url_search)==?tab=${tab}`, "_blank");
 });
 
 //Carousel top
