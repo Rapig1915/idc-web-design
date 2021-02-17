@@ -515,19 +515,19 @@ function getNewsLogo(data)
 	var subst2 = "$1-thumb.jpg";
 	var subst2b = "$1-thumb.$3";
 
-	var image_src = firstImg(data.body);
-  if ( image_src != null ){
-    image_src = image_src.replace("http:", "https:");
-    if ( image_src.search("storage") != -1 ) {
-      return image_src.replace(regex, subst).replace(regex2, subst2);
-    }else if ( image_src.search("com/resources") != -1 ) {
-      return image_src.replace(regex, subst).replace(regex2, subst2b);
-    }else{
-      return image_src;
-    }
-	}
+	// var image_src = firstImg(data.body);
+  // if ( image_src != null ){
+  //   image_src = image_src.replace("http:", "https:");
+  //   if ( image_src.search("storage") != -1 ) {
+  //     return image_src.replace(regex, subst).replace(regex2, subst2);
+  //   }else if ( image_src.search("com/resources") != -1 ) {
+  //     return image_src.replace(regex, subst).replace(regex2, subst2b);
+  //   }else{
+  //     return image_src;
+  //   }
+	// }
 	
-	return "https://cdn.idcgames.com/resources/idcgames/news_default.jpg";
+	return firstImg(data.body) || "https://cdn.idcgames.com/resources/idcgames/news_default.jpg";
 }
 
 function activateSlick(elem)
