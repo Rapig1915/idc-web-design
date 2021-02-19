@@ -23,7 +23,7 @@ const getShuffledArr = arr => {
 	return newArr
 };
 
-$("body").on("click",".cart-btn",function(){
+$("body").on("click",".cart-btn", function(){
 	
 	if(typeof(putGameInBasket) == "function" && putGameInBasket($(this).attr("id_idcgame")))
 	{
@@ -37,13 +37,14 @@ $("body").on("click",".cart-btn",function(){
 });
 
 $("body").on("click",".btn-show-more",function(){
-	// if($(this).hasClass("btn-show-more-discovered"))
-	// {
-	// 	initDiscoveredGames($(this).attr("type"));
-	// }
+	if($(this).hasClass("btn-show-more-discovered"))
+	{
+		// initDiscoveredGames($(this).attr("type"));
+		renderShowMore($(this).attr("type"));
+	}
 	// go to search page with type
-	var tab = $(this).attr("type") || "";
-	window.open(`/search?tab=${tab}`, "_blank");
+	// var tab = $(this).attr("type") || "";
+	// window.open(`/==(url_search)==?tab=${tab}`, "_blank");
 });
 
 //Carousel top
@@ -149,69 +150,193 @@ $('.carousel-top-category').slick({
 	$("section").removeClass("hidden")
 }
 
+function getValid4FeaturedGameIDS(_data=[], bFilter=true){
+
+	let nMaxFeatured = 4;
+	let iArr = [];
+
+	for(var i = 0; i < _data.length; i ++){
+		var gData = gamedata[_data[i]];
+
+		// if(bFilter) if(!isCat(gData, "##(name)##")) continue;
+
+		if(bFilter){
+			if(isCat(gData, "##(name)##")){
+
+				iArr.push(_data[i]);
+				if(--nMaxFeatured <= 0) break;
+			}			
+		}else{
+
+			iArr.push(_data[i]);
+			if(--nMaxFeatured <= 0) break;
+		}
+	}
+
+	return iArr;
+}
+
 function initFeaturedGames(max_games = 20)
 {
-	var nMaxFeatured = 4;
+	var nMaxFeatured  = 4;
+	var gameIDs = [];
 
 	if(topgames_panel && !!topgames_panel.featured){
 
 		const data = getShuffledArr(topgames_panel.featured);
 
-		for(var i = 0; i < data.length; i ++){
-			var gameID = data[i];
-			var gData = gamedata[gameID];
+		//Get available count
+		gameIDs = getValid4FeaturedGameIDS(data);
 
-			if(!isCat(gData, "##(name)##")) continue;
+		switch(gameIDs.length){
 
-			setObjectValues($(`#featured .small-card.featured-${i+1}`), makeDatasetForGame(gData, { ratio: '1x1', size: '1-8', quality: 0, format: 'webp' }, { ratio: '1x1', size: '1-8', quality: 0, format: 'webp' }));
+			case 4: 
+				gameIDs = gameIDs.slice(0, gameIDs.length);	
+			break;
 
-			if(--nMaxFeatured <= 0)
-				break;
+			case 2:
+				$('.featured-2').addClass('d-none');
+				$('.featured-4').addClass('d-none');
+				gameIDs = gameIDs.slice(0, gameIDs.length);	
+			break;
+
+			case 1:
+				$('#featured').find(">:first-child").removeClass('col-xl-6').addClass('col-xl-12');
+				$('.featured-2').addClass('d-none');
+				$('.featured-3').addClass('d-none');
+				$('.featured-4').addClass('d-none');
+				gameIDs = gameIDs.slice(0, gameIDs.length);	
+			break;
+
+			case 3:	
+				$('.featured-2').addClass('d-none');
+				$('.featured-4').addClass('d-none');
+				gameIDs = gameIDs.slice(0, 2);
+			break;	
+
+			case 0:
+				gameIDs = getShuffledArr(topgames_panel.bestselling);
+
+				if(gameIDs.length < 4){
+					var _gameIDs = getShuffledArr(topgames_panel.new);
+				}
+
+				gameIDs = gameIDs.concat(_gameIDs).slice(0, 4);							
+			break;			
 		}
+
+		for(var i = 0; i < gameIDs.length; i ++){
+			var gData = gamedata[ gameIDs[i] ];
+
+			i = (gameIDs.length == 2 && i == 1) ? i+1 : i; 
+
+			setObjectValues( $(`#featured .small-card.featured-${i+1}`), makeDatasetForGame(gData, { ratio: '1x1', size: '1-8', quality: 0, format: 'webp' }, { ratio: '1x1', size: '1-8', quality: 0, format: 'webp' }));
+			if(--nMaxFeatured <= 0) return;
+		}
+
 	}
 }
 
-function initDiscoveredGames(type /* bestselling/new/upcoming/demo */, max_games = 8)
-{
-	if(type !== "bestselling" && type !== "new" && type !== "upcoming" && type !== "demo")
-		return;
+/*==>> Topgame global param */
+function addEverythingToTopgamesPNL(field="everything"){
+
+	let _resultArr = [];	
+
+	for (var key in gamedata) {
+
+	  if (gamedata.hasOwnProperty(key)) {
+	    var _game = gamedata[key];
+
+	    if( _game.common_params.game_status === 'production'  		||
+	    	_game.common_params.game_status === 'coming_soon' 		||
+	    	_game.common_params.game_status === 'closed_beta' 		||
+	    	_game.common_params.game_status === 'play_early_access' ||
+	    	_game.common_params.game_status === 'open_beta' 		||
+	    	_game.common_params.game_status === 'limited_beta' 		||
+	    	_game.common_params.game_status === 'not_in_idc'){
+
+	    	if( isCat(_game, "##(name)##") ) {
+
+	    		_resultArr.push(key);
+	    		// _resultArr.push(_game.common_params.game_id);
+	    	}
+	    }
+	  }
+	}
+
+	topgames_panel[`${field}`] = _resultArr.reverse();
+}
+
+//
+function initDiscoveredGames(type, max_games=8){
+
+	if(type !== "bestselling" && type !== "new" && type !== "upcoming" && type !== "demo" && type !== "everything") return;
+
+	let oLists = topgames_panel[type];
 
 	var objGameContainer = $(`.discovered-${type}-container`);
-	//objGameContainer.find(".game-block.discovered").remove();
 
 	var buttonShowMore = $(objGameContainer).find(`.discovered-${type}-show-more`);
 
-	var nDisplayedGames = parseInt($(buttonShowMore).attr("n_displayed") || "0");
-	var nDisplayStep = 10;
+	let nShown = 0; let nIth = 0;
 
-	if(topgames_panel[type] && !!topgames_panel[type] && nDisplayedGames < topgames_panel[type].length){
-		for(var i = nDisplayedGames; i < topgames_panel[type].length && i < nDisplayedGames + nDisplayStep; i ++){
-			var gameID = topgames_panel[type][i];
+	for(var i = 0; i < oLists.length; i ++){
 
-			if(!gamedata[gameID]) continue;
+		var gameID = oLists[i];
 
-			if(!isCat(gamedata[gameID], "##(name)##")) continue;
+		if(!gamedata[gameID]) continue;
 
-			var newGameBlock = $(".game-block.discovered.clone").clone().removeClass("hidden").removeClass("clone");
+		if(!isCat(gamedata[gameID], "##(name)##")) continue;
 
-			// make dataset and display		
-			newGameBlock = setObjectValues(newGameBlock, makeDatasetForGame(gamedata[gameID]));
+		var newGameBlock = null;
+		if( nShown < max_games){
 
-			// add it
-			$(newGameBlock).insertBefore(buttonShowMore);
+			newGameBlock = $(".game-block.discovered.clone").clone().removeClass("hidden").removeClass("clone").addClass(`card-div-${i}`);
+			nShown ++; 
+			nIth=i;
+		}else{
 
-			if(--max_games <= 0)
-				break;
+			newGameBlock = $(".game-block.discovered.clone").clone().removeClass("hidden").removeClass("clone").removeClass('d-flex').addClass('d-none').addClass(`card-div-${i}`);
 		}
 
-		nDisplayedGames += nDisplayStep;
-		if(nDisplayedGames > topgames_panel[type].length)
-			nDisplayedGames = topgames_panel[type].length;
+		// make dataset and display		
+		newGameBlock = setObjectValues(newGameBlock, makeDatasetForGame(gamedata[gameID]));
 
-		$(buttonShowMore).attr("n_displayed", nDisplayedGames);
-		// if(nDisplayedGames >= topgames_panel[type].length)
-		// 	$(buttonShowMore).addClass("hidden");
+		// add it
+		$(newGameBlock).insertBefore(buttonShowMore);
 	}
+
+	$(buttonShowMore).attr("nIth", nIth+1);
+	if(nShown==0 || nIth+1 >= oLists.length || nShown < max_games) $(buttonShowMore).removeClass('d-flex').addClass('d-none');
+}
+
+function renderShowMore(type, max_games=8){
+
+	if(type !== "bestselling" && type !== "new" && type !== "upcoming" && type !== "demo" && type !== "everything") return;
+
+	var buttonShowMore = $(`.discovered-${type}-container`).find(`.discovered-${type}-show-more`);
+
+	let oLists = topgames_panel[type];
+
+	let nIth = parseInt($(buttonShowMore).attr("nIth") || "0");
+
+	let nShown = 0;
+
+	for (let i = nIth; (i < oLists.length && nShown < max_games) ; i++ ) {
+
+		let card_div_dom = $(buttonShowMore).parent().find(`.card-div-${i}`);
+
+		if($(card_div_dom).length){
+
+			$(card_div_dom).removeClass('d-none').addClass('d-flex');
+
+			nShown ++;
+			nIth=i;
+		}
+	}
+
+	$(buttonShowMore).attr("nIth", nIth+1);
+	if(nShown==0 || nIth+1 >= oLists.length || nShown < max_games) $(buttonShowMore).removeClass('d-flex').addClass('d-none');
 }
 
 function initRecommendedGames(max_games = 20)
@@ -318,19 +443,19 @@ function getNewsLogo(data)
 	var subst2 = "$1-thumb.jpg";
 	var subst2b = "$1-thumb.$3";
 
-	var image_src = firstImg(data.body);
-  if ( image_src != null ){
-    image_src = image_src.replace("http:", "https:");
-    if ( image_src.search("storage") != -1 ) {
-      return image_src.replace(regex, subst).replace(regex2, subst2);
-    }else if ( image_src.search("com/resources") != -1 ) {
-      return image_src.replace(regex, subst).replace(regex2, subst2b);
-    }else{
-      return image_src;
-    }
-	}
+	// var image_src = firstImg(data.body);
+	// if ( image_src != null ){
+	//   image_src = image_src.replace("http:", "https:");
+	//   if ( image_src.search("storage") != -1 ) {
+	//     return image_src.replace(regex, subst).replace(regex2, subst2);
+	//   }else if ( image_src.search("com/resources") != -1 ) {
+	//     return image_src.replace(regex, subst).replace(regex2, subst2b);
+	//   }else{
+	//     return image_src;
+	//   }
+	// }
 	
-	return "https://image.freepik.com/free-photo/graphical-modern-digital-world-news-background_1412-442.jpg";
+	return firstImg(data.body) || "https://cdn.idcgames.com/resources/idcgames/news_default.jpg";
 }
 
 function activateSlick(elem)
@@ -380,9 +505,13 @@ function activateSlick2(elem)
 initTopSlider();
 
 loadUserGames(() => {	
+		//Add everything field to the topgames_panel global param
+		addEverythingToTopgamesPNL('everything');
+
 		initRecommendedGames();
 		initFeaturedGames();
 
+		initDiscoveredGames("everything");
 		initDiscoveredGames("bestselling");
 		initDiscoveredGames("new");
 		initDiscoveredGames("upcoming");
@@ -464,24 +593,3 @@ $('.carousel-tooltip').slick({
 	fade: true,
 	cssEase: 'linear'
   });
-
-
-//   $("body").on("hover", ".hoverthing",function(){
-// 	$("#special-tooltip").css({
-// 		visibility: "visible"
-// 	  });
-// 	}, function() {
-// 	  $("#special-tooltip").css({
-// 		visibility: "hidden"
-// 	  });
-// });
-
-//   $(".hoverthing").hover(function() {
-// 	$("#special-tooltip").css({
-// 		visibility: "visible"
-// 	  });
-// 	}, function() {
-// 	  $("#special-tooltip").css({
-// 		visibility: "hidden"
-// 	  });
-// 	});

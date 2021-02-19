@@ -378,10 +378,13 @@
                                 <a id="most-price-tab" class="nav-link textForMenu h6 text-shadow mb-0" data-toggle="tab" href="#most-price" role="tab" aria-controls="most-price" aria-selected="false">==(most_price)==</a>
                             </li>  -->
                             <li class="nav-item d-flex">
+                                <a id="everything-tab" class="nav-link h6 active text-shadow mb-0" data-toggle="tab" href="#everything"  role="tab" aria-controls="everything" aria-selected="true">==(everything)==</a>
+                            </li>
+                            <li class="nav-item d-flex">
                                 <a id="bestselling-tab" class="nav-link h6 text-shadow mb-0" data-toggle="tab" href="#bestselling"  role="tab" aria-controls="bestselling" aria-selected="true">==(bestselling)==</a>
                             </li>
                             <li class="nav-item d-flex">
-                                <a id="new-tab" class="nav-link h6 active text-shadow mb-0" data-toggle="tab" href="#new" role="tab" aria-controls="new" aria-selected="false">==(new_game)==</a>
+                                <a id="new-tab" class="nav-link h6 text-shadow mb-0" data-toggle="tab" href="#new" role="tab" aria-controls="new" aria-selected="false">==(new_game)==</a>
                             </li>
                             <li class="nav-item d-flex">
                                 <a id="upcoming-tab" class="nav-link h6 text-shadow mb-0" data-toggle="tab" href="#upcoming" role="tab" aria-controls="upcoming" aria-selected="false">==(upcoming)==</a>
@@ -483,6 +486,13 @@
                         </div> 
                         <div id="most-price" class="tab-pane fade" role="tabpanel" aria-labelledby="most-price-tab">
                         </div>  -->
+                        <div id="everything" class="tab-pane fade active show" role="tabpanel" aria-labelledby="everything-tab">
+                            <div class="d-flex flex-column discovered-everything-container">
+                                <div class="d-flex justify-content-center my-3 discovered-everything-show-more">
+                                    <button class="btn btn-outline-primary border-green-lighter btn-show-more btn-show-more-discovered" type="everything">==(show_more)==</button>
+                                </div>
+                            </div>
+                        </div>
                         <div id="bestselling" class="tab-pane fade" role="tabpanel" aria-labelledby="bestselling-tab">
                             <div class="d-flex flex-column discovered-bestselling-container">
                                 <div class="d-flex justify-content-center my-3 discovered-bestselling-show-more">
@@ -490,7 +500,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="new" class="tab-pane fade active show" role="tabpanel" aria-labelledby="new-tab">
+                        <div id="new" class="tab-pane fade" role="tabpanel" aria-labelledby="new-tab">
                             <div class="d-flex flex-column discovered-new-container">
                                 <div class="d-flex justify-content-center my-3 discovered-new-show-more">
                                     <button class="btn btn-outline-primary border-green-lighter btn-show-more btn-show-more-discovered" type="new">==(show_more)==</button>
