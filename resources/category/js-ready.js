@@ -215,6 +215,8 @@ function initFeaturedGames(max_games = 20)
 			break;	
 
 			case 0:
+				$('#mark-featured').addClass('d-none');
+				$('#mark-others').removeClass('d-none');
 				gameIDs = getShuffledArr(topgames_panel.bestselling);
 
 				if(gameIDs.length < 4){

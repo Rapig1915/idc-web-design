@@ -1124,12 +1124,10 @@
   color: #00ff7f;
 }
 
-/* .hoverthing:nth-child(3):hover .custom-tooltip{
-  left: 0%;
-  top: -13%;
-}  */
+.pickgradient {  
+  background: linear-gradient(to right, rgb(0 0 0 / 75%) 30%, rgb(255 255 255 / 0%) 70%);
+}
 
-/* .slick-list.draggable>.slick-track, .slick-list.draggable>.slick-slide.slick-current.slick-active{
-  width: 100;
-} */
-
+.animatable-custom-right{
+  z-index: -1; position: relative;  
+}
