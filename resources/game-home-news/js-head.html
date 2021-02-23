@@ -1,0 +1,131 @@
+<script src="/assets/content/%%(id_idcgame)%%-news.js?===(current_timestamp)=="></script>
+<script>
+function firstImg(theString){
+	var reg = /img[^\>]*src="(\S*)"/mi;
+	if ((m = reg.exec(theString)) !== null) {}
+	if( m != null ) {
+		return m[1];
+	}else{
+		return "%%(game_logo)%%";
+	}
+}
+function html2text(html) {
+    var tag = document.createElement('div');
+    tag.innerHTML = html;
+    return tag.innerText;
+}
+function doContent(content,section){
+	try{
+		var cont = '<div class="d-flex card-deck flex-lg-row flex-column mx-0">';
+		$.each(content, function( index, value ) {
+			if( typeof(value) == "string" ){
+				value = JSON.parse(value);
+			}
+			cont = cont + makeType1(value,section,index);
+		});
+		cont = cont + '</div>';
+		$("#"+section).html(cont);
+	}catch(err){
+		console.log(err);
+	}
+}
+
+var regex = /(.*)(\/)([^\/]*)$/gm
+var subst = "$1/conversions/$3";
+var regex2 = /(.*)(\.)([^\.]*)$/gm;
+var subst2 = "$1-thumb.jpg";
+var subst2b = "$1-thumb.$3";
+var readmore = "==(read_more)==";
+function makeType1(row,section,index){
+	try{
+		var id = row.id;
+		var url = row.url.replace(".html", "");
+		var title = row.title;
+		var author = row.author;
+		var body = html2text(row.body);
+		var image_src = firstImg(row.body);
+		var image_src = image_src.replace("http:", "https:");
+		if ( image_src != null ){
+			if ( image_src.search("storage") != -1 ) {
+				var result = image_src.replace(regex, subst);
+				var result2 = result.replace(regex2, subst2);
+				var image = '<img src="'+result2+'" class="card-img-top" alt="'+title+'">';
+			}else if ( image_src.search("com/resources") != -1 ) {
+				var result = image_src.replace(regex, subst);
+				var result2 = result.replace(regex2, subst2b);
+				var image = '<img src="'+result2+'" class="card-img-top" alt="'+title+'">';
+			}else{
+				var image = '<img src="'+image_src+'" class="card-img-top" alt="'+title+'">';
+			}
+		}else{
+			var image = '';
+		}
+
+		//if Dota game
+		if(id === 4115) image = '<img src="'+image_src+'" class="card-img-top" alt="'+title+'">';
+
+		//check the iframe tag
+		if(body.indexOf("<iframe") >= 0){
+
+			let sIndex = body.indexOf("<iframe");
+			let eIndex = body.indexOf("</iframe>");
+			var _body  = body.slice(0, sIndex);
+				body   = _body + body.slice(eIndex+10);
+		}
+		
+		var likes = row.total_like;
+		var dislikes = row.total_dislike;
+		var pubdate = row.pubdate_formatted;
+		var gamename = row.gamename;
+		return '<div class="card card-custom my-3 bgDarkTexture" data-aos="fade-down" data-aos-duration="500">'+image+'<div class="card-body"><h5 class="card-title h3">'+title+'</h5><p class="card-text">'+body+'</p></div><div class="card-footer px-0"><div class="mx-3 mb-3"><a href="'+url+'" class="btn btn-outline-primary btn-sm btn-block mt-4" data-unsp-sanitized="clean">'+readmore+'</a></div><div class="text-muted border-top border-green-lighter d-flex flex-row justify-content-between px-3 pt-3"><span class="small text-right">'+pubdate+'</span><span class="badge badge-secondary mx-2">'+gamename+'</span></div></div></div>';
+	}catch(err){
+		return '';
+	}
+}
+
+
+/*
+function makeType1(row,section,index){
+	var url = row.url.replace(".html", "");
+	var id = row.id;
+	var title = row.title;
+	var author = row.author;
+	var body = html2text(row.body);
+	var image_src = firstImg(row.body);
+	var image_src = image_src.replace("http:", "https:");
+	if ( image_src != null ){
+		var image = '<img src="'+image_src+'" class="card-img-top" alt="'+title+'">';
+	}else{
+		var image = '';
+	}
+	var likes = row.total_like;
+	var dislikes = row.total_dislike;
+	var pubdate = row.pubdate;
+	var gamename = row.gamename;
+	return '<div class="card card-custom my-3 bgDarkTexture" data-aos="fade-down" data-aos-duration="500">'+image+'<div class="card-body"><h5 class="card-title h3">'+title+'</h5><p class="card-text">'+body+'</p></div><div class="card-footer px-0"><div class="mx-3 mb-3"><a href="'+url+'" class="btn btn-outline-primary btn-sm btn-block mt-4" data-unsp-sanitized="clean">'+readmore+'</a></div><div class="text-muted border-top border-green-lighter d-flex flex-row justify-content-between px-3 pt-3"><span class="small text-right">'+pubdate+'</span><span class="badge badge-secondary mx-2">'+gamename+'</span></div></div></div>';
+}
+*/
+/*
+	function doModal(index, tipo, target){
+		var data = JSON.parse( news[tipo]["recent"][index] );
+		data["url"] =  data["url"].replace(".html", "");
+		$(target).find(".post-author").text(data["author"]);
+		$(target).find(".post-title").text(data["title"]);
+		$(target).find(".post-like").text(data["total_like"]);
+		$(target).find(".post-dislike").text(data["total_dislike"]);
+		$(target).find(".post-id").attr("data-target",data["id"]);
+		$(target).find(".post-url").attr("href",data["url"]);
+		$(target).find(".post-share").attr("data-url",data["url"]);
+		$(target).find(".post-share").attr("data-description",data["title"]);
+		if ( data["url_type"] == 1 || data["url_type"] == 3 ) {
+			// FOTO
+			$(target).find(".post-image").attr("src",data["body"]);
+			$(target).find(".post-image").attr("title",data["title"]);
+		}else if ( data["url_type"] == 2 || data["url_type"] == 4 || data["url_type"] == 5 ) {
+			// VIDEO + EXTERNAL (YT)
+			$(target).find(".post-body").children().attr("src",data["body"]);
+			
+		}	
+	}
+*/
+</script>

@@ -7,5 +7,7 @@
 	"category": ["nav","category","footer","shopping-modal"],
 	"my-account": ["nav","global-account","footer"],
 	"game-landing": ["game-landing"],
-	"design-documentation": ["nav","design-documentation","footer"]
+	"design-documentation": ["nav","design-documentation","footer"],
+	"new-home-news": ["nav","new-home-news","footer"],
+	"game-home-news": ["nav","game-home-news","footer"]
 }

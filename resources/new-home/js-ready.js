@@ -121,6 +121,9 @@ function initWishGames(){
 }
 
 function initTopSlider(max_games=6){
+
+	$('#remove-me').remove();
+
 	if(!topgames || !topgames_panel) return;
 		
 	var gameList = [];
@@ -173,7 +176,8 @@ function initTopSlider(max_games=6){
 	goToSlider(0);
 	assignProgressbar(0);
 
-	$("section").removeClass("hidden")
+	$("section").removeClass("hidden");
+
 }
 
 function initOfferGames(games, categories, all = true, max_games = 20)
@@ -311,6 +315,8 @@ function initOfferGames(games, categories, all = true, max_games = 20)
 
 function initRecommendedGames(max_games = 20)
 {
+	$('.carouselRecommended').find('.remove-me').remove();
+
 	var gameCountPerPage = 6;
 	var objGameContainer = $('.carouselRecommended');
 	controlSlick(objGameContainer, 'unslick');
@@ -352,6 +358,8 @@ function initRecommendedGames(max_games = 20)
 
 function initGoodGames(max_games = 20)
 {
+	$('.carouselWhatsGood').find('.remove-me').remove();
+
 	var gameCountPerPage = 5;
 	var objGameContainer = $('.carouselWhatsGood');
 	controlSlick(objGameContainer, 'unslick');
@@ -415,6 +423,8 @@ function initFeaturedGames(max_games = 20)
 			var gameID = data[i];
 			var gData = gamedata[gameID];
 
+			$(`.featured-${i+1}`).attr('href', gData.common_params.game_seo);
+			
 			setObjectValues($(`#featured .gameCard.featured-${i+1}`), makeDatasetForGame(gData, { ratio: '1x1', size: '1-8', quality: 0, format: 'webp' }, { ratio: '1x1', size: '1-8', quality: 0, format: 'webp' }));
 		}
 	}
@@ -422,6 +432,8 @@ function initFeaturedGames(max_games = 20)
 
 function initDiscoveredGames(type /* bestselling/new/upcoming/demo */, max_games = 8)
 {
+	$('#new').find('.remove-me').remove();
+
 	if(type !== "bestselling" && type !== "new" && type !== "upcoming" && type !== "demo")
 		return;
 
@@ -590,8 +602,8 @@ loadUserGames(() => {
 		}
 	}
 
-	initRecommendedGames();
 	initGoodGames();
+	initRecommendedGames();
 	initFeaturedGames();
 
 	initDiscoveredGames("bestselling");
