@@ -45,24 +45,35 @@ function makeType1(row,section,index){
 		var body = html2text(row.body);
 		var image_src = firstImg(row.body);
 		var image_src = image_src.replace("http:", "https:");
+
+		/* Don`t remove */
+		// checkImgValid(image_src, function(res, url){
+		// 	console.log(res, url);
+		// });
+		// if ( image_src != null ){
+		// 	if ( image_src.search("storage") != -1 ) {
+		// 		var result = image_src.replace(regex, subst);
+		// 		var result2 = result.replace(regex2, subst2);
+		// 		var image = '<img src="'+result2+'" class="card-img-top" alt="'+title+'">';
+		// 	}else if ( image_src.search("com/resources") != -1 ) {
+		// 		var result = image_src.replace(regex, subst);
+		// 		var result2 = result.replace(regex2, subst2b);
+		// 		var image = '<img src="'+result2+'" class="card-img-top" alt="'+title+'">';
+		// 	}else{
+		// 		var image = '<img src="'+image_src+'" class="card-img-top" alt="'+title+'">';
+		// 	}
+		// }else{
+		// 	var image = '';
+		// }
+
 		if ( image_src != null ){
-			if ( image_src.search("storage") != -1 ) {
-				var result = image_src.replace(regex, subst);
-				var result2 = result.replace(regex2, subst2);
-				var image = '<img src="'+result2+'" class="card-img-top" alt="'+title+'">';
-			}else if ( image_src.search("com/resources") != -1 ) {
-				var result = image_src.replace(regex, subst);
-				var result2 = result.replace(regex2, subst2b);
-				var image = '<img src="'+result2+'" class="card-img-top" alt="'+title+'">';
-			}else{
-				var image = '<img src="'+image_src+'" class="card-img-top" alt="'+title+'">';
-			}
+			var image = '<img src="'+image_src+'" class="card-img-top" alt="'+title+'">';
 		}else{
 			var image = '';
 		}
-
+		
 		//if Dota game
-		if(id === 4115) image = '<img src="'+image_src+'" class="card-img-top" alt="'+title+'">';
+		// if(id === 4115) image = '<img src="'+image_src+'" class="card-img-top" alt="'+title+'">';
 
 		//check the iframe tag
 		if(body.indexOf("<iframe") >= 0){
@@ -72,7 +83,7 @@ function makeType1(row,section,index){
 			var _body  = body.slice(0, sIndex);
 				body   = _body + body.slice(eIndex+10);
 		}
-		
+
 		var likes = row.total_like;
 		var dislikes = row.total_dislike;
 		var pubdate = row.pubdate_formatted;

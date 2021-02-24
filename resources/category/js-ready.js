@@ -88,6 +88,8 @@ function initTopSlider(max_games=10){
 	if(topSliderInited)
 		return;
 	
+	$('#remove-me').remove();
+
 	if(!topgames || !topgames_panel) return;
 
 	topSliderInited = true;
@@ -273,6 +275,8 @@ function addEverythingToTopgamesPNL(field="everything"){
 function initDiscoveredGames(type, max_games=8){
 
 	if(type !== "bestselling" && type !== "new" && type !== "upcoming" && type !== "demo" && type !== "everything") return;
+	
+	$('#everything').find('.remove-me').remove();
 
 	let oLists = topgames_panel[type];
 
