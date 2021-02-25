@@ -74,6 +74,7 @@
                     console.log(result.pmp);
                     for(var i = 0; i < result.pmp.length; i ++)
                     {
+                        if(result.pmp[i].is_promo) continue;
                         //$('<div class="col-12 row pb-2 pt-1 paymethod-row"><div class="font-weight-bold col-md-1" style="text-align: left;"><button class="btn-sel-paymethod btn btn-sm btn-secondary py-1 pl-0 pr-0" data-pmp-id="' + result.pmp[i].pmp_id + '" data-paymethod-name="' + result.pmp[i].name + '" style="margin-top:-5px; background:transparent; border: none"><i class="fas fa-circle"></i></button></div><div class="font-weight-bold col-md-10"><img src="' + result.pmp[i].thumb + '" class="img-user pr-1" data-group="common_params" data-type="game_logo" data-target="src" alt="IDC/Games">' + result.pmp[i].name + '</div></div>').appendTo($(".paymethod-row-after"));
                         var newPMBlock = $(".payment-method-block.clone").clone().removeClass("hidden").removeClass("clone");
                         var dataset = [
