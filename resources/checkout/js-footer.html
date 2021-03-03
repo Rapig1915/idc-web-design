@@ -60,7 +60,7 @@
 
         $.ajax({
             type:"POST",
-            url:"/unilogin/request_idcpayment.php?action=get_pmp_list",
+            url:"/unilogin/request_idcpayment.php?action=get_pmp_list&currency=" + loadSession('currency'),
             // url:"http://idcpayment.localhost/api/v1/idcgames/get_pmp_list",
             data: `token=${loadSession('token')}`,
             dataType: 'text',
