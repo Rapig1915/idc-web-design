@@ -64,3 +64,103 @@ doModal(index, game, target);
 $('.rechargeModal').on('hide.bs.modal', function(e) {    
 setTimeout(function(){ loadUserData(); }, 1500);
 });
+//Carousel of tooltip
+$('.carousel-tooltip').slick({
+	centerMode: false,
+	slidesToShow: 1,
+	autoplay: true,
+	arrows: false,
+	speed: 950,
+	pauseOnHover: true,
+	autoplaySpeed: 2000,
+	fade: true,
+	cssEase: 'linear'
+  });
+//Grid buttons in wishhlist
+  $(".grid-square-tab").click(function(){
+    $(".grid-rectangle-tab").removeClass("active");
+    $(".grid-square-tab").addClass("active");
+    $(".tab-content").find(".grid-square").addClass("d-block");
+    $(".tab-content").find(".grid-square").removeClass("d-none");
+    $(".tab-content").find(".grid-rectangle").removeClass("d-block");
+    $(".tab-content").find(".grid-rectangle").addClass("d-none");
+});
+$(".grid-rectangle-tab").click(function(){
+    $(".grid-square-tab").removeClass("active");
+    $(".grid-rectangle-tab").addClass("active");
+    $(".tab-content").find(".grid-rectangle").removeClass("d-none");
+    $(".tab-content").find(".grid-rectangle").addClass("d-block");
+    $(".tab-content").find(".grid-square").removeClass("d-block");
+    $(".tab-content").find(".grid-square").addClass("d-none");
+});
+//Open-close filters in mobile
+$("body").on("click",".open-filters",function(){
+	$(this).removeClass("open-filters");
+	$(this).addClass("close-filters");
+	$(".parent-container").removeClass("closed-filters");
+	$(".parent-container").addClass("opened-filters");
+	$(".fa-chevron-left").removeClass("close-arrow");
+	$(".fa-chevron-left").addClass("open-arrow");
+});
+$("body").on("click",".close-filters",function(){
+	$(this).removeClass("close-filters");
+	$(this).addClass("open-filters");
+	$(".parent-container").removeClass("opened-filters");
+	$(".parent-container").addClass("closed-filters");
+	$(".fa-chevron-left").removeClass("open-arrow");
+	$(".fa-chevron-left").addClass("close-arrow");
+});
+
+function setWishlistedState(btn, wishlisted = false){
+	// var btn = $(`.wishlist-btn[data-play="${id_idcgame}"]`);
+	if(!btn) return;
+
+	if(!wishlisted){
+		$(btn).addClass("wishlist");
+		$(btn).removeClass("wishlisted");
+		$(btn).addClass("btn-outline-primary");
+		$(btn).removeClass("btn-primary");
+		$(btn).find("i").addClass("far");
+		$(btn).find("i").removeClass("fas");
+		$(btn).attr({
+			"title" : "==(add_to_wishlist)==",
+			"data-original-title" : "==(add_to_wishlist)=="
+		});
+	}else{
+		$(btn).addClass("wishlisted");
+		$(btn).removeClass("wishlist");
+		$(btn).addClass("btn-primary");
+		$(btn).removeClass("btn-outline-primary");
+		$(btn).find("i").addClass("fas");
+		$(btn).find("i").removeClass("far");
+		$(btn).attr({
+			"title" : "==(on_wishlist)==",
+			"data-original-title" : "==(on_wishlist)=="
+		}); 
+	}
+}
+
+$("body").on("click",".wishlist-btn",function(){
+	var gameID = $(this).attr("data-play");
+	if(!gameID) return;
+
+	var bWannaWish = $(this).hasClass("wishlist");
+	makeWishRequest(gameID, '', bWannaWish,
+			res => {
+					console.log(`Wishing game ${gameID} success: `, res);
+					$(`.wishlist-btn[data-play="${gameID}"]`).each((k,btn) => setWishlistedState(btn, bWannaWish));
+					loadUserWishGames(null);
+			},
+			res => {
+					console.log(`Wishing game ${gameID} fail: `, res);
+			}
+	);
+});
+
+var ModalRemoveWishlist = new bootstrap.Modal(document.getElementById('removeFromWishlist'), {
+	keyboard: false
+  })
+
+  $(".remove-btn").click(function(){
+	ModalRemoveWishlist.show()
+});

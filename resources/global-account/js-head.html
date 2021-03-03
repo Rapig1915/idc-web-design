@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" integrity="sha256-UK1EiopXIL+KVhfbFa8xrmAWPeBjMVdvYMYkTAEv/HI=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" integrity="sha256-4hqlsNP9KM6+2eA8VUT0kk4RsMRTeS7QGHIM+MZ5sLY=" crossorigin="anonymous" />
 <script src="/assets/content/categories.js?==(current_timestamp)=="></script>
 <script src="/assets/config/catlang.js?==(current_timestamp)=="></script>
 <script src="/assets/config/gamedata.js?==(current_timestamp)=="></script>
@@ -117,7 +119,6 @@ function loadUserData(){
 						var html = "";
 
 						var myGames = JSON.parse(loadSession("games") || "[]");
-						if(!Array.isArray(myGames)) myGames = [myGames];
 						for (i=0;i<myGames.length;i++) {
 							try {
 								var idGame = myGames[i].IDJUEGO;
