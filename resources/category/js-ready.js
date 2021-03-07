@@ -14,6 +14,14 @@
      }
  });
 
+var isCategory = ##(is_category)##;
+var tagLists   = ==(json_all_tags)==;
+
+if(!isCategory){
+	var tagID = 0;
+	tagLists.forEach( tag => { if(tag.name == "##(name)##") tagID = tag.id; } );
+}
+ 
 const getShuffledArr = arr => {
 	const newArr = arr.slice()
 	for (let i = newArr.length - 1; i > 0; i--) {
@@ -73,14 +81,26 @@ $("body").on("beforeChange","#sliderhome",function(){
 activateSlick($('.carouselRecommended'));
 activateSlick($('.carouselNews'));
 
-function isCat(gData, catName){
+function isCatTag(gData, catName){		
 	if(!gData || !gData.common_params) return;
-	return gData.common_params.game_cat1 == catName || gData.common_params.game_cat2 == catName || gData.common_params.game_cat3 == catName || gData.common_params.game_cat4 == catName || gData.common_params.game_cat5 == catName;
+
+	if(isCategory){/* << is category*/
+		return gData.common_params.game_cat1 == catName || gData.common_params.game_cat2 == catName || gData.common_params.game_cat3 == catName || gData.common_params.game_cat4 == catName || gData.common_params.game_cat5 == catName;
+	}
+	else{/* << is tag*/
+		return gData.common_params.game_tag_ids.includes(tagID);		
+	}
 }
 
-function isTag(gData, tagName){
+function getTagInfoByID(tag_id){
 
+	var tagInfo = {};
+
+	tagLists.forEach( tag => { if(tag.id == tag_id) tagInfo=tag; } );
+
+	return tagInfo;
 }
+
 // Init functions
 var topSliderInited = false;
 
@@ -95,12 +115,13 @@ function initTopSlider(max_games=10){
 	topSliderInited = true;
 		
 	var gameList = [];
+
 	var datasources = [
-		topgames && topgames.topLogin.filter(x => isCat(gamedata[x], "##(name)##")),
-		topgames && topgames.topCcu.filter(x => isCat(gamedata[x], "##(name)##")), 
-		topgames_panel && topgames_panel["bestselling"].filter(x => isCat(gamedata[x], "##(name)##")), 
-		topgames_panel && topgames_panel["new"].filter(x => isCat(gamedata[x], "##(name)##")), 
-		topgames_panel && topgames_panel["upcoming"].filter(x => isCat(gamedata[x], "##(name)##")), 
+		topgames && topgames.topLogin.filter(x => isCatTag(gamedata[x], "##(name)##")),
+		topgames && topgames.topCcu.filter(x => isCatTag(gamedata[x], "##(name)##")), 
+		topgames_panel && topgames_panel["bestselling"].filter(x => isCatTag(gamedata[x], "##(name)##")), 
+		topgames_panel && topgames_panel["new"].filter(x => isCatTag(gamedata[x], "##(name)##")), 
+		topgames_panel && topgames_panel["upcoming"].filter(x => isCatTag(gamedata[x], "##(name)##")), 
 	];
 
 	console.log(datasources)
@@ -110,7 +131,7 @@ function initTopSlider(max_games=10){
 		for(var i = 0; i < datasources.length; i ++){
 			var picks = getShuffledArr(gameList.length<max_games/2 ? datasources[i].slice(0,2) : datasources[i].slice(2,5));
 			var id = picks.length>0 ? picks[0] : 0;
-			// if(!isCat(gamedata[id], "##(name)##")) continue;
+
 			(id && !gameList.includes(id)) && gameList.push(id);
 		}
 	}
@@ -160,10 +181,8 @@ function getValid4FeaturedGameIDS(_data=[], bFilter=true){
 	for(var i = 0; i < _data.length; i ++){
 		var gData = gamedata[_data[i]];
 
-		// if(bFilter) if(!isCat(gData, "##(name)##")) continue;
-
 		if(bFilter){
-			if(isCat(gData, "##(name)##")){
+			if(isCatTag(gData, "##(name)##")){
 
 				iArr.push(_data[i]);
 				if(--nMaxFeatured <= 0) break;
@@ -258,17 +277,13 @@ function addEverythingToTopgamesPNL(field="everything"){
 	    	_game.common_params.game_status === 'open_beta' 		||
 	    	_game.common_params.game_status === 'limited_beta' 		||
 	    	_game.common_params.game_status === 'not_in_idc'){
-
-	    	if( isCat(_game, "##(name)##") ) {
-
-	    		_resultArr.push(key);
-	    		// _resultArr.push(_game.common_params.game_id);
-	    	}
+	    	
+	    	isCatTag(_game, "##(name)##") && _resultArr.push(key*1);
 	    }
 	  }
 	}
 
-	topgames_panel[`${field}`] = _resultArr.reverse();
+	topgames_panel[`${field}`] = _resultArr;
 }
 
 //
@@ -276,7 +291,10 @@ function initDiscoveredGames(type, max_games=8){
 
 	if(type !== "bestselling" && type !== "new" && type !== "upcoming" && type !== "demo" && type !== "everything") return;
 	
+	//first fake loading remove
 	$('#everything').find('.remove-me').remove();
+
+	topgames_panel[type] = topgames_panel[type].sort((a, b)=>a-b).reverse();	
 
 	let oLists = topgames_panel[type];
 
@@ -292,7 +310,7 @@ function initDiscoveredGames(type, max_games=8){
 
 		if(!gamedata[gameID]) continue;
 
-		if(!isCat(gamedata[gameID], "##(name)##")) continue;
+		if(!isCatTag(gamedata[gameID], "##(name)##")) continue;		
 
 		var newGameBlock = null;
 		if( nShown < max_games){
@@ -310,6 +328,44 @@ function initDiscoveredGames(type, max_games=8){
 
 		// add it
 		$(newGameBlock).insertBefore(buttonShowMore);
+
+		/**
+		* >> adding of tags ##################################
+		*/
+		//rectangular tooltip
+		let gameTagIds = getShuffledArr(gamedata[gameID].common_params.game_tag_ids);
+
+		let tagIds = gameTagIds.slice(0, 5);
+		let rectDoms = "";
+
+		for (var j = 0; (tagIds.length > 0 && j < tagIds.length); j++) {
+			
+			let tInfo = getTagInfoByID(tagIds[j]);
+
+			// let t_name = tInfo.title.length > 8 ? tInfo.title.slice(0, 8)+".." : tInfo.title;
+			let t_name = tInfo.title;
+
+			rectDoms += '<span class="card-rectangular-tag mr-2" title="'+`${tInfo.name}`+'">'+
+							'<a href="https://==(language)==.==(domain)==/tag/'+`${tInfo.seo_url}`+'">'+t_name+'</a>'+
+						'</span>';
+		}
+		$('.card-rectangular-tag-list[id_idcgame="'+gameID+'"]').html(rectDoms);
+
+		//squire
+		tagIds = gameTagIds.slice(0, 5);
+		let squireDoms = ""; 
+
+		for (var j = 0; (tagIds.length > 0 && j < tagIds.length); j++) {
+			
+			let tInfo = getTagInfoByID(tagIds[j]);
+
+			// let t_name = tInfo.title.length > 10 ? tInfo.title.slice(0, 10)+".." : tInfo.title;
+			let t_name = tInfo.title;
+			
+			squireDoms += '<span class="card-tooltip-tag bg-dark-custom mt-2 mr-2">'+t_name+'</span>';
+		}
+		$('.card-tooltip-tag-list[id_idcgame="'+gameID+'"]').html(squireDoms);
+		/* ################################################*/
 	}
 
 	$(buttonShowMore).attr("nIth", nIth+1);
@@ -364,7 +420,7 @@ function initRecommendedGames(max_games = 20)
 			if(!gameStatus || gameStatus === "developing" || gameStatus === "inactive")
 				continue;
 
-			if(!isCat(gamedata[gameID], "##(name)##")) continue;
+			if(!isCatTag(gamedata[gameID], "##(name)##")) continue;
 
 			// check Caresol block
 			if(gameCountInCurrentPage >= gameCountPerPage || pageNumber <= 0){

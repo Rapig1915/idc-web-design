@@ -1071,6 +1071,7 @@
 .card-rectangular-tag {
   color: #6c757d;
   font-weight: 700;
+  font-size: 12px;
   text-shadow: 1px 3px 5px rgba(0,0,0,.3);
 }
 .game-card-rectangular:hover .card-rectangular-tag {
@@ -1101,6 +1102,7 @@
 .game-card-rectangular:hover .custom-tooltip, .small-card:hover .custom-tooltip {
   visibility: visible;
 }
+
 .custom-tooltip img {
   height: 150px;
   object-fit: cover;
@@ -1118,7 +1120,8 @@
 }
 
 .card-tooltip-tag {
-  font-size: .9em;
+  /* font-size: .9em; */
+  font-size: 12px;
   text-transform: uppercase;
   padding: 0rem .5rem .2em;
   color: #00ff7f;

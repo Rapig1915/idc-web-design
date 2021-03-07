@@ -106,7 +106,7 @@ $("body").on("click",".closeCookies",function(){
 			if(data[i].cls === "")
 				child = $(elem);
 
-			if(!child) continue;
+			if(!child) continue;			
 
 			if(!setSrc)
 				if(!!data[i].attr && data[i].attr == "src") continue;
@@ -171,8 +171,10 @@ $("body").on("click",".closeCookies",function(){
 
 			{ cls: ".demoBadge", addClass: (gData.common_params.demo_game&&"d-block") || "" },
 			{ cls: ".wishlist-btn", attr: "data-play", value: gData.common_params.id_idcgame },
+			{ cls: ".custom-tooltip", attr: "id_idcgame", value: gData.common_params.id_idcgame },			
 
-			{ cls: ".custom-tooltip", attr: "id_idcgame", value: gData.common_params.id_idcgame },
+			{ cls: ".card-rectangular-tag-list", attr: "id_idcgame", value: gData.common_params.id_idcgame },
+			{ cls: ".card-tooltip-tag-list", attr: "id_idcgame", value: gData.common_params.id_idcgame },
 		];
 
 		if(gData.common_params.game_status_id == 13){ // not_in_idc

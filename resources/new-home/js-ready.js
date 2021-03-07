@@ -9,6 +9,17 @@ const getShuffledArr = arr => {
 	return newArr
 };
 
+var tagLists   = ==(json_all_tags)==;
+
+function getTagInfoByID(tag_id){
+
+	var tagInfo = {};
+
+	tagLists.forEach( tag => { if(tag.id == tag_id) tagInfo=tag; } );
+
+	return tagInfo;
+}
+
 $("body").on("click",".cart-btn",function(){
 	
 	if(typeof(putGameInBasket) == "function" && putGameInBasket($(this).attr("id_idcgame")))
@@ -303,6 +314,28 @@ function initOfferGames(games, categories, all = true, max_games = 20)
 			gameCountInCurrentPage ++;
 
 			if(--max_games <= 0) break;
+
+			/**
+			* >> adding of tags ##################################
+			*/
+			//rectangular tooltip
+			let gameTagIds = getShuffledArr(gamedata[gameID].common_params.game_tag_ids);			
+
+			//squire
+			tagIds = gameTagIds.slice(0, 5);
+			let squireDoms = ""; 
+
+			for (var j = 0; (tagIds.length > 0 && j < tagIds.length); j++) {
+				
+				let tInfo = getTagInfoByID(tagIds[j]);
+
+				// let t_name = tInfo.title.length > 10 ? tInfo.title.slice(0, 10)+".." : tInfo.title;			
+				let t_name = tInfo.title;			
+				
+				squireDoms += '<span class="card-tooltip-tag bg-dark-custom mt-2 mr-2">'+t_name+'</span>';
+			}
+			$('.card-tooltip-tag-list[id_idcgame="'+gameID+'"]').html(squireDoms);
+			/* ################################################*/
 		}
 
 		if(objCurrentBlock){
@@ -350,6 +383,28 @@ function initRecommendedGames(max_games = 20)
 			// add it
 			$(newGameBlock).appendTo(objCurrentPage);
 			gameCountInCurrentPage ++;
+
+			/**
+			* >> adding of tags ##################################
+			*/
+			//rectangular tooltip
+			let gameTagIds = getShuffledArr(gamedata[gameID].common_params.game_tag_ids);			
+
+			//squire
+			tagIds = gameTagIds.slice(0, 5);
+			let squireDoms = ""; 
+
+			for (var j = 0; (tagIds.length > 0 && j < tagIds.length); j++) {
+				
+				let tInfo = getTagInfoByID(tagIds[j]);
+
+				// let t_name = tInfo.title.length > 10 ? tInfo.title.slice(0, 10)+".." : tInfo.title;			
+				let t_name = tInfo.title;			
+				
+				squireDoms += '<span class="card-tooltip-tag bg-dark-custom mt-2 mr-2">'+t_name+'</span>';
+			}
+			$('.card-tooltip-tag-list[id_idcgame="'+gameID+'"]').html(squireDoms);
+			/* ################################################*/
 		}
 
 		activateSlick(objGameContainer);
@@ -402,6 +457,28 @@ function initGoodGames(max_games = 20)
 				$(newGameBlock).appendTo(objCurrentPage.find(".small-card-box-2"));
 
 			gameCountInCurrentPage ++;
+
+			/**
+			* >> adding of tags ##################################
+			*/
+			//rectangular tooltip
+			let gameTagIds = getShuffledArr(gamedata[gameID].common_params.game_tag_ids);			
+
+			//squire
+			tagIds = gameTagIds.slice(0, 5);
+			let squireDoms = ""; 
+
+			for (var j = 0; (tagIds.length > 0 && j < tagIds.length); j++) {
+				
+				let tInfo = getTagInfoByID(tagIds[j]);
+
+				// let t_name = tInfo.title.length > 10 ? tInfo.title.slice(0, 10)+".." : tInfo.title;			
+				let t_name =  tInfo.title;			
+				
+				squireDoms += '<span class="card-tooltip-tag bg-dark-custom mt-2 mr-2">'+t_name+'</span>';
+			}
+			$('.card-tooltip-tag-list[id_idcgame="'+gameID+'"]').html(squireDoms);
+			/* ################################################*/
 		}
 
 		activateSlick(objGameContainer);
@@ -426,11 +503,33 @@ function initFeaturedGames(max_games = 20)
 			$(`.featured-${i+1}`).attr('href', gData.common_params.game_seo);
 			
 			setObjectValues($(`#featured .gameCard.featured-${i+1}`), makeDatasetForGame(gData, { ratio: '1x1', size: '1-8', quality: 0, format: 'webp' }, { ratio: '1x1', size: '1-8', quality: 0, format: 'webp' }));
+
+			/**
+			* >> adding of tags ##################################
+			*/
+			//rectangular tooltip
+			let gameTagIds = getShuffledArr(gamedata[gameID].common_params.game_tag_ids);			
+
+			//squire
+			tagIds = gameTagIds.slice(0, 5);
+			let squireDoms = ""; 
+
+			for (var j = 0; (tagIds.length > 0 && j < tagIds.length); j++) {
+				
+				let tInfo = getTagInfoByID(tagIds[j]);
+
+				// let t_name = tInfo.title.length > 10 ? tInfo.title.slice(0, 10)+".." : tInfo.title;			
+				let t_name = tInfo.title;			
+				
+				squireDoms += '<span class="card-tooltip-tag bg-dark-custom mt-2 mr-2">'+t_name+'</span>';
+			}
+			$('.card-tooltip-tag-list[id_idcgame="'+gameID+'"]').html(squireDoms);
+			/* ################################################*/
 		}
 	}
 }
 
-function initDiscoveredGames(type /* bestselling/new/upcoming/demo */, max_games = 8)
+function initDiscoveredGames(type /* bestselling/new/upcoming/demo */, max_games = 10)
 {
 	$('#new').find('.remove-me').remove();
 
@@ -439,6 +538,8 @@ function initDiscoveredGames(type /* bestselling/new/upcoming/demo */, max_games
 
 	var objGameContainer = $(`.discovered-${type}-container`);
 	//objGameContainer.find(".game-block.discovered").remove();
+
+	topgames_panel[type] = topgames_panel[type].sort((a, b)=> a-b).reverse();
 
 	var buttonShowMore = $(objGameContainer).find(`.discovered-${type}-show-more`);
 
@@ -458,21 +559,57 @@ function initDiscoveredGames(type /* bestselling/new/upcoming/demo */, max_games
 
 			// add it
 			$(newGameBlock).insertBefore(buttonShowMore);
+
+			/**
+			* >> adding of tags ##################################
+			*/
+			//rectangular tooltip
+			let gameTagIds = getShuffledArr(gamedata[gameID].common_params.game_tag_ids);
+
+			let tagIds = gameTagIds.slice(0, 5);
+			let rectDoms = "";
+
+			for (var j = 0; (tagIds.length > 0 && j < tagIds.length); j++) {
+				
+				let tInfo = getTagInfoByID(tagIds[j]);
+
+				// let t_name = tInfo.title.length > 8 ? tInfo.title.slice(0, 8)+".." : tInfo.title;
+				let t_name = tInfo.title;
+
+				rectDoms += '<span class="card-rectangular-tag mr-2" title="'+`${tInfo.title}`+'">'+
+								'<a href="https://==(language)==.==(domain)==/tag/'+`${tInfo.seo_url}`+'">'+t_name+'</a>'+
+							'</span>';
+			}
+			$('.card-rectangular-tag-list[id_idcgame="'+gameID+'"]').html(rectDoms);
+
+			//squire
+			tagIds = gameTagIds.slice(0, 5);
+			let squireDoms = ""; 
+
+			for (var j = 0; (tagIds.length > 0 && j < tagIds.length); j++) {
+				
+				let tInfo = getTagInfoByID(tagIds[j]);
+
+				// let t_name = tInfo.title.length > 10 ? tInfo.title.slice(0, 10)+".." : tInfo.title;			
+				let t_name = tInfo.title;			
+				
+				squireDoms += '<span class="card-tooltip-tag bg-dark-custom mt-2 mr-2">'+t_name+'</span>';
+			}
+			$('.card-tooltip-tag-list[id_idcgame="'+gameID+'"]').html(squireDoms);
+			/* ################################################*/
 		}
 
 		nDisplayedGames += nDisplayStep;
 		if(nDisplayedGames > topgames_panel[type].length)
 			nDisplayedGames = topgames_panel[type].length;
 
-		$(buttonShowMore).attr("n_displayed", nDisplayedGames);
-		// if(nDisplayedGames >= topgames_panel[type].length)
-		// 	$(buttonShowMore).addClass("hidden");
+		$(buttonShowMore).attr("n_displayed", nDisplayedGames);		
 	}
 }
 
 function initNews()
 {
-	var newsCountPerPage = 2;
+	var newsCountPerPage = 3;
 	var objGameContainer = $('.carouselNews');
 	controlSlick(objGameContainer, 'unslick');
 	objGameContainer.find(".carousel-page.news").remove();
@@ -616,7 +753,7 @@ loadUserGames(() => {
 })
 
 // Load news
-$.get('/assets/content/all-news.json', function(json){
+$.get('assets/content/all-news.json', function(json){
 	all_news = json;
 
 	initNews();

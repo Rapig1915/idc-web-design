@@ -27,5 +27,8 @@ __(slider_game5_id)__;27
 %%(game_status_id)%%;9
 %%(id_idcgame)%%;137
 %%(game_name)%%;pc futbol stars
-##(name)##;Featured
+##(name)##;Action
 ==(discount_param)==;30%
+==(discover_games)==;discover games
+==(bestselling)==;bestselling
+##(is_category)##;1

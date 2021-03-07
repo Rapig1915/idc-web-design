@@ -2017,11 +2017,29 @@ span.btn.btn-primary.btn-sm.px-2, .btn-group-sm > span.btn.btn-primary.px-2 {
 
 @media (max-width: 991.98px) {
   .big-card .gameCard-img {
-    height: 345px; } }
+    height: 345px;     
+  }
+
+  .carousel-item .gameCard-img{
+    height: 121px;
+    min-width: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+  } 
+}
 
 @media (min-width: 992px) {
   .big-card .gameCard-img {
-    height: 361px; } }
+    height: 361px;     
+  }
+
+  .carousel-item .gameCard-img{
+    height: 121px;
+    min-width: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+  } 
+}
 
 .big-card .gameCard-img {
   min-width: 100%;
@@ -2120,7 +2138,7 @@ span.btn.btn-primary.btn-sm.px-2, .btn-group-sm > span.btn.btn-primary.px-2 {
 }
 
 #featured .square-img {
-  max-height: 433px; }
+  max-height: 533px; }
 
 .discovered .img-overflow {
   height: 264px; }
@@ -2135,7 +2153,8 @@ span.btn.btn-primary.btn-sm.px-2, .btn-group-sm > span.btn.btn-primary.px-2 {
   height: 100%;
   -o-object-fit: cover;
   object-fit: cover; 
-  max-height: 300px;
+  max-height: 235px;
+  /*max-height: 300px;*/
 }
 
 .slick-dots li.slick-active button:before {
@@ -2410,11 +2429,15 @@ button.btn.btn-sm.wishlist-btn.px-2.py-0.mr-3.wishlisted.btn-primary {
   top: 0%;
 }
 
-.game-card-rectangular:hover .custom-tooltip, .small-card:hover .custom-tooltip, .big-card:hover .custom-tooltip {
+/*.game-card-rectangular:hover .custom-tooltip, .small-card:hover .custom-tooltip, .big-card:hover .custom-tooltip {*/
+.game-card-rectangular:hover .custom-tooltip, 
+.big-card-main-div:hover + .custom-tooltip, 
+.small-card-main-div:hover + .custom-tooltip {
   visibility: visible;
+  pointer-events: none;
 }
 .custom-tooltip img {
-  max-height: 150px;
+  height: 150px;
   object-fit: cover;
 }
 
@@ -2430,21 +2453,56 @@ button.btn.btn-sm.wishlist-btn.px-2.py-0.mr-3.wishlisted.btn-primary {
 }
 
 .card-tooltip-tag {
-  font-size: .9em;
+  /* font-size: .9em; */
+  font-size: 12px;
   text-transform: uppercase;
   padding: 0rem .5rem .2em;
   color: #00ff7f;
+}
+
+.bg-dark-custom {
+  background-color: rgba(27, 29, 44, .95);
 }
 
 button.slick-prev.slick-arrow{
   z-index: 999;
 }
 
+/* ------ */
 div.slick-slide[aria-hidden="true"]{
   visibility: hidden;
   opacity: 0;
 }
-
 div.slick-list.draggable{
   overflow: visible!important;
+}
+#sliderhome .carousel-item  .xada{
+  margin: 0px!important;
+}
+/* ------ */
+.carouselWhatsGood{ z-index: 2;}
+.carouselRecommended{ z-index: 1;}
+#featured:parent{ z-index: 0;}
+
+@media (min-width: 1400px) {
+  .container,.container-lg,.container-md,.container-sm,.container-xl {
+      max-width: 1380px;
+  }
+  .slick-active .offer:nth-child(4) .small-card .custom-tooltip,
+  .slick-active .small-card-box-2   .small-card .custom-tooltip {
+    left: -113%;
+    top: -13%;    
+  }
+
+  .slick-active .recommended:nth-child(3n) .small-card .custom-tooltip {
+    left: -81%;
+    top: -13%;    
+  }
+
+  .slick-active .offer:nth-child(4)        .small-card .custom-tooltip::after,
+  .slick-active .small-card-box-2          .small-card .custom-tooltip::after,
+  .slick-active .recommended:nth-child(3n) .small-card .custom-tooltip::after{
+    left: 100%!important;
+    border-color: transparent transparent transparent #314954;
+  }
 }
