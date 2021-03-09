@@ -38,7 +38,9 @@
         async:false,
         success: function(res){
           if(res && res.success && res.transaction && res.transaction.state_category_id){
-            if(res.transaction.state_category_id == 200)
+            if(res.transaction.state_category_id == 500)
+              handleError()
+            else if(res.transaction.state_category_id == 200)
               handleSuccess()
           }
           else{
