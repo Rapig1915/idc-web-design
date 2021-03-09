@@ -138,6 +138,7 @@ function loadUserData(){
 
 						if( html != "" ){
 							$("#myGamesContainer").html(html);	
+							// $("#myGamesContainer").find('#last_played').html(html);	
 						}
 				});
 				loadUserWishGames(() => {
@@ -293,13 +294,12 @@ function buildGame(gameId){
 	categories += gameCat(game_info.common_params.game_cat2);
 	categories += gameCat(game_info.common_params.game_cat3);
 	categories += gameCat(game_info.common_params.game_cat4);
-	categories += gameCat(game_info.common_params.game_cat5);
+	categories += gameCat(game_info.common_params.game_cat5);	
 
     var res = '<div class="container-custom pt-5 mt-3 pb-4">' +
 		'<div class="card mt-2 gradient-overlay-5">' +
 		'                    <div class="row no-gutters">' +
 		'                        <div class="col-md-4">' +
-//            '                            <div class="overflow-hidden img-container-up-left box-shadow"><a href="/'+game_info.common_params.game_seo+'/"><img src="' + game_info.store_params.square_image + '" class="card-img img-zoom" alt="'+game_info.name+'"></a></div>' +
 		'                            <div class="overflow-hidden img-container-up-left box-shadow"><button class="myZoom playGame" data-play="'+game_info.common_params.id_idcgame+'"><img src="' + game_info.store_params.square_image + '" class="card-img img-zoom" alt="'+game_info.name+'"></a></div>' +
 		'                        </div>' +
 		'                        <div class="col-md-8">' +
@@ -313,7 +313,6 @@ function buildGame(gameId){
 											makeImg(game_info,2) + 
 											makeImg(game_info,3) +
 		'                                </div>' +
-//            '                                <div class="d-flex flex-row flex-wrap pt-3 pr-3"><button class="btn btn-primary btn-sm btn-block playGame" data-play="'+game_info.common_params.id_idcgame+'">' + play_now_txt + '</button></div>' +
 		'                                <div class="d-flex flex-sm-row flex-column pt-3 pr-3"><button class="btn btn-primary btn-sm btn-block mr-sm-2 playGame" data-play="'+game_info.common_params.id_idcgame+'">' + play_now_txt + '</button><a class="btn btn-secondary btn-sm btn-block ml-sm-2 mt-sm-0" href="/'+game_info.common_params.game_seo+'/">'+more_info_txt+'</a></div>' +
 		'                            </div>' +
 		'                        </div>' +
@@ -327,7 +326,7 @@ function buildGame(gameId){
 		'                    </div>' +
 		'                </div>' +
 		'            </div>';
-    return res;
+    // return res;
 }
 function sendMailN(mail){ 
 	$.ajax({
