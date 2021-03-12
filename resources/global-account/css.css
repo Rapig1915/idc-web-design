@@ -2078,6 +2078,7 @@ iframe {
   line-height: 0.1em;
   border: 5px solid black;
   cursor: pointer;
+  color: black;
 }
 
 /* tooltip with review button*/
@@ -2230,4 +2231,21 @@ iframe {
   #removeFromWishlist .modal-sm {
         max-width: 50vw;
     } 
+
+}
+@media (min-width: 1200px){
+  #addReview .modal-sm {
+      max-width: 60vw;
+  } 
+}
+
+.last-played button.btn.btn-outline-primary.btn-sm {
+  padding: .15rem 1.3rem;
+}
+.last-played span.h6.text-shadow.mb-0 {
+  font-size: 1.1rem;
+}
+
+div.slick-track {
+  width: 100%!important;
 }

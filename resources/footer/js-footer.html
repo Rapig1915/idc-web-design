@@ -153,6 +153,8 @@ $("body").on("click",".closeCookies",function(){
 			{ cls: ".anchor-game-home", attr: "href", value: `/${(gData.common_params.demo_game&&"demo/")||""}${gData.common_params.game_seo}` },
 			{ cls: ".gameCard-img", attr: "src", 
 				value: retrieveImage(gData.store_params.game_banner_json, (customImgSpecBanner && customImgSpecBanner.ratio) || '2x1', (customImgSpecBanner && customImgSpecBanner.size) || '1-4', (customImgSpecBanner && customImgSpecBanner.quality) || 0, (customImgSpecBanner && customImgSpecBanner.format) || 'webp', gData.store_params.game_banner_webp || gData.store_params.game_banner) },
+			{ cls: ".tooltip-img", attr: "src", 
+				value: retrieveImage(gData.store_params.game_banner_json, (customImgSpecBanner && customImgSpecBanner.ratio) || '2x1', (customImgSpecBanner && customImgSpecBanner.size) || '1-4', (customImgSpecBanner && customImgSpecBanner.quality) || 0, (customImgSpecBanner && customImgSpecBanner.format) || 'webp', gData.store_params.game_banner_webp || gData.store_params.game_banner) },
 			{ cls: ".card-img-overlay", attr: "src", value: retrieveImage(gData.common_params.game_logo_json, (customImgSpecLogo && customImgSpecLogo.ratio) || '2x1', (customImgSpecLogo && customImgSpecLogo.size) || '1-4', (customImgSpecLogo && customImgSpecLogo.quality) || 0, (customImgSpecLogo && customImgSpecLogo.format) || 'webp', gData.common_params.game_logo_webp || gData.common_params.game_logo) },
 			{ cls: ".show-os-windows", hide: !gData.common_params.flagWindows },
 			{ cls: ".show-os-apple", hide: !gData.common_params.flagApple },
@@ -164,6 +166,7 @@ $("body").on("click",".closeCookies",function(){
 			{ cls: ".txt-topslider-gameintro", text: gData.store_params.game_short_description },
 			{ cls: ".anchor-topslider-gamelink", attr: "href", value: `/${gData.common_params.game_seo}` },
 			
+			{ cls: ".addReview-btn", attr: "id_idcgame", value: gData.common_params.id_idcgame },
 			{ cls: ".cart-btn", attr: "id_idcgame", value: gData.common_params.id_idcgame },
 			{ cls: ".cart-btn", attr: "price", value: newPrice },
 			{ cls: ".cart-btn", attr: "currency", value: user_currency },
@@ -237,7 +240,8 @@ $("body").on("click",".closeCookies",function(){
 	function getGameStatus(gData) {
 		if(!gData || !gData.common_params)
 			return null;
-		const price = getGamePrice(gData);
+		// const price = getGamePrice(gData);
+		const price = (gData.common_params.free_2_play !== "true" && getGamePrice(gData)) || 0;
 		const status = gData.common_params.game_status;
 		var myGames = JSON.parse(loadSession("games") || "[]");
 		if(!Array.isArray(myGames)) myGames = [myGames]

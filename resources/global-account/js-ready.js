@@ -62,7 +62,7 @@ var target = $(this).attr("data-target");
 doModal(index, game, target);
 });
 $('.rechargeModal').on('hide.bs.modal', function(e) {    
-setTimeout(function(){ loadUserData(); }, 1500);
+	setTimeout(function(){ loadUserData(); }, 1500);
 });
 //Carousel of tooltip
 $('.carousel-tooltip').slick({
@@ -161,6 +161,65 @@ var ModalRemoveWishlist = new bootstrap.Modal(document.getElementById('removeFro
 	keyboard: false
   })
 
-  $(".remove-btn").click(function(){
+ $(document.body).on('click', '.remove-btn', function(e){
 	ModalRemoveWishlist.show()
+});
+
+var ModalAddReview = new bootstrap.Modal(document.getElementById('addReview'), {
+	keyboard: false
+})
+
+$(document.body).on('click', '.addReview-btn', function(e){
+
+	var gameID = $(this).attr('id_idcgame');
+	ModalAddReview.show()
+});
+
+/* == >>*/
+function getAndCheckData(form) {
+  // let text = form.comment.value;
+  let text = $('#reviewTextArea').val();
+  let vote;
+  let error = 0, result = true;
+  if(text.length < 1) error += 1;
+  let [btn1HTML, btn1State] = getAttributeOfId(btnComment1, attrSel);
+  let [btn2HTML, btn2State] = getAttributeOfId(btnComment2, attrSel);
+
+  if(btn1State != 0) vote = 1;
+  else if(btn2State != 0) vote = 2;
+  else error += 2;
+
+  if(error != 0) result = false;
+
+  return [result, {
+    text, vote, error
+  }]
+}
+
+$(document.body).on('submit', '#formComment', function(e){
+
+	e.preventDefault();
+	let form = e.target;
+	let [result, {text, vote, error}] = getAndCheckData(form);
+	if(result) {
+	  createComment(vote, text);
+	}
+	else {
+	  if(error == 1 || error == 3){
+	    $(form.comment).removeClass('colorLight').addClass("alert-danger").delay(1500).queue(function(){
+	      $(this).addClass("colorLight");
+	      $(this).removeClass("alert-danger").dequeue();
+	    });
+	  }
+	  if(error >= 2){
+	    $(`#${btnComment1}`).addClass("alert alert-danger").delay(1500).queue(function(){
+	      $(this).removeClass("alert alert-danger").dequeue();
+	    });
+	    $(`#${btnComment2}`).addClass("alert alert-danger").delay(1500).queue(function(){
+	      $(this).removeClass("alert alert-danger").dequeue();
+	    });
+	  }
+
+	}
+	return;
 });

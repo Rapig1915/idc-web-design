@@ -15,6 +15,32 @@ if ( typeof(coin) == "undefined"){
 }
 var exist = {};
 
+var isCategory = ##(is_category)##;
+var tagLists   = ==(json_all_tags)==;
+
+if(!isCategory){
+	var tagID = 0;
+	tagLists.forEach( tag => { if(tag.name == "##(name)##") tagID = tag.id; } );
+}
+
+const getShuffledArr = arr => {
+	const newArr = arr.slice()
+	for (let i = newArr.length - 1; i > 0; i--) {
+			const rand = Math.floor(Math.random() * (i + 1));
+			[newArr[i], newArr[rand]] = [newArr[rand], newArr[i]];
+	}
+	return newArr
+};
+
+function getTagInfoByID(tag_id){
+
+	var tagInfo = {};
+
+	tagLists.forEach( tag => { if(tag.id == tag_id) tagInfo=tag; } );
+
+	return tagInfo;
+}
+
 function addSocial(result){
 	$(".socialerror").addClass("d-none");
 	if (result.rc == 200){
@@ -68,6 +94,313 @@ function changeSocial(status,id){
 	}
 }
 
+function timeConvert(n) {
+	var num = n;
+	var hours = (num / 60);
+	var rhours = Math.floor(hours);
+	var minutes = (hours - rhours) * 60;
+	var rminutes = Math.round(minutes);
+
+	rhours   = rhours >= 10 ? rhours : '0'+rhours;
+	rminutes = rminutes >= 10 ? rminutes : '0'+rminutes;
+
+	return rhours + "H  " + rminutes + "M";
+}
+
+var gameList = [];
+
+function loadMyGames(){
+
+	var nick = getCookie('nick');
+	var pass = getCookie('pass');
+
+	$('#last-played-1').addClass('hidden');
+	$('#last-played-2').addClass('hidden');
+	$('#last-played-3').addClass('hidden');
+
+	$.ajax({
+		type:"POST",
+		url:"/unilogin/ListarJuegosUsuarioUnico.php",
+		data: 'cLogin='+nick+'&cPassword='+pass,
+		dataType: 'text',
+		// async:false,
+		success: function(res){			
+
+			res = JSON.parse(res);
+			gameList = res.TUsuarioJuego.TUsuarioJuegoRow;
+			
+			//Last played  ################################################*/
+			for( var i = 0, x = gameList.length; (i < x && i < 3) ; i++ ){
+
+				var cDom = $(`#last-played-${i+1}`); $(cDom).removeClass('hidden');				
+
+				let time_played = timeConvert(gameList[i].TIME_PLAYED);
+				$(cDom).find('.time-played').html( time_played );
+
+				let gameID = gameList[i].IDJUEGO;
+
+				var newGameBlock = $(cDom).clone();
+				newGameBlock = setObjectValues(newGameBlock, makeDatasetForGame(gamedata[gameID]));
+				$(cDom).replaceWith(newGameBlock);
+
+				/**
+				* >> adding of tags ##################################
+				*/
+				let gameTagIds = getShuffledArr(gamedata[gameID].common_params.game_tag_ids);			
+
+				//squire
+				tagIds = gameTagIds.slice(0, 5);
+				let squireDoms = ""; 
+
+				for (var j = 0; (tagIds.length > 0 && j < tagIds.length); j++) {
+					
+					let tInfo = getTagInfoByID(tagIds[j]);
+
+					let t_name = tInfo.title;
+					
+					squireDoms += '<span class="card-tooltip-tag bg-dark-custom mt-2 mr-2">'+t_name+'</span>';
+				}
+				$('.card-tooltip-tag-list[id_idcgame="'+gameID+'"]').html(squireDoms);
+				/* ################################################*/
+			}
+
+			// All your games ################################################*/
+			var buttonShowMore = $('.discovered-show-more');
+			var nDisplayedGames = parseInt($(buttonShowMore).attr("nIth") || "3");
+
+			var nShown = 0, max_games = 10, nIth = 0;
+
+			for( var i = 3, x = gameList.length; (i < x && x >= 3) ; i++ ){
+
+				let gameID = gameList[i].IDJUEGO;
+
+				if(!gamedata[gameID]) continue;
+
+				let time_played = timeConvert(gameList[i].TIME_PLAYED);				
+
+				if( nShown < max_games){
+
+					newGameBlock = $(".game-block.discovered.clone").clone().removeClass("hidden").removeClass("clone").addClass(`card-div-${i}`);
+					nShown ++; 
+					nIth=i;
+				}else{
+
+					newGameBlock = $(".game-block.discovered.clone").clone().removeClass("hidden").removeClass("clone").addClass('d-none').addClass(`card-div-${i}`);
+				}
+
+				// make dataset and display		
+				newGameBlock = setObjectValues(newGameBlock, makeDatasetForGame(gamedata[gameID]));
+
+				$(newGameBlock).find('.time-played').html( time_played );
+
+				// add it
+				$(newGameBlock).insertBefore(buttonShowMore);
+
+				/**
+				* >> adding of tags ##################################
+				*/
+				//rectangular tooltip
+				let gameTagIds = getShuffledArr(gamedata[gameID].common_params.game_tag_ids);
+
+				let tagIds = gameTagIds.slice(0, 5);
+				let rectDoms = "";
+
+				for (var j = 0; (tagIds.length > 0 && j < tagIds.length); j++) {
+					
+					let tInfo = getTagInfoByID(tagIds[j]);
+
+					let t_name = tInfo.title;
+
+					rectDoms += '<span class="card-rectangular-tag mr-2" title="'+`${tInfo.title}`+'">'+
+									'<a href="https://==(language)==.==(domain)==/tag/'+`${tInfo.seo_url}`+'">'+t_name+'</a>'+
+								'</span>';
+				}
+				$('.card-rectangular-tag-list[id_idcgame="'+gameID+'"]').html(rectDoms);
+
+				//squire
+				tagIds = gameTagIds.slice(0, 5);
+				let squireDoms = ""; 
+
+				for (var j = 0; (tagIds.length > 0 && j < tagIds.length); j++) {
+					
+					let tInfo = getTagInfoByID(tagIds[j]);
+
+					let t_name = tInfo.title;			
+					
+					squireDoms += '<span class="card-tooltip-tag bg-dark-custom mt-2 mr-2">'+t_name+'</span>';
+				}
+				$('.card-tooltip-tag-list[id_idcgame="'+gameID+'"]').html(squireDoms);
+				/* ################################################*/
+			}
+
+			$(buttonShowMore).attr("nIth", nIth+1);
+
+			if(nShown==0 || nIth+1 >= gameList.length || nShown < max_games) $(buttonShowMore).addClass('d-none');
+			
+		},
+		error:function(err){
+			console.log(err);
+		}
+	});
+}
+
+var wishGameList = [];
+function loadMyWishGames(){
+
+	var nick = getCookie('nick');
+	var pass = getCookie('pass');
+
+	$('#last-played-1').addClass('hidden');
+	$('#last-played-2').addClass('hidden');
+	$('#last-played-3').addClass('hidden');
+
+	$.ajax({
+		type:"POST",
+		url:"/unilogin/ListarWishesJuegosUsuarioUnico.php",
+		data: 'cLogin='+nick+'&cPassword='+pass,
+		dataType: 'text',
+		// async:false,
+		success: function(res){			
+
+			res = JSON.parse(res);
+			wishGameList = res.TUsuarioJuego.TUsuarioJuegoRow;
+
+			// All your games ################################################*/
+			var buttonShowMore = $('.discovered-show-more-wishlist');
+			var nDisplayedGames = parseInt($(buttonShowMore).attr("nIth") || "3");
+
+			var nShown = 0, max_games = 10, nIth = 0;
+
+			for( var i = 3, x = wishGameList.length; (i < x && x >= 3) ; i++ ){
+
+				let gameID = wishGameList[i].IDJUEGO;
+
+				if(!gamedata[gameID]) continue;
+
+				// let time_played = timeConvert(wishGameList[i].TIME_PLAYED);				
+
+				if( nShown < max_games){
+
+					newGameBlock = $(".game-card-rectangular.clone.wishlist").clone().removeClass('clone').removeClass("hidden").addClass(`card-div-${i}`);
+					nShown ++; 
+					nIth=i;
+				}else{
+
+					newGameBlock = $(".game-card-rectangular.clone.wishlist").clone().removeClass('clone').removeClass("hidden").addClass('d-none').addClass(`card-div-${i}`);
+				}
+
+				// make dataset and display		
+				newGameBlock = setObjectValues(newGameBlock, makeDatasetForGame(gamedata[gameID]));
+
+				// $(newGameBlock).find('.time-played').html( time_played );
+
+				// add it
+				$(newGameBlock).insertBefore(buttonShowMore);
+
+				/**
+				* >> adding of tags ##################################
+				*/
+				//rectangular tooltip
+				let gameTagIds = getShuffledArr(gamedata[gameID].common_params.game_tag_ids);
+
+				let tagIds = gameTagIds.slice(0, 5);
+				let rectDoms = "";
+
+				for (var j = 0; (tagIds.length > 0 && j < tagIds.length); j++) {
+					
+					let tInfo = getTagInfoByID(tagIds[j]);
+
+					let t_name = tInfo.title;
+
+					rectDoms += '<span class="card-rectangular-tag mr-2" title="'+`${tInfo.title}`+'">'+
+									'<a href="https://==(language)==.==(domain)==/tag/'+`${tInfo.seo_url}`+'">'+t_name+'</a>'+
+								'</span>';
+				}
+				$('.card-rectangular-tag-list[id_idcgame="'+gameID+'"]').html(rectDoms);
+
+				//squire
+				tagIds = gameTagIds.slice(0, 5);
+				let squireDoms = ""; 
+
+				for (var j = 0; (tagIds.length > 0 && j < tagIds.length); j++) {
+					
+					let tInfo = getTagInfoByID(tagIds[j]);
+
+					let t_name = tInfo.title;			
+					
+					squireDoms += '<span class="card-tooltip-tag bg-dark-custom mt-2 mr-2">'+t_name+'</span>';
+				}
+				$('.card-tooltip-tag-list[id_idcgame="'+gameID+'"]').html(squireDoms);
+				/* ################################################*/
+			}
+
+			$(buttonShowMore).attr("nIth", nIth+1);
+
+			if(nShown==0 || nIth+1 >= wishGameList.length || nShown < max_games) $(buttonShowMore).addClass('d-none');
+			
+		},
+		error:function(err){
+			console.log(err);
+		}
+	});
+}
+
+function renderShowMoreWish(max_games=10){	
+
+	var buttonShowMore = $('.discovered-show-more-wishlist');
+
+	let oLists = gameList;
+
+	let nIth = parseInt($(buttonShowMore).attr("nith") || "3");
+
+	let nShown = 0;
+
+	for (let i = nIth; (i < oLists.length && nShown < max_games) ; i++ ) {
+
+		let card_div_dom = $(buttonShowMore).parent().find(`.card-div-${i}`);
+
+		if($(card_div_dom).length){
+
+			$(card_div_dom).removeClass('d-none').addClass('d-flex');
+
+			nShown ++;
+			nIth=i;
+		}
+	}
+
+	$(buttonShowMore).attr("nith", nIth+1);
+	if(nShown==0 || nIth+1 >= oLists.length || nShown < max_games) $(buttonShowMore).removeClass('d-flex').addClass('d-none');
+}
+
+function renderShowMore(max_games=10){	
+
+	var buttonShowMore = $('.discovered-show-more');
+
+	let oLists = gameList;
+
+	let nIth = parseInt($(buttonShowMore).attr("nith") || "3");
+
+	let nShown = 0;
+
+	for (let i = nIth; (i < oLists.length && nShown < max_games) ; i++ ) {
+
+		let card_div_dom = $(buttonShowMore).parent().find(`.card-div-${i}`);
+
+		if($(card_div_dom).length){
+
+			$(card_div_dom).removeClass('d-none').addClass('d-flex');
+
+			nShown ++;
+			nIth=i;
+		}
+	}
+
+	$(buttonShowMore).attr("nith", nIth+1);
+	if(nShown==0 || nIth+1 >= oLists.length || nShown < max_games) $(buttonShowMore).removeClass('d-flex').addClass('d-none');
+}
+
+
+
 function loadUserData(){
 	$(".alert").addClass("d-none");
 	$(".reqLog").find(".alert").removeClass("d-none");
@@ -81,6 +414,10 @@ function loadUserData(){
 	$(".actualPassword").addClass("d-none");
 	$("#account_username").text( getCookie("nick") );
 	$("#Username").val( getCookie("nick") );
+
+	loadMyGames();
+	loadMyWishGames();
+
 	$.ajax({
 		type:"POST",
 		url:"/unilogin/userData.php",
@@ -114,59 +451,62 @@ function loadUserData(){
 						changeSocial(1,index);
 					}
 				});
-				loadUserGames(() => {
-						var divID = 1;
-						var html = "";
 
-						var myGames = JSON.parse(loadSession("games") || "[]");
-						for (i=0;i<myGames.length;i++) {
-							try {
-								var idGame = myGames[i].IDJUEGO;
-								//Si no está en la lista, lo saltamos
-								if (typeof(gamedata[idGame]) == 'undefined' ) {
-									continue;
-								}
-								var thisStatus = "s"+gamedata[idGame].common_params.game_status_id;
-								if ( gameStatus[thisStatus].playable == 0 ) {
-									continue;
-								}
-								html = html + buildGame(idGame);
-							}catch(e){
-								console.log("Error gamelist: "+i);
-							}
-						}
+				// loadUserGames(() => {
+				// 		var divID = 1;
+				// 		var html = "";
 
-						if( html != "" ){
-							$("#myGamesContainer").html(html);	
-							// $("#myGamesContainer").find('#last_played').html(html);	
-						}
-				});
-				loadUserWishGames(() => {
-					var divID = 1;
-					var html = "";
+				// 		var myGames = JSON.parse(loadSession("games") || "[]");
+				// 		for (i=0;i<myGames.length;i++) {
+				// 			try {
+				// 				var idGame = myGames[i].IDJUEGO;
+				// 				//Si no está en la lista, lo saltamos
+				// 				if (typeof(gamedata[idGame]) == 'undefined' ) {
+				// 					continue;
+				// 				}
+				// 				var thisStatus = "s"+gamedata[idGame].common_params.game_status_id;
+				// 				if ( gameStatus[thisStatus].playable == 0 ) {
+				// 					continue;
+				// 				}
+				// 				html = html + buildGame(idGame);
+				// 			}catch(e){
+				// 				console.log("Error gamelist: "+i);
+				// 			}
+				// 		}
 
-					var myWishGames = JSON.parse(loadSession("wish_games") || "[]");
-					for (i=0;i<myWishGames.length;i++) {
-						try {
-							var idGame = myWishGames[i].IDJUEGO;
-							//Si no está en la lista, lo saltamos
-							if (typeof(gamedata[idGame]) == 'undefined' ) {
-								continue;
-							}
-							var thisStatus = "s"+gamedata[idGame].common_params.game_status_id;
-							if ( gameStatus[thisStatus].playable == 0 ) {
-								continue;
-							}
-							html = html + buildGame(idGame);
-						}catch(e){
-							console.log("Error gamelist: "+i);
-						}
-					}
+				// 		if( html != "" ){
+				// 			// $("#myGamesContainer").html(html);	
+				// 		}
+				// });
+/* ==> load my-games */				
+				
 
-					if( html != "" ){
-						$("#wishGamesContainer").html(html);	
-					}
-				});
+				// loadUserWishGames(() => {
+				// 	var divID = 1;
+				// 	var html = "";
+
+				// 	var myWishGames = JSON.parse(loadSession("wish_games") || "[]");
+				// 	for (i=0;i<myWishGames.length;i++) {
+				// 		try {
+				// 			var idGame = myWishGames[i].IDJUEGO;
+				// 			//Si no está en la lista, lo saltamos
+				// 			if (typeof(gamedata[idGame]) == 'undefined' ) {
+				// 				continue;
+				// 			}
+				// 			var thisStatus = "s"+gamedata[idGame].common_params.game_status_id;
+				// 			if ( gameStatus[thisStatus].playable == 0 ) {
+				// 				continue;
+				// 			}
+				// 			html = html + buildGame(idGame);
+				// 		}catch(e){
+				// 			console.log("Error gamelist: "+i);
+				// 		}
+				// 	}
+
+				// 	if( html != "" ){
+				// 		// $("#wishGamesContainer").html(html);	
+				// 	}
+				// });
 				$.ajax({
 					type:"POST",
 					url:"/unilogin/getHistory.php",
@@ -294,12 +634,13 @@ function buildGame(gameId){
 	categories += gameCat(game_info.common_params.game_cat2);
 	categories += gameCat(game_info.common_params.game_cat3);
 	categories += gameCat(game_info.common_params.game_cat4);
-	categories += gameCat(game_info.common_params.game_cat5);	
+	categories += gameCat(game_info.common_params.game_cat5);
 
     var res = '<div class="container-custom pt-5 mt-3 pb-4">' +
 		'<div class="card mt-2 gradient-overlay-5">' +
 		'                    <div class="row no-gutters">' +
 		'                        <div class="col-md-4">' +
+//            '                            <div class="overflow-hidden img-container-up-left box-shadow"><a href="/'+game_info.common_params.game_seo+'/"><img src="' + game_info.store_params.square_image + '" class="card-img img-zoom" alt="'+game_info.name+'"></a></div>' +
 		'                            <div class="overflow-hidden img-container-up-left box-shadow"><button class="myZoom playGame" data-play="'+game_info.common_params.id_idcgame+'"><img src="' + game_info.store_params.square_image + '" class="card-img img-zoom" alt="'+game_info.name+'"></a></div>' +
 		'                        </div>' +
 		'                        <div class="col-md-8">' +
@@ -313,6 +654,7 @@ function buildGame(gameId){
 											makeImg(game_info,2) + 
 											makeImg(game_info,3) +
 		'                                </div>' +
+//            '                                <div class="d-flex flex-row flex-wrap pt-3 pr-3"><button class="btn btn-primary btn-sm btn-block playGame" data-play="'+game_info.common_params.id_idcgame+'">' + play_now_txt + '</button></div>' +
 		'                                <div class="d-flex flex-sm-row flex-column pt-3 pr-3"><button class="btn btn-primary btn-sm btn-block mr-sm-2 playGame" data-play="'+game_info.common_params.id_idcgame+'">' + play_now_txt + '</button><a class="btn btn-secondary btn-sm btn-block ml-sm-2 mt-sm-0" href="/'+game_info.common_params.game_seo+'/">'+more_info_txt+'</a></div>' +
 		'                            </div>' +
 		'                        </div>' +
@@ -326,7 +668,7 @@ function buildGame(gameId){
 		'                    </div>' +
 		'                </div>' +
 		'            </div>';
-    // return res;
+    return res;
 }
 function sendMailN(mail){ 
 	$.ajax({

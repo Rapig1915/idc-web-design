@@ -547,6 +547,7 @@ function initDiscoveredGames(type /* bestselling/new/upcoming/demo */, max_games
 	var nDisplayStep = 10;
 
 	if(topgames_panel[type] && !!topgames_panel[type] && nDisplayedGames < topgames_panel[type].length){
+		
 		for(var i = nDisplayedGames; i < topgames_panel[type].length && i < nDisplayedGames + nDisplayStep && i < max_games; i ++){
 			var gameID = topgames_panel[type][i];
 
