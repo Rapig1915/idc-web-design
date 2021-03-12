@@ -1,5 +1,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" integrity="sha256-UK1EiopXIL+KVhfbFa8xrmAWPeBjMVdvYMYkTAEv/HI=" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" integrity="sha256-4hqlsNP9KM6+2eA8VUT0kk4RsMRTeS7QGHIM+MZ5sLY=" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/md5.js"></script>
 <script src="/assets/content/categories.js?==(current_timestamp)=="></script>
 <script src="/assets/config/catlang.js?==(current_timestamp)=="></script>
 <script src="/assets/config/gamedata.js?==(current_timestamp)=="></script>
@@ -15,13 +17,7 @@ if ( typeof(coin) == "undefined"){
 }
 var exist = {};
 
-var isCategory = ##(is_category)##;
 var tagLists   = ==(json_all_tags)==;
-
-if(!isCategory){
-	var tagID = 0;
-	tagLists.forEach( tag => { if(tag.name == "##(name)##") tagID = tag.id; } );
-}
 
 const getShuffledArr = arr => {
 	const newArr = arr.slice()
@@ -121,12 +117,15 @@ function loadMyGames(){
 	$.ajax({
 		type:"POST",
 		url:"/unilogin/ListarJuegosUsuarioUnico.php",
-		data: 'cLogin='+nick+'&cPassword='+pass,
+		data: 'cLogin='+nick+'&cPassword='+CryptoJS.MD5(pass),
 		dataType: 'text',
-		// async:false,
+		async:false,
 		success: function(res){			
 
 			res = JSON.parse(res);
+
+			if(undefined === res.TUsuarioJuego.TUsuarioJuegoRow){ console.log('loadMyGames Failed...'); return; } 
+
 			gameList = res.TUsuarioJuego.TUsuarioJuegoRow;
 			
 			//Last played  ################################################*/
@@ -138,6 +137,8 @@ function loadMyGames(){
 				$(cDom).find('.time-played').html( time_played );
 
 				let gameID = gameList[i].IDJUEGO;
+
+				if(!gamedata[gameID]) continue;
 
 				var newGameBlock = $(cDom).clone();
 				newGameBlock = setObjectValues(newGameBlock, makeDatasetForGame(gamedata[gameID]));
@@ -257,12 +258,15 @@ function loadMyWishGames(){
 	$.ajax({
 		type:"POST",
 		url:"/unilogin/ListarWishesJuegosUsuarioUnico.php",
-		data: 'cLogin='+nick+'&cPassword='+pass,
+		data: 'cLogin='+nick+'&cPassword='+CryptoJS.MD5(pass),
 		dataType: 'text',
-		// async:false,
+		async:false,
 		success: function(res){			
 
 			res = JSON.parse(res);
+
+			if(undefined === res.TUsuarioJuego.TUsuarioJuegoRow){ console.log('loadMyWishGames Failed...'); return; } 
+
 			wishGameList = res.TUsuarioJuego.TUsuarioJuegoRow;
 
 			// All your games ################################################*/
@@ -413,10 +417,7 @@ function loadUserData(){
 	$(".socialbtns").find(".btn-toggle").attr("aria-pressed","false");
 	$(".actualPassword").addClass("d-none");
 	$("#account_username").text( getCookie("nick") );
-	$("#Username").val( getCookie("nick") );
-
-	loadMyGames();
-	loadMyWishGames();
+	$("#Username").val( getCookie("nick") );	
 
 	$.ajax({
 		type:"POST",
@@ -452,7 +453,11 @@ function loadUserData(){
 					}
 				});
 
-				
+				/* >> */
+				loadMyGames();
+
+				loadMyWishGames();
+
 				$.ajax({
 					type:"POST",
 					url:"/unilogin/getHistory.php",
