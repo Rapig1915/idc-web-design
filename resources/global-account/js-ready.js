@@ -177,7 +177,7 @@ $(document.body).on('click', '.addReview-btn', function(e){
 
 /* == >>*/
 function getAndCheckData(form) {
-  // let text = form.comment.value;
+	
   let text = $('#reviewTextArea').val();
   let vote;
   let error = 0, result = true;
