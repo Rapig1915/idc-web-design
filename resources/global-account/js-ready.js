@@ -223,3 +223,11 @@ $(document.body).on('submit', '#formComment', function(e){
 	}
 	return;
 });
+
+loadUserGames(() => {
+	loadMyGames();						
+});
+
+loadUserWishGames(() => {
+	loadMyWishGames();
+});

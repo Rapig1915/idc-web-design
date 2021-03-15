@@ -251,10 +251,6 @@ function loadMyWishGames(){
 	var nick = getCookie('nick');
 	var pass = getCookie('pass');
 
-	$('#last-played-1').addClass('hidden');
-	$('#last-played-2').addClass('hidden');
-	$('#last-played-3').addClass('hidden');
-
 	$.ajax({
 		type:"POST",
 		url:"/unilogin/ListarWishesJuegosUsuarioUnico.php",
@@ -454,9 +450,14 @@ function loadUserData(){
 				});
 
 				/* >> */
-				loadMyGames();
+				// loadUserGames(() => {
+				// 	loadMyGames();						
+				// });
 
-				loadMyWishGames();
+				// loadUserWishGames(() => {
+				// 	loadMyWishGames();
+				// });
+
 
 				$.ajax({
 					type:"POST",
